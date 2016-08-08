@@ -4,7 +4,7 @@
         1.0
 
     :Date:
-        06.06.2016
+        08.08.2016
 
     :Author:
         Jan Melchior
@@ -30,4 +30,4 @@
         along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 '''
-__all__ = ["io", "measuring", "statistics","toyproblems","visualization"]
+__all__ = ["activationfunction","basicstructures","numpyextension" ]

@@ -35,7 +35,8 @@
         along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 '''
-import numpy as numx
+import numpy as numx 
+import pydeep.base.numpyextension as npExt
 
 def generate_2D_mixtures(num_samples, 
                          mean = 0.0, 
@@ -95,6 +96,29 @@ def generate_bars_and_stripes(length,
             values = values.T
         data[i,:] = values.reshape(length*length)
     return data
+
+def generate_bars_and_stripes_complete(length):
+    ''' Creates a dataset containing all possible samples showing bars or 
+        stripes.
+    
+    :Parameters:
+        length: Length of the bars/stripes.
+               -type: int
+        
+    :Returns:
+        Samples
+       -type: numpy array [num_samples, length*length]
+        
+    '''
+    stripes = npExt.generate_binary_code(length)
+    stripes = numx.repeat(stripes, length, 0)
+    stripes = stripes.reshape(2**length,length*length)
+
+    bars = npExt.generate_binary_code(length)
+    bars = bars.reshape(2**length*length,1)
+    bars = numx.repeat(bars, length, 1)
+    bars = bars.reshape(2**length,length*length)
+    return numx.vstack((stripes[0:stripes.shape[0]-1],bars[1:bars.shape[0]]))
 
 def generate_shifting_bars(length, 
                            bar_length, 
