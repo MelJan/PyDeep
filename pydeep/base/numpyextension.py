@@ -5,21 +5,15 @@
         - log_diff_exp
         - get_norms
         - restrict_norms
-        - restrict_matrix_norm
         - resize_norms
         - angle_between_vectors
-        - get_2D_gauss_kernel
         - generate_binary_code
-        - get_binary_label
-        - compare_index_of_max
-        - rotationSequence
-        - generate_2D_connection_matrix
         
     :Version:
         1.0
 
     :Date:
-        08.08.2016
+        10.08.2016
 
     :Author:
         Jan Melchior
@@ -76,7 +70,6 @@ def log_sum_exp(x, axis=0):
                                                       numx.exp(x - alpha)
                                                       , axis=0)))
 
-
 def log_diff_exp(x, axis=0):
     """ Calculates the logarithm of the diffs of e to the power of input 'x'. The method tries to avoid
         overflows by using the relationship: log(diff(exp(x))) = alpha + log(diff(exp(x-alpha))).
@@ -104,33 +97,6 @@ def log_diff_exp(x, axis=0):
                                              numx.diff(
                                                        numx.exp(x - alpha)
                                                        , n=1, axis=0)))
-
-def multinominal_batch_sampling(probabilties, isnormalized = True):
-    """ Sample states where only one entry is one and the rest is 
-        zero according to the given probablities.
-    
-    :Parameters:
-        probabilties: Matrix containing probabilities the rows have to sum to one, 
-                      otherwise chosen normalized = False.
-                     -type: numpy array [batchsize, number of states]
-
-        isnormalized: If True the probabilities are assumed to be normalized. 
-                      If False the probabilities are normalized.
-                     -type: bool
-        
-    :Return:
-        Sampled multinominal states.
-       -type: numpy array [batchsize, number of states]
-             
-    """
-    probs = numx.float64(probabilties)
-    if not isnormalized:
-        probs = probs/numx.sum(probs,axis = 1).reshape(probs.shape[0],1)
-    mini = probs.cumsum(axis = 1)
-    maxi = mini-probs
-    sample = numx.random.random((probs.shape[0],1))
-    return (mini > sample)*(sample >= maxi)
-
 
 def get_norms(matrix, axis=0):
     """ Computes the norms of the matrix along a given axis.
@@ -250,62 +216,6 @@ def angle_between_vectors(v1, v2, degree = True):
         c = numx.degrees(c)
     return c
 
-def get_2D_gauss_kernel(N, M, shift = 0.0, var = 1.0):
-    """ Creates a 2D Gauss kernel of size NxM with variance 1
-                   
-        :Parameter:
-            N:     Number of pixels first dimension.
-                  -type: int
-
-            M:     Number of pixels second dimension.
-                  -type: int
-                          
-            shift: The Gaussian is shifted by this amout fromthe center of the image.
-                   Passing a scalar -> x,y shifted by the same value
-                   Passing a vector -> x,y shifted accordingly
-                  -type: int, 1D numpy array
-                          
-            var:   Variances or Covariance matrix.
-                   Passing a scalar -> Isotropic Gaussian
-                   Passing a vector -> Spherical covariance with vector values on the diagonals. 
-                   Passing a matrix -> Full Gaussian
-                  -type: int, 1D numpy array or 2D numpy array
-          
-        :Return:
-            Bit array containing the states  .
-           -type: numpy array [num samples, bit_length]
-           
-    """  
-    def gauss(x, mean, cov):
-        return 1.0/(2.0*numx.pi*numx.sqrt(numx.linalg.det(cov)))*numx.exp(-0.5*numx.dot(numx.dot((x-mean).T,numx.linalg.inv(cov)),x-mean))
-    
-    if numx.isscalar(shift):
-        m = numx.array([shift,shift])
-    else:
-        m = shift
-        
-    if numx.isscalar(var):
-        cov = numx.array([[var,0],[0,var]])
-    else:
-        if len(var.shape) == 1:
-            cov = numx.array([[var[0],0],[0,var[1]]])
-        else:
-            cov = var
-    
-    if N % 2 == 0:
-        print "N needs to be odd!"
-        pass
-    if M % 2 == 0:
-        print "M needs to be odd!"
-        pass
-    lowerN = (N-1)/2
-    lowerM = (M-1)/2
-    mat = numx.zeros((N,M))
-    for x in range(0,N):
-        for y in range(0,M):
-            mat[x,y] = gauss(numx.array([x-lowerN,y-lowerM]), mean = m, cov = cov)
-    return mat
-
 def generate_binary_code(bit_length, batch_size_exp=None, batch_number=0):
     """ This function can be used to generate all possible binary vectors of length 'bit_length'. It is possible to
         generate only a particular batch of the data, where 'batch_size_exp' controls the size of the batch
@@ -348,165 +258,3 @@ def generate_binary_code(bit_length, batch_size_exp=None, batch_number=0):
             dividend = numx.floor_divide(dividend, 2)
             bit_index += 1
     return bit_combinations
-
-
-def get_binary_label(int_array):
-    """ This function converts a 1D-array with integers labels into a 2D-array containing binary labels.
-
-        :Example: -> [3,1,0]
-                  -> [[1,0,0,0],[0,0,1,0],[0,0,0,1]]
-
-        :Parameter:
-            int_array:  1D array containing integers
-                      - type: int
-
-        :Return:
-            2D array with binary labels.
-           -type: numpy array [num samples, num labels]
-
-    """
-    max_label = numx.max(int_array)+1
-    result = numx.zeros((int_array.shape[0], max_label))
-    for i in range(int_array.shape[0]):
-        result[i, int_array[i]] = 1
-    return result
-
-def compare_index_of_max(output, target):
-    """ Compares data rows by comparing the index of the maximal value.
-        e.g. Classifier output and true labels.
-        
-        :Example: [0.3,0.5,0.2],[0.2,0.6,0.2] -> 0
-                  [0.3,0.5,0.2],[0.6,0.2,0.2] -> 1
-
-        :Parameter:
-            output:  vectors usually containing label probabilties,
-                    - type: numpy array [batchsize, output_dim]
-
-            target:  vectors usually containing true labels.
-                    - type: numpy array [batchsize, output_dim]
-
-        :Return:
-            Int array containging 0 is the two rows hat the maximum at the same index, 1 otherwise.
-           -type: numpy array [num samples, num labels]
-
-    """
-    return numx.int32(numx.argmax(output,axis=1) != numx.argmax(target,axis=1))
-
-def rotationSequence(image, width, height, steps):
-    """ Rotates a 2D image given as a 1D vector with shape[width*height] in 'steps' number of steps. 
-        
-        :Parameter:
-            image:  Image as 1D vector.
-                   -type: numpy array [1, width*height]
-
-            width:  Width of the image such that image.shape[0] = width*height.
-                   -type: int
-                  
-            height: Height of the image such that image.shape[0] = width*height.
-                   -type: int
-
-            steps:  Number of rotation steps e.g. 360 each steps is 1 degree.
-                   -type: int
-
-        :Return:
-            Bool array containging True is the two rows hat the maximum at the same index, False otherwise.
-           -type: numpy array [num samples, num labels]
-
-    """
-    results = numx.zeros((steps,image.shape[0]))
-    results[0] = image
-    for i in range(1,steps):
-        angle = i*360.0/steps
-        sample = rotate(image.reshape(width,height),angle)
-        sample = sample[(sample.shape[0]-width)/2:(sample.shape[0]+width)/2,(sample.shape[0]-height)/2:(sample.shape[0]+height)/2]
-        results[i] = sample.reshape(1,image.shape[0])
-    return results
-
-def generate_2D_connection_matrix(input_x_dim,
-                                  input_y_dim,
-                                  field_x_dim,
-                                  field_y_dim,
-                                  overlap_x_dim,
-                                  overlap_y_dim,
-                                  wrap_around=True):
-    """ This function constructs a connection matrix, which can be
-        used to force the weights to have local receptive fields.
-        Example: input_x_dim = 3,
-                 input_y_dim = 3,
-                 field_x_dim = 2,
-                 field_y_dim = 2,
-                 overlap_x_dim = 1,
-                 overlap_y_dim = 1,
-                 wrap_around=False)
-        leads to numx.array([[1,1,0,
-                              1,1,0,
-                              0,0,0],
-                             [0,1,1,
-                              0,1,1,
-                              0,0,0],
-                             [0,0,0,
-                              1,1,0,
-                              1,1,0],
-                             [0,0,0,
-                              0,1,1,
-                              0,1,1]]).T
-
-    :Parameters:
-        input_x_dim:    Input dimension.
-                        -type: int
-
-        input_y_dim     Output dimension.
-                        -type: int
-
-        field_x_dim:    Size of the receptive field in dimension x.
-                        -type: int
-
-        field_y_dim:    Size of the receptive field in dimension y.
-                        -type: int
-
-        overlap_x_dim:  Overlap of the receptive fields in dimension x.
-                        -type: int
-
-        overlap_y_dim:  Overlap of the receptive fields in dimension y.
-                        -type: int
-
-        wrap_around:    If true teh overlap has warp around in both dimensions.
-                        -type: bool
-
-    :Returns:
-        Connection matrix.
-        -type: numpy arrays [input dim, output dim]
-
-    """
-    if field_x_dim > input_x_dim:
-        raise NotImplementedError("field_x_dim > input_x_dim is invalid!")
-    if field_y_dim > input_y_dim:
-        raise NotImplementedError("field_y_dim > input_y_dim is invalid!")
-    if overlap_x_dim >= field_x_dim:
-        raise NotImplementedError("overlap_x_dim >= field_x_dim is invalid!")
-    if overlap_y_dim >= field_y_dim:
-        raise NotImplementedError("overlap_y_dim >= field_y_dim is invalid!")
-
-    matrix = None
-    start_x = 0
-    start_y = 0
-    end_x = input_x_dim
-    end_y = input_y_dim
-    if wrap_around is False:
-        end_x -= field_x_dim - 1
-        end_y -= field_y_dim - 1
-    step_x = field_x_dim - overlap_x_dim
-    step_y = field_y_dim - overlap_y_dim
-
-    for x in range(start_x,end_x,step_x):
-        for y in range(start_y,end_y,step_y):
-            column = numx.zeros((input_x_dim,input_y_dim))
-            for i in range(x,x+field_x_dim,1):
-                for j in range(y,y+field_y_dim,1):
-                    column[i%input_x_dim,j%input_y_dim] = 1.0
-            column = column.reshape((input_x_dim*input_y_dim))
-            if matrix is None:
-                matrix = column
-            else:
-                matrix = numx.vstack((matrix,column))
-    return matrix.T
