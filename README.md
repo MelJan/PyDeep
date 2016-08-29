@@ -1,5 +1,7 @@
 # PyDeep 
 
+NEWS: In the following weeks there will be a lot of updates, see list of features below
+
 PyDeep is a machine learning / deep learning library with focus on unsupervised learning especially Restricted Boltzmann machines.
 
 So why another ML lib?
@@ -9,13 +11,13 @@ So why another ML lib?
 - The focus is on well documented and modular code that allows you to understand the functionality and thus modify the code easily.
 
 Feature list:
-  Centered Binary-Binary RBMs
-  CD and PCD sampling
-  Centered gradient
-  Calculate true partition function
-  Calculate Log-likelihood
-  Calculate reconstruction error
-  Visualization, profiling, misc. tools
+- Centered Binary-Binary RBMs
+- CD and PCD sampling
+- Centered gradient
+- Calculate true partition function
+- Calculate Log-likelihood
+- Calculate reconstruction error
+- Visualization, profiling, misc. tools
 
 Being prepared for commit:
 - Centered Gaussian-Binary RBMs
