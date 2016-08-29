@@ -4,7 +4,7 @@
         1.0
 
     :Date:
-        10.08.2016
+        29.08.2016
 
     :Author:
         Jan Melchior
@@ -30,3 +30,4 @@
         along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 '''
+__all__ = ["big_binary_RBM_MNIST", "small_binary_RBM_MNIST", "small_binary_RBM_toyproblem"]

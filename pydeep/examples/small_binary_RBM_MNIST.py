@@ -1,10 +1,10 @@
-''' Example using BB-RBMs on the MNIST handwritten digit database.
+''' Example using a small BB-RBMs on the MNIST handwritten digit database.
 
     :Version:
         1.0
 
     :Date:
-        10.08.2016
+        29.08.2016
 
     :Author:
         Jan Melchior
@@ -43,70 +43,47 @@ import pydeep.misc.measuring as MEASURE
 # Set random seed (optional)
 numx.random.seed(42)
 
-# Model Parameters
-h1 = 4
-h2 = 4
-v1 = 28
-v2 = 28
+# Input and hidden dimensionality
+v1 = v2 = 28
+h1 = h2 = 4
 
-# Load data and whiten it
+# Load data , get it from 'deeplearning.net/data/mnist/mnist.pkl.gz'
 train_data = IO.load_MNIST("../../../data/mnist.pkl.gz",True)[0]
 
 # Training paramters
 batch_size = 100
-epochs = 10
-k = 1
-eps = 0.01
-mom = 0.9
-decay = 0.0
-update_visible_mean = 0.0
-update_hidden_mean = 0.01
+epochs = 30
 
 # Create trainer and model
 rbm = MODEL.BinaryBinaryRBM(number_visibles = v1*v2,
                             number_hiddens = h1*h2, 
-                            data=train_data,
-                            initial_weights='AUTO', 
-                            initial_visible_bias='AUTO',
-                            initial_hidden_bias='AUTO',
-                            initial_visible_offsets='AUTO',
-                            initial_hidden_offsets='AUTO')
+                            data=train_data)
 trainer = TRAINER.PCD(rbm,batch_size)
+
+# Measuring time
 measurer = MEASURE.Stopwatch()
 
 # Train model
 print 'Training'
 print 'Epoch\tRecon. Error\tLog likelihood \tExpected End-Time'
-for epoch in range(0,epochs) :
+for epoch in range(1,epochs+1) :
     train_data = numx.random.permutation(train_data)
     for b in range(0,train_data.shape[0],batch_size):
         batch = train_data[b:b+batch_size,:]
-        trainer.train(data = batch,
-                      num_epochs=1, 
-                      epsilon=eps, 
-                      k=k, 
-                      momentum=mom,
-                      update_visible_offsets=update_visible_mean, 
-                      update_hidden_offsets=update_hidden_mean)
-
-    print epoch
-    if(epoch == 5):
-        mom = 0.0
+        trainer.train(data=batch, epsilon=0.1, regL2Norm= 0.001)
         
-    # Calculate Log-Likelihood every 10th epoch
-    if(epoch % 5 == 0):
-        Z = ESTIMATOR.partition_function_factorize_h(rbm, 
-                                                     batchsize_exponent=h1, 
-                                                     status = False)
+    # Calculate Log-Likelihood, reconstruction error and expected end time every 10th epoch
+    if(epoch % 10 == 0):
+        Z = ESTIMATOR.partition_function_factorize_h(rbm)
         LL = numx.mean(ESTIMATOR.log_likelihood_v(rbm,Z, train_data))
         RE = numx.mean(ESTIMATOR.reconstruction_error(rbm, train_data))
-        print '%d\t\t%8.6f\t%8.4f\t' % (epoch, RE, LL),
-        print measurer.get_expected_end_time(epoch+1, epochs),
+        print '%d\t\t%8.6f\t\t%8.4f\t\t' % (epoch, RE, LL),
+        print measurer.get_expected_end_time(epoch, epochs),
         print
 
 measurer.end()
 
-# Plot Likelihood and partition function calculate with different methods
+# Print end time
 print
 print 'End-time: \t', measurer.get_end_time()
 print 'Training time:\t', measurer.get_interval()
@@ -114,14 +91,13 @@ print 'Training time:\t', measurer.get_interval()
 # Calculate and approximate partition function
 Z = ESTIMATOR.partition_function_factorize_h(rbm, batchsize_exponent=h1, status= False)
 
-print ""
-print "\n True Partition: ", Z," (True         LL: ",
-print numx.mean(ESTIMATOR.log_likelihood_v(rbm, Z , train_data)), ")"
+print "True Partition: ", Z," (LL: ", numx.mean(ESTIMATOR.log_likelihood_v(rbm, Z , train_data)), ")"
 
-
-# Prepare results
-rbmReordered = STATISTICS.reorder_filter_by_hidden_activation(rbm, train_data)
-VISUALIZATION.imshow_standard_rbm_parameters(rbmReordered, v1,v2,h1, h2)
+# Reorder RBM features by average activity decreasingly
+reordered_rbm = STATISTICS.reorder_filter_by_hidden_activation(rbm, train_data)
+# Display RBM parameters
+VISUALIZATION.imshow_standard_rbm_parameters(reordered_rbm, v1,v2,h1, h2)
+# Sample some steps and show results
 samples = STATISTICS.generate_samples(rbm, train_data[0:30], 30, 1, v1, v2, False, None)
 VISUALIZATION.imshow_matrix(samples,'Samples')
 
