@@ -6,6 +6,8 @@
     :Implemented:
         - Gibbs Sampling   
         - Persistent Gibbs Sampling
+        - Parallel Tempering Sampling
+        - Independent Parallel Tempering Sampling
 
     :Info:
         For the derivations see:
@@ -15,7 +17,7 @@
         1.0
 
     :Date:
-        29.08.2016
+        086.02.2016
 
     :Author:
         Jan Melchior
@@ -43,6 +45,7 @@
 '''
 import numpy as numx
 import exceptions as ex
+from pydeep.base.activationfunction import Sigmoid
 
 class Gibbs_sampler(object):
     ''' Implementation of k-step Gibbs-sampling for bipartite graphs.
@@ -251,3 +254,461 @@ class Persistent_Gibbs_sampler(object):
                 else:
                     samples = numx.vstack([samples,vis])
             return samples[0:num_samples,:]
+    
+class Parallel_Tempering_sampler(object):
+    ''' Implementation of k-step parallel tempering sampling.
+          
+    '''
+    
+    def __init__(self, 
+                 model, 
+                 num_chains = 3, 
+                 betas = None):
+        ''' Initializes the sampler with the model.
+        
+        :Parameters:
+            model:      The model to sample from. 
+                       -type: Valid model Class.
+                   
+            num_chains: The number of Markov chains.
+                       -type: int
+            
+            betas:      Array of inverse temperatures to sample from, its
+                        dimensionality needs to equal the number of chains or
+                        if None is given the inverse temperatures are
+                        initialized linearly from 0.0 to 1.0 in 'num_chains'
+                        steps.
+                       -type: int, None
+            
+        '''  
+                    
+        # Check and set the model                
+        if not hasattr(model,'probability_h_given_v'):
+            raise ex.ValueError("The model needs to implement the function "
+                                "probability_h_given_v!") 
+        if not hasattr(model,'probability_v_given_h'):
+            raise ex.ValueError("The model needs to implement the function "
+                                "probability_v_given_h!") 
+        if not hasattr(model,'sample_h'):
+            raise ex.ValueError("The model needs to implement the function "
+                                "sample_h!")  
+        if not hasattr(model,'sample_v'):
+            raise ex.ValueError("The model needs to implement the function "
+                                "sample_v!") 
+        if not hasattr(model,'energy'):
+            raise ex.ValueError("The model needs to implement the function "
+                                "energy!")  
+        if not hasattr(model,'input_dim'):
+            raise ex.ValueError("The model needs to implement the parameter "
+                                "input_dim!")   
+        
+        self.model = model
+        
+        # Initialize persistent Markov chains to Gaussian random samples.
+        if numx.isscalar(num_chains):
+            self.chains = model.sample_v(numx.random.randn(num_chains, 
+                                                           model.input_dim)*0.01) 
+            
+        # Sets the beta values
+        if betas is None:
+            self.betas = numx.linspace(0.0, 1.0, 
+                                       num_chains).reshape(num_chains, 1)
+        else:
+            self.betas = betas.reshape(numx.array(betas).shape[0],1)
+            if self.betas.shape[0] != num_chains:
+                raise ex.ValueError("The number of betas and Markov chains "
+                                    "must be equivalent!")
+            
+    def sample(self, 
+               num_samples, 
+               k = 1, 
+               ret_states = True):
+        ''' Performs k steps parallel tempering sampling.
+
+        :Parameters:    
+            num_samples: The number of samples to generate.
+                         Usually this is the batch_size.
+                        -type: int
+           
+            k:           The number of Gibbs sampling steps. 
+                        -type: int
+                          
+            ret_states:  If False returns the visible probabilities instead of
+                         the states.
+                        -type: bool
+        
+        :Returns:
+            The visible samples of the Markov chains.
+           -type: numpy array [num samples, input dimension]     
+            
+        '''  
+        # Initialize persistent Markov chains to Gaussian random samples.
+        samples = numx.empty((num_samples, self.model.input_dim))
+
+        # Generate a sample for each given data sample
+        for b in xrange(0, num_samples): 
+            
+            # Perform k steps of Gibbs sampling           
+            hid = self.model.probability_h_given_v(self.chains, self.betas)
+            hid = self.model.sample_h(hid, self.betas)
+            for _ in xrange(k-1):
+                vis = self.model.probability_v_given_h(hid, self.betas)  
+                vis = self.model.sample_v(vis, self.betas) 
+                hid = self.model.probability_h_given_v(vis, self.betas)
+                hid = self.model.sample_h(hid, self.betas)                
+            self.chains = self.model.probability_v_given_h(hid, self.betas)  
+
+            # Use states for calculations
+            if ret_states:
+                self.chains = self.model.sample_v(self.chains, self.betas) 
+
+            # Calculate the energies for the samples and their hidden activity
+            self._swap_chains(self.chains, hid, self.model,self.betas)
+            
+            # Take sample from inverse temperature 1.0
+            samples[b, :] = numx.copy(self.chains[self.betas.shape[0] - 1, :])
+            
+            # If we used probs for calculations set the chains to states now
+            if not ret_states:
+                self.chains = self.model.sample_v(self.chains, self.betas) 
+            
+        return samples
+    
+    @classmethod
+    def _swap_chains(cls, 
+                     chains, 
+                     hid_states, 
+                     model, 
+                     betas):   
+        ''' Swaps the samples between the Markov chains according to the 
+            Metropolis Hastings Ratio.
+        
+        :Parameters:    
+            chains:     Chains with visible data.
+                       -type: [num samples, input dimension] 
+                            
+            hid_states: Hidden states.
+                       -type: [num samples, output dimension] 
+
+            model:      The model to sample from. 
+                       -type: Valid RBM Class.
+                         
+            betas:      Array of inverse temperatures to sample from, its
+                        dimensionality needs to equal the number of chains or
+                        if None is given the inverse temperatures are
+                        initialized linearly from 0.0 to 1.0 in 'num_chains'
+                        steps.
+                       -type: int, None
+                       
+            base_bv:    zero temp can be uniform or a chosen base distribution 
+                        defined by a base visible bias.
+                       -type: None, numpy array [1, input_dim]
+                         
+        '''
+
+        # If we have a binary binary RBM the swap calculation gets a bit efficient
+        # This always works if the energy is scaled by a factor that can be pulled out
+        # beta*E(x,h), which is not the case for Gaussian binary RBM since it would
+        # lead to infinite variance.
+        if model._fast_PT:
+            energies = model.energy(chains, hid_states)
+
+            # even neighbor swapping
+            for t in xrange(0, betas.shape[0] - 1, 2):
+
+                # Calculate swap probability
+                pSwap = numx.exp((energies[t + 1, 0] - energies[t, 0])
+                                 * (betas[t + 1, 0] - betas[t, 0]))
+
+                # Probability higher then a random number
+                if pSwap > numx.random.rand():
+                    # swap sample neighbors using advance indexing
+                    chains[[t, t+1],:] = chains[[t+1, t],:]
+                    energies[[t, t+1],:] = energies[[t+1, t],:]
+                    hid_states[[t, t+1],:] = hid_states[[t+1, t],:]
+
+            # odd neighbor swapping
+            for t in xrange(1, betas.shape[0] - 1, 2):
+
+                # Calculate swap probability
+                pSwap = numx.exp((energies[t + 1, 0] - energies[t, 0])
+                                 * (betas[t + 1, 0] - betas[t, 0]))
+
+                # Probability higher then a random number
+                if pSwap > numx.random.rand():
+                    # swap sample neighbors using advance indexing
+                    chains[[t, t+1],:] = chains[[t+1, t],:]
+                    hid_states[[t, t+1],:] = hid_states[[t+1, t],:]
+        else:
+            energies = model.energy(chains, hid_states, betas)
+
+            chains_swap = numx.copy(chains)
+            hid_states_swap = numx.copy(hid_states)
+            for t in xrange(0, betas.shape[0] - 1, 2):
+                chains_swap[[t, t+1],:] = chains_swap[[t+1, t],:]
+                hid_states_swap[[t, t+1],:] = hid_states_swap[[t+1, t],:]
+            energies_swap = model.energy(chains_swap, hid_states_swap, betas)
+
+            # even neighbor swapping
+            for t in xrange(0, betas.shape[0] - 1, 2):
+
+                # Calculate swap probability
+                pSwap = numx.exp((energies[t + 1, 0] - energies_swap[t, 0] - energies_swap[t + 1, 0] + energies[t, 0]))
+                # Probability higher then a random number
+                if pSwap > numx.random.rand():
+                    # swap sample neighbors using advance indexing
+                    chains[[t, t+1],:] = chains[[t+1, t],:]
+                    hid_states[[t, t+1],:] = hid_states[[t+1, t],:]
+
+            energies = model.energy(chains, hid_states, betas)
+            chains_swap = numx.copy(chains)
+            hid_states_swap = numx.copy(hid_states)
+            for t in xrange(1, betas.shape[0] - 1, 2):
+                chains_swap[[t, t+1],:] = chains_swap[[t+1, t],:]
+                hid_states_swap[[t, t+1],:] = hid_states_swap[[t+1, t],:]
+            energies_swap = model.energy(chains_swap, hid_states_swap, betas)
+
+            # odd neighbor swapping
+            for t in xrange(1, betas.shape[0] - 1, 2):
+
+                pSwap = numx.exp((energies[t + 1, 0] - energies_swap[t, 0] - energies_swap[t + 1, 0] + energies[t, 0]))
+                # Probability higher then a random number
+                if pSwap > numx.random.rand():
+                    # swap sample neighbors using advance indexing
+                    chains[[t, t+1],:] = chains[[t+1, t],:]
+                    hid_states[[t, t+1],:] = hid_states[[t+1, t],:]
+                
+class Independent_Parallel_Tempering_sampler(object):
+    ''' Implementation of k-step independent parallel tempering sampling. IPT
+        runs an PT instance for each sample in parallel. This speeds up the
+        sampling but also decreases the mixing rate.
+
+    '''
+
+    def __init__(self, 
+                 model, 
+                 num_samples, 
+                 num_chains = 3, 
+                 betas = None):
+        ''' Initializes the sampler with the model.
+        
+        :Parameters:
+            model:       The model to sample from. 
+                        -type: Valid model Class.
+
+            num_samples: The number of samples to generate.
+                         NOTE: Optimal performance (ATLAS,MKL) is achieved if 
+                         the number of samples equals the batch_size.
+                        -type: int
+  
+            num_chains:  The number of Markov chains.
+                        -type: int
+                        
+            betas:       Array of inverse temperatures to sample from, its
+                         dimensionality needs to equal the number of chains or
+                         if None is given the inverse temperatures are
+                         initialized linearly from 0.0 to 1.0 in 'num_chains'
+                         steps.
+                        -type: int, None
+            
+        '''
+        if not model._fast_PT:
+            raise ex.NotImplementedError("Only more efficient for Binary RBMs")
+
+        # Check and set the model                
+        if not hasattr(model,'probability_h_given_v'):
+            raise ex.ValueError("The model needs to implement the function "
+                                "probability_h_given_v!") 
+        if not hasattr(model,'probability_v_given_h'):
+            raise ex.ValueError("The model needs to implement the function "
+                                "probability_v_given_h!") 
+        if not hasattr(model,'sample_h'):
+            raise ex.ValueError("The model needs to implement the function "
+                                "sample_h!")  
+        if not hasattr(model,'sample_v'):
+            raise ex.ValueError("The model needs to implement the function "
+                                "sample_v!") 
+        if not hasattr(model,'energy'):
+            raise ex.ValueError("The model needs to implement the function "
+                                "energy!") 
+        if not hasattr(model,'input_dim'):
+            raise ex.ValueError("The model needs to implement the parameter "
+                                "input_dim!")   
+        self.model = model
+
+        # Initialize persistent Markov chains to Gaussian random samples.
+        self.num_samples = num_samples
+        self.chains = model.sample_v(numx.random.randn(
+                                num_chains*self.num_samples, model.input_dim)*0.01
+                                     )
+        
+        # Sets the beta values
+        self.num_betas = num_chains
+        if betas == None:
+            self.betas = numx.linspace(0.0, 1.0, 
+                                       num_chains).reshape(num_chains, 1)
+        else:
+            self.betas = self.betas.reshape(numx.array(betas).shape[0],1)
+            if self.betas.shape[0] != num_chains:
+                raise ex.ValueError("The number of betas and Markov chains "
+                                    "must be equivalent!")
+       
+        # Repeat betas batchsize times
+        self.betas = numx.tile(self.betas.T,self.num_samples
+                               ).T.reshape(num_chains*self.num_samples,1)
+            
+        # Indices of the chains on temperature beta = 1.0
+        self.select_indices = numx.arange(self.num_betas-1,self.num_samples
+                                          *self.num_betas, self.num_betas)
+                  
+    def sample(self, 
+               num_samples = 'AUTO', 
+               k = 1, 
+               ret_states = True):
+        ''' Performs k steps independent parallel tempering sampling.
+        
+        :Parameters:    
+            num_samples: The number of samples to generate.
+                         If an array is given the first dimension is used for 
+                         num_samples.
+                         For optimal performance the num_samples should be 
+                         equivalent to the num_samples in the constructor
+                         , which itself should equal the batchsize.
+                        -type: int, numpy array 
+         
+            k:           The number of Gibbs sampling steps. 
+                        -type: int
+                          
+            ret_states:  If False returns the visible probabilities instead of
+                         the states.
+                        -type: bool
+        
+        :Returns:
+            The visible samples of the Markov chains.
+           -type: numpy array [num samples, input dimension]     
+            
+        ''' 
+        if not numx.isscalar(num_samples):
+            num_samples = num_samples.shape[0]
+            
+        # Perform k steps of Gibbs sampling
+        hid = self.model.probability_h_given_v(self.chains, self.betas)
+        hid = self.model.sample_h(hid, self.betas)
+        for _ in xrange(k-1):
+            vis = self.model.probability_v_given_h(hid, self.betas)  
+            vis = self.model.sample_v(vis, self.betas) 
+            hid = self.model.probability_h_given_v(vis, self.betas)
+            hid = self.model.sample_h(hid, self.betas)                
+        self.chains = self.model.probability_v_given_h(hid, self.betas)  
+
+        # Use the states
+        if ret_states:
+            self.chains = self.model.sample_v(self.chains, self.betas) 
+
+        # Calculate the energies for the samples and their hidden activity
+        self._swap_chains(self.chains, self.num_samples, hid, self.model, 
+                          self.betas)
+            
+        samples = self.chains[self.select_indices]
+
+        # If we return probs set the chains to states
+        if not ret_states:
+            self.chains = self.model.sample_v(self.chains, self.betas)  
+
+        repeats = numx.int32(num_samples / self.select_indices.shape[0])    
+        for _ in xrange(repeats):
+            # Perform k steps of Gibbs sampling
+            hid = self.model.probability_h_given_v(self.chains, self.betas)
+            hid = self.model.sample_h(hid, self.betas)
+            for _ in xrange(k-1):
+                vis = self.model.probability_v_given_h(hid, self.betas)  
+                vis = self.model.sample_v(vis, self.betas) 
+                hid = self.model.probability_h_given_v(vis, self.betas)
+                hid = self.model.sample_h(hid, self.betas)                
+            self.chains = self.model.probability_v_given_h(hid, self.betas)  
+
+            # Use the states
+            if ret_states:
+                self.chains = self.model.sample_v(self.chains, self.betas) 
+
+            # Calculate the energies for the samples and their hidden activity
+            self._swap_chains(self.chains, self.num_samples, hid, self.model,
+                              self.betas)
+            
+            samples = numx.vstack([samples,self.chains[self.select_indices]])
+
+            # If we return probs set the chains to states
+            if not ret_states:
+                self.chains = self.model.sample_v(self.chains, self.betas) 
+
+        return samples[0:num_samples,:]  
+    
+    @classmethod
+    def _swap_chains(cls, 
+                     chains, 
+                     num_chains, 
+                     hid_states, 
+                     model, 
+                     betas):   
+        ''' Swaps the samples between the Markov chains according to the 
+            Metropolis Hastings Ratio.
+        
+        :Parameters:    
+            chains:      Chain with the visible data.
+                        -type: [num samples*num_chains, input dimension] 
+                            
+            num_chains:  The number of chains
+                        -type: int
+                            
+            hid_states:  Hidden states.
+                        -type: [num samples*num_chains, output dimension] 
+
+            model:       The model to sample from. 
+                        -type: Valid RBM Class.
+                         
+            betas:       Array of inverse temperatures to sample from, its
+                         dimensionality needs to equal the number of chains or
+                         if None is given the inverse temperatures are
+                         initialized linearly from 0.0 to 1.0 in 'num_chains'
+                         steps.
+                        -type: int, None
+                         
+        ''' 
+        # Calculate the energies for the samples and their hidden activity
+        energies = model.energy(chains, hid_states)    
+        num_betas = chains.shape[0]/num_chains
+        
+        # for each batch
+        for m in xrange(0, num_chains, 1):
+                
+            # for each temperature even      
+            for b in xrange(0, num_betas - 1, 2):
+                    
+                t = m * num_betas + b
+
+                # Calculate swap probability
+                pSwap = numx.exp((energies[t+1, 0] - energies[t, 0]) 
+                                 * (betas[t+1, 0] - betas[t, 0]))
+
+                # Probability higher then a random number
+                if pSwap > numx.random.rand():
+                    # swap sample neighbors using advanced indexing
+                    chains[[t, t+1],:] = chains[[t+1, t],:]
+                    energies[[t, t+1],:] = energies[[t+1, t],:]
+                    hid_states[[t, t+1],:] = hid_states[[t+1, t],:]
+                    
+            # for each temperature odd      
+            for b in xrange(1, num_betas - 1, 2):
+                    
+                t = m * num_betas + b
+
+                # Calculate swap probability
+                pSwap = numx.exp((energies[t+1, 0] - energies[t, 0]) 
+                                 * (betas[t+1, 0] - betas[t, 0]))
+
+                # Probability higher then a random number
+                if pSwap > numx.random.rand():
+                    # swap sample neighbors using advanced indexing
+                    chains[[t, t+1],:] = chains[[t+1, t],:]
+                    energies[[t, t+1],:] = energies[[t+1, t],:]
+                    hid_states[[t, t+1],:] = hid_states[[t+1, t],:]

@@ -38,7 +38,7 @@
 '''
 from matplotlib.pyplot import *
 from pydeep.preprocessing import rescale_data 
-import pydeep.misc.statistics as Statistics
+import pydeep.misc.statistics as STATISTICS
 
 def tile_matrix_columns(matrix, 
                         tile_width, 

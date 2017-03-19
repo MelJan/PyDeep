@@ -64,27 +64,34 @@ trainer = TRAINER.PCD(rbm, batch_size)
 measurer = MEASURE.Stopwatch()
 
 # Train model
-print 'Training'
-print 'Epoch\tRecon. Error\tExpected End-Time'
-for epoch in range(1, epochs+1):
+print('Training')
+print('Epoch\t\tRecon. Error\tLog likelihood \tExpected End-Time')
+for epoch in range(1, epochs + 1):
     train_data = numx.random.permutation(train_data)
     for b in range(0, train_data.shape[0], batch_size):
         batch = train_data[b:b + batch_size, :]
-        trainer.train(data=batch, epsilon=0.1, regL2Norm= 0.001)
+        trainer.train(data=batch, epsilon=0.1)
 
     # Calculate Log-Likelihood, reconstruction error and expected end time every 10th epoch
-    if (epoch % 10 == 0):
+    if epoch % 10 == 0:
         RE = numx.mean(ESTIMATOR.reconstruction_error(rbm, train_data))
-        print '%d\t\t%8.6f\t\t' % (epoch, RE),
-        print measurer.get_expected_end_time(epoch , epochs),
-        print
+        print('{}\t\t{:.4f}\t\t\t{}'.format(epoch, RE, measurer.get_expected_end_time(epoch, epochs)))
+    else:
+        print(epoch)
 
 measurer.end()
 
 # Print end time
-print
-print 'End-time: \t', measurer.get_end_time()
-print 'Training time:\t', measurer.get_interval()
+print("End-time: \t{}".format(measurer.get_end_time()))
+print("Training time:\t{}".format(measurer.get_interval()))
+
+# Approximate partition function using AIS for lower bound approximiation
+Z = ESTIMATOR.annealed_importance_sampling(rbm, status=False)[0]
+print("AIS Partition: {} (LL: {})".format(Z, numx.mean(ESTIMATOR.log_likelihood_v(rbm, Z, train_data))))
+
+# Approximate partition function using reverse AIS for upper bound approximiation
+Z = ESTIMATOR.reverse_annealed_importance_sampling(rbm, status=False)[0]
+print("reverse AIS Partition: {} (LL: {})".format(Z, numx.mean(ESTIMATOR.log_likelihood_v(rbm, Z, train_data))))
 
 # Reorder RBM features by average activity decreasingly
 reordered_rbm = STATISTICS.reorder_filter_by_hidden_activation(rbm, train_data)
@@ -95,7 +102,3 @@ samples = STATISTICS.generate_samples(rbm, train_data[0:30], 30, 1, v1, v2, Fals
 VISUALIZATION.imshow_matrix(samples, 'Samples')
 
 VISUALIZATION.show()
-
-
-
-

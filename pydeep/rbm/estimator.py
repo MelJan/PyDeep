@@ -14,6 +14,7 @@
         - Log likelihood for hidden data.   
         - True partition by factorization over the visible units.
         - True partition by factorization over the hidden units.
+        - Annealed importance sampling to approximated the partition function.
       
     :Info:
         For the derivations see:
@@ -23,7 +24,7 @@
         1.0
 
     :Date:
-        29.08.2016
+        06.06.2016
 
     :Author:
         Jan Melchior
@@ -235,7 +236,7 @@ def partition_function_factorize_v(model,
         print '%3.2f' % (0.0), '%'
         
     bit_length = model.input_dim
-    if batchsize_exponent == 'AUTO' or batchsize_exponent > 20:
+    if batchsize_exponent is 'AUTO' or batchsize_exponent > 20:
         batchsize_exponent = numx.min([model.input_dim, 12])
     batchSize = numx.power(2, batchsize_exponent)
     num_combinations = numx.power(2, bit_length)
@@ -296,7 +297,7 @@ def partition_function_factorize_h(model,
         print '%3.2f' % (0.0), '%'
         
     bit_length = model.output_dim
-    if batchsize_exponent == 'AUTO' or batchsize_exponent > 20:
+    if batchsize_exponent is 'AUTO' or batchsize_exponent > 20:
         batchsize_exponent = numx.min([model.output_dim, 12])
     batchSize = numx.power(2, batchsize_exponent)
     num_combinations = numx.power(2, bit_length)
@@ -323,3 +324,215 @@ def partition_function_factorize_h(model,
             
     # return the log_sum of values
     return npExt.log_sum_exp(log_prob_vv_all)
+
+def annealed_importance_sampling(model, 
+                                 num_chains=100, 
+                                 k=1, 
+                                 betas=10000,
+                                 status=False):
+    ''' Approximates the partition function for the given model using annealed
+        importance sampling.
+
+    :See: Accurate and Conservative Estimates of MRF Log-likelihood using Reverse Annealing
+          http://arxiv.org/pdf/1412.8566.pdf
+    
+    :Parameters:
+        model:      The model.
+                   -type: Valid RBM model.
+        
+        num_chains: Number of AIS runs.
+                   -type: int
+        
+        k:          Number of Gibbs sampling steps.
+                   -type: int
+        
+        beta:       Number or a list of inverse temperatures to sample from.
+                   -type: int, numpy array [num_betas]
+        
+        status:     If true prints the progress on console.
+                   -type: bool
+        
+    
+    :Returns:
+        Mean estimated log partition function.
+       -type: float
+        Mean +3std estimated log partition function.
+       -type: float
+        Mean -3std estimated log partition function.
+       -type: float
+    
+    '''   
+    # Setup temerpatures if not given
+    if numx.isscalar(betas):
+        betas = numx.linspace(0.0, 1.0, betas)
+
+    # Sample the first time from the base model
+    v = model.probability_v_given_h(numx.zeros((num_chains, model.output_dim))
+                                    , betas[0], True)
+    v = model.sample_v(v, betas[0], True)
+
+    # Calculate the unnormalized probabilties of v
+    lnPvSum = -model.unnormalized_log_probability_v(v, betas[0], True)
+
+    if status is True:
+        t = 1
+        print "Calculating the partition function using AIS: "
+        print '%3.2f' % (0.0), '%'
+        print '%3.2f' % (100.0*numx.double(t)/numx.double(betas.shape[0])), '%'
+
+    for beta in betas[1:betas.shape[0]-1]:
+
+        if status is True:
+            t += 1
+            print '%3.2f' % (100.0*numx.double(t)/numx.double(betas.shape[0])), '%'
+        # Calculate the unnormalized probabilties of v
+        lnPvSum += model.unnormalized_log_probability_v(v, beta, True)
+        
+        # Sample k times from the intermidate distribution
+        for _ in range(0, k):   
+            h = model.sample_h(model.probability_h_given_v(v, beta, True),beta, True)
+            v = model.sample_v(model.probability_v_given_h(h, beta, True),beta, True)
+
+        # Calculate the unnormalized probabilties of v
+        lnPvSum -= model.unnormalized_log_probability_v(v, beta, True)
+
+    # Calculate the unnormalized probabilties of v
+    lnPvSum += model.unnormalized_log_probability_v(v, betas[betas.shape[0]-1]
+                                                    , True)
+
+    lnPvSum = numx.float128(lnPvSum)
+
+    # Calculate an estimate of logZ . 
+    logZ = npExt.log_sum_exp(lnPvSum) - numx.log(num_chains)  
+
+    # Calculate +/- 3 standard deviations
+    lnPvMean = numx.mean(lnPvSum) 
+    lnPvStd = numx.log(
+                       numx.std(
+                                numx.exp (lnPvSum-lnPvMean)
+                                )
+                       ) + lnPvMean - numx.log(num_chains)/2.0   
+    lnPvStd = numx.vstack((numx.log(3.0)+lnPvStd,logZ))
+
+    # Calculate partition function of base distribution
+    baseLogZ = model._base_log_partition(True)
+    
+    # Add the base partition function
+    logZ = logZ + baseLogZ
+    logZ_up = npExt.log_sum_exp(lnPvStd) + baseLogZ
+    logZ_down = npExt.log_diff_exp(lnPvStd) + baseLogZ
+
+    if status is True:
+        print '%3.2f' % (100.0), '%'
+
+    return logZ, logZ_up, logZ_down
+
+
+def reverse_annealed_importance_sampling(model,
+                                        num_chains=100,
+                                        k=1,
+                                        betas=10000,
+                                        status=False,
+                                        data=None):
+    ''' Approximates the partition function for the given model using reverse annealed
+        importance sampling.
+
+    :Parameters:
+        model:      The model.
+                   -type: Valid RBM model.
+
+        num_chains: Number of AIS runs.
+                   -type: int
+
+        k:          Number of Gibbs sampling steps.
+                   -type: int
+
+        beta:       Number or a list of inverse temperatures to sample from.
+                   -type: int, numpy array [num_betas]
+
+        status:     If true prints the progress on console.
+                   -type: bool
+
+
+    :Returns:
+        Mean estimated log partition function.
+       -type: float
+        Mean +3std estimated log partition function.
+       -type: float
+        Mean -3std estimated log partition function.
+       -type: float
+
+    '''
+
+    # Setup temerpatures if not given
+    if numx.isscalar(betas):
+        betas = numx.linspace(0.0, 1.0, betas)
+
+    if data is None:
+        data = numx.zeros((num_chains, model.output_dim))
+    else:
+        data = model.sample_h(model.probability_h_given_v(numx.random.permutation(data)[0:num_chains]))
+
+    # Sample the first time from the true model model
+    v = model.probability_v_given_h(data, betas[betas.shape[0]-1], True)
+    v = model.sample_v(v, betas[betas.shape[0]-1],True)
+
+    # Calculate the unnormalized probabilties of v
+    lnPvSum = model.unnormalized_log_probability_v(v, betas[betas.shape[0]-1], True)
+
+
+    # Setup temerpatures if not given
+    if status is True:
+        t = 1
+        print "Calculating the partition function using AIS: "
+        print '%3.2f' % (0.0), '%'
+        print '%3.2f' % (100.0*numx.double(t)/numx.double(betas.shape[0])), '%'
+
+    for beta in reversed(betas[1:betas.shape[0]-1]):
+
+        if status is True:
+            t += 1
+            print '%3.2f' % (100.0*numx.double(t)/numx.double(betas.shape[0])), '%'
+
+        # Calculate the unnormalized probabilties of v
+        lnPvSum -= model.unnormalized_log_probability_v(v, beta, True)
+
+        # Sample k times from the intermidate distribution
+        for _ in range(0, k):
+            h = model.sample_h(model.probability_h_given_v(v, beta, True),beta, True)
+            v = model.sample_v(model.probability_v_given_h(h, beta, True),beta, True)
+
+        # Calculate the unnormalized probabilties of v
+        lnPvSum += model.unnormalized_log_probability_v(v, beta, True)
+
+
+    # Calculate the unnormalized probabilties of v
+    lnPvSum -= model.unnormalized_log_probability_v(v, betas[0]
+                                                    , True)
+
+    lnPvSum = numx.float128(lnPvSum)
+
+    # Calculate an estimate of logZ .
+    logZ = npExt.log_sum_exp(lnPvSum) - numx.log(num_chains)
+
+    # Calculate +/- 3 standard deviations
+    lnPvMean = numx.mean(lnPvSum)
+    lnPvStd = numx.log(
+                       numx.std(
+                                numx.exp (lnPvSum-lnPvMean)
+                                )
+                       ) + lnPvMean - numx.log(num_chains)/2.0
+    lnPvStd = numx.vstack((numx.log(3.0)+lnPvStd,logZ))
+
+    # Calculate partition function of base distribution
+    baseLogZ = model._base_log_partition(True)
+
+    # Add the base partition function
+    logZ = logZ + baseLogZ
+    logZ_up = npExt.log_sum_exp(lnPvStd) + baseLogZ
+    logZ_down = npExt.log_diff_exp(lnPvStd) + baseLogZ
+
+    if status is True:
+        print '%3.2f' % (100.0), '%'
+
+    return logZ, logZ_up, logZ_down
