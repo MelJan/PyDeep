@@ -39,7 +39,7 @@ def read(fname):
 
 setup(
     name = "pydeep",
-    version = "1.0.0",
+    version = "1.1.0",
     author = "Jan Melchior",
     author_email = "JanMelchior@gmx.de",
     description = ("Machine learning library with focus on Restricted Boltzmann machines."),
