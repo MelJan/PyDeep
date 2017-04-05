@@ -10,7 +10,7 @@
         - Independent Parallel Tempering Sampling
 
     :Info:
-        For the derivations see:
+        For the derivations .. seealso::
         http://www.ini.rub.de/data/documents/tns/masterthesis_janmelchior.pdf
 
     :Version:
@@ -149,7 +149,7 @@ class PersistentGibbsSampler(object):
         :type model: Valid model class.
 
         :param num_chains: The number of Markov chains.
-                           Note: Optimal performance is achieved if the number of
+                           .. Note:: Optimal performance is achieved if the number of
                            samples and the number of chains equal the batch_size.
         :type num_chains: int
         """
@@ -180,7 +180,7 @@ class PersistentGibbsSampler(object):
         """ Performs k steps persistent Gibbs-sampling.
 
         :param num_samples: The number of samples to generate.
-                            Note: Optimal performance is achieved if the number of samples and the number of chains
+                            .. Note:: Optimal performance is achieved if the number of samples and the number of chains
                             equal the batch_size.
         :type num_samples: int, numpy array
 
@@ -285,7 +285,7 @@ class ParallelTemperingSampler(object):
         """ Performs k steps parallel tempering sampling.
 
         :param num_samples: The number of samples to generate.
-                            Note: Optimal performance is achieved if the number of samples and the number of chains
+                            .. Note:: Optimal performance is achieved if the number of samples and the number of chains
                             equal the batch_size.
         :type num_samples: int, numpy array
 
@@ -441,7 +441,7 @@ class IndependentParallelTemperingSampler(object):
         :type model: Valid model Class.
 
         :param num_samples: The number of samples to generate.
-                            Note: Optimal performance (ATLAS,MKL) is achieved if the number of samples equals the
+                            .. Note:: Optimal performance (ATLAS,MKL) is achieved if the number of samples equals the
                             batchsize.
         :type num_samples:
 
@@ -497,7 +497,7 @@ class IndependentParallelTemperingSampler(object):
         """ Performs k steps independent parallel tempering sampling.
         
         :param num_samples: The number of samples to generate.
-                            Note: Optimal performance is achieved if the number of samples and the number of chains
+                            .. Note:: Optimal performance is achieved if the number of samples and the number of chains
                             equal the batch_size. -> AUTO
         :type num_samples: int or 'AUTO'
 

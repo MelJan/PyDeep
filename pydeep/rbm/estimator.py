@@ -18,7 +18,7 @@
         - Reverse annealed importance sampling to approximated the partition function.
       
     :Info:
-        For the derivations see:
+        For the derivations .. seealso::
         http://www.ini.rub.de/data/documents/tns/masterthesis_janmelchior.pdf
         
     :Version:
@@ -302,7 +302,7 @@ def annealed_importance_sampling(model,
                                  status=False):
     """ Approximates the partition function for the given model using annealed importance sampling.
 
-    :See: Accurate and Conservative Estimates of MRF Log-likelihood using Reverse Annealing
+    .. seealso:: Accurate and Conservative Estimates of MRF Log-likelihood using Reverse Annealing
           http://arxiv.org/pdf/1412.8566.pdf
 
     :param model: The model.
@@ -393,7 +393,7 @@ def reverse_annealed_importance_sampling(model,
                                          data=None):
     """ Approximates the partition function for the given model using reverse annealed importance sampling.
 
-    :See: Accurate and Conservative Estimates of MRF Log-likelihood using Reverse Annealing
+    .. seealso:: Accurate and Conservative Estimates of MRF Log-likelihood using Reverse Annealing
           http://arxiv.org/pdf/1412.8566.pdf
 
     :param model: The model.

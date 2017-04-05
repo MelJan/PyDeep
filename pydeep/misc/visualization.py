@@ -293,7 +293,7 @@ def plot_2d_contour(probability_function,
     :param stylev: None as normal contour, 'filled' as filled contour, 'image' as contour image
     :type stylev: string or None
 
-    :param colormap: Selected colormap see: http://www.scipy.org/Cookbook/Matplotlib/.../Show_colormaps
+    :param colormap: Selected colormap .. seealso:: http://www.scipy.org/Cookbook/Matplotlib/.../Show_colormaps
     :type colormap: string
     """
     # Generate x,y coordinates

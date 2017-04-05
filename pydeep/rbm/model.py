@@ -19,7 +19,7 @@
         - centered GaussianRectVariance RBM (GRV-RBM)
 
     :Info:
-        For the derivations see:
+        For the derivations .. seealso::
         http://www.ini.rub.de/data/documents/tns/masterthesis_janmelchior.pdf
 
         A usual way to create a new unit is to inherit from a given RBM class
@@ -138,7 +138,7 @@ class BinaryBinaryRBM(BipartiteGraph):
                            initial_offsets='AUTO',
                            data=None):
         """ This function adds new visible units at the given position to the model.
-            Warning: If the parameters are changed. the trainer needs to be
+            .. Warning:: If the parameters are changed. the trainer needs to be
                      reinitialized.
 
         :param num_new_visibles: The number of new hidden units to add
@@ -170,7 +170,7 @@ class BinaryBinaryRBM(BipartiteGraph):
 
     def _remove_visible_units(self, indices):
         """ This function removes the visible units whose indices are given.
-            Warning: If the parameters are changed. the trainer needs to be
+            .. Warning:: If the parameters are changed. the trainer needs to be
                      reinitialized.
 
         :param indices: Indices of units to be remove.
@@ -483,7 +483,7 @@ class BinaryBinaryRBM(BipartiteGraph):
         return -self.energy(v, h, beta, use_base_model) - logz
 
     def _base_log_partition(self, use_base_model=False):
-        """ Returns the base partition function for a given visible bias. Note that for AIS we need to be able to
+        """ Returns the base partition function for a given visible bias. .. Note:: that for AIS we need to be able to
             calculate the partition function of the base distribution exactly. Furthermore it is beneficial if the base
             distribution is a good approximation of the target distribution. A good choice is therefore the maximum
             likelihood estimate of the visible bias, given the data.
@@ -619,7 +619,7 @@ class GaussianBinaryRBM(BinaryBinaryRBM):
                            initial_offsets='AUTO',
                            data=None):
         """ This function adds new visible units at the given position to the model.
-            Warning: If the parameters are changed. the trainer needs to be
+            .. Warning:: If the parameters are changed. the trainer needs to be
                      reinitialized.
 
         :param num_new_visibles: The number of new hidden units to add
@@ -692,7 +692,7 @@ class GaussianBinaryRBM(BinaryBinaryRBM):
                           initial_bias='AUTO',
                           initial_offsets='AUTO'):
         """ This function adds new hidden units at the given position to the model.
-            Warning: If the parameters are changed. the trainer needs to be
+            .. Warning:: If the parameters are changed. the trainer needs to be
                      reinitialized.
 
         :param num_new_hiddens: The number of new hidden units to add.
@@ -729,7 +729,7 @@ class GaussianBinaryRBM(BinaryBinaryRBM):
 
     def _remove_visible_units(self, indices):
         """ This function removes the visible units whose indices are given.
-            Warning: If the parameters are changed. the trainer needs to be
+            .. Warning:: If the parameters are changed. the trainer needs to be
                      reinitialized.
 
         :param indices: Indices of units to be remove.

@@ -271,7 +271,7 @@ class BipartiteGraph(object):
                           initial_bias='AUTO',
                           initial_offsets='AUTO'):
         """ This function adds new hidden units at the given position to the model.
-            :Warning: If the parameters are changed. the trainer needs to be reinitialized.
+            .. Warning:: If the parameters are changed. the trainer needs to be reinitialized.
 
         :param num_new_hiddens: The number of new hidden units to add.
         :type num_new_hiddens: int
@@ -336,7 +336,7 @@ class BipartiteGraph(object):
 
     def _remove_hidden_units(self, indices):
         """ This function removes the hidden units whose indices are given.
-            :Warning: If the parameters are changed. the trainer needs to be reinitialized.
+            .. Warning:: If the parameters are changed. the trainer needs to be reinitialized.
 
         :param indices: Indices to remove.
         :type indices: int or list of int or numpy array of int
@@ -354,7 +354,7 @@ class BipartiteGraph(object):
                            initial_offsets='AUTO',
                            data=None):
         """ This function adds new visible units at the given position to the model.
-            :Warning: If the parameters are changed. the trainer needs to be reinitialized.
+            .. Warning:: If the parameters are changed. the trainer needs to be reinitialized.
 
         :param num_new_visibles: The number of new hidden units to add
         :type num_new_visibles: int
@@ -434,7 +434,7 @@ class BipartiteGraph(object):
 
     def _remove_visible_units(self, indices):
         """ This function removes the visible units whose indices are given.
-            Warning: If the parameters are changed. the trainer needs to be reinitialized.
+            .. Warning:: If the parameters are changed. the trainer needs to be reinitialized.
                      
         :param indices: Indices of units to be remove.
         :type indices: int or list of int or numpy array of int

@@ -11,7 +11,7 @@
         - GD   (Exact Gradient descent (only for small binary models))
 
     :Info:
-        For the derivations see:
+        For the derivations .. seealso::
         http://www.ini.rub.de/data/documents/tns/masterthesis_janmelchior.pdf
 
     :Version:
@@ -279,8 +279,8 @@ class CD(object):
 
         :param offset_typ: Different offsets can be used to center the gradient.
                            Example: 'DM' uses the positive phase visible mean and the negative phase hidden mean.
-                                    'A0' uses the average of positive and negative phase mean for visible, zero for the
-                                    hiddens. Possible values are out of {A,D,M,0}x{A,D,M,0}
+                           'A0' uses the average of positive and negative phase mean for visible, zero for the
+                           hiddens. Possible values are out of {A,D,M,0}x{A,D,M,0}
         :type offset_typ: string
 
         :param use_centered_gradient: Uses the centered gradient instead of centering.
@@ -530,7 +530,7 @@ class PCD(CD):
         :type model: Valid model class.
 
         :param num_chains: The number of chains that should be used.
-                           Note: You should use the data's batch size!
+                           .. Note:: You should use the data's batch size!
         :type num_chains: int
 
         :param data: Data for initialization, only has effect if the centered gradient is used.
@@ -599,7 +599,7 @@ class IPT(CD):
         :param model: The model to sample from.
         :type model: Valid model class.
 
-        :param num_samples: The number of Samples to produce. Note you should use the batchsize.
+        :param num_samples: The number of Samples to produce. .. Note:: you should use the batchsize.
         :type num_samples: int
 
         :param betas: List of inverse temperatures to sample from. If a scalar is given, the temperatures will be set
@@ -690,8 +690,8 @@ class GD(CD):
 
         :param offset_typ: Different offsets can be used to center the gradient.
                            Example: 'DM' uses the positive phase visible mean and the negative phase hidden mean.
-                                    'A0' uses the average of positive and negative phase mean for visible, zero for the
-                                    hiddens. Possible values are out of {A,D,M,0}x{A,D,M,0}
+                           'A0' uses the average of positive and negative phase mean for visible, zero for the
+                           hiddens. Possible values are out of {A,D,M,0}x{A,D,M,0}
         :type offset_typ: string
 
         :param use_centered_gradient: Uses the centered gradient instead of centering.
