@@ -1,5 +1,5 @@
 pydeep
-***************
+**************
 
 .. automodule:: pydeep
    :members:
@@ -8,7 +8,7 @@ pydeep
    :inherited-members:
 
 base
-===================
+===============
 
 .. automodule:: pydeep.base
    :members:
@@ -62,7 +62,7 @@ preprocessing
    :inherited-members:
 
 misc
-===================
+===============
 
 .. automodule:: pydeep.misc
    :members:
@@ -116,7 +116,7 @@ visualization
    :inherited-members:
 
 rbm
-===================
+===============
 
 .. automodule:: pydeep.rbm
    :members:

@@ -4,10 +4,10 @@
    contain the root `toctree` directive.
 
 Welcome to PyDeep's documentation!
-***********************************
+**********************************
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 8
    :caption: Contents:
 
 Installation
@@ -18,18 +18,18 @@ Installation
    Installation<installation.rst>
 
 Tutorials
-============
+=========
 .. toctree::
    :maxdepth: 2
 
    Tutorials<tutorial.rst>
 
 Documentation
-============
+=============
 .. toctree::
    :maxdepth: 6
 
-   Pydeep<documentation.rst>
+   Documentation<documentation.rst>
 
 
 
