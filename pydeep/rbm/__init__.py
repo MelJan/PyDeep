@@ -32,4 +32,4 @@
         along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 """
-__all__ = ["pydeep.rbm.model", "pydeep.rbm.trainer", "pydeep.rbm.estimator", "pydeep.rbm.sampler", "pydeep.rbm.dbn"]
+__all__ = ["model", "trainer", "estimator", "sampler"]

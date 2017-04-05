@@ -407,25 +407,15 @@ def generate_2d_connection_matrix(input_x_dim,
     """ This function constructs a connection matrix, which can be used to force the weights to have local receptive
         fields.
 
-        :Example: input_x_dim = 3,
-                 input_y_dim = 3,
-                 field_x_dim = 2,
-                 field_y_dim = 2,
-                 overlap_x_dim = 1,
-                 overlap_y_dim = 1,
-                 wrap_around=False)
-        leads to numx.array([[1,1,0,
-                              1,1,0,
-                              0,0,0],
-                             [0,1,1,
-                              0,1,1,
-                              0,0,0],
-                             [0,0,0,
-                              1,1,0,
-                              1,1,0],
-                             [0,0,0,
-                              0,1,1,
-                              0,1,1]]).T
+        Example
+        input_x_dim = 3,
+        input_y_dim = 3,
+        field_x_dim = 2,
+        field_y_dim = 2,
+        overlap_x_dim = 1,
+        overlap_y_dim = 1,
+        wrap_around=False)
+        leads to numx.array([[1,1,0,1,1,0,0,0,0],[0,1,1,0,1,1,0,0,0],[0,0,0,1,1,0,1,1,0],[0,0,0,0,1,1,0,1,1]]).T
 
     :param input_x_dim: Input dimension.
     :type input_x_dim: int

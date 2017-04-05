@@ -445,9 +445,9 @@ class CD(object):
         :type update_hidden_offsets: float
 
         :param offset_typ: Different offsets can be used to center the gradient.
-                           Example 'DM' uses the positive phase visible mean and the negative phase hidden mean.
-                                    'A0' uses the average of positive and negative phase mean for visible, zero for the
-                                    hiddens. Possible values are out of {A,D,M,0}x{A,D,M,0}
+                           Example:'DM' uses the positive phase visible mean and the negative phase hidden mean.
+                           'A0' uses the average of positive and negative phase mean for visible, zero for the
+                           hiddens. Possible values are out of {A,D,M,0}x{A,D,M,0}
         :type offset_typ: string
 
         :param use_centered_gradient: Uses the centered gradient instead of centering.
