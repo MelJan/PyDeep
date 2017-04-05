@@ -6,54 +6,188 @@
 Welcome to PyDeep's documentation!
 ==================================
 
-.. toctree::
-   :maxdepth: 2
-   :caption: Contents:
+... toctree::
+   :maxdepth: 4
+   
+===============
+pydeep
+===============
+
+.. automodule:: pydeep
+   :members:
+   :private-members:
+   :special-members: __init__
+   :inherited-members:
+
+***************
+base
+***************
+
+.. automodule:: pydeep.base
+   :members:
+   :private-members:
+   :special-members: __init__
+   :inherited-members:
+
+^^^^^^^^^^^^^^^
+basicstructure
+^^^^^^^^^^^^^^^
 
 .. automodule:: pydeep.base.basicstructure
-    :members:
+   :members:
+   :private-members:
+   :special-members: __init__
+   :inherited-members:
+
+^^^^^^^^^^^^^^^
+corruptor
+^^^^^^^^^^^^^^^
 
 .. automodule:: pydeep.base.corruptor
-    :members:
+   :members:
+   :private-members:
+   :special-members: __init__
+   :inherited-members:
+
+^^^^^^^^^^^^^^^
+costfunction
+^^^^^^^^^^^^^^^
 
 .. automodule:: pydeep.base.costfunction
-    :members:
+   :members:
+   :private-members:
+   :special-members: __init__
+   :inherited-members:
 
-.. automodule:: pydeep.base.activationfunction
-    :members:
+^^^^^^^^^^^^^^^
+numpyextension
+^^^^^^^^^^^^^^^
 
 .. automodule:: pydeep.base.numpyextension
-    :members:
+   :members:
+   :private-members:
+   :special-members: __init__
+   :inherited-members:
+
+^^^^^^^^^^^^^^^
+preprocessing
+^^^^^^^^^^^^^^^
 
 .. automodule:: pydeep.base.preprocessing
-    :members:
+   :members:
+   :private-members:
+   :special-members: __init__
+   :inherited-members:
+
+***************
+misc
+***************
+
+.. automodule:: pydeep.misc
+   :members:
+   :private-members:
+   :special-members: __init__
+   :inherited-members:
+
+^^^^^^^^^^^^^^^
+io
+^^^^^^^^^^^^^^^
 
 .. automodule:: pydeep.misc.io
-    :members:
+   :members:
+   :private-members:
+   :special-members: __init__
+   :inherited-members:
+
+^^^^^^^^^^^^^^^
+measuring
+^^^^^^^^^^^^^^^
 
 .. automodule:: pydeep.misc.measuring
-    :members:
+   :members:
+   :private-members:
+   :special-members: __init__
+   :inherited-members:
+
+^^^^^^^^^^^^^^^
+sshthreadpool
+^^^^^^^^^^^^^^^
 
 .. automodule:: pydeep.misc.sshthreadpool
-    :members:
+   :members:
+   :private-members:
+   :special-members: __init__
+   :inherited-members:
+
+^^^^^^^^^^^^^^^
+toyproblems
+^^^^^^^^^^^^^^^
 
 .. automodule:: pydeep.misc.toyproblems
-    :members:
+   :members:
+   :private-members:
+   :special-members: __init__
+   :inherited-members:
+
+^^^^^^^^^^^^^^^
+visualization
+^^^^^^^^^^^^^^^
 
 .. automodule:: pydeep.misc.visualization
-    :members:
+   :members:
+   :private-members:
+   :special-members: __init__
+   :inherited-members:
+
+***************
+rbm
+***************
+
+.. automodule:: pydeep.rbm
+   :members:
+   :private-members:
+   :special-members: __init__
+   :inherited-members:
+
+^^^^^^^^^^^^^^^
+model
+^^^^^^^^^^^^^^^
 
 .. automodule:: pydeep.rbm.model
-    :members:
+   :members:
+   :private-members:
+   :special-members: __init__
+   :inherited-members:
+
+^^^^^^^^^^^^^^^
+trainer
+^^^^^^^^^^^^^^^
 
 .. automodule:: pydeep.rbm.trainer
-    :members:
+   :members:
+   :private-members:
+   :special-members: __init__
+   :inherited-members:
+
+^^^^^^^^^^^^^^^
+sampler
+^^^^^^^^^^^^^^^
 
 .. automodule:: pydeep.rbm.sampler
-    :members:
+   :members:
+   :private-members:
+   :special-members: __init__
+   :inherited-members:
+
+^^^^^^^^^^^^^^^
+estimator
+^^^^^^^^^^^^^^^
 
 .. automodule:: pydeep.rbm.estimator
-    :members:
+   :members:
+   :private-members:
+   :special-members: __init__
+   :inherited-members:
 
 Indices and tables
 ==================
