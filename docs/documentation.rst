@@ -1,16 +1,5 @@
-.. PyDeep documentation master file, created by
-   sphinx-quickstart on Wed Apr  5 20:57:40 2017.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
-
-Welcome to PyDeep's documentation!
-==================================
-
-... toctree::
-   :maxdepth: 4
-
 pydeep
-===============
+***************
 
 .. automodule:: pydeep
    :members:
@@ -19,7 +8,7 @@ pydeep
    :inherited-members:
 
 base
-***************
+===================
 
 .. automodule:: pydeep.base
    :members:
@@ -28,7 +17,7 @@ base
    :inherited-members:
 
 basicstructure
-^^^^^^^^^^^^^^^
+----------------
 
 .. automodule:: pydeep.base.basicstructure
    :members:
@@ -37,7 +26,7 @@ basicstructure
    :inherited-members:
 
 corruptor
-^^^^^^^^^^^^^^^
+----------------
 
 .. automodule:: pydeep.base.corruptor
    :members:
@@ -46,7 +35,7 @@ corruptor
    :inherited-members:
 
 costfunction
-^^^^^^^^^^^^^^^
+----------------
 
 .. automodule:: pydeep.base.costfunction
    :members:
@@ -55,7 +44,7 @@ costfunction
    :inherited-members:
 
 numpyextension
-^^^^^^^^^^^^^^^
+----------------
 
 .. automodule:: pydeep.base.numpyextension
    :members:
@@ -64,7 +53,7 @@ numpyextension
    :inherited-members:
 
 preprocessing
-^^^^^^^^^^^^^^^
+----------------
 
 .. automodule:: pydeep.base.preprocessing
    :members:
@@ -73,7 +62,7 @@ preprocessing
    :inherited-members:
 
 misc
-***************
+===================
 
 .. automodule:: pydeep.misc
    :members:
@@ -82,7 +71,7 @@ misc
    :inherited-members:
 
 io
-^^^^^^^^^^^^^^^
+----------------
 
 .. automodule:: pydeep.misc.io
    :members:
@@ -91,7 +80,7 @@ io
    :inherited-members:
 
 measuring
-^^^^^^^^^^^^^^^
+----------------
 
 .. automodule:: pydeep.misc.measuring
    :members:
@@ -100,7 +89,7 @@ measuring
    :inherited-members:
 
 sshthreadpool
-^^^^^^^^^^^^^^^
+----------------
 
 .. automodule:: pydeep.misc.sshthreadpool
    :members:
@@ -109,7 +98,7 @@ sshthreadpool
    :inherited-members:
 
 toyproblems
-^^^^^^^^^^^^^^^
+----------------
 
 .. automodule:: pydeep.misc.toyproblems
    :members:
@@ -118,7 +107,7 @@ toyproblems
    :inherited-members:
 
 visualization
-^^^^^^^^^^^^^^^
+----------------
 
 .. automodule:: pydeep.misc.visualization
    :members:
@@ -127,7 +116,7 @@ visualization
    :inherited-members:
 
 rbm
-***************
+===================
 
 .. automodule:: pydeep.rbm
    :members:
@@ -136,7 +125,7 @@ rbm
    :inherited-members:
 
 model
-^^^^^^^^^^^^^^^
+----------------
 
 .. automodule:: pydeep.rbm.model
    :members:
@@ -145,7 +134,7 @@ model
    :inherited-members:
 
 trainer
-^^^^^^^^^^^^^^^
+----------------
 
 .. automodule:: pydeep.rbm.trainer
    :members:
@@ -154,7 +143,7 @@ trainer
    :inherited-members:
 
 sampler
-^^^^^^^^^^^^^^^
+----------------
 
 .. automodule:: pydeep.rbm.sampler
    :members:
@@ -163,17 +152,10 @@ sampler
    :inherited-members:
 
 estimator
-^^^^^^^^^^^^^^^
+----------------
 
 .. automodule:: pydeep.rbm.estimator
    :members:
    :private-members:
    :special-members: __init__
    :inherited-members:
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`

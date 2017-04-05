@@ -4,7 +4,7 @@
    contain the root `toctree` directive.
 
 Welcome to PyDeep's documentation!
-==================================
+***********************************
 
 .. toctree::
    :maxdepth: 2
@@ -15,25 +15,23 @@ Installation
 .. toctree::
    :maxdepth: 2
 
-   Coming soon!
+   Installation<installation.rst>
 
 Tutorials
 ============
 .. toctree::
    :maxdepth: 2
 
-   Coming soon!
+   Installation<tutorial.rst>
 
 Documentation
 ============
 .. toctree::
-   :maxdepth: 4
+   :maxdepth: 3
 
-.. automodule:: pydeep
-    :members:
-    :private-members:
-    :inherited-members:
-    :special-members: __init__
+   Documentation<documentation.rst>
+
+
 
 
 Indices and tables
