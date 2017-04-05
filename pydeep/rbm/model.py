@@ -79,8 +79,8 @@ class BinaryBinaryRBM(BipartiteGraph):
                  initial_visible_offsets='AUTO',
                  initial_hidden_offsets='AUTO',
                  dtype=numx.float64):
-        """ This function initializes all necessary parameters and data  structures. It is recommended to pass the
-            training data to initialize the network automatically.
+        """ This function initializes all necessary parameters and data  structures. It is recommended to pass the\
+         training data to initialize the network automatically.
 
         :param number_visibles: Number of the visible variables.
         :type number_visibles: int
