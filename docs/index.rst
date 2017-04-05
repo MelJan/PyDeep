@@ -22,14 +22,14 @@ Tutorials
 .. toctree::
    :maxdepth: 2
 
-   Installation<tutorial.rst>
+   Tutorials<tutorial.rst>
 
 Documentation
 ============
 .. toctree::
-   :maxdepth: 3
+   :maxdepth: 6
 
-   Documentation<documentation.rst>
+   Pydeep<documentation.rst>
 
 
 
