@@ -1,6 +1,5 @@
 numpy
 scipy
 paramiko
-gzip
 paramiko
 encryptedpickle
