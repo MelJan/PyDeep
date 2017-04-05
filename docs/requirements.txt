@@ -1,0 +1,9 @@
+numpy
+scipy
+paramiko
+cPickle
+gzip
+paramiko
+encryptedpickle
+matplotlib
+requests

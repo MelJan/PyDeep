@@ -45,7 +45,8 @@ import gzip
 import numpy as numx
 import scipy.io
 import scipy.misc
-
+import requests
+import pydeep.misc.measuring as mea
 
 def save_object(obj, path, info=True, compressed=True):
     """ Saves an object to file.
@@ -163,9 +164,6 @@ def download_file(url, path, buffer_size=1024 ** 2):
     :param buffer_size: Size of the streaming buffer in bytes.
     :type buffer_size: int
     """
-    import requests
-    import pydeep.misc.measuring as mea
-
     print('-> Downloading ' + url + ' to ' + path)
     with open(path, 'wb') as handle:
         url_stream = requests.get(url, stream=True)
