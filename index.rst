@@ -27,19 +27,13 @@ Tutorials
 Documentation
 ============
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 4
 
-basicstructure
-=================
-.. automodule:: pydeep.base.basicstructure
+.. automodule:: pydeep
     :members:
-
-corruptor
-=================
-.. automodule:: pydeep.base.corruptor
-    :members:
-
-
+    :private-members:
+    :inherited-members:
+    :special-members: __init__
 
 
 Indices and tables
