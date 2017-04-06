@@ -169,7 +169,7 @@ class BinaryBinaryRBM(BipartiteGraph):
         self.bv_base = self._getbasebias()
 
     def _remove_visible_units(self, indices):
-        """ This function removes the visible units whose indices are given.
+        """ This function removes the visible units whose indices are given. \
             .. Warning:: If the parameters are changed. the trainer needs to be
                      reinitialized.
 
@@ -618,7 +618,7 @@ class GaussianBinaryRBM(BinaryBinaryRBM):
                            initial_sigmas=1.0,
                            initial_offsets='AUTO',
                            data=None):
-        """ This function adds new visible units at the given position to the model.
+        """ This function adds new visible units at the given position to the model. \
             .. Warning:: If the parameters are changed. the trainer needs to be
                      reinitialized.
 
@@ -691,7 +691,7 @@ class GaussianBinaryRBM(BinaryBinaryRBM):
                           initial_weights='AUTO',
                           initial_bias='AUTO',
                           initial_offsets='AUTO'):
-        """ This function adds new hidden units at the given position to the model.
+        """ This function adds new hidden units at the given position to the model. \
             .. Warning:: If the parameters are changed. the trainer needs to be
                      reinitialized.
 
@@ -728,7 +728,7 @@ class GaussianBinaryRBM(BinaryBinaryRBM):
                                                          initial_offsets)
 
     def _remove_visible_units(self, indices):
-        """ This function removes the visible units whose indices are given.
+        """ This function removes the visible units whose indices are given. \
             .. Warning:: If the parameters are changed. the trainer needs to be
                      reinitialized.
 

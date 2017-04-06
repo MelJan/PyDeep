@@ -48,8 +48,8 @@ import exceptions as ex
 
 
 def binarize_data(data):
-    """ Converts data to binary values.
-        | For data out of [a,b] a data point p will become zero if p < 0.5*(b-a) one otherwise.
+    """ Converts data to binary values. \
+        For data out of [a,b] a data point p will become zero if p < 0.5*(b-a) one otherwise.
 
     :param data: Data to be binarized.
     :type data: numpy array [num data point, data dimension]
