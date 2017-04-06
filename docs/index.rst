@@ -3,27 +3,31 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
+===================
 Welcome to PyDeep
-#######################
+===================
 
 .. toctree::
-   :maxdepth: 8
+   :maxdepth: 2
    :caption: Contents:
 
+***********************
 Installation
 ***********************
 .. toctree::
-   :maxdepth: 6
+   :maxdepth: 2
 
    Installation<installation.rst>
 
+***********************
 Overview
 ***********************
 .. toctree::
-   :maxdepth: 6
+   :maxdepth: 2
 
    Features<overview.rst>
 
+***********************
 Tutorials
 ***********************
 .. toctree::
@@ -31,14 +35,15 @@ Tutorials
 
    Tutorials<tutorial.rst>
 
+***********************
 Documentation
 ***********************
 .. toctree::
    :maxdepth: 2
 
-
+===================
 Indices and tables
-***********************
+===================
 
 * :ref:`genindex`
 * :ref:`modindex`
