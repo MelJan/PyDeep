@@ -497,6 +497,7 @@ def imshow_filter_tuning_curve(filters, num_of_ang=40):
 
     :param filters: Filters to analyze.
     :type filters: numpy array
+
     :param num_of_ang: Number of orientations to check.
     :type num_of_ang: int
     """
@@ -572,8 +573,7 @@ def imshow_filter_frequency_angle_histogram(opt_frq,
 def filter_frequency_and_angle(filters, num_of_angles=40):
     """ Analyze the filters by calculating the responses when gratings, i.e. sinusoidal functions, are input to them.
 
-    :Info:
-        Hyv/"arinen, A. et al. (2009) Natural image statistics, Page 144-146
+    :Info: Hyv/"arinen, A. et al. (2009) Natural image statistics, Page 144-146
 
     :param filters: Filters to analyze
     :type filters: numpy array

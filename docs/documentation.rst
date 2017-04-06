@@ -19,6 +19,15 @@ base
    :special-members: __init__
    :inherited-members:
 
+activationfunction
++++++++++++++++++++
+
+.. automodule:: pydeep.base.activationfunction
+   :members:
+   :private-members:
+   :special-members: __init__
+   :inherited-members:
+
 basicstructure
 +++++++++++++++++++
 

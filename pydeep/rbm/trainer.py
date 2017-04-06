@@ -70,7 +70,7 @@ class CD(object):
                                      gradients,
                                      visible_offsets,
                                      hidden_offsets):
-        """ Calculates the centered gradient from the normal CD gradient for the parameters W, bv, bh and the
+        """ Calculates the centered gradient from the normal CD gradient for the parameters W, bv, bh and the \
             corresponding offset values.
 
         :param gradients: Original gradients.
@@ -182,7 +182,7 @@ class CD(object):
         :param use_centered_gradient: Uses the centered gradient instead of centering.
         :type use_centered_gradient: bool
 
-        :param restrict_gradient: If a scalar is given the norm of the weight gradient (along the input dim) is
+        :param restrict_gradient: If a scalar is given the norm of the weight gradient (along the input dim) is \
                                   restricted to stay below this value.
         :type restrict_gradient: None, float
 
@@ -277,23 +277,23 @@ class CD(object):
         :param update_hidden_offsets: The update step size for the models hidden offsets.
         :type update_hidden_offsets: float
 
-        :param offset_typ: Different offsets can be used to center the gradient.|
-                           :Example: 'DM' uses the positive phase visible mean and the negative phase hidden mean.\
-                           'A0' uses the average of positive and negative phase mean for visible, zero for the\
+        :param offset_typ: | Different offsets can be used to center the gradient.
+                           | :Example: 'DM' uses the positive phase visible mean and the negative phase hidden mean. \
+                           'A0' uses the average of positive and negative phase mean for visible, zero for the \
                            hiddens. Possible values are out of {A,D,M,0}x{A,D,M,0}
         :type offset_typ: string
 
         :param use_centered_gradient: Uses the centered gradient instead of centering.
         :type use_centered_gradient: bool
 
-        :param restrict_gradient: If a scalar is given the norm of the weight gradient (along the input dim) is\
+        :param restrict_gradient: If a scalar is given the norm of the weight gradient (along the input dim) is \
                                   restricted to stay below this value.
         :type restrict_gradient: None, float
 
         :param restriction_norm: Restricts the column norm, row norm or Matrix norm.
         :type restriction_norm: string, 'Cols','Rows', 'Mat'
 
-        :param use_hidden_states: If True, the hidden states are used for the gradient calculations, the hiddens\
+        :param use_hidden_states: If True, the hidden states are used for the gradient calculations, the hiddens \
                                      probabilities otherwise.
         :type use_hidden_states: bool
         """
@@ -444,23 +444,23 @@ class CD(object):
         :param update_hidden_offsets: The update step size for the models hidden offsets.
         :type update_hidden_offsets: float
 
-        :param offset_typ: Different offsets can be used to center the gradient.|
-                           Example:'DM' uses the positive phase visible mean and the negative phase hidden mean.\
-                           'A0' uses the average of positive and negative phase mean for visible, zero for the\
+        :param offset_typ: | Different offsets can be used to center the gradient.
+                           | Example:'DM' uses the positive phase visible mean and the negative phase hidden mean. \
+                           'A0' uses the average of positive and negative phase mean for visible, zero for the \
                            hiddens. Possible values are out of {A,D,M,0}x{A,D,M,0}
         :type offset_typ: string
 
         :param use_centered_gradient: Uses the centered gradient instead of centering.
         :type use_centered_gradient: bool
 
-        :param restrict_gradient: If a scalar is given the norm of the weight gradient (along the input dim) is
+        :param restrict_gradient: If a scalar is given the norm of the weight gradient (along the input dim) is \
                                   restricted to stay below this value.
         :type restrict_gradient: None, float
 
         :param restriction_norm: Restricts the column norm, row norm or Matrix norm.
         :type restriction_norm: string, 'Cols','Rows', 'Mat'
 
-        :param use_hidden_states: If True, the hidden states are used for the gradient calculations, the hiddens
+        :param use_hidden_states: If True, the hidden states are used for the gradient calculations, the hiddens \
                                      probabilities otherwise.
         :type use_hidden_states: bool
         """
@@ -513,10 +513,9 @@ class CD(object):
 class PCD(CD):
     """ Implementation of the training algorithm Persistent Contrastive Divergence (PCD).
 
-        :Reference:
-            Training Restricted Boltzmann Machines using Approximations to the
-            Likelihood Gradient, Tijmen Tieleman, Department of Computer
-            Science, University of Toronto, Toronto, Ontario M5S 3G4, Canada
+        :Reference: | Training Restricted Boltzmann Machines using Approximations to the
+                    | Likelihood Gradient, Tijmen Tieleman, Department of Computer
+                    | Science, University of Toronto, Toronto, Ontario M5S 3G4, Canada
 
     """
 
@@ -544,11 +543,10 @@ class PCD(CD):
 class PT(CD):
     """ Implementation of the training algorithm Parallel Tempering Contrastive Divergence (PT).
 
-        :Reference:
-            Parallel Tempering for Training of Restricted Boltzmann Machines,
-            Guillaume Desjardins, Aaron Courville, Yoshua Bengio, Pascal
-            Vincent, Olivier Delalleau, Dept. IRO, Universite de Montreal P.O.
-            Box 6128, Succ. Centre-Ville, Montreal, H3C 3J7, Qc, Canada.
+        :Reference: | Parallel Tempering for Training of Restricted Boltzmann Machines,
+                    | Guillaume Desjardins, Aaron Courville, Yoshua Bengio, Pascal
+                    | Vincent, Olivier Delalleau, Dept. IRO, Universite de Montreal P.O.
+                    | Box 6128, Succ. Centre-Ville, Montreal, H3C 3J7, Qc, Canada.
     """
 
     def __init__(self,
@@ -560,7 +558,7 @@ class PT(CD):
         :param model: The model to sample from.
         :type model: Valid model class.
 
-        :param betas: List of inverse temperatures to sample from. If a scalar is given, the temperatures will be set
+        :param betas: List of inverse temperatures to sample from. If a scalar is given, the temperatures will be set \
                       linearly from 0.0 to 1.0 in 'betas' steps.
         :type betas: int, numpy array [num betas]
 
@@ -576,15 +574,14 @@ class PT(CD):
 
 
 class IPT(CD):
-    """ Implementation of the training algorithm Independent Parallel Tempering Contrastive Divergence (IPT).
-        As normal PT but the chain's switches are done only from one batch to the next instead of from one sample to the
-        next.
+    """ Implementation of the training algorithm Independent Parallel Tempering Contrastive Divergence (IPT). \
+        As normal PT but the chain's switches are done only from one batch to the next instead of from one sample to \
+        the next.
 
-        :Reference:
-            Parallel Tempering for Training of Restricted Boltzmann Machines,
-            Guillaume Desjardins, Aaron Courville, Yoshua Bengio, Pascal
-            Vincent, Olivier Delalleau, Dept. IRO, Universite de Montreal P.O.
-            Box 6128, Succ. Centre-Ville, Montreal, H3C 3J7, Qc, Canada.
+        :Reference: | Parallel Tempering for Training of Restricted Boltzmann Machines,
+                    | Guillaume Desjardins, Aaron Courville, Yoshua Bengio, Pascal
+                    | Vincent, Olivier Delalleau, Dept. IRO, Universite de Montreal P.O.
+                    | Box 6128, Succ. Centre-Ville, Montreal, H3C 3J7, Qc, Canada.
 
     """
 
@@ -602,7 +599,7 @@ class IPT(CD):
         :param num_samples: The number of Samples to produce. .. Note:: you should use the batchsize.
         :type num_samples: int
 
-        :param betas: List of inverse temperatures to sample from. If a scalar is given, the temperatures will be set
+        :param betas: List of inverse temperatures to sample from. If a scalar is given, the temperatures will be set \
                       linearly from 0.0 to 1.0 in 'betas' steps.
         :type betas: int, numpy array [num betas]
 
@@ -619,7 +616,7 @@ class IPT(CD):
 
 
 class GD(CD):
-    """ Implementation of the training algorithm Gradient descent. Since it involves the calculation of the partition
+    """ Implementation of the training algorithm Gradient descent. Since it involves the calculation of the partition \
         function for each update, it is only possible for small BBRBMs.
 
     """
@@ -658,6 +655,7 @@ class GD(CD):
                restriction_norm,
                use_hidden_states):
         """ The training for one batch is performed using True Gradient (GD) for k Gibbs-sampling steps.
+
         :param data: The data used for training.
         :type data: numpy array [batch_size, input dimension]
 
@@ -688,23 +686,23 @@ class GD(CD):
         :param update_hidden_offsets: The update step size for the models hidden offsets.
         :type update_hidden_offsets: float
 
-        :param offset_typ: Different offsets can be used to center the gradient.<br />
-                           Example: 'DM' uses the positive phase visible mean and the negative phase hidden mean.\
-                           'A0' uses the average of positive and negative phase mean for visible, zero for the\
-                           hiddens. Possible values are out of {A,D,M,0}x{A,D,M,0}
+        :param offset_typ: | Different offsets can be used to center the gradient.<br />
+                           | Example: 'DM' uses the positive phase visible mean and the negative phase hidden mean.
+                           | 'A0' uses the average of positive and negative phase mean for visible, zero for the
+                           | hiddens. Possible values are out of {A,D,M,0}x{A,D,M,0}
         :type offset_typ: string
 
         :param use_centered_gradient: Uses the centered gradient instead of centering.
         :type use_centered_gradient: bool
 
-        :param restrict_gradient: If a scalar is given the norm of the weight gradient (along the input dim) is
+        :param restrict_gradient: If a scalar is given the norm of the weight gradient (along the input dim) is \
                                   restricted to stay below this value.
         :type restrict_gradient: None, float
 
         :param restriction_norm: Restricts the column norm, row norm or Matrix norm.
         :type restriction_norm: string, 'Cols','Rows', 'Mat'
 
-        :param use_hidden_states: If True, the hidden states are used for the gradient calculations, the hiddens
+        :param use_hidden_states: If True, the hidden states are used for the gradient calculations, the hiddens \
                                      probabilities otherwise.
         :type use_hidden_states: bool
         """

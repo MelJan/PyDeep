@@ -114,11 +114,11 @@ class Stopwatch(object):
         self.__t_last = time.time()
 
     def update(self, factor=1.0):
-        """ Updates the internal variables.
-            Factor can be used to sum up not regular events in a loop:
-            Lets assume you have a loop over 100 sets and only every 10th
-            step you execute a function, then use update(factor=0.1) to
-            measure it.
+        """ | Updates the internal variables.
+            | Factor can be used to sum up not regular events in a loop:
+            | Lets assume you have a loop over 100 sets and only every 10th
+            | step you execute a function, then use update(factor=0.1) to
+            | measure it.
 
         :param factor: Sums up factor*current interval
         :type factor: float

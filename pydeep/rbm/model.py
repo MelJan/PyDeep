@@ -94,19 +94,19 @@ class BinaryBinaryRBM(BipartiteGraph):
         :param initial_weights: Initial weights. 'AUTO' and a scalar are random init.
         :type initial_weights: 'AUTO', scalar or numpy array [input dim, output_dim]
 
-        :param initial_visible_bias: Initial visible bias. 'AUTO' is random, 'INVERSE_SIGMOID' is the inverse Sigmoid of
-                                     the visilbe mean. If a scalar is passed all values are initialized with it.
+        :param initial_visible_bias: Initial visible bias. 'AUTO' is random, 'INVERSE_SIGMOID' is the inverse Sigmoid \
+                                     of the visilbe mean. If a scalar is passed all values are initialized with it.
         :type initial_visible_bias: 'AUTO','INVERSE_SIGMOID', scalar or numpy array [1, input dim]
 
-        :param initial_hidden_bias: Initial hidden bias. 'AUTO' is random, 'INVERSE_SIGMOID' is the inverse Sigmoid of
+        :param initial_hidden_bias: Initial hidden bias. 'AUTO' is random, 'INVERSE_SIGMOID' is the inverse Sigmoid of \
                                     the hidden mean. If a scalar is passed all values are initialized with it.
         :type initial_hidden_bias: 'AUTO','INVERSE_SIGMOID', scalar or numpy array [1, output_dim]
 
-        :param initial_visible_offsets: Initial visible offset values. AUTO=data mean or 0.5 if no data is given. If a
+        :param initial_visible_offsets: Initial visible offset values. AUTO=data mean or 0.5 if no data is given. If a \
                                         scalar is passed all values are initialized with it.
         :type initial_visible_offsets: 'AUTO', scalar or numpy array [1, input dim]
 
-        :param initial_hidden_offsets: Initial hidden offset values. AUTO = 0.5 If a scalar is passed all values are
+        :param initial_hidden_offsets: Initial hidden offset values. AUTO = 0.5 If a scalar is passed all values are \
                                        initialized with it.
         :type initial_hidden_offsets: 'AUTO', scalar or numpy array [1, output_dim]
 
@@ -150,7 +150,7 @@ class BinaryBinaryRBM(BipartiteGraph):
         :param initial_weights: Initial weights. 'AUTO' and a scalar are random init.
         :type initial_weights: 'AUTO', scalar or numpy array [input num_new_visibles, output_dim]
 
-        :param initial_bias: Initial visible bias. 'AUTO' is random, 'INVERSE_SIGMOID' is the inverse Sigmoid of
+        :param initial_bias: Initial visible bias. 'AUTO' is random, 'INVERSE_SIGMOID' is the inverse Sigmoid of \
                                      the visilbe mean. If a scalar is passed all values are initialized with it.
         :type initial_bias: 'AUTO' or scalar or numpy array [1, num_new_visibles]
 
@@ -216,7 +216,7 @@ class BinaryBinaryRBM(BipartiteGraph):
         return numx.sum(h - self.oh, axis=0).reshape(1, h.shape[1])
 
     def calculate_gradients(self, v, h):
-        """ This function calculates all gradients of this RBM and returns them as a list of arrays. This keeps the
+        """ This function calculates all gradients of this RBM and returns them as a list of arrays. This keeps the \
             flexibility of adding parameters which will be updated by the training algorithms.
 
         :param v: Visible activations.
@@ -237,7 +237,7 @@ class BinaryBinaryRBM(BipartiteGraph):
         :param v: Conditional probabilities of v given h.
         :type v: numpy array [batch size, input dim]
 
-        :param beta: DUMMY Variable
+        :param beta: DUMMY Variable. \
                      The sampling in other types of units like Gaussian-Binary RBMs will be affected by beta.
         :type beta: None
 
@@ -255,7 +255,7 @@ class BinaryBinaryRBM(BipartiteGraph):
         :param h: Conditional probabilities of h given v.
         :type h: numpy array [batch size, output dim]
 
-        :param beta: DUMMY Variable
+        :param beta: DUMMY Variable. \
                      The sampling in other types of units like Gaussian-Binary RBMs will be affected by beta.
         :type beta: None
 
@@ -273,7 +273,7 @@ class BinaryBinaryRBM(BipartiteGraph):
         :param h: Hidden states.
         :type h: numpy array [batch size, output dim]
 
-        :param beta: Allows to sample from a given inverse temperature beta, or if a vector is given to sample from
+        :param beta: Allows to sample from a given inverse temperature beta, or if a vector is given to sample from  \
                      different betas simultaneously. None is equivalent to pass the value 1.0
         :type beta: None, float or numpy array [batch size, 1]
 
@@ -296,11 +296,11 @@ class BinaryBinaryRBM(BipartiteGraph):
         :param v: Visible states.
         :type v: numpy array [batch size, input dim]
 
-        :param beta: Allows to sample from a given inverse temperature beta, or if a vector is given to sample from
+        :param beta: Allows to sample from a given inverse temperature beta, or if a vector is given to sample from \
                      different betas simultaneously. None is equivalent to pass the value 1.0
         :type beta: None, float or numpy array [batch size, 1]
 
-        :param use_base_model: DUMMY variable since we do not use a base hidden bias.
+        :param use_base_model: DUMMY variable, since we do not use a base hidden bias.
         :type use_base_model: bool
 
         :return: Conditional probabilities h given v.
@@ -320,7 +320,7 @@ class BinaryBinaryRBM(BipartiteGraph):
         :param h: Hidden states.
         :type h: numpy array [batch size, output dim]
 
-        :param beta: Allows to sample from a given inverse temperature beta, or if a vector is given to sample from
+        :param beta: Allows to sample from a given inverse temperature beta, or if a vector is given to sample from \
                      different betas simultaneously. None is equivalent to pass the value 1.0
         :type beta: None, float or numpy array [batch size, 1]
 
@@ -349,7 +349,7 @@ class BinaryBinaryRBM(BipartiteGraph):
         :param v: Visible states.
         :type v: numpy array [batch size, input dim]
 
-        :param beta: Allows to sample from a given inverse temperature beta, or if a vector is given to sample from
+        :param beta: Allows to sample from a given inverse temperature beta, or if a vector is given to sample from \
                      different betas simultaneously.None is equivalent to pass the value 1.0.
 
         :type beta: None, float or numpy array [batch size, 1]
@@ -380,7 +380,7 @@ class BinaryBinaryRBM(BipartiteGraph):
         :param h: Hidden states.
         :type h: numpy array [batch size, output dim]
 
-        :param beta: Allows to sample from a given inverse temperature beta, or if a vector is given to sample from
+        :param beta: Allows to sample from a given inverse temperature beta, or if a vector is given to sample from \
                      different betas simultaneously.None is equivalent to pass the value 1.0.
         :type beta: None, float or numpy array [batch size, 1]
 
@@ -402,10 +402,10 @@ class BinaryBinaryRBM(BipartiteGraph):
                                         numx.exp(-activation * self.ov)), axis=1).reshape(h.shape[0], 1)
 
     def log_probability_v(self, logz, v, beta=None, use_base_model=False):
-        """ Computes the log-probability / LogLikelihood(LL) for the given visible units for this model. To estimate the
-            LL we need to know the logarithm of the partition function Z. For small models it is possible to calculate
-            Z, however since this involves calculating all possible hidden states, it is intractable for bigger models.
-            As an estimation method annealed importance sampling (AIS) can be used instead.
+        """ Computes the log-probability / LogLikelihood(LL) for the given visible units for this model. To estimate \
+            the LL we need to know the logarithm of the partition function Z. For small models it is possible to \
+            calculate Z, however since this involves calculating all possible hidden states, it is intractable for \
+            bigger models. As an estimation method annealed importance sampling (AIS) can be used instead.
 
         :param logz: The logarithm of the partition function.
         :type logz: float
@@ -413,7 +413,7 @@ class BinaryBinaryRBM(BipartiteGraph):
         :param v: Visible states.
         :type v: numpy array [batch size, input dim]
 
-        :param beta: Allows to sample from a given inverse temperature beta, or if a vector is given to sample from
+        :param beta: Allows to sample from a given inverse temperature beta, or if a vector is given to sample from \
                      different betas simultaneously.None is equivalent to pass the value 1.0.
         :type beta: None, float or numpy array [batch size, 1]
 
@@ -426,10 +426,10 @@ class BinaryBinaryRBM(BipartiteGraph):
         return self.unnormalized_log_probability_v(v, beta, use_base_model) - logz
 
     def log_probability_h(self, logz, h, beta=None, use_base_model=False):
-        """ Computes the log-probability / LogLikelihood(LL) for the given hidden units for this model. To estimate the
-            LL we need to know the logarithm of the partition function Z. For small models it is possible to calculate
-            Z, however since this involves calculating all possible hidden states, it is intractable for bigger models.
-            As an estimation method annealed importance sampling (AIS) can be used instead.
+        """ Computes the log-probability / LogLikelihood(LL) for the given hidden units for this model. To estimate \
+            the LL we need to know the logarithm of the partition function Z. For small models it is possible to \
+            calculate Z, however since this involves calculating all possible hidden states, it is intractable for \
+            bigger models. As an estimation method annealed importance sampling (AIS) can be used instead.
 
         :param logz: The logarithm of the partition function.
         :type logz: float
@@ -437,7 +437,7 @@ class BinaryBinaryRBM(BipartiteGraph):
         :param h: Hidden states.
         :type h: numpy array [batch size, output dim]
 
-        :param beta: Allows to sample from a given inverse temperature beta, or if a vector is given to sample from
+        :param beta: Allows to sample from a given inverse temperature beta, or if a vector is given to sample from \
                      different betas simultaneously. None is equivalent to pass the value 1.0
         :type beta: None, float or numpy array [batch size, 1]
 
@@ -455,10 +455,10 @@ class BinaryBinaryRBM(BipartiteGraph):
                             h,
                             beta=None,
                             use_base_model=False):
-        """ Computes the joint log-probability / LogLikelihood(LL) for the given visible and hidden units for this
-            model. To estimate the LL we need to know the logarithm of the partition function Z. For small models it is
-            possible to calculate Z, however since this involves calculating all possible hidden states, it is
-            intractable for bigger models. As an estimation method annealed importance sampling (AIS) can be used
+        """ Computes the joint log-probability / LogLikelihood(LL) for the given visible and hidden units for this \
+            model. To estimate the LL we need to know the logarithm of the partition function Z. For small models it \
+            is possible to calculate Z, however since this involves calculating all possible hidden states, it is \
+            intractable for bigger models. As an estimation method annealed importance sampling (AIS) can be used \
             instead.
 
         :param logz: The logarithm of the partition function.
@@ -470,7 +470,7 @@ class BinaryBinaryRBM(BipartiteGraph):
         :param h: Hidden states.
         :type h: numpy array [batch size, output dim]
 
-        :param beta: Allows to sample from a given inverse temperature beta, or if a vector is given to sample from
+        :param beta: Allows to sample from a given inverse temperature beta, or if a vector is given to sample from \
                      different betas simultaneously. None is equivalent to pass the value 1.0
         :type beta: None, float or numpy array [batch size, 1]
 
@@ -483,10 +483,10 @@ class BinaryBinaryRBM(BipartiteGraph):
         return -self.energy(v, h, beta, use_base_model) - logz
 
     def _base_log_partition(self, use_base_model=False):
-        """ Returns the base partition function for a given visible bias. .. Note:: that for AIS we need to be able to
-            calculate the partition function of the base distribution exactly. Furthermore it is beneficial if the base
-            distribution is a good approximation of the target distribution. A good choice is therefore the maximum
-            likelihood estimate of the visible bias, given the data.
+        """ Returns the base partition function for a given visible bias. .. Note:: that for AIS we need to be able to \
+            calculate the partition function of the base distribution exactly. Furthermore it is beneficial if the \
+            base distribution is a good approximation of the target distribution. A good choice is therefore the \
+            maximum likelihood estimate of the visible bias, given the data.
 
         :param use_base_model: If true uses the base model, i.e. the MLE of the bias values.
         :type use_base_model: bool
@@ -501,7 +501,7 @@ class BinaryBinaryRBM(BipartiteGraph):
             return self.input_dim * numx.log(2.0) + self.output_dim * numx.log(2.0)
 
     def _getbasebias(self):
-        """ Returns the maximum likelihood estimate of the visible bias, given the data. If no data is given the RBMs
+        """ Returns the maximum likelihood estimate of the visible bias, given the data. If no data is given the RBMs \
             bias value is return, but is highly rcommended to pass the data.
 
         :return: Base bias.
@@ -527,7 +527,7 @@ class GaussianBinaryRBM(BinaryBinaryRBM):
                  initial_visible_offsets='AUTO',
                  initial_hidden_offsets='AUTO',
                  dtype=numx.float64):
-        """ This function initializes all necessary parameters and data structures. It is recommended to pass the
+        """ This function initializes all necessary parameters and data structures. It is recommended to pass the \
             training data to initialize the network automatically.
 
         :param number_visibles: Number of the visible variables.
@@ -542,22 +542,22 @@ class GaussianBinaryRBM(BinaryBinaryRBM):
         :param initial_weights: Initial weights. 'AUTO' and a scalar are random init.
         :type initial_weights: 'AUTO', scalar or numpy array [input dim, output_dim]
 
-        :param initial_visible_bias: Initial visible bias. 'AUTO' is random, 'INVERSE_SIGMOID' is the inverse Sigmoid of
-                                     the visilbe mean. If a scalar is passed all values are initialized with it.
+        :param initial_visible_bias: Initial visible bias. 'AUTO' is random, 'INVERSE_SIGMOID' is the inverse Sigmoid \
+                                     of the visilbe mean. If a scalar is passed all values are initialized with it.
         :type initial_visible_bias: 'AUTO','INVERSE_SIGMOID', scalar or numpy array [1, input dim]
 
-        :param initial_hidden_bias: Initial hidden bias. 'AUTO' is random, 'INVERSE_SIGMOID' is the inverse Sigmoid of
+        :param initial_hidden_bias: Initial hidden bias. 'AUTO' is random, 'INVERSE_SIGMOID' is the inverse Sigmoid of \
                                     the hidden mean. If a scalar is passed all values are initialized with it.
         :type initial_hidden_bias: 'AUTO','INVERSE_SIGMOID', scalar or numpy array [1, output_dim]
 
         :param initial_sigma: Initial standard deviation for the model.
         :type initial_sigma: 'AUTO', scalar or numpy array [1, input_dim]
 
-        :param initial_visible_offsets: Initial visible offset values. AUTO=data mean or 0.5 if no data is given. If a
+        :param initial_visible_offsets: Initial visible offset values. AUTO=data mean or 0.5 if no data is given. If a \
                                         scalar is passed all values are initialized with it.
         :type initial_visible_offsets: 'AUTO', scalar or numpy array [1, input dim]
 
-        :param initial_hidden_offsets: Initial hidden offset values. AUTO = 0.5 If a scalar is passed all values are
+        :param initial_hidden_offsets: Initial hidden offset values. AUTO = 0.5 If a scalar is passed all values are \
                                        initialized with it.
         :type initial_hidden_offsets: 'AUTO', scalar or numpy array [1, output_dim]
 
@@ -631,7 +631,7 @@ class GaussianBinaryRBM(BinaryBinaryRBM):
         :param initial_weights: Initial weights. 'AUTO' and a scalar are random init.
         :type initial_weights: 'AUTO', scalar or numpy array [input num_new_visibles, output_dim]
 
-        :param initial_bias: Initial visible bias. 'AUTO' is random, 'INVERSE_SIGMOID' is the inverse Sigmoid of
+        :param initial_bias: Initial visible bias. 'AUTO' is random, 'INVERSE_SIGMOID' is the inverse Sigmoid of \
                                      the visilbe mean. If a scalar is passed all values are initialized with it.
         :type initial_bias: 'AUTO' or scalar or numpy array [1, num_new_visibles]
 
@@ -792,7 +792,7 @@ class GaussianBinaryRBM(BinaryBinaryRBM):
         :param h: Hidden states.
         :type h: numpy array [batch size, output dim]
 
-        :param beta: Allows to sample from a given inverse temperature beta, or if a vector is given to sample from
+        :param beta: Allows to sample from a given inverse temperature beta, or if a vector is given to sample from \
                      different betas simultaneously. None is equivalent to pass the value 1.0
         :type beta: None, float or numpy array [batch size, 1]
 
@@ -816,7 +816,7 @@ class GaussianBinaryRBM(BinaryBinaryRBM):
         :param v: Visible states / data.
         :type v: numpy array [batch size, input dim]
 
-        :param beta: Allows to sample from a given inverse temperature beta, or if a vector is given to sample from
+        :param beta: Allows to sample from a given inverse temperature beta, or if a vector is given to sample from \
                      different betas simultaneously. None is equivalent to pass the value 1.0
         :type beta: None, float or numpy array [batch size, 1]
 
@@ -843,7 +843,7 @@ class GaussianBinaryRBM(BinaryBinaryRBM):
         :param h: Hidden states.
         :type h: numpy array [batch size, output dim]
 
-        :param beta: Allows to sample from a given inverse temperature beta, or if a vector is given to sample from
+        :param beta: Allows to sample from a given inverse temperature beta, or if a vector is given to sample from \
                      different betas simultaneously. None is equivalent to pass the value 1.0
         :type beta: None, float or numpy array [batch size, 1]
 
@@ -878,7 +878,7 @@ class GaussianBinaryRBM(BinaryBinaryRBM):
         :param v: Visible states.
         :type v: numpy array [batch size, input dim]
 
-        :param beta: Allows to sample from a given inverse temperature beta, or if a vector is given to sample from
+        :param beta: Allows to sample from a given inverse temperature beta, or if a vector is given to sample from \
                      different betas simultaneously.None is equivalent to pass the value 1.0.
 
         :type beta: None, float or numpy array [batch size, 1]
@@ -914,7 +914,7 @@ class GaussianBinaryRBM(BinaryBinaryRBM):
         :param h: Hidden states.
         :type h: numpy array [batch size, output dim]
 
-        :param beta: Allows to sample from a given inverse temperature beta, or if a vector is given to sample from
+        :param beta: Allows to sample from a given inverse temperature beta, or if a vector is given to sample from \
                      different betas simultaneously.None is equivalent to pass the value 1.0.
         :type beta: None, float or numpy array [batch size, 1]
 
@@ -955,7 +955,7 @@ class GaussianBinaryRBM(BinaryBinaryRBM):
 
 
 class GaussianBinaryVarianceRBM(GaussianBinaryRBM):
-    """ Implementation of a Restricted Boltzmann machine with Gaussian visible having trainable variances and binary
+    """ Implementation of a Restricted Boltzmann machine with Gaussian visible having trainable variances and binary \
         hidden units.
 
     """
@@ -971,7 +971,7 @@ class GaussianBinaryVarianceRBM(GaussianBinaryRBM):
                  initial_visible_offsets=0.0,
                  initial_hidden_offsets=0.0,
                  dtype=numx.float64):
-        """ This function initializes all necessary parameters and data structures. It is recommended to pass the
+        """ This function initializes all necessary parameters and data structures. It is recommended to pass the \
             training data to initialize the network automatically.
 
         :param number_visibles: Number of the visible variables.
@@ -986,22 +986,22 @@ class GaussianBinaryVarianceRBM(GaussianBinaryRBM):
         :param initial_weights: Initial weights. 'AUTO' and a scalar are random init.
         :type initial_weights: 'AUTO', scalar or numpy array [input dim, output_dim]
 
-        :param initial_visible_bias: Initial visible bias. 'AUTO' is random, 'INVERSE_SIGMOID' is the inverse Sigmoid of
-                                     the visilbe mean. If a scalar is passed all values are initialized with it.
+        :param initial_visible_bias: Initial visible bias. 'AUTO' is random, 'INVERSE_SIGMOID' is the inverse Sigmoid \
+                                     of the visilbe mean. If a scalar is passed all values are initialized with it.
         :type initial_visible_bias: 'AUTO','INVERSE_SIGMOID', scalar or numpy array [1, input dim]
 
-        :param initial_hidden_bias: Initial hidden bias. 'AUTO' is random, 'INVERSE_SIGMOID' is the inverse Sigmoid of
+        :param initial_hidden_bias: Initial hidden bias. 'AUTO' is random, 'INVERSE_SIGMOID' is the inverse Sigmoid of \
                                     the hidden mean. If a scalar is passed all values are initialized with it.
         :type initial_hidden_bias: 'AUTO','INVERSE_SIGMOID', scalar or numpy array [1, output_dim]
 
         :param initial_sigma: Initial standard deviation for the model.
         :type initial_sigma: 'AUTO', scalar or numpy array [1, input_dim]
 
-        :param initial_visible_offsets: Initial visible offset values. AUTO=data mean or 0.5 if no data is given. If a
+        :param initial_visible_offsets: Initial visible offset values. AUTO=data mean or 0.5 if no data is given. If a \
                                         scalar is passed all values are initialized with it.
         :type initial_visible_offsets: 'AUTO', scalar or numpy array [1, input dim]
 
-        :param initial_hidden_offsets: Initial hidden offset values. AUTO = 0.5 If a scalar is passed all values are
+        :param initial_hidden_offsets: Initial hidden offset values. AUTO = 0.5 If a scalar is passed all values are \
                                        initialized with it.
         :type initial_hidden_offsets: 'AUTO', scalar or numpy array [1, output_dim]
 
@@ -1046,7 +1046,7 @@ class GaussianBinaryVarianceRBM(GaussianBinaryRBM):
         return [self.w, self.bv, self.bh, self.sigma]
 
     def calculate_gradients(self, v, h):
-        """ his function calculates all gradients of this RBM and returns them as an ordered array. This keeps the
+        """ his function calculates all gradients of this RBM and returns them as an ordered array. This keeps the \
             flexibility of adding parameters which will be updated by the training algorithms.
 
         :param v: States of the visible variables.
@@ -1062,7 +1062,7 @@ class GaussianBinaryVarianceRBM(GaussianBinaryRBM):
                 self._calculate_hidden_bias_gradient(h), self._calculate_sigma_gradient(v, h)]
 
 class BinaryBinaryLabelRBM(BinaryBinaryRBM):
-    """ Implementation of a centered Restricted Boltzmann machine with Binary visible plus Softmax label units and
+    """ Implementation of a centered Restricted Boltzmann machine with Binary visible plus Softmax label units and \
         binary hidden units.
 
     """
@@ -1078,7 +1078,7 @@ class BinaryBinaryLabelRBM(BinaryBinaryRBM):
                  initial_visible_offsets='AUTO',
                  initial_hidden_offsets='AUTO',
                  dtype=numx.float64):
-        """ This function initializes all necessary parameters and data  structures. It is recommended to pass the
+        """ This function initializes all necessary parameters and data  structures. It is recommended to pass the \
             training data to initialize the network automatically.
 
         :param number_visibles: Number of the visible variables.
@@ -1096,19 +1096,19 @@ class BinaryBinaryLabelRBM(BinaryBinaryRBM):
         :param initial_weights: Initial weights. 'AUTO' and a scalar are random init.
         :type initial_weights: 'AUTO', scalar or numpy array [input dim, output_dim]
 
-        :param initial_visible_bias: Initial visible bias. 'AUTO' is random, 'INVERSE_SIGMOID' is the inverse Sigmoid of
-                                     the visilbe mean. If a scalar is passed all values are initialized with it.
+        :param initial_visible_bias: Initial visible bias. 'AUTO' is random, 'INVERSE_SIGMOID' is the inverse Sigmoid \
+                                     of the visilbe mean. If a scalar is passed all values are initialized with it.
         :type initial_visible_bias: 'AUTO','INVERSE_SIGMOID', scalar or numpy array [1, input dim]
 
-        :param initial_hidden_bias: Initial hidden bias. 'AUTO' is random, 'INVERSE_SIGMOID' is the inverse Sigmoid of
+        :param initial_hidden_bias: Initial hidden bias. 'AUTO' is random, 'INVERSE_SIGMOID' is the inverse Sigmoid of \
                                     the hidden mean. If a scalar is passed all values are initialized with it.
         :type initial_hidden_bias: 'AUTO','INVERSE_SIGMOID', scalar or numpy array [1, output_dim]
 
-        :param initial_visible_offsets: Initial visible offset values. AUTO=data mean or 0.5 if no data is given. If a
+        :param initial_visible_offsets: Initial visible offset values. AUTO=data mean or 0.5 if no data is given. If a \
                                         scalar is passed all values are initialized with it.
         :type initial_visible_offsets: 'AUTO', scalar or numpy array [1, input dim]
 
-        :param initial_hidden_offsets: Initial hidden offset values. AUTO = 0.5 If a scalar is passed all values are
+        :param initial_hidden_offsets: Initial hidden offset values. AUTO = 0.5 If a scalar is passed all values are \
                                        initialized with it.
         :type initial_hidden_offsets: 'AUTO', scalar or numpy array [1, output_dim]
 
@@ -1136,9 +1136,8 @@ class BinaryBinaryLabelRBM(BinaryBinaryRBM):
         :param v: Conditional probabilities of v given h.
         :type v: numpy array [batch size, input dim]
 
-        :param beta: DUMMY Variable
-                     The sampling in other types of units like Gaussian-Binary
-                     RBMs will be affected by beta.
+        :param beta: DUMMY Variable. The sampling in other types of units like Gaussian-Binary RBMs will be affected \
+                     by beta.
         :type beta: None
 
         :param use_base_model: If true uses the base model, i.e. the MLE of the bias values. (DUMMY in this case)
@@ -1163,7 +1162,7 @@ class BinaryBinaryLabelRBM(BinaryBinaryRBM):
         :param h: Hidden states.
         :type h: numpy array [batch size, output dim]
 
-        :param beta: Allows to sample from a given inverse temperature beta, or if a vector is given to sample from
+        :param beta: Allows to sample from a given inverse temperature beta, or if a vector is given to sample from \
                      different betas simultaneously. None is equivalent to pass the value 1.0
         :type beta: None, float or numpy array [batch size, 1]
 
@@ -1233,7 +1232,7 @@ class BinaryBinaryLabelRBM(BinaryBinaryRBM):
 
 
 class GaussianBinaryLabelRBM(GaussianBinaryRBM):
-    """ Implementation of a centered Restricted Boltzmann machine with Gaussian visible plus Softmax label units and
+    """ Implementation of a centered Restricted Boltzmann machine with Gaussian visible plus Softmax label units and \
         binary hidden units.
 
     """
@@ -1250,7 +1249,7 @@ class GaussianBinaryLabelRBM(GaussianBinaryRBM):
                  initial_visible_offsets='AUTO',
                  initial_hidden_offsets='AUTO',
                  dtype=numx.float64):
-        """ This function initializes all necessary parameters and data  structures. It is recommended to pass the
+        """ This function initializes all necessary parameters and data  structures. It is recommended to pass the \
              training data to initialize the network automatically.
 
          :param number_visibles: Number of the visible variables.
@@ -1269,22 +1268,22 @@ class GaussianBinaryLabelRBM(GaussianBinaryRBM):
          :param initial_weights: Initial weights. 'AUTO' and a scalar are random init.
          :type initial_weights: 'AUTO', scalar or numpy array [input dim, output_dim]
 
-         :param initial_visible_bias: Initial visible bias. 'AUTO' is random, 'INVERSE_SIGMOID' is the inverse Sigmoid
+         :param initial_visible_bias: Initial visible bias. 'AUTO' is random, 'INVERSE_SIGMOID' is the inverse Sigmoid \
                                       of the visilbe mean. If a scalar is passed all values are initialized with it.
          :type initial_visible_bias: 'AUTO','INVERSE_SIGMOID', scalar or numpy array [1, input dim]
 
-         :param initial_hidden_bias: Initial hidden bias. 'AUTO' is random, 'INVERSE_SIGMOID' is the inverse Sigmoid of
-                                     the hidden mean. If a scalar is passed all values are initialized with it.
+         :param initial_hidden_bias: Initial hidden bias. 'AUTO' is random, 'INVERSE_SIGMOID' is the inverse Sigmoid \
+                                     of the hidden mean. If a scalar is passed all values are initialized with it.
          :type initial_hidden_bias: 'AUTO','INVERSE_SIGMOID', scalar or numpy array [1, output_dim]
 
          :param initial_sigma: Initial standard deviation for the model.
          :type initial_sigma: 'AUTO', scalar or numpy array [1, input_dim]
 
-         :param initial_visible_offsets: Initial visible offset values. AUTO=data mean or 0.5 if no data is given. If a
-                                         scalar is passed all values are initialized with it.
+         :param initial_visible_offsets: Initial visible offset values. AUTO=data mean or 0.5 if no data is given. If \
+                                         a scalar is passed all values are initialized with it.
          :type initial_visible_offsets: 'AUTO', scalar or numpy array [1, input dim]
 
-         :param initial_hidden_offsets: Initial hidden offset values. AUTO = 0.5 If a scalar is passed all values are
+         :param initial_hidden_offsets: Initial hidden offset values. AUTO = 0.5 If a scalar is passed all values are \
                                         initialized with it.
          :type initial_hidden_offsets: 'AUTO', scalar or numpy array [1, output_dim]
 
@@ -1314,9 +1313,8 @@ class GaussianBinaryLabelRBM(GaussianBinaryRBM):
         :param v: Conditional probabilities of v given h.
         :type v: numpy array [batch size, input dim]
 
-        :param beta: DUMMY Variable
-                     The sampling in other types of units like Gaussian-Binary
-                     RBMs will be affected by beta.
+        :param beta: DUMMY Variable. The sampling in other types of units like Gaussian-Binary RBMs will be affected \
+                     by beta.
         :type beta: None
 
         :param use_base_model: If true uses the base model, i.e. the MLE of the bias values. (DUMMY in this case)
@@ -1340,7 +1338,7 @@ class GaussianBinaryLabelRBM(GaussianBinaryRBM):
         :param h: Hidden states.
         :type h: numpy array [batch size, output dim]
 
-        :param beta: Allows to sample from a given inverse temperature beta, or if a vector is given to sample from
+        :param beta: Allows to sample from a given inverse temperature beta, or if a vector is given to sample from \
                      different betas simultaneously. None is equivalent to pass the value 1.0
         :type beta: None, float or numpy array [batch size, 1]
 
@@ -1426,8 +1424,8 @@ class BinaryRectRBM(BinaryBinaryRBM):
                  initial_visible_offsets='AUTO',
                  initial_hidden_offsets='AUTO',
                  dtype=numx.float64):
-        """ This function initializes all necessary parameters and data  structures. It is recommended to pass the
-             training data to initialize the network automatically.
+        """ This function initializes all necessary parameters and data  structures. It is recommended to pass the \
+            training data to initialize the network automatically.
 
          :param number_visibles: Number of the visible variables.
          :type number_visibles: int
@@ -1435,26 +1433,26 @@ class BinaryRectRBM(BinaryBinaryRBM):
          :param number_hiddens: Number of hidden variables.
          :type number_hiddens: int
 
-         :param data: The training data for parameter initialization if 'AUTO' is chosen for the corresponding
+         :param data: The training data for parameter initialization if 'AUTO' is chosen for the corresponding \
                       parameter.
          :type data: None or numpy array [num samples, input dim]
 
          :param initial_weights: Initial weights. 'AUTO' and a scalar are random init.
          :type initial_weights: 'AUTO', scalar or numpy array [input dim, output_dim]
 
-         :param initial_visible_bias: Initial visible bias. 'AUTO' is random, 'INVERSE_SIGMOID' is the inverse Sigmoid
+         :param initial_visible_bias: Initial visible bias. 'AUTO' is random, 'INVERSE_SIGMOID' is the inverse Sigmoid \
                                       of the visilbe mean. If a scalar is passed all values are initialized with it.
          :type initial_visible_bias: 'AUTO','INVERSE_SIGMOID', scalar or numpy array [1, input dim]
 
-         :param initial_hidden_bias: Initial hidden bias. 'AUTO' is random, 'INVERSE_SIGMOID' is the inverse Sigmoid of
-                                     the hidden mean. If a scalar is passed all values are initialized with it.
+         :param initial_hidden_bias: Initial hidden bias. 'AUTO' is random, 'INVERSE_SIGMOID' is the inverse Sigmoid \
+                                     of the hidden mean. If a scalar is passed all values are initialized with it.
          :type initial_hidden_bias: 'AUTO','INVERSE_SIGMOID', scalar or numpy array [1, output_dim]
 
-         :param initial_visible_offsets: Initial visible offset values. AUTO=data mean or 0.5 if no data is given. If a
-                                         scalar is passed all values are initialized with it.
+         :param initial_visible_offsets: Initial visible offset values. AUTO=data mean or 0.5 if no data is given. If \
+                                         a scalar is passed all values are initialized with it.
          :type initial_visible_offsets: 'AUTO', scalar or numpy array [1, input dim]
 
-         :param initial_hidden_offsets: Initial hidden offset values. AUTO = 0.5 If a scalar is passed all values are
+         :param initial_hidden_offsets: Initial hidden offset values. AUTO = 0.5 If a scalar is passed all values are \
                                         initialized with it.
          :type initial_hidden_offsets: 'AUTO', scalar or numpy array [1, output_dim]
 
@@ -1481,7 +1479,7 @@ class BinaryRectRBM(BinaryBinaryRBM):
         :param v: Visible states / data.
         :type v: numpy array [batch size, input dim]
 
-        :param beta: Allows to sample from a given inverse temperature beta, or if a vector is given to sample from
+        :param beta: Allows to sample from a given inverse temperature beta, or if a vector is given to sample from \
                      different betas simultaneously.
         :type beta: float or numpy array [batch size, 1]
 
@@ -1501,8 +1499,8 @@ class BinaryRectRBM(BinaryBinaryRBM):
         :param h: Conditional probabilities of h given v.
         :type h: numpy array [batch size, output dim]
 
-        :param beta: DUMMY Variable
-                     The sampling in other types of units like Gaussian-Binary RBMs will be affected by beta.
+        :param beta: DUMMY Variable. The sampling in other types of units like Gaussian-Binary RBMs will be affected \
+                     by beta.
         :type beta: None
 
         :param use_base_model: If true uses the base model, i.e. the MLE of the bias values. (DUMMY in this case)
@@ -1567,7 +1565,7 @@ class BinaryRectRBM(BinaryBinaryRBM):
 
 
 class RectBinaryRBM(BinaryBinaryRBM):
-    """ Implementation of a centered Restricted Boltzmann machine with Noisy linear rectified visible units and binary
+    """ Implementation of a centered Restricted Boltzmann machine with Noisy linear rectified visible units and binary \
         hidden units.
 
     """
@@ -1582,7 +1580,7 @@ class RectBinaryRBM(BinaryBinaryRBM):
                  initial_visible_offsets='AUTO',
                  initial_hidden_offsets='AUTO',
                  dtype=numx.float64):
-        """ This function initializes all necessary parameters and data  structures. It is recommended to pass the
+        """ This function initializes all necessary parameters and data  structures. It is recommended to pass the \
              training data to initialize the network automatically.
 
          :param number_visibles: Number of the visible variables.
@@ -1591,26 +1589,26 @@ class RectBinaryRBM(BinaryBinaryRBM):
          :param number_hiddens: Number of hidden variables.
          :type number_hiddens: int
 
-         :param data: The training data for parameter initialization if 'AUTO' is chosen for the corresponding
+         :param data: The training data for parameter initialization if 'AUTO' is chosen for the corresponding \
                       parameter.
          :type data: None or numpy array [num samples, input dim]
 
          :param initial_weights: Initial weights. 'AUTO' and a scalar are random init.
          :type initial_weights: 'AUTO', scalar or numpy array [input dim, output_dim]
 
-         :param initial_visible_bias: Initial visible bias. 'AUTO' is random, 'INVERSE_SIGMOID' is the inverse Sigmoid
+         :param initial_visible_bias: Initial visible bias. 'AUTO' is random, 'INVERSE_SIGMOID' is the inverse Sigmoid \
                                       of the visilbe mean. If a scalar is passed all values are initialized with it.
          :type initial_visible_bias: 'AUTO','INVERSE_SIGMOID', scalar or numpy array [1, input dim]
 
-         :param initial_hidden_bias: Initial hidden bias. 'AUTO' is random, 'INVERSE_SIGMOID' is the inverse Sigmoid of
-                                     the hidden mean. If a scalar is passed all values are initialized with it.
+         :param initial_hidden_bias: Initial hidden bias. 'AUTO' is random, 'INVERSE_SIGMOID' is the inverse Sigmoid \
+                                     of the hidden mean. If a scalar is passed all values are initialized with it.
          :type initial_hidden_bias: 'AUTO','INVERSE_SIGMOID', scalar or numpy array [1, output_dim]
 
-         :param initial_visible_offsets: Initial visible offset values. AUTO=data mean or 0.5 if no data is given. If a
-                                         scalar is passed all values are initialized with it.
+         :param initial_visible_offsets: Initial visible offset values. AUTO=data mean or 0.5 if no data is given. If \
+                                         a scalar is passed all values are initialized with it.
          :type initial_visible_offsets: 'AUTO', scalar or numpy array [1, input dim]
 
-         :param initial_hidden_offsets: Initial hidden offset values. AUTO = 0.5 If a scalar is passed all values are
+         :param initial_hidden_offsets: Initial hidden offset values. AUTO = 0.5 If a scalar is passed all values are \
                                         initialized with it.
          :type initial_hidden_offsets: 'AUTO', scalar or numpy array [1, output_dim]
 
@@ -1637,7 +1635,7 @@ class RectBinaryRBM(BinaryBinaryRBM):
         :param h: Hidden states.
         :type h: numpy array [batch size, output dim]
 
-        :param beta: Allows to sample from a given inverse temperature beta, or if a vector is given to sample from
+        :param beta: Allows to sample from a given inverse temperature beta, or if a vector is given to sample from \
                      different betas simultaneously. None is equivalent to pass the value 1.0
         :type beta: None, float or numpy array [batch size, 1]
 
@@ -1660,8 +1658,7 @@ class RectBinaryRBM(BinaryBinaryRBM):
         :param v: Conditional probabilities of v given h.
         :type v: numpy array [batch size, input dim]
 
-        :param beta: DUMMY Variable
-                     The sampling in other types of units like Gaussian-Binary
+        :param beta: DUMMY Variable. The sampling in other types of units like Gaussian-Binary \
                      RBMs will be affected by beta.
         :type beta: None
 
@@ -1727,8 +1724,7 @@ class RectBinaryRBM(BinaryBinaryRBM):
 
 
 class RectRectRBM(BinaryRectRBM):
-    """ Implementation of a centered Restricted Boltzmann machine with Noisy
-        linear rectified visible and hidden units.
+    """ Implementation of a centered Restricted Boltzmann machine with Noisy linear rectified visible and hidden units.
 
     """
 
@@ -1742,7 +1738,7 @@ class RectRectRBM(BinaryRectRBM):
                  initial_visible_offsets='AUTO',
                  initial_hidden_offsets='AUTO',
                  dtype=numx.float64):
-        """ This function initializes all necessary parameters and data  structures. It is recommended to pass the
+        """ This function initializes all necessary parameters and data  structures. It is recommended to pass the \
              training data to initialize the network automatically.
 
          :param number_visibles: Number of the visible variables.
@@ -1751,26 +1747,26 @@ class RectRectRBM(BinaryRectRBM):
          :param number_hiddens: Number of hidden variables.
          :type number_hiddens: int
 
-         :param data: The training data for parameter initialization if 'AUTO' is chosen for the corresponding
+         :param data: The training data for parameter initialization if 'AUTO' is chosen for the corresponding \
                       parameter.
          :type data: None or numpy array [num samples, input dim]
 
          :param initial_weights: Initial weights. 'AUTO' and a scalar are random init.
          :type initial_weights: 'AUTO', scalar or numpy array [input dim, output_dim]
 
-         :param initial_visible_bias: Initial visible bias. 'AUTO' is random, 'INVERSE_SIGMOID' is the inverse Sigmoid
+         :param initial_visible_bias: Initial visible bias. 'AUTO' is random, 'INVERSE_SIGMOID' is the inverse Sigmoid \
                                       of the visilbe mean. If a scalar is passed all values are initialized with it.
          :type initial_visible_bias: 'AUTO','INVERSE_SIGMOID', scalar or numpy array [1, input dim]
 
-         :param initial_hidden_bias: Initial hidden bias. 'AUTO' is random, 'INVERSE_SIGMOID' is the inverse Sigmoid of
-                                     the hidden mean. If a scalar is passed all values are initialized with it.
+         :param initial_hidden_bias: Initial hidden bias. 'AUTO' is random, 'INVERSE_SIGMOID' is the inverse Sigmoid \
+                                     of the hidden mean. If a scalar is passed all values are initialized with it.
          :type initial_hidden_bias: 'AUTO','INVERSE_SIGMOID', scalar or numpy array [1, output_dim]
 
-         :param initial_visible_offsets: Initial visible offset values. AUTO=data mean or 0.5 if no data is given. If a
-                                         scalar is passed all values are initialized with it.
+         :param initial_visible_offsets: Initial visible offset values. AUTO=data mean or 0.5 if no data is given. If \
+                                         a scalar is passed all values are initialized with it.
          :type initial_visible_offsets: 'AUTO', scalar or numpy array [1, input dim]
 
-         :param initial_hidden_offsets: Initial hidden offset values. AUTO = 0.5 If a scalar is passed all values are
+         :param initial_hidden_offsets: Initial hidden offset values. AUTO = 0.5 If a scalar is passed all values are \
                                         initialized with it.
          :type initial_hidden_offsets: 'AUTO', scalar or numpy array [1, output_dim]
 
@@ -1797,7 +1793,7 @@ class RectRectRBM(BinaryRectRBM):
         :param h: Hidden states.
         :type h: numpy array [batch size, output dim]
 
-        :param beta: Allows to sample from a given inverse temperature beta, or if a vector is given to sample from
+        :param beta: Allows to sample from a given inverse temperature beta, or if a vector is given to sample from \
                      different betas simultaneously. None is equivalent to pass the value 1.0
         :type beta: None, float or numpy array [batch size, 1]
 
@@ -1853,7 +1849,7 @@ class GaussianRectRBM(GaussianBinaryRBM):
                  initial_visible_offsets='AUTO',
                  initial_hidden_offsets='AUTO',
                  dtype=numx.float64):
-        """ This function initializes all necessary parameters and data structures. See comments for automatically
+        """ This function initializes all necessary parameters and data structures. See comments for automatically \
             chosen values.
 
         :param number_visibles: Number of the visible variables.
@@ -1908,7 +1904,7 @@ class GaussianRectRBM(GaussianBinaryRBM):
         :param v: Visible states / data.
         :type v: numpy array [batch size, input dim]
 
-        :param beta: Allows to sample from a given inverse temperature beta, or if a vector is given to sample from
+        :param beta: Allows to sample from a given inverse temperature beta, or if a vector is given to sample from \
                      different betas simultaneously.
         :type beta: float or numpy array [batch size, 1]
 
@@ -1995,7 +1991,7 @@ class GaussianRectRBM(GaussianBinaryRBM):
 
 
 class GaussianRectVarianceRBM(GaussianRectRBM):
-    """ Implementation of a Restricted Boltzmann machine with Gaussian visible having trainable variances and noisy
+    """ Implementation of a Restricted Boltzmann machine with Gaussian visible having trainable variances and noisy \
         rectified hidden units.
 
     """
@@ -2011,7 +2007,7 @@ class GaussianRectVarianceRBM(GaussianRectRBM):
                  initial_visible_offsets=0.0,
                  initial_hidden_offsets=0.0,
                  dtype=numx.float64):
-        """ This function initializes all necessary parameters and data structures. See comments for automatically
+        """ This function initializes all necessary parameters and data structures. See comments for automatically \
             chosen values.
 
         :param number_visibles: Number of the visible variables.
@@ -2081,7 +2077,7 @@ class GaussianRectVarianceRBM(GaussianRectRBM):
         return [self.w, self.bv, self.bh, self.sigma]
 
     def calculate_gradients(self, v, h):
-        """ This function calculates all gradients of this RBM and returns them as an ordered array. This keeps the
+        """ This function calculates all gradients of this RBM and returns them as an ordered array. This keeps the \
             flexibility of adding parameters which will be updated by the training algorithms.
 
         :param v: States of the visible variables.

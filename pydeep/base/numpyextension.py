@@ -339,7 +339,7 @@ def get_binary_label(int_array):
 def compare_index_of_max(output, target):
     """ Compares data rows by comparing the index of the maximal value e.g. Classifier output and true labels.
 
-        :Example: | [0.3,0.5,0.2],[0.2,0.6,0.2] -> 0|
+        :Example: | [0.3,0.5,0.2],[0.2,0.6,0.2] -> 0
                   | [0.3,0.5,0.2],[0.6,0.2,0.2] -> 1
 
     :param output: vectors usually containing label probabilties.
@@ -359,8 +359,10 @@ def shuffle_dataset(data, label):
 
     :param data: Datapoints.
     :type data: numpy array [num_datapoints, dim_datapoints]
+
     :param label: Labels.
     :type label: numpy array [num_datapoints]
+
     :return: Shuffled datapoints and labels.
     :rtype: List of numpy arrays
     """
@@ -407,18 +409,17 @@ def generate_2d_connection_matrix(input_x_dim,
     """ This function constructs a connection matrix, which can be used to force the weights to have local receptive \
         fields.
 
-        :Example:
-        | input_x_dim = 3,
-        | input_y_dim = 3,
-        | field_x_dim = 2,
-        | field_y_dim = 2,
-        | overlap_x_dim = 1,
-        | overlap_y_dim = 1,
-        | wrap_around=False)
-        | leads to numx.array([[1,1,0,1,1,0,0,0,0],
-        |                     [0,1,1,0,1,1,0,0,0],
-        |                     [0,0,0,1,1,0,1,1,0],
-        |                     [0,0,0,0,1,1,0,1,1]]).T
+        :Example:   | input_x_dim = 3,
+                    | input_y_dim = 3,
+                    | field_x_dim = 2,
+                    | field_y_dim = 2,
+                    | overlap_x_dim = 1,
+                    | overlap_y_dim = 1,
+                    | wrap_around=False)
+                    | leads to numx.array([[1,1,0,1,1,0,0,0,0],
+                    |                     [0,1,1,0,1,1,0,0,0],
+                    |                     [0,0,0,1,1,0,1,1,0],
+                    |                     [0,0,0,0,1,1,0,1,1]]).T
 
     :param input_x_dim: Input dimension.
     :type input_x_dim: int

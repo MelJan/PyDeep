@@ -105,7 +105,7 @@ def remove_rows_means(data, return_means=False):
 
 
 def remove_cols_means(data, return_means=False):
-    """ Remove the individual mean of each comlumn.
+    """ Remove the individual mean of each column.
 
     :param data: Data to be normalized
     :type data: numpy array [num data point, data dimension]
@@ -197,7 +197,7 @@ class PCA(STANDARIZER):
         :param input_dim: Data dimensionality.
         :type input_dim: int
 
-        :param whiten: If true the projected data will be decorrelated in all directions.
+        :param whiten: If true the projected data will be de-correlated in all directions.
         :type whiten: bool
         """
         super(PCA, self).__init__(input_dim)

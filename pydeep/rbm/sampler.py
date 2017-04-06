@@ -245,8 +245,8 @@ class ParallelTemperingSampler(object):
         :param num_chains: The number of Markov chains.
         :type num_chains: int
 
-        :param betas: Array of inverse temperatures to sample from, its dimensionality needs to equal the number of
-                      chains or if None is given the inverse temperatures are initialized linearly from 0.0 to 1.0 in
+        :param betas: Array of inverse temperatures to sample from, its dimensionality needs to equal the number of \
+                      chains or if None is given the inverse temperatures are initialized linearly from 0.0 to 1.0 in \
                       'num_chains' steps.
         :type betas: int, None
         """
@@ -285,7 +285,7 @@ class ParallelTemperingSampler(object):
         """ Performs k steps parallel tempering sampling.
 
         :param num_samples: The number of samples to generate.
-                            .. Note:: Optimal performance is achieved if the number of samples and the number of chains
+                            .. Note:: Optimal performance is achieved if the number of samples and the number of chains \
                             equal the batch_size.
         :type num_samples: int, numpy array
 
@@ -347,8 +347,8 @@ class ParallelTemperingSampler(object):
         :param model: The model to sample from.
         :type model: Valid RBM Class.
 
-        :param betas: Array of inverse temperatures to sample from, its dimensionality needs to equal the number of
-                      chains or if None is given the inverse temperatures are initialized linearly from 0.0 to 1.0 in
+        :param betas: Array of inverse temperatures to sample from, its dimensionality needs to equal the number of \
+                      chains or if None is given the inverse temperatures are initialized linearly from 0.0 to 1.0 in \
                       'num_chains' steps.
         :type betas: int, None
         """
@@ -425,7 +425,7 @@ class ParallelTemperingSampler(object):
 
 
 class IndependentParallelTemperingSampler(object):
-    """ Implementation of k-step independent parallel tempering sampling. IPT runs an PT instance for each sample in
+    """ Implementation of k-step independent parallel tempering sampling. IPT runs an PT instance for each sample in \
         parallel. This speeds up the sampling but also decreases the mixing rate.
 
     """
@@ -441,15 +441,15 @@ class IndependentParallelTemperingSampler(object):
         :type model: Valid model Class.
 
         :param num_samples: The number of samples to generate.
-                            .. Note:: Optimal performance (ATLAS,MKL) is achieved if the number of samples equals the
+                            .. Note:: Optimal performance (ATLAS,MKL) is achieved if the number of samples equals the \
                             batchsize.
         :type num_samples:
 
         :param num_chains: The number of Markov chains.
         :type num_chains: int
 
-        :param betas: Array of inverse temperatures to sample from, its dimensionality needs to equal the number of
-                      chains or if None is given the inverse temperatures are initialized linearly from 0.0 to 1.0
+        :param betas: Array of inverse temperatures to sample from, its dimensionality needs to equal the number of \
+                      chains or if None is given the inverse temperatures are initialized linearly from 0.0 to 1.0 \
                       in 'num_chains' steps.
         :type betas: int, None
         """
@@ -497,7 +497,7 @@ class IndependentParallelTemperingSampler(object):
         """ Performs k steps independent parallel tempering sampling.
         
         :param num_samples: The number of samples to generate.
-                            .. Note:: Optimal performance is achieved if the number of samples and the number of chains
+                            .. Note:: Optimal performance is achieved if the number of samples and the number of chains \
                             equal the batch_size. -> AUTO
         :type num_samples: int or 'AUTO'
 
@@ -581,8 +581,8 @@ class IndependentParallelTemperingSampler(object):
         :param model: The model to sample from.
         :type model: Valid RBM Class.
 
-        :param betas: Array of inverse temperatures to sample from, its dimensionality needs to equal the number of
-                      chains or if None is given the inverse temperatures are initialized linearly from 0.0 to 1.0 in
+        :param betas: Array of inverse temperatures to sample from, its dimensionality needs to equal the number of \
+                      chains or if None is given the inverse temperatures are initialized linearly from 0.0 to 1.0 in \
                       'num_chains' steps.
         :type betas: int, None
         """

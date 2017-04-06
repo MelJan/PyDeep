@@ -372,7 +372,7 @@ class BipartiteGraph(object):
         :param initial_offsets: The initial visible offset values.
         :type initial_offsets: numpy array [1, num_new_visibles]
 
-        :param data: Data for AUTO initilization.
+        :param data: Data for AUTO initialization.
         :type data: numpy array [num datapoints, num_new_visibles]
         """
         new_data_mean = 0.5 * numx.ones((1, num_new_visibles), self.dtype)
@@ -471,7 +471,7 @@ class BipartiteGraph(object):
                        new_hidden_offsets=0.0,
                        update_visible_offsets=1.0,
                        update_hidden_offsets=1.0):
-        """ This function updates the visible and hidden offsets.
+        """ | This function updates the visible and hidden offsets.
             | --> update_offsets(0,0,1,1) reparameterizes to the normal binary RBM.
 
         :param new_visible_offsets: New visible means.
@@ -507,14 +507,14 @@ class StackOfBipartiteGraphs(object):
         :type list_of_layers: list
         """
         self._layers = list_of_layers
-        self._input_dim = None
-        self._output_dim = None
+        self.input_dim = None
+        self.output_dim = None
         self.states = [None]
         if len(list_of_layers) > 0:
             self.states = [None for _ in range(len(list_of_layers) + 1)]
             self._check_network()
-            self._input_dim = self._layers[0].input_dim
-            self._output_dim = self._layers[len(self._layers) - 1].output_dim
+            self.input_dim = self._layers[0].input_dim
+            self.output_dim = self._layers[len(self._layers) - 1].output_dim
 
     def _check_network(self):
         """ Check whether the network is consistent and raise an exception if it is not the case.
@@ -524,18 +524,6 @@ class StackOfBipartiteGraphs(object):
             if self._layers[i - 1].output_dim != self._layers[i].input_dim:
                 raise Exception(
                     "Output_dim of layer " + str(i - 1) + " has to match input_dim of layer " + str(i) + "!")
-
-    @property
-    def input_dim(self):
-        """ Networks input dimensionality.
-        """
-        return self._input_dim
-
-    @property
-    def output_dim(self):
-        """ Networks output dimensionality.
-        """
-        return self._output_dim
 
     @property
     def depth(self):
@@ -582,7 +570,7 @@ class StackOfBipartiteGraphs(object):
         """
         self._layers.append(layer)
         self.states.append(None)
-        self._output_dim = layer.output_dim
+        self.output_dim = layer.output_dim
         self._check_network()
 
     def pop_last_layer(self):
@@ -593,11 +581,11 @@ class StackOfBipartiteGraphs(object):
             self._layers.pop(len(self._layers) - 1)
             self.states.pop(len(self.states) - 1)
         if len(self._layers) > 0:
-            self._input_dim = self._layers[0].input_dim
-            self._output_dim = self._layers[len(self._layers) - 1].output_dim
+            self.input_dim = self._layers[0].input_dim
+            self.output_dim = self._layers[len(self._layers) - 1].output_dim
         else:
-            self._input_dim = None
-            self._output_dim = None
+            self.input_dim = None
+            self.output_dim = None
         self._check_network()
 
     def save(self, path, save_states=False):
@@ -623,7 +611,7 @@ class StackOfBipartiteGraphs(object):
         :return: Output of the network.
         :rtype: numpy array [batchsize x output dim]
         """
-        if input_data.shape[1] != self._input_dim:
+        if input_data.shape[1] != self.input_dim:
             raise Exception("Input dimensionality has to match dbn.input_dim!")
         self.states[0] = input_data
         for l in range(len(self._layers)):
@@ -639,7 +627,7 @@ class StackOfBipartiteGraphs(object):
         :return:  Input of the network.
         :rtype: numpy array [batchsize x input dim]
         """
-        if output_data.shape[1] != self._output_dim:
+        if output_data.shape[1] != self.output_dim:
             raise Exception("Output dimensionality has to match dbn.output_dim!")
         self.states[len(self._layers)] = output_data
         for l in range(len(self._layers), 0, -1):

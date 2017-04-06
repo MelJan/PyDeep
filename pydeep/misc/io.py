@@ -48,6 +48,7 @@ import scipy.misc
 import requests
 import pydeep.misc.measuring as mea
 
+
 def save_object(obj, path, info=True, compressed=True):
     """ Saves an object to file.
 
@@ -83,7 +84,7 @@ def save_object(obj, path, info=True, compressed=True):
 
 
 def save_image(array, path, ext='bmp'):
-    """ Saves a matrix to a image file.
+    """ Saves a numpy array to an image file.
 
     :param array: Data to save
     :type array: numpy array [width, height]
@@ -103,7 +104,7 @@ def load_object(path, info=True, compressed=True):
     :param path: Path and name of the file
     :type path: string
 
-    :param info:
+    :param info: If True, prints status information.
     :type info: bool
 
     :param compressed:
@@ -138,7 +139,7 @@ def load_object(path, info=True, compressed=True):
 
 
 def load_image(path, grayscale=False):
-    """
+    """ Loads an image to numpy array.
 
     :param path: Path and name of the directory to save the image at.
     :type path: string
@@ -179,7 +180,7 @@ def download_file(url, path, buffer_size=1024 ** 2):
 
 
 def load_mnist(path, binary=False):
-    """ Loads the MNIST digit data in binary [0,1] or real values [0,1]
+    """ Loads the MNIST digit data in binary [0,1] or real values [0,1].
 
     :param path: Path and name of the file to load.
     :type path: string
@@ -324,8 +325,8 @@ def load_cifar(path, grayscale=True):
 
 
 def load_natural_image_patches(path):
-    """ Loads the natural image patches used in the publication
-        'Gaussian-binary restricted Boltzmann machines for modeling natural image statistics'
+    """ Loads the natural image patches used in the publication 'Gaussian-binary restricted Boltzmann machines for \
+        modeling natural image statistics'.
          .. seealso:: http://journals.plos.org/plosone/article/authors?id=10.1371/journal.pone.0171015
 
     :param path: Path and name of the file to load.

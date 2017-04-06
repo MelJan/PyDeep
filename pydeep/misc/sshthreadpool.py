@@ -141,9 +141,8 @@ class SSHConnection(object):
             return None, None, None
 
     def execute_command_in_screen(self, command):
-        """ Executes a command in a screen on the server which is
-            automatically detached and returns stdin, stdout, and
-            stderr. Screen closes automatically when the job is
+        """ Executes a command in a screen on the server which is automatically detached and returns stdin, stdout, \
+            and stderr. Screen closes automatically when the job is
             done.
 
         :param command: Command to be executed.
@@ -215,10 +214,10 @@ class SSHConnection(object):
     def get_server_load(self):
         """ Get the current cpu and memory of the server.
 
-        :return: Average CPU(s) usage last  1 min,
-                 Average CPU(s) usage last  5 min,
-                 Average CPU(s) usage last 15 min,
-                 Average memory usage,
+        :return: | Average CPU(s) usage last  1 min,
+                 | Average CPU(s) usage last  5 min,
+                 | Average CPU(s) usage last 15 min,
+                 | Average memory usage,
         :rtype: list
         """
         if not self.is_connected:
@@ -498,8 +497,7 @@ class SSHPool(object):
         return started_job, jobs
 
     def get_servers_status(self):
-        """ Reads the status of all servers and returns it a list.
-            Additionally print to the console if status == True.
+        """ Reads the status of all servers and returns it a list. Additionally print to the console if status == True.
 
         :return: list of header and list corresponding status information
         :rtype: list, list

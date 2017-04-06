@@ -302,8 +302,8 @@ def annealed_importance_sampling(model,
                                  status=False):
     """ Approximates the partition function for the given model using annealed importance sampling.
 
-    .. seealso:: Accurate and Conservative Estimates of MRF Log-likelihood using Reverse Annealing
-          http://arxiv.org/pdf/1412.8566.pdf
+    .. seealso:: Accurate and Conservative Estimates of MRF Log-likelihood using Reverse Annealing \
+                 http://arxiv.org/pdf/1412.8566.pdf
 
     :param model: The model.
     :type model: Valid RBM model.
@@ -320,9 +320,9 @@ def annealed_importance_sampling(model,
     :param status: If true prints the progress on console.
     :type status: bool
 
-    :return: Mean estimated log partition function,
-             Mean +3std estimated log partition function,
-             Mean -3std estimated log partition function.
+    :return: | Mean estimated log partition function,
+             | Mean +3std estimated log partition function,
+             | Mean -3std estimated log partition function.
     :rtype: float
     """
     # Setup temerpatures if not given
@@ -393,8 +393,8 @@ def reverse_annealed_importance_sampling(model,
                                          data=None):
     """ Approximates the partition function for the given model using reverse annealed importance sampling.
 
-    .. seealso:: Accurate and Conservative Estimates of MRF Log-likelihood using Reverse Annealing
-          http://arxiv.org/pdf/1412.8566.pdf
+    .. seealso:: Accurate and Conservative Estimates of MRF Log-likelihood using Reverse Annealing \
+                 http://arxiv.org/pdf/1412.8566.pdf
 
     :param model: The model.
     :type model: Valid RBM model.
@@ -414,9 +414,9 @@ def reverse_annealed_importance_sampling(model,
     :param data: If data is given, initial sampling is started from data samples.
     :type data: numpy array
 
-    :return: Mean estimated log partition function,
-             Mean +3std estimated log partition function,
-             Mean -3std estimated log partition function.
+    :return: | Mean estimated log partition function,
+             | Mean +3std estimated log partition function,
+             | Mean -3std estimated log partition function.
     :rtype: float
     """
     # Setup temerpatures if not given
