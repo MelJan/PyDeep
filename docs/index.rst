@@ -29,7 +29,7 @@ Documentation
 .. toctree::
    :maxdepth: 6
 
-   autoapi/index
+   Documentation<documentation.rst>
 
 Indices and tables
 **********************************
