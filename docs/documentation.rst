@@ -162,3 +162,12 @@ estimator
    :private-members:
    :special-members: __init__
    :inherited-members:
+
+dbn
++++++++++++++++++++
+
+.. automodule:: pydeep.rbm.dbn
+   :members:
+   :private-members:
+   :special-members: __init__
+   :inherited-members:

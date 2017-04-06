@@ -20,7 +20,7 @@
 
     :Info:
         For the derivations .. seealso::
-        http://www.ini.rub.de/data/documents/tns/masterthesis_janmelchior.pdf
+        https://www.ini.rub.de/PEOPLE/wiskott/Reprints/Melchior-2012-MasterThesis-RBMs.pdf
 
         A usual way to create a new unit is to inherit from a given RBM class
         and override the functions that changed, e.g. Gaussian-Binary RBM
@@ -79,7 +79,7 @@ class BinaryBinaryRBM(BipartiteGraph):
                  initial_visible_offsets='AUTO',
                  initial_hidden_offsets='AUTO',
                  dtype=numx.float64):
-        """ This function initializes all necessary parameters and data  structures. It is recommended to pass the\
+        """ This function initializes all necessary parameters and data  structures. It is recommended to pass the \
          training data to initialize the network automatically.
 
         :param number_visibles: Number of the visible variables.
@@ -137,7 +137,7 @@ class BinaryBinaryRBM(BipartiteGraph):
                            initial_bias='AUTO',
                            initial_offsets='AUTO',
                            data=None):
-        """ This function adds new visible units at the given position to the model.
+        """ This function adds new visible units at the given position to the model. \
             .. Warning:: If the parameters are changed. the trainer needs to be
                      reinitialized.
 
@@ -1047,6 +1047,1041 @@ class GaussianBinaryVarianceRBM(GaussianBinaryRBM):
 
     def calculate_gradients(self, v, h):
         """ his function calculates all gradients of this RBM and returns them as an ordered array. This keeps the
+            flexibility of adding parameters which will be updated by the training algorithms.
+
+        :param v: States of the visible variables.
+        :type v: numpy arrays [batchsize, input dim]
+
+        :param h: Probabilities of the hidden variables.
+        :type h: numpy arrays [batchsize, output dim]
+
+        :return: Gradients for all parameters.
+        :rtype: numpy arrays (num parameters x [parameter.shape])
+        """
+        return [self._calculate_weight_gradient(v, h), self._calculate_visible_bias_gradient(v),
+                self._calculate_hidden_bias_gradient(h), self._calculate_sigma_gradient(v, h)]
+
+class BinaryBinaryLabelRBM(BinaryBinaryRBM):
+    """ Implementation of a centered Restricted Boltzmann machine with Binary visible plus Softmax label units and
+        binary hidden units.
+
+    """
+
+    def __init__(self,
+                 number_visibles,
+                 number_labels,
+                 number_hiddens,
+                 data=None,
+                 initial_weights='AUTO',
+                 initial_visible_bias='AUTO',
+                 initial_hidden_bias='AUTO',
+                 initial_visible_offsets='AUTO',
+                 initial_hidden_offsets='AUTO',
+                 dtype=numx.float64):
+        """ This function initializes all necessary parameters and data  structures. It is recommended to pass the
+            training data to initialize the network automatically.
+
+        :param number_visibles: Number of the visible variables.
+        :type number_visibles: int
+
+        :param number_labels: Number of the label variables.
+        :type number_labels: int
+
+        :param number_hiddens: Number of hidden variables.
+        :type number_hiddens: int
+
+        :param data: The training data for parameter initialization if 'AUTO' is chosen for the corresponding parameter.
+        :type data: None or numpy array [num samples, input dim]
+
+        :param initial_weights: Initial weights. 'AUTO' and a scalar are random init.
+        :type initial_weights: 'AUTO', scalar or numpy array [input dim, output_dim]
+
+        :param initial_visible_bias: Initial visible bias. 'AUTO' is random, 'INVERSE_SIGMOID' is the inverse Sigmoid of
+                                     the visilbe mean. If a scalar is passed all values are initialized with it.
+        :type initial_visible_bias: 'AUTO','INVERSE_SIGMOID', scalar or numpy array [1, input dim]
+
+        :param initial_hidden_bias: Initial hidden bias. 'AUTO' is random, 'INVERSE_SIGMOID' is the inverse Sigmoid of
+                                    the hidden mean. If a scalar is passed all values are initialized with it.
+        :type initial_hidden_bias: 'AUTO','INVERSE_SIGMOID', scalar or numpy array [1, output_dim]
+
+        :param initial_visible_offsets: Initial visible offset values. AUTO=data mean or 0.5 if no data is given. If a
+                                        scalar is passed all values are initialized with it.
+        :type initial_visible_offsets: 'AUTO', scalar or numpy array [1, input dim]
+
+        :param initial_hidden_offsets: Initial hidden offset values. AUTO = 0.5 If a scalar is passed all values are
+                                       initialized with it.
+        :type initial_hidden_offsets: 'AUTO', scalar or numpy array [1, output_dim]
+
+        :param dtype: Used data type i.e. numpy.float64
+        :type dtype: numpy.float32 or numpy.float64 or numpy.float128
+        """
+        # Call constructor of superclass
+        super(BinaryBinaryLabelRBM,
+              self).__init__(number_visibles=number_visibles + number_labels,
+                             number_hiddens=number_hiddens,
+                             data=data,
+                             initial_weights=initial_weights,
+                             initial_visible_bias=initial_visible_bias,
+                             initial_hidden_bias=initial_hidden_bias,
+                             initial_visible_offsets=initial_visible_offsets,
+                             initial_hidden_offsets=initial_hidden_offsets,
+                             dtype=dtype)
+
+        self.visible_dim = number_visibles
+        self.label_dim = number_labels
+
+    def sample_v(self, v, beta=None, use_base_model=False):
+        """ Samples the visible variables from the conditional probabilities v given h.
+
+        :param v: Conditional probabilities of v given h.
+        :type v: numpy array [batch size, input dim]
+
+        :param beta: DUMMY Variable
+                     The sampling in other types of units like Gaussian-Binary
+                     RBMs will be affected by beta.
+        :type beta: None
+
+        :param use_base_model: If true uses the base model, i.e. the MLE of the bias values. (DUMMY in this case)
+        :type use_base_model: bool
+
+        :return: States for v.
+        :rtype: numpy array [batch size, input dim]
+        """
+        ''' # Proof of concept
+        result = numx.random.multinomial(1,v[0,self.visible_dim:self.input_dim])
+        for i in range(1,v.shape[0]):
+            result = numx.vstack((result,numx.random.multinomial(1,v[i,self.visible_dim:self.input_dim])))
+        result = numx.hstack((v[:,0:self.visible_dim] > numx.random.random((v.shape[0],self.visible_dim)),result))
+        return self.dtype(result)
+        '''
+        return numx.hstack((v[:, 0:self.visible_dim] > numx.random.random((v.shape[0], self.visible_dim)),
+                            self.dtype(multinominal_batch_sampling(v[:, self.visible_dim:self.input_dim], False))))
+
+    def probability_v_given_h(self, h, beta=None, use_base_model=False):
+        """ Calculates the conditional probabilities of v given h.
+
+        :param h: Hidden states.
+        :type h: numpy array [batch size, output dim]
+
+        :param beta: Allows to sample from a given inverse temperature beta, or if a vector is given to sample from
+                     different betas simultaneously. None is equivalent to pass the value 1.0
+        :type beta: None, float or numpy array [batch size, 1]
+
+        :param use_base_model: If true uses the base model, i.e. the MLE of the bias values.
+        :type use_base_model: bool
+
+        :return: Conditional probabilities v given h.
+        :rtype: numpy array [batch size, input d
+        """
+        activation = self._visible_pre_activation(h)
+        if beta is not None:
+            activation *= beta
+            if use_base_model is True:
+                activation += (1.0 - beta) * self.bv_base
+        return numx.hstack((self._visible_post_activation(activation[:, 0:self.visible_dim]),
+                            SoftMax.f(activation[:, self.visible_dim:self.input_dim])))
+
+    def _add_visible_units(self):
+        """ Not available!
+        """
+        raise Exception("Not yet implemented!")
+
+    def _remove_visible_units(self):
+        """ Not available!
+        """
+        raise Exception("Not yet implemented!")
+
+    def energy(self):
+        """ Not available!
+        """
+        raise Exception("Not yet implemented!")
+
+    def unnormalized_log_probability_v(self):
+        """ Not available!
+        """
+        raise Exception("Not yet implemented!")
+
+    def unnormalized_log_probability_h(self):
+        """ Not available!
+        """
+        raise Exception("Not yet implemented!")
+
+    def log_probability_v(self):
+        """ Not available!
+        """
+        raise Exception("Not yet implemented!")
+
+    def log_probability_h(self):
+        """ Not available!
+        """
+        raise Exception("Not yet implemented!")
+
+    def log_probability_v_h(self):
+        """ Not available!
+        """
+        raise Exception("Not yet implemented!")
+
+    def _base_log_partition(self):
+        """ Not available!
+        """
+        raise Exception("Not yet implemented!")
+
+    def _getbasebias(self):
+        """ Not available!
+        """
+        raise Exception("Not yet implemented!")
+
+
+class GaussianBinaryLabelRBM(GaussianBinaryRBM):
+    """ Implementation of a centered Restricted Boltzmann machine with Gaussian visible plus Softmax label units and
+        binary hidden units.
+
+    """
+
+    def __init__(self,
+                 number_visibles,
+                 number_labels,
+                 number_hiddens,
+                 data=None,
+                 initial_weights='AUTO',
+                 initial_visible_bias='AUTO',
+                 initial_hidden_bias='AUTO',
+                 initial_sigma='AUTO',
+                 initial_visible_offsets='AUTO',
+                 initial_hidden_offsets='AUTO',
+                 dtype=numx.float64):
+        """ This function initializes all necessary parameters and data  structures. It is recommended to pass the
+             training data to initialize the network automatically.
+
+         :param number_visibles: Number of the visible variables.
+         :type number_visibles: int
+
+         :param number_labels: Number of the label variables.
+         :type number_labels: int
+
+         :param number_hiddens: Number of hidden variables.
+         :type number_hiddens: int
+
+         :param data: The training data for parameter initialization if 'AUTO' is chosen for the corresponding
+                      parameter.
+         :type data: None or numpy array [num samples, input dim]
+
+         :param initial_weights: Initial weights. 'AUTO' and a scalar are random init.
+         :type initial_weights: 'AUTO', scalar or numpy array [input dim, output_dim]
+
+         :param initial_visible_bias: Initial visible bias. 'AUTO' is random, 'INVERSE_SIGMOID' is the inverse Sigmoid
+                                      of the visilbe mean. If a scalar is passed all values are initialized with it.
+         :type initial_visible_bias: 'AUTO','INVERSE_SIGMOID', scalar or numpy array [1, input dim]
+
+         :param initial_hidden_bias: Initial hidden bias. 'AUTO' is random, 'INVERSE_SIGMOID' is the inverse Sigmoid of
+                                     the hidden mean. If a scalar is passed all values are initialized with it.
+         :type initial_hidden_bias: 'AUTO','INVERSE_SIGMOID', scalar or numpy array [1, output_dim]
+
+         :param initial_sigma: Initial standard deviation for the model.
+         :type initial_sigma: 'AUTO', scalar or numpy array [1, input_dim]
+
+         :param initial_visible_offsets: Initial visible offset values. AUTO=data mean or 0.5 if no data is given. If a
+                                         scalar is passed all values are initialized with it.
+         :type initial_visible_offsets: 'AUTO', scalar or numpy array [1, input dim]
+
+         :param initial_hidden_offsets: Initial hidden offset values. AUTO = 0.5 If a scalar is passed all values are
+                                        initialized with it.
+         :type initial_hidden_offsets: 'AUTO', scalar or numpy array [1, output_dim]
+
+         :param dtype: Used data type i.e. numpy.float64
+         :type dtype: numpy.float32 or numpy.float64 or numpy.float128
+         """
+        # Call constructor of superclass
+        super(GaussianBinaryLabelRBM,
+              self).__init__(number_visibles=number_visibles + number_labels,
+                             number_hiddens=number_hiddens,
+                             data=data,
+                             initial_weights=initial_weights,
+                             initial_visible_bias=initial_visible_bias,
+                             initial_hidden_bias=initial_hidden_bias,
+                             initial_sigma=initial_sigma,
+                             initial_visible_offsets=initial_visible_offsets,
+                             initial_hidden_offsets=initial_hidden_offsets,
+                             dtype=dtype)
+        self.visible_dim = number_visibles
+        self.label_dim = number_labels
+
+        self.sigma[:, self.visible_dim:self.input_dim] = numx.ones((1, self.label_dim), dtype=self.dtype)
+
+    def sample_v(self, v, beta=None, use_base_model=False):
+        """ Samples the visible variables from the conditional probabilities v given h.
+
+        :param v: Conditional probabilities of v given h.
+        :type v: numpy array [batch size, input dim]
+
+        :param beta: DUMMY Variable
+                     The sampling in other types of units like Gaussian-Binary
+                     RBMs will be affected by beta.
+        :type beta: None
+
+        :param use_base_model: If true uses the base model, i.e. the MLE of the bias values. (DUMMY in this case)
+        :type use_base_model: bool
+
+        :return: States for v.
+        :rtype: numpy array [batch size, input dim]
+        """
+        if beta is None:
+            res = v[:, 0:self.visible_dim] + numx.random.randn(v.shape[0],
+                                                               self.visible_dim) * self.sigma[:, 0:self.visible_dim]
+        else:
+            res = (v[:, 0:self.visible_dim] + numx.random.randn(v.shape[0], self.visible_dim)
+                   * (beta * (self.sigma - self._data_std) + self._data_std)[:, 0:self.visible_dim])
+
+        return numx.hstack((res, self.dtype(multinominal_batch_sampling(v[:, self.visible_dim:self.input_dim], False))))
+
+    def probability_v_given_h(self, h, beta=None, use_base_model=False):
+        """ Calculates the conditional probabilities of v given h.
+
+        :param h: Hidden states.
+        :type h: numpy array [batch size, output dim]
+
+        :param beta: Allows to sample from a given inverse temperature beta, or if a vector is given to sample from
+                     different betas simultaneously. None is equivalent to pass the value 1.0
+        :type beta: None, float or numpy array [batch size, 1]
+
+        :param use_base_model: If true uses the base model, i.e. the MLE of the bias values.
+        :type use_base_model: bool
+
+        :return: Conditional probabilities v given h.
+        :rtype: numpy array [batch size, input d
+        """
+        activation = self._visible_pre_activation(h)
+        if beta is not None:
+            activation *= beta
+            if use_base_model is True:
+                activation += (1.0 - beta) * self.bv_base
+        activation += self.ov
+        return numx.hstack((activation[:, 0:self.visible_dim],
+                            SoftMax.f(activation[:, self.visible_dim:self.input_dim])))
+
+    def _add_visible_units(self):
+        """ Not available!
+        """
+        raise Exception("Not yet implemented!")
+
+    def _remove_visible_units(self):
+        """ Not available!
+        """
+        raise Exception("Not yet implemented!")
+
+    def energy(self):
+        """ Not available!
+        """
+        raise Exception("Not yet implemented!")
+
+    def unnormalized_log_probability_v(self):
+        """ Not available!
+        """
+        raise Exception("Not yet implemented!")
+
+    def unnormalized_log_probability_h(self):
+        """ Not available!
+        """
+        raise Exception("Not yet implemented!")
+
+    def log_probability_v(self):
+        """ Not available!
+        """
+        raise Exception("Not yet implemented!")
+
+    def log_probability_h(self):
+        """ Not available!
+        """
+        raise Exception("Not yet implemented!")
+
+    def log_probability_v_h(self):
+        """ Not available!
+        """
+        raise Exception("Not yet implemented!")
+
+    def _base_log_partition(self):
+        """ Not available!
+        """
+        raise Exception("Not yet implemented!")
+
+    def _getbasebias(self):
+        """ Not available!
+        """
+        raise Exception("Not yet implemented!")
+
+
+class BinaryRectRBM(BinaryBinaryRBM):
+    """ Implementation of a centered Restricted Boltzmann machine with Binary visible and Noisy linear rectified
+        hidden units.
+
+    """
+
+    def __init__(self,
+                 number_visibles,
+                 number_hiddens,
+                 data=None,
+                 initial_weights='AUTO',
+                 initial_visible_bias='AUTO',
+                 initial_hidden_bias='AUTO',
+                 initial_visible_offsets='AUTO',
+                 initial_hidden_offsets='AUTO',
+                 dtype=numx.float64):
+        """ This function initializes all necessary parameters and data  structures. It is recommended to pass the
+             training data to initialize the network automatically.
+
+         :param number_visibles: Number of the visible variables.
+         :type number_visibles: int
+
+         :param number_hiddens: Number of hidden variables.
+         :type number_hiddens: int
+
+         :param data: The training data for parameter initialization if 'AUTO' is chosen for the corresponding
+                      parameter.
+         :type data: None or numpy array [num samples, input dim]
+
+         :param initial_weights: Initial weights. 'AUTO' and a scalar are random init.
+         :type initial_weights: 'AUTO', scalar or numpy array [input dim, output_dim]
+
+         :param initial_visible_bias: Initial visible bias. 'AUTO' is random, 'INVERSE_SIGMOID' is the inverse Sigmoid
+                                      of the visilbe mean. If a scalar is passed all values are initialized with it.
+         :type initial_visible_bias: 'AUTO','INVERSE_SIGMOID', scalar or numpy array [1, input dim]
+
+         :param initial_hidden_bias: Initial hidden bias. 'AUTO' is random, 'INVERSE_SIGMOID' is the inverse Sigmoid of
+                                     the hidden mean. If a scalar is passed all values are initialized with it.
+         :type initial_hidden_bias: 'AUTO','INVERSE_SIGMOID', scalar or numpy array [1, output_dim]
+
+         :param initial_visible_offsets: Initial visible offset values. AUTO=data mean or 0.5 if no data is given. If a
+                                         scalar is passed all values are initialized with it.
+         :type initial_visible_offsets: 'AUTO', scalar or numpy array [1, input dim]
+
+         :param initial_hidden_offsets: Initial hidden offset values. AUTO = 0.5 If a scalar is passed all values are
+                                        initialized with it.
+         :type initial_hidden_offsets: 'AUTO', scalar or numpy array [1, output_dim]
+
+         :param dtype: Used data type i.e. numpy.float64
+         :type dtype: numpy.float32 or numpy.float64 or numpy.float128
+         """
+        # Call constructor of superclass
+        super(BinaryBinaryRBM,
+              self).__init__(number_visibles=number_visibles,
+                             number_hiddens=number_hiddens,
+                             data=data,
+                             initial_weights=initial_weights,
+                             initial_visible_bias=initial_visible_bias,
+                             initial_hidden_bias=initial_hidden_bias,
+                             initial_visible_offsets=initial_visible_offsets,
+                             initial_hidden_offsets=initial_hidden_offsets,
+                             dtype=dtype)
+        self.temp = 0
+        self.max_act = 1000.0
+
+    def probability_h_given_v(self, v, beta=None):
+        """ Calculates the conditional probabilities h given v.
+
+        :param v: Visible states / data.
+        :type v: numpy array [batch size, input dim]
+
+        :param beta: Allows to sample from a given inverse temperature beta, or if a vector is given to sample from
+                     different betas simultaneously.
+        :type beta: float or numpy array [batch size, 1]
+
+        :return: Conditional probabilities h given v.
+        :rtype: numpy array [batch size, output dim]
+        """
+        activation = numx.dot(v - self.ov, self.w) + self.bh
+        if beta is not None:
+            activation *= beta
+        self.temp = activation
+        activation = numx.log(1.0 + numx.exp(activation))
+        return activation
+
+    def sample_h(self, h, beta=None, use_base_model=False):
+        """ Samples the hidden variables from the conditional probabilities h given v.
+
+        :param h: Conditional probabilities of h given v.
+        :type h: numpy array [batch size, output dim]
+
+        :param beta: DUMMY Variable
+                     The sampling in other types of units like Gaussian-Binary RBMs will be affected by beta.
+        :type beta: None
+
+        :param use_base_model: If true uses the base model, i.e. the MLE of the bias values. (DUMMY in this case)
+        :type use_base_model: bool
+
+        :return: States for h.
+        :rtype: numpy array [batch size, output dim]
+        """
+        x = self.temp  # numx.log(numx.exp(h)-1.0)
+        activation = x + numx.random.randn(x.shape[0], x.shape[1]) * Sigmoid.f(x)
+        return numx.clip(activation, 0.0, self.max_act)
+
+    def _add_visible_units(self):
+        """ Not available!
+        """
+        raise Exception("Not implemented!")
+
+    def _remove_visible_units(self):
+        """ Not available!
+        """
+        raise Exception("Not implemented!")
+
+    def energy(self):
+        """ Not available!
+        """
+        raise Exception("Not implemented!")
+
+    def unnormalized_log_probability_v(self):
+        """ Not available!
+        """
+        raise Exception("Not implemented!")
+
+    def unnormalized_log_probability_h(self):
+        """ Not available!
+        """
+        raise Exception("Not implemented!")
+
+    def log_probability_v(self):
+        """ Not available!
+        """
+        raise Exception("Not implemented!")
+
+    def log_probability_h(self):
+        """ Not available!
+        """
+        raise Exception("Not implemented!")
+
+    def log_probability_v_h(self):
+        """ Not available!
+        """
+        raise Exception("Not implemented!")
+
+    def _base_log_partition(self):
+        """ Not available!
+        """
+        raise Exception("Not implemented!")
+
+    def _getbasebias(self):
+        """ Not available!
+        """
+        raise Exception("Not implemented!")
+
+
+class RectBinaryRBM(BinaryBinaryRBM):
+    """ Implementation of a centered Restricted Boltzmann machine with Noisy linear rectified visible units and binary
+        hidden units.
+
+    """
+
+    def __init__(self,
+                 number_visibles,
+                 number_hiddens,
+                 data=None,
+                 initial_weights='AUTO',
+                 initial_visible_bias='AUTO',
+                 initial_hidden_bias='AUTO',
+                 initial_visible_offsets='AUTO',
+                 initial_hidden_offsets='AUTO',
+                 dtype=numx.float64):
+        """ This function initializes all necessary parameters and data  structures. It is recommended to pass the
+             training data to initialize the network automatically.
+
+         :param number_visibles: Number of the visible variables.
+         :type number_visibles: int
+
+         :param number_hiddens: Number of hidden variables.
+         :type number_hiddens: int
+
+         :param data: The training data for parameter initialization if 'AUTO' is chosen for the corresponding
+                      parameter.
+         :type data: None or numpy array [num samples, input dim]
+
+         :param initial_weights: Initial weights. 'AUTO' and a scalar are random init.
+         :type initial_weights: 'AUTO', scalar or numpy array [input dim, output_dim]
+
+         :param initial_visible_bias: Initial visible bias. 'AUTO' is random, 'INVERSE_SIGMOID' is the inverse Sigmoid
+                                      of the visilbe mean. If a scalar is passed all values are initialized with it.
+         :type initial_visible_bias: 'AUTO','INVERSE_SIGMOID', scalar or numpy array [1, input dim]
+
+         :param initial_hidden_bias: Initial hidden bias. 'AUTO' is random, 'INVERSE_SIGMOID' is the inverse Sigmoid of
+                                     the hidden mean. If a scalar is passed all values are initialized with it.
+         :type initial_hidden_bias: 'AUTO','INVERSE_SIGMOID', scalar or numpy array [1, output_dim]
+
+         :param initial_visible_offsets: Initial visible offset values. AUTO=data mean or 0.5 if no data is given. If a
+                                         scalar is passed all values are initialized with it.
+         :type initial_visible_offsets: 'AUTO', scalar or numpy array [1, input dim]
+
+         :param initial_hidden_offsets: Initial hidden offset values. AUTO = 0.5 If a scalar is passed all values are
+                                        initialized with it.
+         :type initial_hidden_offsets: 'AUTO', scalar or numpy array [1, output_dim]
+
+         :param dtype: Used data type i.e. numpy.float64
+         :type dtype: numpy.float32 or numpy.float64 or numpy.float128
+         """
+        # Call constructor of superclass
+        super(BinaryBinaryRBM,
+              self).__init__(number_visibles=number_visibles,
+                             number_hiddens=number_hiddens,
+                             data=data,
+                             initial_weights=initial_weights,
+                             initial_visible_bias=initial_visible_bias,
+                             initial_hidden_bias=initial_hidden_bias,
+                             initial_visible_offsets=initial_visible_offsets,
+                             initial_hidden_offsets=initial_hidden_offsets,
+                             dtype=dtype)
+        self.temp = 0
+        self.max_act = 1000.0
+
+    def probability_v_given_h(self, h, beta=None, use_base_model=False):
+        """ Calculates the conditional probabilities of v given h.
+
+        :param h: Hidden states.
+        :type h: numpy array [batch size, output dim]
+
+        :param beta: Allows to sample from a given inverse temperature beta, or if a vector is given to sample from
+                     different betas simultaneously. None is equivalent to pass the value 1.0
+        :type beta: None, float or numpy array [batch size, 1]
+
+        :param use_base_model: If true uses the base model, i.e. the MLE of the bias values.
+        :type use_base_model: bool
+
+        :return: Conditional probabilities v given h.
+        :rtype: numpy array [batch size, input d
+        """
+        activation = numx.dot(h - self.oh, self.w.T) + self.bv
+        if beta is not None:
+            activation *= beta
+        self.temp = activation
+        activation = numx.log(1.0 + numx.exp(activation))
+        return activation
+
+    def sample_v(self, v, beta=None, use_base_model=False):
+        """ Samples the visible variables from the conditional probabilities v given h.
+
+        :param v: Conditional probabilities of v given h.
+        :type v: numpy array [batch size, input dim]
+
+        :param beta: DUMMY Variable
+                     The sampling in other types of units like Gaussian-Binary
+                     RBMs will be affected by beta.
+        :type beta: None
+
+        :param use_base_model: If true uses the base model, i.e. the MLE of the bias values. (DUMMY in this case)
+        :type use_base_model: bool
+
+        :return: States for v.
+        :rtype: numpy array [batch size, input dim]
+        """
+        x = self.temp  # numx.log(numx.exp(h)-1.0)
+        activation = v + numx.random.randn(x.shape[0], x.shape[1]) * Sigmoid.f(x)
+        return numx.clip(activation, 0.0, self.max_act)
+
+    def _add_visible_units(self):
+        """ Not available!
+        """
+        raise Exception("Not implemented!")
+
+    def _remove_visible_units(self):
+        """ Not available!
+        """
+        raise Exception("Not implemented!")
+
+    def energy(self):
+        """ Not available!
+        """
+        raise Exception("Not implemented!")
+
+    def unnormalized_log_probability_v(self):
+        """ Not available!
+        """
+        raise Exception("Not implemented!")
+
+    def unnormalized_log_probability_h(self):
+        """ Not available!
+        """
+        raise Exception("Not implemented!")
+
+    def log_probability_v(self):
+        """ Not available!
+        """
+        raise Exception("Not implemented!")
+
+    def log_probability_h(self):
+        """ Not available!
+        """
+        raise Exception("Not implemented!")
+
+    def log_probability_v_h(self):
+        """ Not available!
+        """
+        raise Exception("Not implemented!")
+
+    def _base_log_partition(self):
+        """ Not available!
+        """
+        raise Exception("Not implemented!")
+
+    def _getbasebias(self):
+        """ Not available!
+        """
+        raise Exception("Not implemented!")
+
+
+class RectRectRBM(BinaryRectRBM):
+    """ Implementation of a centered Restricted Boltzmann machine with Noisy
+        linear rectified visible and hidden units.
+
+    """
+
+    def __init__(self,
+                 number_visibles,
+                 number_hiddens,
+                 data=None,
+                 initial_weights='AUTO',
+                 initial_visible_bias='AUTO',
+                 initial_hidden_bias='AUTO',
+                 initial_visible_offsets='AUTO',
+                 initial_hidden_offsets='AUTO',
+                 dtype=numx.float64):
+        """ This function initializes all necessary parameters and data  structures. It is recommended to pass the
+             training data to initialize the network automatically.
+
+         :param number_visibles: Number of the visible variables.
+         :type number_visibles: int
+
+         :param number_hiddens: Number of hidden variables.
+         :type number_hiddens: int
+
+         :param data: The training data for parameter initialization if 'AUTO' is chosen for the corresponding
+                      parameter.
+         :type data: None or numpy array [num samples, input dim]
+
+         :param initial_weights: Initial weights. 'AUTO' and a scalar are random init.
+         :type initial_weights: 'AUTO', scalar or numpy array [input dim, output_dim]
+
+         :param initial_visible_bias: Initial visible bias. 'AUTO' is random, 'INVERSE_SIGMOID' is the inverse Sigmoid
+                                      of the visilbe mean. If a scalar is passed all values are initialized with it.
+         :type initial_visible_bias: 'AUTO','INVERSE_SIGMOID', scalar or numpy array [1, input dim]
+
+         :param initial_hidden_bias: Initial hidden bias. 'AUTO' is random, 'INVERSE_SIGMOID' is the inverse Sigmoid of
+                                     the hidden mean. If a scalar is passed all values are initialized with it.
+         :type initial_hidden_bias: 'AUTO','INVERSE_SIGMOID', scalar or numpy array [1, output_dim]
+
+         :param initial_visible_offsets: Initial visible offset values. AUTO=data mean or 0.5 if no data is given. If a
+                                         scalar is passed all values are initialized with it.
+         :type initial_visible_offsets: 'AUTO', scalar or numpy array [1, input dim]
+
+         :param initial_hidden_offsets: Initial hidden offset values. AUTO = 0.5 If a scalar is passed all values are
+                                        initialized with it.
+         :type initial_hidden_offsets: 'AUTO', scalar or numpy array [1, output_dim]
+
+         :param dtype: Used data type i.e. numpy.float64
+         :type dtype: numpy.float32 or numpy.float64 or numpy.float128
+         """
+        # Call constructor of superclass
+        super(BinaryRectRBM,
+              self).__init__(number_visibles=number_visibles,
+                             number_hiddens=number_hiddens,
+                             data=data,
+                             initial_weights=initial_weights,
+                             initial_visible_bias=initial_visible_bias,
+                             initial_hidden_bias=initial_hidden_bias,
+                             initial_visible_offsets=initial_visible_offsets,
+                             initial_hidden_offsets=initial_hidden_offsets,
+                             dtype=dtype)
+        self.temp = 0
+        self.max_act = 1000.0
+
+    def probability_v_given_h(self, h, beta=None, use_base_model=False):
+        """ Calculates the conditional probabilities of v given h.
+
+        :param h: Hidden states.
+        :type h: numpy array [batch size, output dim]
+
+        :param beta: Allows to sample from a given inverse temperature beta, or if a vector is given to sample from
+                     different betas simultaneously. None is equivalent to pass the value 1.0
+        :type beta: None, float or numpy array [batch size, 1]
+
+        :param use_base_model: If true uses the base model, i.e. the MLE of the bias values.
+        :type use_base_model: bool
+
+        :return: Conditional probabilities v given h.
+        :rtype: numpy array [batch size, input d
+        """
+        activation = numx.dot(h - self.oh, self.w.T) + self.bv
+        if beta is not None:
+            activation *= beta
+        self.temp = activation
+        activation = numx.log(1.0 + numx.exp(activation))
+        return activation
+
+    def sample_v(self, v, beta=None, use_base_model=False):
+        """ Samples the visible variables from the conditional probabilities v given h.
+
+        :param v: Conditional probabilities of v given h.
+        :type v: numpy array [batch size, input dim]
+
+        :param beta: DUMMY Variable
+                     The sampling in other types of units like Gaussian-Binary
+                     RBMs will be affected by beta.
+        :type beta: None
+
+        :param use_base_model: If true uses the base model, i.e. the MLE of the bias values. (DUMMY in this case)
+        :type use_base_model: bool
+
+        :return: States for v.
+        :rtype: numpy array [batch size, input dim]
+        """
+        x = self.temp  # numx.log(numx.exp(h)-1.0)
+        activation = v + numx.random.randn(x.shape[0], x.shape[1]) * Sigmoid.f(x)
+        return numx.clip(activation, 0.0, self.max_act)
+
+
+class GaussianRectRBM(GaussianBinaryRBM):
+    """ Implementation of a centered Restricted Boltzmann machine with Gaussian visible and Noisy linear rectified
+        hidden units.
+
+    """
+
+    def __init__(self,
+                 number_visibles,
+                 number_hiddens,
+                 data=None,
+                 initial_weights='AUTO',
+                 initial_visible_bias='AUTO',
+                 initial_hidden_bias='AUTO',
+                 initial_sigma='AUTO',
+                 initial_visible_offsets='AUTO',
+                 initial_hidden_offsets='AUTO',
+                 dtype=numx.float64):
+        """ This function initializes all necessary parameters and data structures. See comments for automatically
+            chosen values.
+
+        :param number_visibles: Number of the visible variables.
+        :type number_visibles: int
+
+        :param number_hiddens: Number of the hidden variables.
+        :type number_hiddens: int
+
+        :param data: The training data for initializing the visible bias.
+        :type data: None or numpy array [num samples, input dim] or List of numpy arrays [num samples, input dim]
+
+        :param initial_weights: Initial weights.
+        :type initial_weights: 'AUTO', scalar or numpy array [input dim, output_dim]
+
+        :param initial_visible_bias: Initial visible bias.
+        :type initial_visible_bias: 'AUTO', scalar or numpy array [1,input dim]
+
+        :param initial_hidden_bias: Initial hidden bias.
+        :type initial_hidden_bias: 'AUTO', scalar or numpy array [1, output_dim]
+
+        :param initial_sigma: Initial standard deviation for the model.
+        :type initial_sigma: 'AUTO', scalar or numpy array [1, input_dim]
+
+        :param initial_visible_offsets: Initial visible mean values.
+        :type initial_visible_offsets: 'AUTO', scalar or numpy array [1, input dim]
+
+        :param initial_hidden_offsets: Initial hidden mean values.
+        :type initial_hidden_offsets: 'AUTO', scalar or numpy array [1, output_dim]
+
+        :param dtype: Used data type.
+        :type dtype: numpy.float32, numpy.float64 and, numpy.float128
+        """
+
+        # Call constructor of superclass
+        super(GaussianRectRBM,
+              self).__init__(number_visibles=number_visibles,
+                             number_hiddens=number_hiddens,
+                             data=data,
+                             initial_weights=initial_weights,
+                             initial_visible_bias=initial_visible_bias,
+                             initial_hidden_bias=initial_hidden_bias,
+                             initial_sigma=initial_sigma,
+                             initial_visible_offsets=initial_visible_offsets,
+                             initial_hidden_offsets=initial_hidden_offsets,
+                             dtype=dtype)
+        self.max_act = 10.0
+        self.temp = 0
+
+    def probability_h_given_v(self, v, beta=None):
+        """ Calculates the conditional probabilities h given v.
+
+        :param v: Visible states / data.
+        :type v: numpy array [batch size, input dim]
+
+        :param beta: Allows to sample from a given inverse temperature beta, or if a vector is given to sample from
+                     different betas simultaneously.
+        :type beta: float or numpy array [batch size, 1]
+
+        :return: Conditional probabilities h given v.
+        :rtype: numpy array [batch size, output dim]
+        """
+        temp_sigma = self.sigma
+        if beta is not None:
+            temp_sigma = (self.sigma * beta + self._data_std * (1.0 - beta))
+        activation = self.bh + numx.dot((v - self.ov) / (temp_sigma ** 2), self.w)
+        self.temp = activation
+        activation = numx.log(1.0 + numx.exp(activation))
+        return activation
+
+    def sample_h(self, h, beta=None, use_base_model=False):
+        """ Samples the hidden variables from the conditional probabilities h given v.
+
+        :param h: Conditional probabilities of h given v.
+        :type h: numpy array [batch size, output dim]
+
+        :param beta: DUMMY Variable
+                     The sampling in other types of units like Gaussian-Binary RBMs will be affected by beta.
+        :type beta: None
+
+        :param use_base_model: If true uses the base model, i.e. the MLE of the bias values. (DUMMY in this case)
+        :type use_base_model: bool
+
+        :return: States for h.
+        :rtype: numpy array [batch size, output dim]
+        """
+        x = self.temp  # numx.log(numx.exp(h)-1.0)
+        activation = x + numx.random.randn(x.shape[0], x.shape[1]) * Sigmoid.f(x)
+        return numx.clip(activation, 0.0, self.max_act)
+
+    def _add_visible_units(self):
+        """ Not available!
+        """
+        raise Exception("Not implemented!")
+
+    def _remove_visible_units(self):
+        """ Not available!
+        """
+        raise Exception("Not implemented!")
+
+    def energy(self):
+        """ Not available!
+        """
+        raise Exception("Not implemented!")
+
+    def unnormalized_log_probability_v(self):
+        """ Not available!
+        """
+        raise Exception("Not implemented!")
+
+    def unnormalized_log_probability_h(self):
+        """ Not available!
+        """
+        raise Exception("Not implemented!")
+
+    def log_probability_v(self):
+        """ Not available!
+        """
+        raise Exception("Not implemented!")
+
+    def log_probability_h(self):
+        """ Not available!
+        """
+        raise Exception("Not implemented!")
+
+    def log_probability_v_h(self):
+        """ Not available!
+        """
+        raise Exception("Not implemented!")
+
+    def _base_log_partition(self):
+        """ Not available!
+        """
+        raise Exception("Not implemented!")
+
+    def _getbasebias(self):
+        """ Not available!
+        """
+        raise Exception("Not implemented!")
+
+
+class GaussianRectVarianceRBM(GaussianRectRBM):
+    """ Implementation of a Restricted Boltzmann machine with Gaussian visible having trainable variances and noisy
+        rectified hidden units.
+
+    """
+
+    def __init__(self,
+                 number_visibles,
+                 number_hiddens,
+                 data=None,
+                 initial_weights='AUTO',
+                 initial_visible_bias='AUTO',
+                 initial_hidden_bias='AUTO',
+                 initial_sigma='AUTO',
+                 initial_visible_offsets=0.0,
+                 initial_hidden_offsets=0.0,
+                 dtype=numx.float64):
+        """ This function initializes all necessary parameters and data structures. See comments for automatically
+            chosen values.
+
+        :param number_visibles: Number of the visible variables.
+        :type number_visibles: int
+
+        :param number_hiddens: Number of the hidden variables.
+        :type number_hiddens: int
+
+        :param data: The training data for initializing the visible bias.
+        :type data: None or numpy array [num samples, input dim] or List of numpy arrays [num samples, input dim]
+
+        :param initial_weights: Initial weights.
+        :type initial_weights: 'AUTO', scalar or numpy array [input dim, output_dim]
+
+        :param initial_visible_bias: Initial visible bias.
+        :type initial_visible_bias: 'AUTO', scalar or numpy array [1,input dim]
+
+        :param initial_hidden_bias: Initial hidden bias.
+        :type initial_hidden_bias: 'AUTO', scalar or numpy array [1, output_dim]
+
+        :param initial_sigma: Initial standard deviation for the model.
+        :type initial_sigma: 'AUTO', scalar or numpy array [1, input_dim]
+
+        :param initial_visible_offsets: Initial visible mean values.
+        :type initial_visible_offsets: 'AUTO', scalar or numpy array [1, input dim]
+
+        :param initial_hidden_offsets: Initial hidden mean values.
+        :type initial_hidden_offsets: 'AUTO', scalar or numpy array [1, output_dim]
+
+        :param dtype: Used data type.
+        :type dtype: numpy.float32, numpy.float64 and, numpy.float128
+        """
+        # Call constructor of superclass
+        super(GaussianRectVarianceRBM,
+              self).__init__(number_visibles=number_visibles,
+                             number_hiddens=number_hiddens,
+                             data=data,
+                             initial_weights=initial_weights,
+                             initial_visible_bias=initial_visible_bias,
+                             initial_hidden_bias=initial_hidden_bias,
+                             initial_sigma=initial_sigma,
+                             initial_visible_offsets=initial_visible_offsets,
+                             initial_hidden_offsets=initial_hidden_offsets,
+                             dtype=dtype)
+
+    def _calculate_sigma_gradient(self, v, h):
+        """ This function calculates the gradient for the variance of the RBM.
+
+        :param v: States of the visible variables.
+        :type v: numpy arrays [batchsize, input dim]
+
+        :param h: Probabilities of the hidden variables.
+        :type h: numpy arrays [batchsize, output dim]
+
+        :return: Sigma gradient.
+        :rtype: list of numpy arrays [input dim,1]
+        """
+        var_diff = (v - self.bv - self.ov) ** 2
+        return (var_diff - 2.0 * (v - self.ov) * numx.dot(h, self.w.T)).sum(axis=0) / (self.sigma ** 3)
+
+    def get_parameters(self):
+        """ This function returns all model parameters in a list.
+
+        :return: The parameter references in a list.
+        :rtype: list
+        """
+        return [self.w, self.bv, self.bh, self.sigma]
+
+    def calculate_gradients(self, v, h):
+        """ This function calculates all gradients of this RBM and returns them as an ordered array. This keeps the
             flexibility of adding parameters which will be updated by the training algorithms.
 
         :param v: States of the visible variables.

@@ -19,7 +19,7 @@
       
     :Info:
         For the derivations .. seealso::
-        http://www.ini.rub.de/data/documents/tns/masterthesis_janmelchior.pdf
+        https://www.ini.rub.de/PEOPLE/wiskott/Reprints/Melchior-2012-MasterThesis-RBMs.pdf
         
     :Version:
         1.1.0

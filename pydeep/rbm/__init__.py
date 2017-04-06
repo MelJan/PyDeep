@@ -32,4 +32,4 @@
         along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 """
-__all__ = ["model", "trainer", "estimator", "sampler"]
+__all__ = ["model", "trainer", "estimator", "sampler", "dbn"]

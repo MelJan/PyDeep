@@ -2,12 +2,13 @@
 
     :Implemented:
         - BipartiteGraph
+        - StackOfBipartiteGraphs
    
     :Version:
         1.1.0
 
     :Date:
-        13.03.2017
+        06.04.2017
 
     :Author:
         Jan Melchior
@@ -37,6 +38,7 @@
 """
 import numpy as numx
 from pydeep.base.activationfunction import Sigmoid
+from pydeep.misc.io import save_object
 import exceptions as ex
 
 
@@ -296,7 +298,7 @@ class BipartiteGraph(object):
         # Array  -> The corresponding values are used
         if initial_weights is 'AUTO':
             new_weights = ((2.0 * numx.random.rand(self.input_dim, num_new_hiddens) - 1.0) * (
-                            4.0 * numx.sqrt(6.0 / (self.input_dim + self.output_dim + num_new_hiddens))))
+                4.0 * numx.sqrt(6.0 / (self.input_dim + self.output_dim + num_new_hiddens))))
         else:
             if numx.isscalar(initial_weights):
                 new_weights = numx.random.randn(self.input_dim, num_new_hiddens) * initial_weights
@@ -493,3 +495,166 @@ class BipartiteGraph(object):
         if update_visible_offsets != 0.0:
             self.bh += (update_visible_offsets * numx.dot(new_visible_offsets - self.ov, self.w))
             self.ov = ((1.0 - update_visible_offsets) * self.ov + update_visible_offsets * new_visible_offsets)
+
+
+class StackOfBipartiteGraphs(object):
+    """ Stacked network layers
+    """
+
+    def __init__(self, list_of_layers):
+        """ Initializes the network with auto encoders.
+
+        :param list_of_layers: List of Layers i.e. BipartiteGraph.
+        :type list_of_layers: list
+        """
+        self._layers = list_of_layers
+        self._input_dim = None
+        self._output_dim = None
+        self.states = [None]
+        if len(list_of_layers) > 0:
+            self.states = [None for _ in range(len(list_of_layers) + 1)]
+            self._check_network()
+            self._input_dim = self._layers[0].input_dim
+            self._output_dim = self._layers[len(self._layers) - 1].output_dim
+
+
+    def _check_network(self):
+        """ Check whether the network is consistent and raise an exception if it is not the case.
+
+        """
+        for i in range(1, len(self._layers)):
+            if self._layers[i - 1].output_dim != self._layers[i].input_dim:
+                raise Exception(
+                    "Output_dim of layer " + str(i - 1) + " has to match input_dim of layer " + str(i) + "!")
+
+    @property
+    def input_dim(self):
+        """ Networks input dimensionality.
+        """
+        return self._input_dim
+
+    @property
+    def output_dim(self):
+        """ Networks output dimensionality.
+        """
+        return self._output_dim
+
+    @property
+    def depth(self):
+        """ Networks depth/ number of layers.
+        """
+        return len(self.states)
+
+    @property
+    def num_layers(self):
+        """ Networks depth/ number of layers.
+        """
+        return len(self._layers)
+
+    def __getitem__(self, key):
+        """ Indexing returns the layers current state.
+
+        :param key: Index of the layer.
+        :type key: int
+
+        :return: State of the layer with index 'key'.
+        :rtype: numpy array [batchsize x output dim of current layer]
+        """
+        return self._layers[key]
+
+    def __setitem__(self, key, value):
+        """ Sets the state of the current layers state.
+
+        :param key: Index of the layer.
+        :type key: int
+
+        :param value: State of the layer with index 'key'.
+        :type value: numpy array [batchsize x output dim of current layer]
+        """
+        if value.input_dim == self._layers[key].input_dim and value.output_dim == self._layers[key].output_dim:
+            self._layers[key] = value
+        else:
+            raise Exception("New model have wrong dimensionality!")
+
+    def append_layer(self, layer):
+        """ Appends the model to the network.
+
+        :param layer: Layer object.
+        :type layer: Layer object i.e. BipartiteGraph.
+        """
+        self._layers.append(layer)
+        self.states.append(None)
+        self._output_dim = layer.output_dim
+        self._check_network()
+
+    def pop_last_layer(self):
+        """ Removes/pops the last layer in the network.
+
+        """
+        if len(self._layers) > 0:
+            self._layers.pop(len(self._layers) - 1)
+            self.states.pop(len(self.states) - 1)
+        if len(self._layers) > 0:
+            self._input_dim = self._layers[0].input_dim
+            self._output_dim = self._layers[len(self._layers) - 1].output_dim
+        else:
+            self._input_dim = None
+            self._output_dim = None
+        self._check_network()
+
+    def save(self, path, save_states=False):
+        """ Saves the network.
+
+        :param path: Filename+path.
+        :type path: string.
+
+        :param save_states: If true the current states are saved.
+        :type save_states: bool
+        """
+        if save_states is False:
+            for c in range(len(self.states)):
+                self.states[c] = None
+        save_object(self, path)
+
+    def forward_propagate(self, input_data):
+        """ Propagates the data through the network.
+
+        :param input_data: Input data.
+        :type input_data: numpy array [batchsize x input dim]
+
+        :return: Output of the network.
+        :rtype: numpy array [batchsize x output dim]
+        """
+        if input_data.shape[1] != self._input_dim:
+            raise Exception("Input dimensionality has to match dbn.input_dim!")
+        self.states[0] = input_data
+        for l in range(len(self._layers)):
+            self.states[l + 1] = self._layers[l].hidden_activation(self.states[l])
+        return self.states[len(self._layers)]
+
+    def backward_propagate(self, output_data):
+        """ Propagates the output back through the input.
+
+        :param output_data: Output data.
+        :type output_data: numpy array [batchsize x output dim]
+
+        :return:  Input of the network.
+        :rtype: numpy array [batchsize x input dim]
+        """
+        if output_data.shape[1] != self._output_dim:
+            raise Exception("Output dimensionality has to match dbn.output_dim!")
+        self.states[len(self._layers)] = output_data
+        for l in range(len(self._layers), 0, -1):
+            self.states[l - 1] = self._layers[l - 1].visible_activation(self.states[l])
+        return self.states[0]
+
+    def reconstruct(self, input_data):
+        """ Reconstructs the data by propagating the data to the output and back to the input.
+
+        :param input_data: Input data.
+        :type input_data: numpy array [batchsize x input dim]
+
+        :return: Output of the network.
+        :rtype: numpy array [batchsize x output dim]
+        """
+        return self.backward_propagate(self.forward_propagate(input_data))
