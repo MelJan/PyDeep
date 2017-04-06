@@ -60,7 +60,7 @@ import copy
 import numpy as numx
 from matplotlib.pyplot import *
 
-from pydeep.base.preprocessing import rescale_data
+from pydeep.preprocessing import rescale_data
 
 
 def tile_matrix_columns(matrix,

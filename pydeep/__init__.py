@@ -1,4 +1,4 @@
-""" Module initializer includes all sub-modules.
+""" Root package directory containing all subpackages og the library.
 
     :Version:
         1.1.0
@@ -32,4 +32,4 @@
         along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 """
-__all__ = ["base", "misc", "rbm"]
+__all__ = ["base", "misc", "rbm", "preprocessing"]

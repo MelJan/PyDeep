@@ -1,4 +1,4 @@
-""" Module initializer includes all sub-modules.
+""" Package providing rbm models and corresponding sampler, trainer and estimator.
         
     :Version:
         1.1.0

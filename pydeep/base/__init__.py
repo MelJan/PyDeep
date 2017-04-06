@@ -1,4 +1,5 @@
-""" Module initializer includes all sub-modules.
+""" Package providing basic/fundamental functions/structures such as cost-functions, activation-functions, \
+    preprocessing ...
         
     :Version:
         1.1.0
@@ -32,4 +33,4 @@
         along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 """
-__all__ = ["activationfunction", "basicstructures", "corruptor", "costfunction", "numpyextension", "preprocessing"]
+__all__ = ["activationfunction", "basicstructures", "corruptor", "costfunction", "numpyextension"]

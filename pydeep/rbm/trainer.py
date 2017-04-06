@@ -590,8 +590,7 @@ class IPT(CD):
                  num_samples,
                  betas=3,
                  data=None):
-        """ The constructor initializes the IPT trainer with a given model and
-            data.
+        """ The constructor initializes the IPT trainer with a given model and data.
 
         :param model: The model to sample from.
         :type model: Valid model class.

@@ -1,4 +1,4 @@
-""" Module initializer includes all sub-modules.
+""" Package providing miscellaneous functionalities such as datsets, input-output, visualization, profiling methods ...
 
     :Version:
         1.1.0
