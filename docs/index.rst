@@ -31,6 +31,10 @@ Tutorials
 
    Tutorials<tutorial.rst>
 
+Documentation
+***********************
+.. toctree::
+   :maxdepth: 2
 
 
 Indices and tables
