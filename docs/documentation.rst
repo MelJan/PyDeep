@@ -1,5 +1,0 @@
-Documentation
-*****************
-
-PyDeeps API
-
