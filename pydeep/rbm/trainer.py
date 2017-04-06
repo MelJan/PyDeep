@@ -11,8 +11,8 @@
         - GD   (Exact Gradient descent (only for small binary models))
 
     :Info:
-        For the derivations .. seealso::
-        http://www.ini.rub.de/data/documents/tns/masterthesis_janmelchior.pdf
+        For the derivations \
+        .. seealso:: http://www.ini.rub.de/data/documents/tns/masterthesis_janmelchior.pdf
 
     :Version:
         1.1.0

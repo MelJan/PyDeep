@@ -18,7 +18,7 @@
         - Reverse annealed importance sampling to approximated the partition function.
       
     :Info:
-        For the derivations .. seealso::
+        For the derivations .. seealso:: \
         https://www.ini.rub.de/PEOPLE/wiskott/Reprints/Melchior-2012-MasterThesis-RBMs.pdf
         
     :Version:

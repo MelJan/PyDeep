@@ -19,8 +19,8 @@
         - centered GaussianRectVariance RBM (GRV-RBM)
 
     :Info:
-        For the derivations .. seealso::
-        https://www.ini.rub.de/PEOPLE/wiskott/Reprints/Melchior-2012-MasterThesis-RBMs.pdf
+        For the derivations \
+        .. seealso:: https://www.ini.rub.de/PEOPLE/wiskott/Reprints/Melchior-2012-MasterThesis-RBMs.pdf
 
         A usual way to create a new unit is to inherit from a given RBM class
         and override the functions that changed, e.g. Gaussian-Binary RBM
