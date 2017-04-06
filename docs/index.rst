@@ -14,20 +14,19 @@ Installation
 **********************************
 .. toctree::
    :maxdepth: 2
-
    Installation<installation.rst>
 
 Tutorials
 **********************************
 .. toctree::
    :maxdepth: 2
-
    Tutorials<tutorial.rst>
 
 Documentation
 **********************************
 .. toctree::
    :maxdepth: 2
+   Tutorials<documentation.rst>
 
 Indices and tables
 **********************************
