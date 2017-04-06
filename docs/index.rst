@@ -7,7 +7,7 @@ Welcome to PyDeep's documentation!
 ##################################
 
 .. toctree::
-   :maxdepth: 8
+   :maxdepth: 2
    :caption: Contents:
 
 Installation
@@ -26,7 +26,7 @@ Documentation
 **********************************
 .. toctree::
    :maxdepth: 2
-   Tutorials<documentation.rst>
+   Documentation<documentation.rst>
 
 Indices and tables
 **********************************
