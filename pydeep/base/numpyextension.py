@@ -231,15 +231,15 @@ def get_2d_gauss_kernel(width, height, shift=0, var=[1.0, 1.0]):
     :param height: Number of pixels second dimension.
     :type height: int
 
-    :param shift: The Gaussian is shifted by this amount from the center of the image.
-                  Passing a scalar -> x,y shifted by the same value
-                  Passing a vector -> x,y shifted accordingly
+    :param shift: | The Gaussian is shifted by this amount from the center of the image.
+                  | Passing a scalar -> x,y shifted by the same value
+                  | Passing a vector -> x,y shifted accordingly
     :type shift: int, 1D numpy array
 
-    :param var: Variances or Covariance matrix.
-                Passing a scalar -> Isotropic Gaussian
-                Passing a vector -> Spherical covariance with vector values on the diagonals.
-                Passing a matrix -> Full Gaussian
+    :param var: | Variances or Covariance matrix.
+                | Passing a scalar -> Isotropic Gaussian
+                | Passing a vector -> Spherical covariance with vector values on the diagonals.
+                | Passing a matrix -> Full Gaussian
     :type var: int, 1D numpy array or 2D numpy array
 
     :return: Bit array containing the states.
@@ -279,15 +279,15 @@ def get_2d_gauss_kernel(width, height, shift=0, var=[1.0, 1.0]):
 
 
 def generate_binary_code(bit_length, batch_size_exp=None, batch_number=0):
-    """ This function can be used to generate all possible binary vectors of length 'bit_length'. It is possible to
-        generate only a particular batch of the data, where 'batch_size_exp' controls the size of the batch
+    """ This function can be used to generate all possible binary vectors of length 'bit_length'. It is possible to \
+        generate only a particular batch of the data, where 'batch_size_exp' controls the size of the batch \
         (batch_size = 2**batch_size_exp) and 'batch_number' is the index of the batch that should be generated.
 
-        :Example: bit_length = 2, batchSize = 2
-                  -> All combination = 2^bit_length = 2^2 = 4
-                  -> All_combinations / batchSize = 4 / 2 = 2 batches
-                  -> _generate_bit_array(2, 2, 0) = [0,0],[0,1]
-                  -> _generate_bit_array(2, 2, 1) = [1,0],[1,1]
+        :Example: | bit_length = 2, batchSize = 2
+                  | -> All combination = 2^bit_length = 2^2 = 4
+                  | -> All_combinations / batchSize = 4 / 2 = 2 batches
+                  | -> _generate_bit_array(2, 2, 0) = [0,0],[0,1]
+                  | -> _generate_bit_array(2, 2, 1) = [1,0],[1,1]
 
     :param bit_length: Length of the bit vectors.
     :type bit_length: int
@@ -320,8 +320,8 @@ def generate_binary_code(bit_length, batch_size_exp=None, batch_number=0):
 def get_binary_label(int_array):
     """ This function converts a 1D-array with integers labels into a 2D-array containing binary labels.
 
-        :Example: -> [3,1,0]
-                  -> [[1,0,0,0],[0,0,1,0],[0,0,0,1]]
+        :Example: | -> [3,1,0]|
+                  | -> [[1,0,0,0],[0,0,1,0],[0,0,0,1]]
 
     :param int_array: 1D array containing integers
     :type int_array: int
@@ -339,8 +339,8 @@ def get_binary_label(int_array):
 def compare_index_of_max(output, target):
     """ Compares data rows by comparing the index of the maximal value e.g. Classifier output and true labels.
 
-        :Example: [0.3,0.5,0.2],[0.2,0.6,0.2] -> 0
-                  [0.3,0.5,0.2],[0.6,0.2,0.2] -> 1
+        :Example: | [0.3,0.5,0.2],[0.2,0.6,0.2] -> 0|
+                  | [0.3,0.5,0.2],[0.6,0.2,0.2] -> 1
 
     :param output: vectors usually containing label probabilties.
     :type output: numpy array [batchsize, output_dim]
@@ -408,17 +408,17 @@ def generate_2d_connection_matrix(input_x_dim,
         fields.
 
         :Example:
-        input_x_dim = 3,|
-        input_y_dim = 3,|
-        field_x_dim = 2,|
-        field_y_dim = 2,|
-        overlap_x_dim = 1,|
-        overlap_y_dim = 1,|
-        wrap_around=False)|
-        leads to numx.array([[1,1,0,1,1,0,0,0,0],|
-                            [0,1,1,0,1,1,0,0,0],|
-                            [0,0,0,1,1,0,1,1,0],|
-                            [0,0,0,0,1,1,0,1,1]]).T
+        | input_x_dim = 3,
+        | input_y_dim = 3,
+        | field_x_dim = 2,
+        | field_y_dim = 2,
+        | overlap_x_dim = 1,
+        | overlap_y_dim = 1,
+        | wrap_around=False)
+        | leads to numx.array([[1,1,0,1,1,0,0,0,0],
+        |                     [0,1,1,0,1,1,0,0,0],
+        |                     [0,0,0,1,1,0,1,1,0],
+        |                     [0,0,0,0,1,1,0,1,1]]).T
 
     :param input_x_dim: Input dimension.
     :type input_x_dim: int

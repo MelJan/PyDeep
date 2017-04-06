@@ -49,7 +49,7 @@ import exceptions as ex
 
 def binarize_data(data):
     """ Converts data to binary values.
-        For data out of [a,b] a data point p will become zero if p < 0.5*(b-a) one otherwise.
+        | For data out of [a,b] a data point p will become zero if p < 0.5*(b-a) one otherwise.
 
     :param data: Data to be binarized.
     :type data: numpy array [num data point, data dimension]
@@ -233,10 +233,9 @@ class PCA(STANDARIZER):
     def project(self, data, num_components=None):
         """ Projects the data to Eigenspace.
 
-        :info:
-            projection_matrix has its projected vectors as its columns. i.e.
-            if we project x by W into y where W is the projection_matrix, then
-            y = W.T * x
+        :Info:
+            projection_matrix has its projected vectors as its columns. i.e. if we project x by W into y where W is \
+            the projection_matrix, then y = W.T * x
 
         :param data: Data to project.
         :type data: numpy array [num data point, data dimension]
@@ -327,7 +326,7 @@ class ICA(PCA):
         :param iterations: Number of iterations
         :type iterations: int
 
-        :param convergence: If the angle (in degrees) between filters of two updates is less than the given value,
+        :param convergence: If the angle (in degrees) between filters of two updates is less than the given value, \
                             training is terminated.
         :type convergence: double
 

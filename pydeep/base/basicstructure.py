@@ -58,7 +58,7 @@ class BipartiteGraph(object):
                  initial_visible_offsets='AUTO',
                  initial_hidden_offsets='AUTO',
                  dtype=numx.float64):
-        """ This function initializes all necessary parameters and data structures. It is recommended to pass the
+        """ This function initializes all necessary parameters and data structures. It is recommended to pass the \
             training data to initialize the network automatically.
 
         :param number_visibles: Number of the visible variables.
@@ -67,8 +67,7 @@ class BipartiteGraph(object):
         :param number_hiddens: Number of the hidden variables.
         :type number_hiddens: int
 
-        :param data: The training data for parameter initialization if 'AUTO' is chosen for the
-                                         corresponding parameter.
+        :param data: The training data for parameter initialization if 'AUTO' is chosen for the corresponding parameter.
         :type data: None or numpy array [num samples, input dim]
 
         :param visible_activation_function: Activation function for the visible units.
@@ -80,19 +79,19 @@ class BipartiteGraph(object):
         :param initial_weights: Initial weights. 'AUTO' and a scalar are random init.
         :type initial_weights: 'AUTO', scalar or numpy array [input dim, output_dim]
 
-        :param initial_visible_bias: Initial visible bias. 'AUTO' is random, 'INVERSE_SIGMOID' is the inverse Sigmoid of
-                                     the visible mean. If a scalar is passed all values are initialized with it.
+        :param initial_visible_bias: Initial visible bias. 'AUTO' is random, 'INVERSE_SIGMOID' is the inverse Sigmoid \
+                                     of the visible mean. If a scalar is passed all values are initialized with it.
         :type initial_visible_bias: 'AUTO','INVERSE_SIGMOID', scalar or numpy array [1, input dim]
 
-        :param initial_hidden_bias: Initial hidden bias. 'AUTO' is random, 'INVERSE_SIGMOID' is the inverse Sigmoid of
+        :param initial_hidden_bias: Initial hidden bias. 'AUTO' is random, 'INVERSE_SIGMOID' is the inverse Sigmoid of \
                                     the hidden mean. If a scalar is passed all values are initialized with it.
         :type initial_hidden_bias: 'AUTO','INVERSE_SIGMOID', scalar or numpy array [1, output_dim]
 
-        :param initial_visible_offsets: Initial visible offset values. AUTO=data mean or 0.5 if no data is given. If a
+        :param initial_visible_offsets: Initial visible offset values. AUTO=data mean or 0.5 if no data is given. If a \
                                         scalar is passed all values are initialized with it
         :type initial_visible_offsets: 'AUTO', scalar or numpy array [1, input dim]
 
-        :param initial_hidden_offsets: Initial hidden offset values. AUTO = 0.5 If a scalar is passed all values are
+        :param initial_hidden_offsets: Initial hidden offset values. AUTO = 0.5 If a scalar is passed all values are \
                                        initialized with it.
         :type initial_hidden_offsets: 'AUTO', scalar or numpy array [1, output_dim]
 
@@ -473,7 +472,7 @@ class BipartiteGraph(object):
                        update_visible_offsets=1.0,
                        update_hidden_offsets=1.0):
         """ This function updates the visible and hidden offsets.
-            update_offsets(0,0,1,1) reparameterizes to the normal binary RBM.
+            | --> update_offsets(0,0,1,1) reparameterizes to the normal binary RBM.
 
         :param new_visible_offsets: New visible means.
         :type new_visible_offsets: numpy arrays [1, input dim]
@@ -516,7 +515,6 @@ class StackOfBipartiteGraphs(object):
             self._check_network()
             self._input_dim = self._layers[0].input_dim
             self._output_dim = self._layers[len(self._layers) - 1].output_dim
-
 
     def _check_network(self):
         """ Check whether the network is consistent and raise an exception if it is not the case.

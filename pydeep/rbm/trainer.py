@@ -277,23 +277,23 @@ class CD(object):
         :param update_hidden_offsets: The update step size for the models hidden offsets.
         :type update_hidden_offsets: float
 
-        :param offset_typ: Different offsets can be used to center the gradient.
-                           Example: 'DM' uses the positive phase visible mean and the negative phase hidden mean.
-                           'A0' uses the average of positive and negative phase mean for visible, zero for the
+        :param offset_typ: Different offsets can be used to center the gradient.|
+                           :Example: 'DM' uses the positive phase visible mean and the negative phase hidden mean.\
+                           'A0' uses the average of positive and negative phase mean for visible, zero for the\
                            hiddens. Possible values are out of {A,D,M,0}x{A,D,M,0}
         :type offset_typ: string
 
         :param use_centered_gradient: Uses the centered gradient instead of centering.
         :type use_centered_gradient: bool
 
-        :param restrict_gradient: If a scalar is given the norm of the weight gradient (along the input dim) is
+        :param restrict_gradient: If a scalar is given the norm of the weight gradient (along the input dim) is\
                                   restricted to stay below this value.
         :type restrict_gradient: None, float
 
         :param restriction_norm: Restricts the column norm, row norm or Matrix norm.
         :type restriction_norm: string, 'Cols','Rows', 'Mat'
 
-        :param use_hidden_states: If True, the hidden states are used for the gradient calculations, the hiddens
+        :param use_hidden_states: If True, the hidden states are used for the gradient calculations, the hiddens\
                                      probabilities otherwise.
         :type use_hidden_states: bool
         """
@@ -444,9 +444,9 @@ class CD(object):
         :param update_hidden_offsets: The update step size for the models hidden offsets.
         :type update_hidden_offsets: float
 
-        :param offset_typ: Different offsets can be used to center the gradient.
-                           Example:'DM' uses the positive phase visible mean and the negative phase hidden mean.
-                           'A0' uses the average of positive and negative phase mean for visible, zero for the
+        :param offset_typ: Different offsets can be used to center the gradient.|
+                           Example:'DM' uses the positive phase visible mean and the negative phase hidden mean.\
+                           'A0' uses the average of positive and negative phase mean for visible, zero for the\
                            hiddens. Possible values are out of {A,D,M,0}x{A,D,M,0}
         :type offset_typ: string
 
@@ -688,9 +688,9 @@ class GD(CD):
         :param update_hidden_offsets: The update step size for the models hidden offsets.
         :type update_hidden_offsets: float
 
-        :param offset_typ: Different offsets can be used to center the gradient.
-                           Example: 'DM' uses the positive phase visible mean and the negative phase hidden mean.
-                           'A0' uses the average of positive and negative phase mean for visible, zero for the
+        :param offset_typ: Different offsets can be used to center the gradient.<br />
+                           Example: 'DM' uses the positive phase visible mean and the negative phase hidden mean.\
+                           'A0' uses the average of positive and negative phase mean for visible, zero for the\
                            hiddens. Possible values are out of {A,D,M,0}x{A,D,M,0}
         :type offset_typ: string
 

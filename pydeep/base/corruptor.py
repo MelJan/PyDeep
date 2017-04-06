@@ -199,8 +199,7 @@ class RandomPermutation(object):
 
 
 class KeepKWinner(object):
-    """ Implements K Winner stay.
-        Keep the k max values and set the rest to 0.
+    """ Implements K Winner stay. Keep the k max values and set the rest to 0.
     """
 
     def __init__(self, k=10, axis=0):
