@@ -53,7 +53,7 @@ from scipy.ndimage.interpolation import rotate
 
 
 def log_sum_exp(x, axis=0):
-    """ Calculates the logarithm of the sum of e to the power of input 'x'. The method tries to avoid
+    """ Calculates the logarithm of the sum of e to the power of input 'x'. The method tries to avoid \
         overflows by using the relationship: log(sum(exp(x))) = alpha + log(sum(exp(x-alpha))).
 
     :param x: data.
@@ -73,7 +73,7 @@ def log_sum_exp(x, axis=0):
 
 
 def log_diff_exp(x, axis=0):
-    """ Calculates the logarithm of the diffs of e to the power of input 'x'. The method tries to avoid
+    """ Calculates the logarithm of the diffs of e to the power of input 'x'. The method tries to avoid \
         overflows by using the relationship: log(diff(exp(x))) = alpha + log(diff(exp(x-alpha))).
 
     :param x: data.
@@ -98,7 +98,7 @@ def multinominal_batch_sampling(probabilties, isnormalized=True):
     :param probabilties: Matrix containing probabilities the rows have to sum to one, otherwise chosen normalized=False.
     :type probabilties: numpy array [batchsize, number of states]
 
-    :param isnormalized: If True the probabilities are assumed to be normalized. If False the probabilities are
+    :param isnormalized: If True the probabilities are assumed to be normalized. If False the probabilities are \
                          normalized.
     :type isnormalized: bool
 
@@ -223,7 +223,7 @@ def angle_between_vectors(v1, v2, degree=True):
 
 
 def get_2d_gauss_kernel(width, height, shift=0, var=[1.0, 1.0]):
-    """ reates a 2D Gauss kernel of size NxM with variance 1.
+    """ Creates a 2D Gauss kernel of size NxM with variance 1.
 
     :param width: Number of pixels first dimension.
     :type width: int
@@ -231,7 +231,7 @@ def get_2d_gauss_kernel(width, height, shift=0, var=[1.0, 1.0]):
     :param height: Number of pixels second dimension.
     :type height: int
 
-    :param shift: The Gaussian is shifted by this amout fromthe center of the image.
+    :param shift: The Gaussian is shifted by this amount from the center of the image.
                   Passing a scalar -> x,y shifted by the same value
                   Passing a vector -> x,y shifted accordingly
     :type shift: int, 1D numpy array
@@ -355,7 +355,7 @@ def compare_index_of_max(output, target):
 
 
 def shuffle_dataset(data, label):
-    """ Shuffles the datapoints and the labels correponsingly.
+    """ Shuffles the data points and the labels correspondingly.
 
     :param data: Datapoints.
     :type data: numpy array [num_datapoints, dim_datapoints]
@@ -404,18 +404,21 @@ def generate_2d_connection_matrix(input_x_dim,
                                   overlap_x_dim,
                                   overlap_y_dim,
                                   wrap_around=True):
-    """ This function constructs a connection matrix, which can be used to force the weights to have local receptive
+    """ This function constructs a connection matrix, which can be used to force the weights to have local receptive \
         fields.
 
-        Example
-        input_x_dim = 3,
-        input_y_dim = 3,
-        field_x_dim = 2,
-        field_y_dim = 2,
-        overlap_x_dim = 1,
-        overlap_y_dim = 1,
-        wrap_around=False)
-        leads to numx.array([[1,1,0,1,1,0,0,0,0],[0,1,1,0,1,1,0,0,0],[0,0,0,1,1,0,1,1,0],[0,0,0,0,1,1,0,1,1]]).T
+        :Example:
+        input_x_dim = 3,|
+        input_y_dim = 3,|
+        field_x_dim = 2,|
+        field_y_dim = 2,|
+        overlap_x_dim = 1,|
+        overlap_y_dim = 1,|
+        wrap_around=False)|
+        leads to numx.array([[1,1,0,1,1,0,0,0,0],|
+                            [0,1,1,0,1,1,0,0,0],|
+                            [0,0,0,1,1,0,1,1,0],|
+                            [0,0,0,0,1,1,0,1,1]]).T
 
     :param input_x_dim: Input dimension.
     :type input_x_dim: int
