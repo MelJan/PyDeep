@@ -4,39 +4,37 @@
    contain the root `toctree` directive.
 
 Welcome to PyDeep's documentation!
-**********************************
+##################################
 
 .. toctree::
    :maxdepth: 8
    :caption: Contents:
 
 Installation
-============
+**********************************
 .. toctree::
    :maxdepth: 2
 
    Installation<installation.rst>
 
 Tutorials
-=========
+**********************************
 .. toctree::
    :maxdepth: 2
 
    Tutorials<tutorial.rst>
 
 Documentation
-=============
+**********************************
 .. toctree::
    :maxdepth: 6
 
-   Documentation<documentation.rst>
-
-
-
+   autoapi/index
 
 Indices and tables
-==================
+**********************************
 
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
+
