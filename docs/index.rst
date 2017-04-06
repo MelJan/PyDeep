@@ -11,28 +11,28 @@ Welcome to PyDeep's documentation!
    :caption: Contents:
 
 Installation
-**********************************
+##################################
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 6
 
    Installation<installation.rst>
 
 Tutorials
-**********************************
+##################################
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 6
 
    Tutorials<tutorial.rst>
 
 Documentation
-**********************************
+##################################
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 6
 
    Documentation<documentation.rst>
 
 Indices and tables
-**********************************
+##################################
 
 * :ref:`genindex`
 * :ref:`modindex`
