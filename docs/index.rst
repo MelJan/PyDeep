@@ -3,12 +3,15 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
+================================================
+Welcome to PyDeep's documentation!
+================================================
+
 .. toctree::
    :maxdepth: 8
    :caption: Contents:
 
-================================================
-Welcome to PyDeep's documentation!
+Welcome
 ================================================
 .. toctree::
    :maxdepth: 2
