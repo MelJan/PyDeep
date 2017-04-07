@@ -11,6 +11,13 @@ Welcome to PyDeep's documentation!
    :maxdepth: 8
    :caption: Contents:
 
+Welcome
+================================================
+.. toctree::
+   :maxdepth: 2
+
+   Welcome<welcome.rst>
+
 Installation
 ================================================
 .. toctree::
