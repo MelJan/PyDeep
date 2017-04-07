@@ -6,10 +6,11 @@
         - centered BinaryBinary RBM (BB-RBM)
         - centered GaussianBinary RBM (GB-RBM) with fixed variance
         - centered GaussianBinaryVariance RBM (GB-RBM) with trainable variance
-        | Models without implementation of p(v),p(h),p(v,h) -> AIS, PT, true gradient, ... cannot be used!
+        -
+        - Models without implementation of p(v),p(h),p(v,h) -> AIS, PT, true gradient, ... cannot be used!
+        -
         - centered BinaryBinaryLabel RBM (BBL-RBM)
         - centered GaussianBinaryLabel RBM (GBL-RBM)
-        | Models with intractable p(v),p(h),p(v,h) -> AIS, PT, true gradient, ... cannot be used!
         - centered BinaryRect RBM (BR-RBM)
         - centered RectBinary RBM (RB-RBM)
         - centered RectRect RBM (RR-RBM)
