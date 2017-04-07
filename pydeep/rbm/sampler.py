@@ -49,7 +49,7 @@ import numpy as numx
 import exceptions as ex
 
 
-class GibbsSampler(object):
+class Gibbs(object):
     """ Implementation of k-step Gibbs-sampling for bipartite graphs.
           
     """
@@ -137,7 +137,7 @@ class GibbsSampler(object):
             return vis
 
 
-class PersistentGibbsSampler(object):
+class PersistentGibbs(object):
     """ Implementation of k-step persistent Gibbs sampling.
           
     """
@@ -228,7 +228,7 @@ class PersistentGibbsSampler(object):
             return samples[0:num_samples, :]
 
 
-class ParallelTemperingSampler(object):
+class ParallelTempering(object):
     """ Implementation of k-step parallel tempering sampling.
           
     """
@@ -424,7 +424,7 @@ class ParallelTemperingSampler(object):
                     hid_states[[t, t + 1], :] = hid_states[[t + 1, t], :]
 
 
-class IndependentParallelTemperingSampler(object):
+class IndependentParallelTempering(object):
     """ Implementation of k-step independent parallel tempering sampling. IPT runs an PT instance for each sample in \
         parallel. This speeds up the sampling but also decreases the mixing rate.
 

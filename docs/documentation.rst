@@ -146,10 +146,91 @@ trainer
    :special-members: __init__
    :inherited-members:
 
+CD
+''''''''''''''''''''''''''
+
+.. autoclass:: pydeep.rbm.dbn.IndependentParallelTemperingSampler
+   :members:
+   :private-members:
+   :special-members: __init__
+   :inherited-members:
+
+PCD
+''''''''''''''''''''''''''
+
+.. autoclass:: pydeep.rbm.dbn.IndependentParallelTemperingSampler
+   :members:
+   :private-members:
+   :special-members: __init__
+   :inherited-members:
+
+PT
+''''''''''''''''''''''''''
+
+.. autoclass:: pydeep.rbm.dbn.IndependentParallelTemperingSampler
+   :members:
+   :private-members:
+   :special-members: __init__
+   :inherited-members:
+
+IPT
+''''''''''''''''''''''''''
+
+.. autoclass:: pydeep.rbm.dbn.IndependentParallelTemperingSampler
+   :members:
+   :private-members:
+   :special-members: __init__
+   :inherited-members:
+
+Exact Gradient
+''''''''''''''''''''''''''
+
+.. autoclass:: pydeep.rbm.trainer.GD
+   :members:
+   :private-members:
+   :special-members: __init__
+   :inherited-members:
+
 sampler
 ``````````````````````````
 
 .. automodule:: pydeep.rbm.sampler
+   :members:
+   :private-members:
+   :special-members: __init__
+   :inherited-members:
+
+Gibbs
+''''''''''''''''''''''''''
+
+.. autoclass:: pydeep.rbm.sampler.IndependentParallelTempering
+   :members:
+   :private-members:
+   :special-members: __init__
+   :inherited-members:
+
+PersistentGibbs
+''''''''''''''''''''''''''
+
+.. autoclass:: pydeep.rbm.sampler.IndependentParallelTempering
+   :members:
+   :private-members:
+   :special-members: __init__
+   :inherited-members:
+
+ParallelTempering
+''''''''''''''''''''''''''
+
+.. autoclass:: pydeep.rbm.sampler.ParallelTempering
+   :members:
+   :private-members:
+   :special-members: __init__
+   :inherited-members:
+
+IndependentParallelTempering
+''''''''''''''''''''''''''
+
+.. autoclass:: pydeep.rbm.sampler.IndependentParallelTempering
    :members:
    :private-members:
    :special-members: __init__
@@ -168,6 +249,15 @@ dbn
 ``````````````````````````
 
 .. automodule:: pydeep.rbm.dbn
+   :members:
+   :private-members:
+   :special-members: __init__
+   :inherited-members:
+
+DBN
+''''''''''''''''''''''''''
+
+.. autoclass:: pydeep.rbm.dbn.DBN
    :members:
    :private-members:
    :special-members: __init__
