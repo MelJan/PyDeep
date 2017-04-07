@@ -14,16 +14,16 @@ Dependencies
 PyDeep has the following dependencies:
 
 Hard dependencies:
-----------------------------------------------------
+''''''''''''''''''''''''''''''''''''''''''''''''''''
 
 - numpy
 
 - scipy
 
 Soft dependencies:
-----------------------------------------------------
+''''''''''''''''''''''''''''''''''''''''''''''''''''
 
--matplotlib
+- matplotlib
 
 - cPickle
 
@@ -43,4 +43,14 @@ It is highly recommended to use an multi-threading optimized linear algebra back
 
 -  `Intel® Math Kernel Library (Intel® MKL)  http://math-atlas.sourceforge.net/>`_
 
-MKL is inlcuded in `Enthought <https://www.enthought.com/>`_ which provides a free academic license.
+-> Hint: MKL is inlcuded in `Enthought <https://www.enthought.com/>`_ which provides a free academic license.
+
+
+Unit tests:
+============================================================
+
+To test whether PyDeep functions properly you can run unittest:
+
+.. code-block:: bash
+
+    python -m unittest discover testunits

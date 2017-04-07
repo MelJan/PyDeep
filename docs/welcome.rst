@@ -2,11 +2,74 @@ Welcome
 ##################################
 
 PyDeep is a machine learning / deep learning library with focus on unsupervised learning.
-The library has a modular design, is well documented and  purely written in Python/numpy.
+The library has a modular design, is well documented and purely written in Python/Numpy.
 This allows you to understand, use, modify, and debug the code easily. Furthermore,
 its extensive use of unittests assures a high level of reliability and correctness.
 
+News:
+''''''''''''''''''''''''''''''''''''''''''''''''''''
+- The documentation is updated to restructured text
+- Documentation hosted
+- Next the unit tests will be added
+- Upcoming: Auto encoders wil be added
+- Upcoming: MDP integration wil be added
+- Upcoming: Deep Boltzmann machines wil be added
+- Upcoming: Feed Forward neural networks wil be added
 
+Features:
+''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+        - Principal Component Analysis (PCA)
+
+        - Zero Phase Component Analysis (ZCA)
+
+        - Independent Component Analysis (ICA)
+
+        - centered BinaryBinary RBM (BB-RBM)
+
+        - centered GaussianBinary RBM (GB-RBM) with fixed variance
+
+        - centered GaussianBinaryVariance RBM (GB-RBM) with trainable variance
+
+        - centered BinaryBinaryLabel RBM (BBL-RBM)
+
+        - centered GaussianBinaryLabel RBM (GBL-RBM)
+
+        - centered BinaryRect RBM (BR-RBM)
+
+        - centered RectBinary RBM (RB-RBM)
+
+        - centered RectRect RBM (RR-RBM)
+
+        - centered GaussianRect RBM (GR-RBM)
+
+        - centered GaussianRectVariance RBM (GRV-RBM)
+
+        - Gibbs Sampling
+
+        - Persistent Gibbs Sampling
+
+        - Parallel Tempering Sampling
+
+        - Independent Parallel Tempering Sampling
+
+        - Annealed Importance Sampling (AIS)
+
+        - reverse Annealed Importance Sampling (AIS)
+
+        - Contrastive Divergence (CD)
+
+        - Persistent Contrastive Divergence (PCD)
+
+        - Tempering Sampling Contrastive Divergence (PT)
+
+        - Independent Tempering Sampling Contrastive Divergence (IPT)
+
+        - Exact Gradient (GD)
+
+
+Scientific use:
+''''''''''''''''''''''''''''''''''''''''''''''''''''
 
 The library contains code I have written during my PhD research allowing you to reproduce
 the results described in the following publications.
