@@ -1,12 +1,15 @@
 Installation
 ##################################
 
-
+Download PyDeep from `GitHub <https://github.com/MelJan/PyDeep>`_
 To install PyDeep, simply change to the PyDeep folder and run the setup script:
 
 .. code-block:: bash
 
     python setup.py install
+
+
+
 
 Dependencies
 ============
