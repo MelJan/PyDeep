@@ -2,9 +2,6 @@
 Documentation
 ===================
 
-
-PyDeep
-===================
 .. automodule:: pydeep
    :members:
    :private-members:
@@ -201,7 +198,7 @@ sampler
    :inherited-members:
 
 Gibbs
-**************************
+''''''''''''''''''''''''''
 
 .. autoclass:: pydeep.rbm.sampler.IndependentParallelTempering
    :members:
@@ -210,7 +207,7 @@ Gibbs
    :inherited-members:
 
 PersistentGibbs
-**************************
+''''''''''''''''''''''''''
 
 .. autoclass:: pydeep.rbm.sampler.IndependentParallelTempering
    :members:
@@ -219,7 +216,7 @@ PersistentGibbs
    :inherited-members:
 
 ParallelTempering
-**************************
+''''''''''''''''''''''''''
 
 .. autoclass:: pydeep.rbm.sampler.ParallelTempering
    :members:
@@ -228,7 +225,7 @@ ParallelTempering
    :inherited-members:
 
 IndependentParallelTempering
-**************************
+''''''''''''''''''''''''''
 
 .. autoclass:: pydeep.rbm.sampler.IndependentParallelTempering
    :members:
