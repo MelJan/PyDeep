@@ -1,5 +1,7 @@
 Installation
 ##################################
 
-coming soon! :ref:`pydeep`
+coming soon! :ref:`model`
+coming soon! :ref:`pyddep.rbm.model`
+
 
