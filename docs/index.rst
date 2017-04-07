@@ -7,6 +7,11 @@
 Welcome to PyDeep's documentation!
 ================================================
 
+PyDeep is a machine learning / deep learning library with focus on unsupervised learning.
+The library has a modular design, is well documented and purely written in Python/Numpy.
+This allows you to understand, use, modify, and debug the code easily. Furthermore,
+its extensive use of unittests assures a high level of reliability and correctness.
+
 .. toctree::
    :maxdepth: 8
    :caption: Contents:
