@@ -41,7 +41,7 @@ It is highly recommended to use an multi-threading optimized linear algebra back
 
 -  `Automatically Tuned Linear Algebra Software (ATLAS) <https://software.intel.com/en-us/intel-mkl/>`_
 
--  `Intel® Math Kernel Library (Intel® MKL)  http://math-atlas.sourceforge.net/>`_
+-  `Intel® Math Kernel Library (Intel® MKL)  <http://math-atlas.sourceforge.net/>`_
 
 -> Hint: MKL is inlcuded in `Enthought <https://www.enthought.com/>`_ which provides a free academic license.
 

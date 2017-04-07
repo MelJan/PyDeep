@@ -11,10 +11,11 @@ News:
 - The documentation is updated to restructured text
 - Documentation hosted
 - Next the unit tests will be added
-- Upcoming: Auto encoders wil be added
-- Upcoming: MDP integration wil be added
-- Upcoming: Deep Boltzmann machines wil be added
-- Upcoming: Feed Forward neural networks wil be added
+- Upcoming: Tutorials will be added
+- Upcoming: Auto encoders will be added
+- Upcoming: MDP integration will be added
+- Upcoming: Deep Boltzmann machines will be added
+- Upcoming: Feed Forward neural networks will be added
 
 Features:
 ''''''''''''''''''''''''''''''''''''''''''''''''''''
@@ -97,3 +98,8 @@ IF you want to use PyDeep in your publication, you can cite it as follows.
          publisher={GitHub},
          howpublished={\url{https://github.com/MelJan/PyDeep.git}},
         }
+
+Contact:
+''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+`Jan Melchior <https://www.ini.rub.de/the_institute/people/jan-melchior/>`_
