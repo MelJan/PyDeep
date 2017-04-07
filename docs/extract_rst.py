@@ -24,7 +24,7 @@ def extract_package_structure(root_path="pydeep/",ext=".py"):
     return sorted(structure)
 
 def print_classes_and_members(root_path,module_path,module_structure,module_name,depth):
-    header_level = [#"====================================================",
+    header_level = ["====================================================",
                     "----------------------------------------------------",
                     "````````````````````````````````````````````````````",
                     "''''''''''''''''''''''''''''''''''''''''''''''''''''",
