@@ -1,3 +1,8 @@
+Documentation
+##################################
+See: http://pydeep.readthedocs.io/en/latest/index.html
+
+
 Welcome
 ##################################
 
