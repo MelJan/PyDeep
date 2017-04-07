@@ -6,7 +6,7 @@ The library has a modular design, is well documented and purely written in Pytho
 This allows you to understand, use, modify, and debug the code easily. Furthermore,
 its extensive use of unittests assures a high level of reliability and correctness.
 
-News:
+News
 ''''''''''''''''''''''''''''''''''''''''''''''''''''
 - The documentation is updated to restructured text
 - Documentation hosted
@@ -17,7 +17,7 @@ News:
 - Upcoming: Deep Boltzmann machines will be added
 - Upcoming: Feed Forward neural networks will be added
 
-Features:
+Features
 ''''''''''''''''''''''''''''''''''''''''''''''''''''
 
         - Principal Component Analysis (PCA)
@@ -69,7 +69,7 @@ Features:
         - Exact Gradient (GD)
 
 
-Scientific use:
+Scientific use
 ''''''''''''''''''''''''''''''''''''''''''''''''''''
 
 The library contains code I have written during my PhD research allowing you to reproduce

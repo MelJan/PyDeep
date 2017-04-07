@@ -20,7 +20,7 @@ Hard dependencies:
 
 - scipy
 
-Soft dependencies:
+Soft dependencies
 ''''''''''''''''''''''''''''''''''''''''''''''''''''
 
 - matplotlib
@@ -34,7 +34,7 @@ Soft dependencies:
 - mdp
 
 
-Optimized backend:
+Optimized backend
 ============================================================
 
 It is highly recommended to use an multi-threading optimized linear algebra backend such as
@@ -46,7 +46,7 @@ It is highly recommended to use an multi-threading optimized linear algebra back
 -> Hint: MKL is inlcuded in `Enthought <https://www.enthought.com/>`_ which provides a free academic license.
 
 
-Unit tests:
+Unit tests
 ============================================================
 
 To test whether PyDeep functions properly you can run unittest:
