@@ -37,6 +37,8 @@ Documentation
 .. toctree::
    :maxdepth: 2
 
+   Documentation<documentation.rst>
+
 ===================
 Indices and tables
 ===================
