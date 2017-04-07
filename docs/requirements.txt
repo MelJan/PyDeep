@@ -3,5 +3,4 @@ scipy
 paramiko
 matplotlib
 encryptedpickle
-sphinx-autoapi
 

@@ -8,34 +8,29 @@ Welcome to PyDeep
 ===================
 
 .. toctree::
-   :maxdepth: 2
    :caption: Contents:
 
 Installation
 ===================
 .. toctree::
-   :maxdepth: 2
 
    Installation<installation.rst>
 
 Overview
 ===================
 .. toctree::
-   :maxdepth: 2
 
    Features<overview.rst>
 
 Tutorials
 ===================
 .. toctree::
-   :maxdepth: 2
 
    Tutorials<tutorial.rst>
 
 Documentation
 ===================
 .. toctree::
-   :maxdepth: 2
 
    Documentation<documentation.rst>
 
