@@ -30,7 +30,7 @@ activationfunction
 Identity
 ++++++++++++++++++++++
 
-.. automodule:: pydeep.base.activationfunction.Identity
+.. autoclass:: pydeep.base.activationfunction.Identity
    :members:
    :private-members:
    :special-members: __init__

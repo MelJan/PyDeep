@@ -2,4 +2,9 @@ Installation
 ##################################
 
 coming soon!
-:ref:`pydeep.rbm.sampler`
+
+wdadad :ref:`pydeep`
+wdadad :ref:`activationfunction`
+wdadad :ref:`pydeep.base.activationfunction`
+wdadad :ref:`pydeep.base.activationfunction.Identity`
+wdadad :ref:`Identity`
