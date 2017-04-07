@@ -28,7 +28,7 @@ activationfunction
    :inherited-members:
 
 Identity
-~~~~~~~~~~~~~~~~~~~~~~
+++++++++++++++++++++++
 
 .. automodule:: pydeep.base.activationfunction.Identity
    :members:
