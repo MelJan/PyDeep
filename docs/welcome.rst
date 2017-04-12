@@ -8,9 +8,9 @@ its extensive use of unittests assures a high level of reliability and correctne
 
 News
 ''''''''''''''''''''''''''''''''''''''''''''''''''''
-- The documentation is updated to restructured text
-- Documentation hosted
-- Next the unit tests will be added
+- The documentation updated to restructured text (DONE)
+- Documentation hosted (DONE)
+- Next the unit tests added  (DONE)
 - Upcoming: Tutorials will be added
 - Upcoming: Auto encoders will be added
 - Upcoming: MDP integration will be added

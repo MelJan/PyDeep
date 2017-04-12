@@ -53,7 +53,7 @@ setup(
     url="https://github.com/MelJan/PyDeep",
     packages=['pydeep', 'pydeep.base', 'pydeep.misc', 'pydeep.rbm'],
     py_modules=[],
-    setup_requires=['numpy','scipy','matplotlib','paramiko'],
+    setup_requires=['numpy','scipy','matplotlib'],
     long_description=read('README.md'),
     classifiers=[
         "Development Status :: 3 - Alpha",

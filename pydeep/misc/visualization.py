@@ -5,6 +5,7 @@
         - Tile a matrix rows
         - Tile a matrix columns
         - Show a matrix
+        - Show plot
         - Show a histogram
 
         - Plot data
@@ -169,6 +170,20 @@ def imshow_matrix(matrix, windowtitle, interpolation='nearest'):
     figure().suptitle(windowtitle)
     gray()
     imshow(np.array(matrix, np.float64), interpolation=interpolation)
+
+
+def imshow_plot(matrix, windowtitle):
+    """ Plots the colums of a matrix.
+
+    :param matrix: Data to plot
+    :type matrix: numpy array
+
+    :param windowtitle: Figure title
+    :type windowtitle: string
+    """
+    figure().suptitle(windowtitle)
+    gray()
+    plot(np.array(matrix, np.float64))
 
 
 def imshow_histogram(matrix,

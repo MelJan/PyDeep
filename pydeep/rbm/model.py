@@ -6,11 +6,12 @@
         - centered BinaryBinary RBM (BB-RBM)
         - centered GaussianBinary RBM (GB-RBM) with fixed variance
         - centered GaussianBinaryVariance RBM (GB-RBM) with trainable variance
-        -
-        - Models without implementation of p(v),p(h),p(v,h) -> AIS, PT, true gradient, ... cannot be used!
-        -
+
+        # Models without implementation of p(v),p(h),p(v,h) -> AIS, PT, true gradient, ... cannot be used!
         - centered BinaryBinaryLabel RBM (BBL-RBM)
         - centered GaussianBinaryLabel RBM (GBL-RBM)
+
+        # Models with intractable p(v),p(h),p(v,h) -> AIS, PT, true gradient, ... cannot be used!
         - centered BinaryRect RBM (BR-RBM)
         - centered RectBinary RBM (RB-RBM)
         - centered RectRect RBM (RR-RBM)
@@ -18,8 +19,8 @@
         - centered GaussianRectVariance RBM (GRV-RBM)
 
     :Info:
-        For the derivations \
-        .. seealso:: https://www.ini.rub.de/PEOPLE/wiskott/Reprints/Melchior-2012-MasterThesis-RBMs.pdf
+        For the derivations .. seealso::
+        https://www.ini.rub.de/PEOPLE/wiskott/Reprints/Melchior-2012-MasterThesis-RBMs.pdf
 
         A usual way to create a new unit is to inherit from a given RBM class
         and override the functions that changed, e.g. Gaussian-Binary RBM
@@ -58,7 +59,7 @@
 
 """
 import numpy as numx
-from pydeep.base.activationfunction import Sigmoid, SoftMax
+from pydeep.base.activationfunction import Sigmoid, SoftMax, SoftPlus
 from pydeep.base.basicstructure import BipartiteGraph
 from pydeep.base.numpyextension import multinominal_batch_sampling
 
@@ -137,7 +138,8 @@ class BinaryBinaryRBM(BipartiteGraph):
                            initial_offsets='AUTO',
                            data=None):
         """ This function adds new visible units at the given position to the model. \
-            .. Warning:: If the parameters are changed. the trainer needs to be reinitialized.
+            .. Warning:: If the parameters are changed. the trainer needs to be
+                     reinitialized.
 
         :param num_new_visibles: The number of new hidden units to add
         :type num_new_visibles: int
@@ -167,8 +169,9 @@ class BinaryBinaryRBM(BipartiteGraph):
         self.bv_base = self._getbasebias()
 
     def _remove_visible_units(self, indices):
-        """ This function removes the visible units whose indices are given. \
-            .. Warning:: If the parameters are changed. the trainer needs to be reinitialized.
+        """ This function removes the visible units whose indices are given.
+            .. Warning:: If the parameters are changed. the trainer needs to be
+                     reinitialized.
 
         :param indices: Indices of units to be remove.
         :type indices: int or list of int or numpy array of int
@@ -615,8 +618,9 @@ class GaussianBinaryRBM(BinaryBinaryRBM):
                            initial_sigmas=1.0,
                            initial_offsets='AUTO',
                            data=None):
-        """ This function adds new visible units at the given position to the model. \
-            .. Warning:: If the parameters are changed. the trainer needs to be reinitialized.
+        """ This function adds new visible units at the given position to the model.
+            .. Warning:: If the parameters are changed. the trainer needs to be
+                     reinitialized.
 
         :param num_new_visibles: The number of new hidden units to add
         :type num_new_visibles: int
@@ -687,8 +691,9 @@ class GaussianBinaryRBM(BinaryBinaryRBM):
                           initial_weights='AUTO',
                           initial_bias='AUTO',
                           initial_offsets='AUTO'):
-        """ This function adds new hidden units at the given position to the model. \
-            .. Warning:: If the parameters are changed. the trainer needs to be reinitialized.
+        """ This function adds new hidden units at the given position to the model.
+            .. Warning:: If the parameters are changed. the trainer needs to be
+                     reinitialized.
 
         :param num_new_hiddens: The number of new hidden units to add.
         :type num_new_hiddens: int
@@ -723,8 +728,9 @@ class GaussianBinaryRBM(BinaryBinaryRBM):
                                                          initial_offsets)
 
     def _remove_visible_units(self, indices):
-        """ This function removes the visible units whose indices are given. \
-            .. Warning:: If the parameters are changed. the trainer needs to be reinitialized.
+        """ This function removes the visible units whose indices are given.
+            .. Warning:: If the parameters are changed. the trainer needs to be
+                     reinitialized.
 
         :param indices: Indices of units to be remove.
         :type indices: int or list of int or numpy array of int
@@ -1121,8 +1127,28 @@ class BinaryBinaryLabelRBM(BinaryBinaryRBM):
                              initial_hidden_offsets=initial_hidden_offsets,
                              dtype=dtype)
 
-        self.visible_dim = number_visibles
+        self.data_dim = number_visibles
         self.label_dim = number_labels
+
+        class SoftMaxSigmoid(object):
+            """ SoftMax + Sigmoid conbination.
+
+            """
+
+            @classmethod
+            def f(cls, x):
+                """ Calculates the SoftPlus function value for a given input x.
+
+                :param x: Input data.
+                :type x: scalar or numpy array.
+
+                :return: Value of the SoftPlus function for x.
+                :rtype: scalar or numpy array with the same shape as x.
+                """
+                return numx.hstack((Sigmoid.f(x[:, 0:self.data_dim]),
+                                    SoftMax.f(x[:, self.data_dim:])))
+
+        self.visible_activation_function = SoftMaxSigmoid
 
     def sample_v(self, v, beta=None, use_base_model=False):
         """ Samples the visible variables from the conditional probabilities v given h.
@@ -1147,32 +1173,8 @@ class BinaryBinaryLabelRBM(BinaryBinaryRBM):
         result = numx.hstack((v[:,0:self.visible_dim] > numx.random.random((v.shape[0],self.visible_dim)),result))
         return self.dtype(result)
         '''
-        return numx.hstack((v[:, 0:self.visible_dim] > numx.random.random((v.shape[0], self.visible_dim)),
-                            self.dtype(multinominal_batch_sampling(v[:, self.visible_dim:self.input_dim], False))))
-
-    def probability_v_given_h(self, h, beta=None, use_base_model=False):
-        """ Calculates the conditional probabilities of v given h.
-
-        :param h: Hidden states.
-        :type h: numpy array [batch size, output dim]
-
-        :param beta: Allows to sample from a given inverse temperature beta, or if a vector is given to sample from \
-                     different betas simultaneously. None is equivalent to pass the value 1.0
-        :type beta: None, float or numpy array [batch size, 1]
-
-        :param use_base_model: If true uses the base model, i.e. the MLE of the bias values.
-        :type use_base_model: bool
-
-        :return: Conditional probabilities v given h.
-        :rtype: numpy array [batch size, input d
-        """
-        activation = self._visible_pre_activation(h)
-        if beta is not None:
-            activation *= beta
-            if use_base_model is True:
-                activation += (1.0 - beta) * self.bv_base
-        return numx.hstack((self._visible_post_activation(activation[:, 0:self.visible_dim]),
-                            SoftMax.f(activation[:, self.visible_dim:self.input_dim])))
+        return numx.hstack((v[:, 0:self.data_dim] > numx.random.random((v.shape[0], self.data_dim)),
+                            self.dtype(multinominal_batch_sampling(v[:, self.data_dim:], False))))
 
     def _add_visible_units(self):
         """ Not available!
@@ -1215,11 +1217,6 @@ class BinaryBinaryLabelRBM(BinaryBinaryRBM):
         raise Exception("Not yet implemented!")
 
     def _base_log_partition(self):
-        """ Not available!
-        """
-        raise Exception("Not yet implemented!")
-
-    def _getbasebias(self):
         """ Not available!
         """
         raise Exception("Not yet implemented!")
@@ -1296,10 +1293,30 @@ class GaussianBinaryLabelRBM(GaussianBinaryRBM):
                              initial_visible_offsets=initial_visible_offsets,
                              initial_hidden_offsets=initial_hidden_offsets,
                              dtype=dtype)
-        self.visible_dim = number_visibles
+        self.data_dim = number_visibles
         self.label_dim = number_labels
 
-        self.sigma[:, self.visible_dim:self.input_dim] = numx.ones((1, self.label_dim), dtype=self.dtype)
+        self.sigma[:, self.data_dim:] = numx.ones((1, self.label_dim), dtype=self.dtype)
+
+        class SoftMaxLinear(object):
+            """ SoftMax + Sigmoid conbination.
+
+            """
+
+            @classmethod
+            def f(cls, x):
+                """ Calculates the SoftPlus function value for a given input x.
+
+                :param x: Input data.
+                :type x: scalar or numpy array.
+
+                :return: Value of the SoftPlus function for x.
+                :rtype: scalar or numpy array with the same shape as x.
+                """
+                return numx.hstack((x[:, 0:self.visible_dim],
+                                    SoftMax.f(x[:, self.visible_dim:self.input_dim])))
+
+        self.visible_activation_function = SoftMaxLinear
 
     def sample_v(self, v, beta=None, use_base_model=False):
         """ Samples the visible variables from the conditional probabilities v given h.
@@ -1318,38 +1335,12 @@ class GaussianBinaryLabelRBM(GaussianBinaryRBM):
         :rtype: numpy array [batch size, input dim]
         """
         if beta is None:
-            res = v[:, 0:self.visible_dim] + numx.random.randn(v.shape[0],
-                                                               self.visible_dim) * self.sigma[:, 0:self.visible_dim]
+            res = v[:, 0:self.data_dim] + numx.random.randn(v.shape[0],self.data_dim) * self.sigma[:, 0:self.data_dim]
         else:
-            res = (v[:, 0:self.visible_dim] + numx.random.randn(v.shape[0], self.visible_dim)
-                   * (beta * (self.sigma - self._data_std) + self._data_std)[:, 0:self.visible_dim])
+            res = (v[:, 0:self.data_dim] + numx.random.randn(v.shape[0], self.data_dim)
+                   * (beta * (self.sigma - self._data_std) + self._data_std)[:, 0:self.data_dim])
 
-        return numx.hstack((res, self.dtype(multinominal_batch_sampling(v[:, self.visible_dim:self.input_dim], False))))
-
-    def probability_v_given_h(self, h, beta=None, use_base_model=False):
-        """ Calculates the conditional probabilities of v given h.
-
-        :param h: Hidden states.
-        :type h: numpy array [batch size, output dim]
-
-        :param beta: Allows to sample from a given inverse temperature beta, or if a vector is given to sample from \
-                     different betas simultaneously. None is equivalent to pass the value 1.0
-        :type beta: None, float or numpy array [batch size, 1]
-
-        :param use_base_model: If true uses the base model, i.e. the MLE of the bias values.
-        :type use_base_model: bool
-
-        :return: Conditional probabilities v given h.
-        :rtype: numpy array [batch size, input d
-        """
-        activation = self._visible_pre_activation(h)
-        if beta is not None:
-            activation *= beta
-            if use_base_model is True:
-                activation += (1.0 - beta) * self.bv_base
-        activation += self.ov
-        return numx.hstack((activation[:, 0:self.visible_dim],
-                            SoftMax.f(activation[:, self.visible_dim:self.input_dim])))
+        return numx.hstack((res, self.dtype(multinominal_batch_sampling(v[:, self.data_dim:], False))))
 
     def _add_visible_units(self):
         """ Not available!
@@ -1392,11 +1383,6 @@ class GaussianBinaryLabelRBM(GaussianBinaryRBM):
         raise Exception("Not yet implemented!")
 
     def _base_log_partition(self):
-        """ Not available!
-        """
-        raise Exception("Not yet implemented!")
-
-    def _getbasebias(self):
         """ Not available!
         """
         raise Exception("Not yet implemented!")
@@ -1466,6 +1452,7 @@ class BinaryRectRBM(BinaryBinaryRBM):
                              dtype=dtype)
         self.temp = 0
         self.max_act = 1000.0
+        self.hidden_activation_function = SoftPlus
 
     def probability_h_given_v(self, v, beta=None):
         """ Calculates the conditional probabilities h given v.
@@ -1484,7 +1471,7 @@ class BinaryRectRBM(BinaryBinaryRBM):
         if beta is not None:
             activation *= beta
         self.temp = activation
-        activation = numx.log(1.0 + numx.exp(activation))
+        activation = self._hidden_post_activation(activation)
         return activation
 
     def sample_h(self, h, beta=None, use_base_model=False):
@@ -1548,11 +1535,6 @@ class BinaryRectRBM(BinaryBinaryRBM):
         raise Exception("Not implemented!")
 
     def _base_log_partition(self):
-        """ Not available!
-        """
-        raise Exception("Not implemented!")
-
-    def _getbasebias(self):
         """ Not available!
         """
         raise Exception("Not implemented!")
@@ -1622,6 +1604,7 @@ class RectBinaryRBM(BinaryBinaryRBM):
                              dtype=dtype)
         self.temp = 0
         self.max_act = 1000.0
+        self.visible_activation_function = SoftPlus
 
     def probability_v_given_h(self, h, beta=None, use_base_model=False):
         """ Calculates the conditional probabilities of v given h.
@@ -1643,7 +1626,7 @@ class RectBinaryRBM(BinaryBinaryRBM):
         if beta is not None:
             activation *= beta
         self.temp = activation
-        activation = numx.log(1.0 + numx.exp(activation))
+        activation = self._visible_post_activation(activation)
         return activation
 
     def sample_v(self, v, beta=None, use_base_model=False):
@@ -1780,6 +1763,7 @@ class RectRectRBM(BinaryRectRBM):
                              dtype=dtype)
         self.temp = 0
         self.max_act = 1000.0
+        self.visible_activation_function = SoftPlus
 
     def probability_v_given_h(self, h, beta=None, use_base_model=False):
         """ Calculates the conditional probabilities of v given h.
@@ -1801,7 +1785,7 @@ class RectRectRBM(BinaryRectRBM):
         if beta is not None:
             activation *= beta
         self.temp = activation
-        activation = numx.log(1.0 + numx.exp(activation))
+        activation = self._visible_post_activation(activation)
         return activation
 
     def sample_v(self, v, beta=None, use_base_model=False):
@@ -1891,6 +1875,7 @@ class GaussianRectRBM(GaussianBinaryRBM):
                              dtype=dtype)
         self.max_act = 10.0
         self.temp = 0
+        self.hidden_activation_function = SoftPlus
 
     def probability_h_given_v(self, v, beta=None):
         """ Calculates the conditional probabilities h given v.
@@ -1910,7 +1895,7 @@ class GaussianRectRBM(GaussianBinaryRBM):
             temp_sigma = (self.sigma * beta + self._data_std * (1.0 - beta))
         activation = self.bh + numx.dot((v - self.ov) / (temp_sigma ** 2), self.w)
         self.temp = activation
-        activation = numx.log(1.0 + numx.exp(activation))
+        activation = self._hidden_post_activation(activation)
         return activation
 
     def sample_h(self, h, beta=None, use_base_model=False):
@@ -1974,11 +1959,6 @@ class GaussianRectRBM(GaussianBinaryRBM):
         raise Exception("Not implemented!")
 
     def _base_log_partition(self):
-        """ Not available!
-        """
-        raise Exception("Not implemented!")
-
-    def _getbasebias(self):
         """ Not available!
         """
         raise Exception("Not implemented!")

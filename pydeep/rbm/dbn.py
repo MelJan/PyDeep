@@ -59,7 +59,7 @@ class DBN(StackOfBipartiteGraphs):
         :return: Output of the network.
         :rtype: numpy array [batchsize x output dim]
         """
-        if input_data.shape[1] != self._input_dim:
+        if input_data.shape[1] != self.input_dim:
             raise Exception("Input dimensionality has to match dbn.input_dim!")
         self.states[0] = input_data
         for l in range(len(self._layers)):
@@ -80,7 +80,7 @@ class DBN(StackOfBipartiteGraphs):
         :return: Input of the network.
         :rtype: numpy array [batchsize x input dim]
         """
-        if output_data.shape[1] != self._output_dim:
+        if output_data.shape[1] != self.output_dim:
             raise Exception("Output dimensionality has to match dbn.output_dim!")
         self.states[len(self._layers)] = output_data
         for l in range(len(self._layers), 0, -1):
