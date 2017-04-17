@@ -99,7 +99,7 @@ IF you want to use PyDeep in your publication, you can cite it as follows.
          howpublished={\url{https://github.com/MelJan/PyDeep.git}},
         }
 
-Contact:
+Contact
 ''''''''''''''''''''''''''''''''''''''''''''''''''''
 
 `Jan Melchior <https://www.ini.rub.de/the_institute/people/jan-melchior/>`_
