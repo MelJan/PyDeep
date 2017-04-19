@@ -1,10 +1,10 @@
-""" Package providing rbm models and corresponding sampler, trainer and estimator.
+''' Module initializer includes all sub-modules.
         
     :Version:
-        1.1.0
+        1.0
 
     :Date:
-        04.04.2017
+        14.04.2016
 
     :Author:
         Jan Melchior
@@ -14,11 +14,9 @@
 
     :License:
 
-        Copyright (C) 2017 Jan Melchior
+        Copyright (C) 2016 Jan Melchior
 
-        This file is part of the Python library PyDeep.
-
-        PyDeep is free software: you can redistribute it and/or modify
+        This program is free software: you can redistribute it and/or modify
         it under the terms of the GNU General Public License as published by
         the Free Software Foundation, either version 3 of the License, or
         (at your option) any later version.
@@ -31,5 +29,5 @@
         You should have received a copy of the GNU General Public License
         along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-"""
-__all__ = ["model", "trainer", "estimator", "sampler", "dbn"]
+'''
+__all__ = ["test_rbm", "test_base"]

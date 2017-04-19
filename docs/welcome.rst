@@ -1,7 +1,5 @@
-Documentation: http://pydeep.readthedocs.io/en/latest/index.html
-
-
 Welcome
+##################################
 
 PyDeep is a machine learning / deep learning library with focus on unsupervised learning.
 The library has a modular design, is well documented and purely written in Python/Numpy.
@@ -9,17 +7,18 @@ This allows you to understand, use, modify, and debug the code easily. Furthermo
 its extensive use of unittests assures a high level of reliability and correctness.
 
 News
-
-- The documentation is updated to restructured text
-- Documentation hosted
-- Next the unit tests will be added
+''''''''''''''''''''''''''''''''''''''''''''''''''''
+- (DONE) The documentation updated to restructured text
+- (DONE) Documentation hosted
+- (DONE) Unit tests added
 - Upcoming: Tutorials will be added
-- Upcoming: Auto encoders will be added
 - Upcoming: MDP integration will be added
-- Upcoming: Deep Boltzmann machines will be added
-- Upcoming: Feed Forward neural networks will be added
+- Upcoming: Auto encoders will be added
+- Upcoming mid/long term: Feed Forward neural networks will be added
+- Upcoming mid/long term: Deep Boltzmann machines will be added
 
 Features
+''''''''''''''''''''''''''''''''''''''''''''''''''''
 
         - Principal Component Analysis (PCA)
 
@@ -71,6 +70,7 @@ Features
 
 
 Scientific use
+''''''''''''''''''''''''''''''''''''''''''''''''''''
 
 The library contains code I have written during my PhD research allowing you to reproduce
 the results described in the following publications.
@@ -99,6 +99,7 @@ IF you want to use PyDeep in your publication, you can cite it as follows.
          howpublished={\url{https://github.com/MelJan/PyDeep.git}},
         }
 
-Contact:
+Contact
+''''''''''''''''''''''''''''''''''''''''''''''''''''
 
 `Jan Melchior <https://www.ini.rub.de/the_institute/people/jan-melchior/>`_

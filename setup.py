@@ -1,10 +1,10 @@
 ''' Setup file for PyDeep.
 
     :Version:
-        1.0
+        1.1.0
 
     :Date:
-        29.08.2016
+        04.04.2017
 
     :Author:
         Jan Melchior
@@ -14,9 +14,11 @@
 
     :License:
 
-        Copyright (C) 2016
+        Copyright (C) 2017 Jan Melchior
 
-        This program is free software: you can redistribute it and/or modify
+        This file is part of the Python library PyDeep.
+
+        PyDeep is free software: you can redistribute it and/or modify
         it under the terms of the GNU General Public License as published by
         the Free Software Foundation, either version 3 of the License, or
         (at your option) any later version.
@@ -34,20 +36,24 @@
 import os
 from setuptools import setup
 
+
 def read(fname):
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
 
+
 setup(
-    name = "pydeep",
-    version = "1.1.0",
-    author = "Jan Melchior",
-    author_email = "JanMelchior@gmx.de",
-    description = ("Machine learning library with focus on Restricted Boltzmann machines."),
-    license = "GNU",
-    keywords = "Resricted Boltzmann machines, Machine learning",
-    url = "https://github.com/MelJan/PyDeep",
-    packages=['pydeep','pydeep.base','pydeep.misc','pydeep.rbm','pydeep.examples'],
+    name="PyDeep",
+    version="1.1.0",
+    author="Jan Melchior",
+    author_email="JanMelchior@gmx.de",
+    description=("Machine learning library with focus on Restricted Boltzmann machines."),
+    license="GNU",
+    keywords="Machine learning, Deep Learning, Restricted Boltzmann machines, Independent Component Analysis, "
+             "Principal Component Analysis, Zero-Phase Component Analysis",
+    url="https://github.com/MelJan/PyDeep",
+    packages=['pydeep', 'pydeep.base', 'pydeep.misc', 'pydeep.rbm'],
     py_modules=[],
+    setup_requires=['numpy','scipy','matplotlib'],
     long_description=read('README.md'),
     classifiers=[
         "Development Status :: 3 - Alpha",

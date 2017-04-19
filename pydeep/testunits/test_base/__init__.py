@@ -1,10 +1,10 @@
-""" Package providing rbm models and corresponding sampler, trainer and estimator.
+""" Module initializer includes all sub-modules.
         
     :Version:
         1.1.0
 
     :Date:
-        04.04.2017
+        13.03.2017
 
     :Author:
         Jan Melchior
@@ -32,4 +32,4 @@
         along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 """
-__all__ = ["model", "trainer", "estimator", "sampler", "dbn"]
+__all__ = ["test_activationfunction", "test_basicstructure", "test_corruptor", "test_costfunction", "test_numpyextension"]
