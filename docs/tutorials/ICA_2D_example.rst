@@ -54,6 +54,6 @@ Source code
 
 .. figure:: images/download_icon.png
    :scale: 20 %
-   :target: https://github.com/MelJan/PyDeep/blob/master/examples/PCA_2D.py
+   :target: https://github.com/MelJan/PyDeep/blob/master/examples/ICA_2D.py
 
-.. literalinclude:: ../../examples/PCA_2D.py
+.. literalinclude:: ../../examples/ICA_2D.py

@@ -129,4 +129,4 @@ Source code
    :scale: 20 %
    :target: https://github.com/MelJan/PyDeep/blob/master/examples/RBM_binary_MNIST_small.py
 
-.. literalinclude:: ../../examples/.py
+.. literalinclude:: ../../examples/RBM_binary_MNIST_small.py
