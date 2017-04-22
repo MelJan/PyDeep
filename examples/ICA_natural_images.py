@@ -1,10 +1,10 @@
-""" Example for the Independent component analysis on natural image patches.
+""" Example for the Independent Component Analysis (ICA) on natural image patches.
 
     :Version:
         1.1.0
 
     :Date:
-        08.04.2017
+        22.04.2017
 
     :Author:
         Jan Melchior
@@ -32,27 +32,30 @@
         along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 """
-# Import PCA, numpy, input output functions, and visualization functions
+
+# Import ZCA, ICA, numpy, input output functions, and visualization functions
 import numpy as numx
 from pydeep.preprocessing import ICA, ZCA
 import pydeep.misc.io as io
 import pydeep.misc.visualization as vis
 
-# Set the random seed (optional, if stochastic processes are involved we always get the same results)
+# Set the random seed
+# (optional, if stochastic processes are involved we always get the same results)
 numx.random.seed(42)
 
-# Load the data
+# Load the data (automatic download if it does not exist at given path)
 data = io.load_natural_image_patches('../../data/NaturalImage.mat')
 
 # Specify image width and height for displaying
 width = height = 14
 
-# Create a ZCA node to whiten the data and train it (you could also use PCA whitened=True)
+# Create a ZCA node to whiten the data and train it
+# (you could also use PCA whitened=True)
 zca = ZCA(input_dim=width * height)
 zca.train(data=data)
 
-# ZCA projects the whitened data back to the original space, thus does not perform a
-# dimensionality reduction but a whitening in the original space
+# ZCA projects the whitened data back to the original space, thus does not
+# perform a dimensionality reduction but a whitening in the original space
 whitened_data = zca.project(data)
 
 # Create a ZCA node and train it (you could also use PCA whitened=True)
@@ -62,45 +65,27 @@ ica.train(data=whitened_data,
           convergence=1.0,
           status=True)
 
-# Show eigenvectors of the covariance matrix
-eigenvectors = vis.tile_matrix_rows(matrix=zca.projection_matrix,
-                                    tile_width=width,
-                                    tile_height=height,
-                                    num_tiles_x=width,
-                                    num_tiles_y=height,
-                                    border_size=1,
-                                    normalized=True)
-vis.imshow_matrix(matrix=eigenvectors,
-                  windowtitle='Eigenvectors of the covariance matrix')
-
 # Show whitened images
-images = vis.tile_matrix_rows(matrix=data[0:width*height].T,
+images = vis.tile_matrix_rows(matrix=data[0:100].T,
                               tile_width=width,
                               tile_height=height,
-                              num_tiles_x=width,
-                              num_tiles_y=height,
+                              num_tiles_x=10,
+                              num_tiles_y=10,
                               border_size=1,
                               normalized=True)
 vis.imshow_matrix(matrix=images,
-                  windowtitle='Some image patches')
+                  windowtitle='First 100 image patches')
 
 # Show some whitened images
-images = vis.tile_matrix_rows(matrix=whitened_data[0:width*height].T,
+images = vis.tile_matrix_rows(matrix=whitened_data[0:100].T,
                               tile_width=width,
                               tile_height=height,
-                              num_tiles_x=width,
-                              num_tiles_y=height,
+                              num_tiles_x=10,
+                              num_tiles_y=10,
                               border_size=1,
                               normalized=True)
 vis.imshow_matrix(matrix=images,
-                  windowtitle='Some whitened image patches')
-
-# Plot the cumulative sum of teh Eigenvalues.
-eigenvalue_sum = numx.cumsum(zca.eigen_values)
-vis.imshow_plot(matrix=eigenvalue_sum,
-                windowtitle="Cumulative sum of Eigenvalues")
-vis.xlabel("Eigenvalue index")
-vis.ylabel("Sum of Eigenvalues 0 to index")
+                  windowtitle='First 100 image patches whitened')
 
 # Show the ICA filters/bases
 ica_filters = vis.tile_matrix_rows(matrix=ica.projection_matrix,

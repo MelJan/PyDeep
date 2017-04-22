@@ -45,7 +45,7 @@ We can also back-project the ICA projection matrix back to the original space an
    :scale: 75 %
    :alt: Examples of ICA 2D
 
-For a real-world application see the eigenfaces example.
+For a real-world application see the ICA_Natural_Images example.
 
 .. _code:
 

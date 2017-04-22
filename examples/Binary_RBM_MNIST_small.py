@@ -44,6 +44,16 @@ import pydeep.misc.measuring as mea
 # Set random seed (optional)
 numx.random.seed(42)
 
+# normal RBM
+#update_offsets = 0.0
+# centered RBM
+update_offsets = 0.01
+
+# Flipped/Inverse MNIST
+#flipped = True
+# Normal MNIST
+flipped = False
+
 # Input and hidden dimensionality
 v1 = v2 = 28
 h1 = h2 = 4
@@ -51,14 +61,28 @@ h1 = h2 = 4
 # Load data , get it from 'deeplearning.net/data/mnist/mnist.pkl.gz'
 train_data = io.load_mnist("../../data/mnist.pkl.gz", True)[0]
 
+# Flip the dataset if chosen
+if flipped:
+    train_data = 1-train_data
+
 # Training paramters
 batch_size = 100
 epochs = 39
 
-# Create trainer and model
-rbm = model.BinaryBinaryRBM(number_visibles=v1 * v2,
-                            number_hiddens=h1 * h2,
-                            data=train_data)
+# Create centered or normal model
+if update_offsets <= 0.0:
+    rbm = model.BinaryBinaryRBM(number_visibles=v1 * v2,
+                                number_hiddens=h1 * h2,
+                                data=train_data,
+                                initial_visible_offsets=0.0,
+                                initial_hidden_offsets=0.0)
+else:
+    rbm = model.BinaryBinaryRBM(number_visibles=v1 * v2,
+                                number_hiddens=h1 * h2,
+                                data=train_data,
+                                initial_visible_offsets='AUTO',
+                                initial_hidden_offsets='AUTO')
+# Create trainer
 trainer = trainer.PCD(rbm, batch_size)
 
 # Measuring time
@@ -75,14 +99,18 @@ for epoch in range(1, epochs + 1):
     # Loop over all batches
     for b in range(0, train_data.shape[0], batch_size):
         batch = train_data[b:b + batch_size, :]
-        trainer.train(data=batch, epsilon=0.05)
+        trainer.train(data=batch,
+                      epsilon=0.05,
+                      update_visible_offsets=update_offsets,
+                      update_hidden_offsets=update_offsets)
 
     # Calculate Log-Likelihood, reconstruction error and expected end time every 10th epoch
     if epoch % 10 == 0:
         logZ = estimator.partition_function_factorize_h(rbm)
         ll = numx.mean(estimator.log_likelihood_v(rbm, logZ, train_data))
         re = numx.mean(estimator.reconstruction_error(rbm, train_data))
-        print('{}\t\t{:.4f}\t\t\t{:.4f}\t\t\t{}'.format(epoch, re, ll, measurer.get_expected_end_time(epoch, epochs)))
+        print('{}\t\t{:.4f}\t\t\t{:.4f}\t\t\t{}'.format(
+            epoch, re, ll, measurer.get_expected_end_time(epoch, epochs)))
     else:
         print(epoch)
 
