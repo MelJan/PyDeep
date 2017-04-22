@@ -16,13 +16,13 @@ The corresponding whitened image patches.
 
 .. figure:: images/ICA_natural_images_data_whitened.png
    :scale: 75 %
-   :alt: 100 gray scale natural image patch examples
+   :alt: 100 gray scale natural image patch examples whitend
 
 The learned filters/independent components learned from the whitened natural image patches.
 
 .. figure:: images/ICA_natural_images_filter.png
    :scale: 75 %
-   :alt: 100 gray scale natural image patch examples
+   :alt: ICA filter on natural images
 
 See `Gaussian-binary restricted Boltzmann machines for modeling natural image statistics. Melchior, J., Wang, N., & Wiskott, L.. (2017). PLOS ONE, 12(2), 1–24. <http://doi.org/10.1371/journal.pone.0171015>`_
 for a analysis of ICA and GRBM.

@@ -10,13 +10,13 @@ Learned filters of a centered binary RBM on the MNIST dataset.
 
 .. figure:: images/BRBM_small_centered_weights.png
    :scale: 75 %
-   :alt: 100 gray scale natural image patch examples
+   :alt: weights centered
 
 Sampling results for some examples. The first row shows training data and the following rows are the results after one Gibbs-sampling step starting from the previous row.
 
 .. figure:: images/BRBM_small_centered_samples.png
    :scale: 75 %
-   :alt: 100 gray scale natural image patch examples
+   :alt: samples centered
 
 The Log-Likelihood is calculated using the exact Partition function, an annealed importance sampling estimation (optimistic) and reverse annealed importance sampling estimation (pessimistic).
 
@@ -44,13 +44,13 @@ Resulting in the following weights and sampling steps.
 
 .. figure:: images/BRBM_small_normal_weights.png
    :scale: 75 %
-   :alt: 100 gray scale natural image patch examples
+   :alt: weights normal
 
 Sampling results for some examples. The first row shows training data and the following rows are the result after one Gibbs-sampling step.
 
 .. figure:: images/BRBM_small_normal_samples.png
    :scale: 75 %
-   :alt: 100 gray scale natural image patch examples
+   :alt: samples normal
 
 The Log-Likelihood for this model is significantly worse (8 nats lower).
 
@@ -90,13 +90,13 @@ While the centerer model has a similar performance on the flipped version,
 
 .. figure:: images/BRBM_small_centered_weights_flipped.png
    :scale: 75 %
-   :alt: 100 gray scale natural image patch examples
+   :alt: flipped filters centered
 
 Sampling results for some examples. The first row shows training data and the following rows are the result after one Gibbs-sampling step.
 
 .. figure:: images/BRBM_small_centered_samples_flipped.png
    :scale: 75 %
-   :alt: 100 gray scale natural image patch examples
+   :alt: flipped samples centered
 
 the normal RBM fails to learn the distribution.
 
@@ -114,11 +114,11 @@ the normal RBM fails to learn the distribution.
 
 .. figure:: images/BRBM_small_normal_weights_flipped.png
    :scale: 75 %
-   :alt: 100 gray scale natural image patch examples
+   :alt: flipped filters normal
 
 .. figure:: images/BRBM_small_normal_samples_flipped.png
    :scale: 75 %
-   :alt: 100 gray scale natural image patch examples
+   :alt: flipped samples normal
 
 Source code
 ***********
