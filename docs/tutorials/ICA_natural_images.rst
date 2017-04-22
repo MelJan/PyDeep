@@ -6,7 +6,26 @@ Independent Component Analysis on a natural image patches
 Example for Independent Component Analysis (`ICA <https://en.wikipedia.org/wiki/Principal_component_analysis>`_)
 on natural image patches. The independent components (columns of the ICA projection matrix) of natural image patches are edge detector filters.
 
-See  `ICA_2D_example <ICA_2D_example.html#ICA_2D_example>`__ for a theoretical introduction.
+Theory
+***********
+
+If you are new on ICA and blind source separation, a good theoretical introduction is given by `Course Material ICA <https://www.ini.rub.de/PEOPLE/wiskott/Teaching/Material/index.html>`_ and in the following videos.
+
+.. raw:: html
+
+    <div style="margin-top:10px;">
+      <iframe width="560" height="315" src="http://www.youtube.com/embed/3eWuUWODE4o" frameborder="0" allowfullscreen></iframe>
+    </div>
+
+and the follow up video introduces to ICA.
+
+.. raw:: html
+
+    <div style="margin-top:10px;">
+      <iframe width="560" height="315" src="http://www.youtube.com/embed/ugiMhRbFnTo" frameborder="0" allowfullscreen></iframe>
+    </div>
+
+See also `ICA_2D_example <ICA_2D_example.html#ICA_2D_example>`__ first.
 
 Results
 ***********
