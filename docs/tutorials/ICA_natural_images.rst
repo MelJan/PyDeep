@@ -8,6 +8,9 @@ on natural image patches. The independent components (columns of the ICA project
 
 See  `ICA_2D_example <ICA_2D_example.html#ICA_2D_example>`__ for a theoretical introduction.
 
+Results
+***********
+
 The code_ given below produces the following output.
 
 Visualization of 100 examples of the gray scale natural image dataset.

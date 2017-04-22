@@ -7,6 +7,9 @@ Example for Principal Component Analysis (PCA) on face images also known as `Eig
 
 See  `PCA_2D_example <PCA_2D_example.html#PCA_2D_example>`__ for a theoretical introduction.
 
+Results
+***********
+
 The code_ given below produces the following output.
 
 Some examples of the face images of the olivetti face dataset.

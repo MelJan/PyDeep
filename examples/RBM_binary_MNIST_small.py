@@ -122,12 +122,14 @@ print("Training time:\t{}".format(measurer.get_interval()))
 
 # Calculate true partition function
 logZ = estimator.partition_function_factorize_h(rbm, batchsize_exponent=h1, status=False)
-print("True Partition: {} (LL: {})".format(logZ, numx.mean(estimator.log_likelihood_v(rbm, logZ, train_data))))
+print("True Partition: {} (LL: {})".format(logZ, numx.mean(
+    estimator.log_likelihood_v(rbm, logZ, train_data))))
 
 # Approximate partition function by AIS (tends to overestimate)
 logZ_approx_ = estimator.annealed_importance_sampling(rbm)[0]
 print(
-"AIS Partition: {} (LL: {})".format(logZ_approx_, numx.mean(estimator.log_likelihood_v(rbm, logZ_approx_, train_data))))
+"AIS Partition: {} (LL: {})".format(logZ_approx_, numx.mean(
+    estimator.log_likelihood_v(rbm, logZ_approx_, train_data))))
 
 # Approximate partition function by reverse AIS (tends to underestimate)
 logZ_approx_up = estimator.reverse_annealed_importance_sampling(rbm, data=train_data)[0]

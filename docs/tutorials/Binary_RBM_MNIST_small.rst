@@ -6,6 +6,25 @@ The model is small enough to calculate the exact Log-Likelihood and annealed imp
 
 For an analysis of advantage of centering in RBMs see `How to Center Deep Boltzmann Machines. Melchior, J., Fischer, A., & Wiskott, L.. (2016). Journal of Machine Learning Research, 17(99), 1–61. <http://jmlr.org/papers/v17/14-237.html>`_
 
+If you are new on RBMs, a good theoretical introduction is given by `Course Material ICA <https://www.ini.rub.de/PEOPLE/wiskott/Teaching/Material/index.html>`_ and in the following video.
+
+.. raw:: html
+
+    <div style="margin-top:10px;">
+      <iframe width="560" height="315" src="http://www.youtube.com/embed/bMaITeXhOaE" frameborder="0" allowfullscreen></iframe>
+    </div>
+
+and
+
+.. raw:: html
+
+    <div style="margin-top:10px;">
+      <iframe width="560" height="315" src="http://www.youtube.com/embed/nyk5XUklb5M" frameborder="0" allowfullscreen></iframe>
+    </div>
+
+Results
+***********
+
 The code_ given below produces the following output.
 
 Learned filters of a centered binary RBM on the MNIST dataset.

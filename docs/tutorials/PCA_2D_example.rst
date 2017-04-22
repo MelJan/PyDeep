@@ -5,13 +5,17 @@ Principal Component Analysis 2D example.
 
 Example for Principal Component Analysis (`PCA <https://en.wikipedia.org/wiki/Principal_component_analysis>`_) on a linear 2D mixture.
 
-If you are new on PCA, a good theoretical introduction is given in the following video.
+
+If you are new on PCA, a good theoretical introduction is given by `Course Material ICA <https://www.ini.rub.de/PEOPLE/wiskott/Teaching/Material/index.html>`_ and in the following videos.
 
 .. raw:: html
 
     <div style="margin-top:10px;">
       <iframe width="560" height="315" src="http://www.youtube.com/embed/9H-1FH1gn6w" frameborder="0" allowfullscreen></iframe>
     </div>
+
+Results
+***********
 
 The code_ given below produces the following output.
 
