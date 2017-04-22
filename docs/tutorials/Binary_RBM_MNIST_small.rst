@@ -1,4 +1,4 @@
-Binary RBM
+Small centered/normal binary RBM on MNIST
 ==========================================================
 
 Example for training a centered and normal Binary Restricted Boltzmann machine on the MNIST handwritten digit dataset and the flipped version.
@@ -125,6 +125,6 @@ Source code
 
 .. figure:: images/download_icon.png
    :scale: 20 %
-   :target: https://github.com/MelJan/PyDeep/blob/master/examples/ICA_natural_images.py
+   :target: https://github.com/MelJan/PyDeep/blob/master/examples/RBM_binary_MNIST_small.py
 
-.. literalinclude:: ../../examples/ICA_natural_images.py
+.. literalinclude:: ../../examples/.py

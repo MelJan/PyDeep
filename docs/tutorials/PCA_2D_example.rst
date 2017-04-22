@@ -1,3 +1,5 @@
+.. _PCA_2D_example:
+
 Principal Component Analysis 2D example.
 ============================================
 
@@ -31,7 +33,7 @@ The PCA class can also perform whitening and data and extracted principal compon
    :scale: 50 %
    :alt: Examples of PCA 2D in whitened space
 
-For a real-world application see the eigenfaces example.
+For a real-world application see the `PCA_eigenfaces <PCA_eigenfaces.html#PCA_eigenfaces>`__ example.
 
 .. _code:
 

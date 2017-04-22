@@ -1,3 +1,5 @@
+.. _ICA_2D_example:
+
 Independent Component Analysis on a 2D example.
 =======================================================
 
@@ -45,9 +47,7 @@ We can also back-project the ICA projection matrix back to the original space an
    :scale: 75 %
    :alt: Examples of ICA 2D
 
-For a real-world application see the ICA_Natural_Images example.
-
-.. _code:
+For a real-world application see the `ICA_natural_images <ICA_natural_images.html#_ICA_Natural_Images>`__ example.
 
 Source code
 ***********

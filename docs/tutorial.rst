@@ -5,11 +5,11 @@ Tutorials
 
    PCA 2D<tutorials/PCA_2D_example.rst>
 
-   Eigenfaces<tutorials/eigenfaces.rst>
+   PCA Eigenfaces<tutorials/PCA_eigenfaces.rst>
 
    ICA 2D<tutorials/ICA_2D_example.rst>
 
    ICA on natural images<tutorials/ICA_natural_images.rst>
 
-   Small centered binary RBM on MNIST<tutorials/Binary_RBM_MNIST_small.rst>
+   RBM binary small on MNIST<tutorials/Binary_RBM_MNIST_small.rst>
 

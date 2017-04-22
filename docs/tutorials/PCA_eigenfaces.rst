@@ -1,7 +1,11 @@
+.. _PCA_eigenfaces:
+
 Eigenfaces
 ===========
 
 Example for Principal Component Analysis (PCA) on face images also known as `Eigenfaces <https://en.wikipedia.org/wiki/Eigenface>`_
+
+See  `PCA_2D_example <PCA_2D_example.html#PCA_2D_example>`__ for a theoretical introduction.
 
 The code_ given below produces the following output.
 
@@ -44,6 +48,6 @@ Source code
 
 .. figure:: images/download_icon.png
    :scale: 20 %
-   :target: https://github.com/MelJan/PyDeep/blob/master/examples/eigenfaces.py
+   :target: https://github.com/MelJan/PyDeep/blob/master/examples/PCA_eigenfaces.py
 
-.. literalinclude:: ../../examples/Eigenfaces.py
+.. literalinclude:: ../../examples/PCA_eigenfaces.py
