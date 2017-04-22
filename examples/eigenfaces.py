@@ -1,10 +1,10 @@
-""" Example for Eigenfaces (Principal component analysis on face images).
+""" Example for Principal component analysis on face images (Eigenfaces).
 
     :Version:
         1.1.0
 
     :Date:
-        08.04.2017
+        22.04.2017
 
     :Author:
         Jan Melchior
@@ -38,7 +38,8 @@ import numpy as numx
 import pydeep.misc.io as io
 import pydeep.misc.visualization as vis
 
-# Set the random seed (optional, if stochastic processes are involved we always get the same results)
+# Set the random seed
+# (optional, if stochastic processes are involved we get the same results)
 numx.random.seed(42)
 
 # Load the data
@@ -92,7 +93,8 @@ images = vis.tile_matrix_rows(matrix=recon,
                               border_size=1,
                               normalized=True)
 vis.imshow_matrix(matrix=images,
-                  windowtitle='First 100 Face images reconstructed from 50 principal components')
+                  windowtitle='First 100 Face images reconstructed from 50 '
+                              'principal components')
 
 # Show the first 100 Face images reconstructed from 120 principal components
 recon = pca.unproject(pca.project(data[0:100], num_components=200)).T
@@ -104,7 +106,8 @@ images = vis.tile_matrix_rows(matrix=recon,
                               border_size=1,
                               normalized=True)
 vis.imshow_matrix(matrix=images,
-                  windowtitle='First 100 Face images reconstructed from 200 principal components')
+                  windowtitle='First 100 Face images reconstructed from 200 '
+                              'principal components')
 
 # Show all windows.
 vis.show()
