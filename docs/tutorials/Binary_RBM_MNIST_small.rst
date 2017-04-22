@@ -4,7 +4,9 @@ Small centered/normal binary RBM on MNIST
 Example for training a centered and normal Binary Restricted Boltzmann machine on the MNIST handwritten digit dataset and the flipped version.
 The model is small enough to calculate the exact Log-Likelihood and annealed importance sampling and reverse annealed importance sampling are evaluated.
 
-For an analysis of advantage of centering in RBMs see `How to Center Binary Restricted Boltzmann Machines (Vol. 1311.1354). Melchior, J., Fischer, A., Wang, N., & Wiskott, L.. (2013). arXiv.org e-Print archive. <http://arxiv.org/pdf/1311.1354.pdf>`_
+For an analysis of advantage of centering in RBMs see `How to Center Deep Boltzmann Machines. Melchior, J., Fischer, A., & Wiskott, L.. (2016). Journal of Machine Learning Research, 17(99), 1–61. <http://jmlr.org/papers/v17/14-237.html>`_
+
+The code_ given below produces the following output.
 
 Learned filters of a centered binary RBM on the MNIST dataset.
 
