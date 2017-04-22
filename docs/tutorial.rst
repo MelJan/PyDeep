@@ -1,4 +1,6 @@
 Tutorials
 ================
+.. toctree::
+   :maxdepth: 2
 
-coming soon!
+   Eigenfaces<tutorials/eigenfaces.rst>

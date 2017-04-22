@@ -32,9 +32,9 @@
         along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 """
-# Import PCA, numpy, input output functions, and visualization functions
-import numpy as numx
+# Import PCA, numpy, input output module, and visualization module
 from pydeep.preprocessing import PCA
+import numpy as numx
 import pydeep.misc.io as io
 import pydeep.misc.visualization as vis
 
@@ -42,7 +42,7 @@ import pydeep.misc.visualization as vis
 numx.random.seed(42)
 
 # Load the data
-data = io.load_olivetti_faces(path='../../../data/olivettifaces.mat')
+data = io.load_olivetti_faces(path='../../data/olivettifaces.mat')
 
 # Specify image width and height for displaying
 width = height = 64
@@ -81,6 +81,30 @@ vis.xlabel("Eigenvalue index")
 vis.ylabel("Sum of Eigenvalues 0 to index")
 vis.ylim(0, 1)
 vis.xlim(0, 400)
+
+# Show the first 100 Face images reconstructed from 50 principal components
+recon = pca.unproject(pca.project(data[0:100], num_components=50)).T
+images = vis.tile_matrix_rows(matrix=recon,
+                              tile_width=width,
+                              tile_height=height,
+                              num_tiles_x=10,
+                              num_tiles_y=10,
+                              border_size=1,
+                              normalized=True)
+vis.imshow_matrix(matrix=images,
+                  windowtitle='First 100 Face images reconstructed from 50 principal components')
+
+# Show the first 100 Face images reconstructed from 120 principal components
+recon = pca.unproject(pca.project(data[0:100], num_components=200)).T
+images = vis.tile_matrix_rows(matrix=recon,
+                              tile_width=width,
+                              tile_height=height,
+                              num_tiles_x=10,
+                              num_tiles_y=10,
+                              border_size=1,
+                              normalized=True)
+vis.imshow_matrix(matrix=images,
+                  windowtitle='First 100 Face images reconstructed from 200 principal components')
 
 # Show all windows.
 vis.show()
