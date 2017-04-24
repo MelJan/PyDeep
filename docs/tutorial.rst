@@ -11,5 +11,7 @@ Tutorials
 
    ICA on natural images<tutorials/ICA_natural_images.rst>
 
-   RBM binary small on MNIST<tutorials/Binary_RBM_MNIST_small.rst>
+   RBM small on MNIST <tutorials/RBM_MNIST_small.rst>
+
+   RBM big on MNIST <tutorials/RBM_MNIST_big.rst>
 

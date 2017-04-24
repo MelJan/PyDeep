@@ -33,6 +33,7 @@ Results
 The code_ given below produces the following output.
 
 Learned filters of a centered binary RBM on the MNIST dataset.
+The filters have been normalized such that the structure is more prominent.
 
 .. figure:: images/BRBM_small_centered_weights.png
    :scale: 75 %
@@ -67,6 +68,7 @@ The code can also be executed without centering by setting
    update_offsets = 0.0
 
 Resulting in the following weights and sampling steps.
+The filters have been normalized such that the structure is more prominent.
 
 .. figure:: images/BRBM_small_normal_weights.png
    :scale: 75 %
@@ -93,6 +95,7 @@ The Log-Likelihood for this model is significantly worse (8 nats lower).
    reverse AIS Partition:  209.55108856  (LL: -151.298359755)
 
 Further, the models can be trained on the flipped version of MNIST (1-MNIST).
+The filters have been normalized such that the structure is more prominent.
 
 .. code-block:: python
 
@@ -124,7 +127,8 @@ Sampling results for some examples. The first row shows training data and the fo
    :scale: 75 %
    :alt: flipped samples centered
 
-the normal RBM fails to learn the distribution.
+The normal RBM fails to learn the distribution.
+The filters have been normalized such that the structure is more prominent.
 
 .. code-block:: Python
 
@@ -151,6 +155,6 @@ Source code
 
 .. figure:: images/download_icon.png
    :scale: 20 %
-   :target: https://github.com/MelJan/PyDeep/blob/master/examples/RBM_binary_MNIST_small.py
+   :target: https://github.com/MelJan/PyDeep/blob/master/examples/RBM_MNIST_small.py
 
-.. literalinclude:: ../../examples/RBM_binary_MNIST_small.py
+.. literalinclude:: ../../examples/RBM_MNIST_small.py

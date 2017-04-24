@@ -16,7 +16,7 @@ If you are new on PCA, a good theoretical introduction is given by `Course Mater
       <iframe width="560" height="315" src="http://www.youtube.com/embed/9H-1FH1gn6w" frameborder="0" allowfullscreen></iframe>
     </div>
 
-See also `PCA_2D_example <PCA_2D_example.html#PCA_2D_example>`__ first.
+See also `PCA_2D_example <PCA_2D_example.html#PCA_2D_example>`__.
 
 Results
 ***********

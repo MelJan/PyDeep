@@ -25,7 +25,7 @@ and the follow up video introduces to ICA.
       <iframe width="560" height="315" src="http://www.youtube.com/embed/ugiMhRbFnTo" frameborder="0" allowfullscreen></iframe>
     </div>
 
-See also `ICA_2D_example <ICA_2D_example.html#ICA_2D_example>`__ first.
+See also `ICA_2D_example <ICA_2D_example.html#ICA_2D_example>`__.
 
 Results
 ***********
