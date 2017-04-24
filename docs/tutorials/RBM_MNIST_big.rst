@@ -57,33 +57,6 @@ The Log-Likelihood is calculated using annealed importance sampling estimation (
    AIS Partition:          951.21017149  (LL: -76.0479396244)
    reverse AIS Partition:  954.687597369 (LL: -79.525365503)
 
-The code can also be executed without centering by setting
-
-.. code-block:: python
-
-   update_offsets = 0.0
-
-Resulting in the following weights and sampling steps.
-The filters have been normalized such that the structure is more prominent.
-
-.. figure:: images/BRBM_big_normal_weights.png
-   :scale: 75 %
-   :alt: weights normal
-
-Sampling results for some examples. The first row shows training data and the following rows are the result after one Gibbs-sampling step.
-
-.. figure:: images/BRBM_big_normal_samples.png
-   :scale: 75 %
-   :alt: samples normal
-
-The Log-Likelihood for this model is significantly worse (8 nats lower).
-
-.. code-block:: Python
-
-   Training time:          0:49:51.186054
-   AIS Partition:          951.21017149  (LL: -76.0479396244)
-   reverse AIS Partition:  954.687597369 (LL: -79.525365503)
-
 Source code
 ***********
 
