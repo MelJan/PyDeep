@@ -47,7 +47,7 @@ numx.random.seed(42)
 # normal RBM
 #update_offsets = 0.0
 # centered RBM
-update_offsets = 0.0
+update_offsets = 0.01
 
 # Input and hidden dimensionality
 v1 = v2 = 28
