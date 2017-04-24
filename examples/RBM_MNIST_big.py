@@ -92,7 +92,10 @@ for epoch in range(1, epochs + 1):
     # Loop over all batches
     for b in range(0, train_data.shape[0], batch_size):
         batch = train_data[b:b + batch_size, :]
-        trainer_pcd.train(data=batch, epsilon=0.01)
+        trainer_pcd.train(data=batch,
+                          epsilon=0.01,
+                          update_visible_offsets=update_offsets,
+                          update_hidden_offsets=update_offsets)
 
     # Calculate reconstruction error and expected end time every 10th epoch
     if epoch % 10 == 0:
