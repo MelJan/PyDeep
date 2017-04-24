@@ -1,6 +1,0 @@
-numpy
-scipy
-paramiko
-matplotlib
-encryptedpickle
-
