@@ -1,4 +1,4 @@
-''' Example using a big BB-RBMs on the MNIST handwritten digit database.
+""" Example using a big BB-RBMs on the MNIST handwritten digit database.
 
     :Version:
         1.1.0
@@ -31,7 +31,8 @@
         You should have received a copy of the GNU General Public License
         along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-'''
+"""
+
 import numpy as numx
 import pydeep.rbm.model as model
 import pydeep.rbm.trainer as trainer
@@ -41,16 +42,15 @@ import pydeep.misc.io as io
 import pydeep.misc.visualization as vis
 import pydeep.misc.measuring as mea
 
-import mkl
-mkl.set_num_threads(2)
-
-# Set random seed (optional)
-numx.random.seed(42)
+# Choose normal/centered RBM
 
 # normal RBM
 #update_offsets = 0.0
 # centered RBM
 update_offsets = 0.0
+
+# Set random seed (optional)
+numx.random.seed(42)
 
 # Input and hidden dimensionality
 v1 = v2 = 28
@@ -65,7 +65,6 @@ train_data = numx.vstack((train_data, valid_data))
 # Training paramters
 batch_size = 100
 epochs = 200
-#rbm = io.load_object("mnist500.rbm")
 
 # Create centered or normal model
 if update_offsets <= 0.0:
@@ -98,7 +97,7 @@ print('Epoch\t\tRecon. Error\tLog likelihood \tExpected End-Time')
 for epoch in range(1, epochs + 1):
 
     # Shuffle training samples (optional)
-    #train_data = numx.random.permutation(train_data)
+    train_data = numx.random.permutation(train_data)
 
     # Loop over all batches
     for b in range(0, train_data.shape[0], batch_size):
@@ -116,9 +115,6 @@ for epoch in range(1, epochs + 1):
     else:
         print(epoch)
 
-# Save the model
-io.save_object(rbm, "mnist500_"+str(update_offsets)+".rbm")
-
 # Stop time measurement
 measurer.end()
 
@@ -126,13 +122,13 @@ measurer.end()
 print("End-time: \t{}".format(measurer.get_end_time()))
 print("Training time:\t{}".format(measurer.get_interval()))
 
-# Approximate partition function using AIS for lower bound approximiation
+# Approximate partition function by AIS (tends to overestimate)
 logZ = estimator.annealed_importance_sampling(rbm)[0]
 print("AIS Partition: {} (LL train: {}, LL test: {})".format(logZ, numx.mean(
     estimator.log_likelihood_v(rbm, logZ, train_data)),numx.mean(
     estimator.log_likelihood_v(rbm, logZ, test_data))))
 
-# Approximate partition function using reverse AIS for upper bound approximiation
+# Approximate partition function by reverse AIS (tends to underestimate)
 logZ = estimator.reverse_annealed_importance_sampling(rbm)[0]
 print("reverse AIS Partition: {} (LL train: {}, LL test: {})".format(logZ, numx.mean(
     estimator.log_likelihood_v(rbm, logZ, train_data)),numx.mean(

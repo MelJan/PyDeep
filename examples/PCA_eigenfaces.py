@@ -32,9 +32,9 @@
         along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 """
-# Import PCA, numpy, input output module, and visualization module
-from pydeep.preprocessing import PCA
+# Import numpy, PCA, input output module, and visualization module
 import numpy as numx
+from pydeep.preprocessing import PCA
 import pydeep.misc.io as io
 import pydeep.misc.visualization as vis
 

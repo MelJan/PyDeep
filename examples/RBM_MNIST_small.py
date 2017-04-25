@@ -1,4 +1,4 @@
-''' Example using a small BB-RBMs on the MNIST handwritten digit database.
+""" Example using a small BB-RBMs on the MNIST handwritten digit database.
 
     :Version:
         1.1.0
@@ -31,18 +31,20 @@
         You should have received a copy of the GNU General Public License
         along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-'''
-import numpy as numx
+"""
+
+# model, trainer, and estimator
 import pydeep.rbm.model as model
 import pydeep.rbm.trainer as trainer
 import pydeep.rbm.estimator as estimator
 
+# Import numpy, input output functions, visualization, and measurement module
+import numpy as numx
 import pydeep.misc.io as io
 import pydeep.misc.visualization as vis
 import pydeep.misc.measuring as mea
 
-# Set random seed (optional)
-numx.random.seed(42)
+# Choose normal/centered RBM and normal/flipped MNIST
 
 # normal RBM
 #update_offsets = 0.0
@@ -53,6 +55,9 @@ update_offsets = 0.01
 #flipped = True
 # Normal MNIST
 flipped = False
+
+# Set random seed (optional)
+numx.random.seed(42)
 
 # Input and hidden dimensionality
 v1 = v2 = 28

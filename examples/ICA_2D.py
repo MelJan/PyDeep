@@ -33,12 +33,12 @@
 
 """
 
-# Import ZCA, ICA, the toy-problem, numpy, numpy extensions, and visualization module
+# Import numpy, numpy extensions, ZCA, ICA, 2D linear mixture, and visualization module
 import numpy as numx
-import pydeep.misc.visualization as vis
+import pydeep.base.numpyextension as numxext
 from pydeep.preprocessing import ZCA, ICA
 from pydeep.misc.toyproblems import generate_2d_mixtures
-import pydeep.base.numpyextension as numxext
+import pydeep.misc.visualization as vis
 
 # Set the random seed
 # (optional, if stochastic processes are involved we get the same results)
@@ -99,4 +99,5 @@ vis.plot_2d_weights(
 vis.axis('equal')
 vis.axis([-4, 4, -4, 4])
 
+# Show all windows.
 vis.show()
