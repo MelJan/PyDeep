@@ -40,6 +40,7 @@ Sampling results for some examples. The first row shows training data and the fo
 The log-likelihood of training and test data
 
 .. code-block:: Python
+
                 Epoch	RE train	RE test 	LL train	LL test
    AIS:         200 	0.73291 	0.75427 	-268.34107 	-270.82759
    reverse AIS:         0.73291 	0.75427 	-268.34078 	-270.82731

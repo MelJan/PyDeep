@@ -15,3 +15,5 @@ Tutorials
 
    RBM big on MNIST <tutorials/RBM_MNIST_big.rst>
 
+   GRBM on natural images<tutorials/GRBM_natural_images.rst>
+

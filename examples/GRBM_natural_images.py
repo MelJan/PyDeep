@@ -33,7 +33,7 @@
 
 """
 
-# Import numpy, numpy extensions, input output functions, preprocessing module, and visualization module.
+# Import numpy, numpy extensions, input output functions, preprocessing, and visualization.
 import numpy as numx
 import pydeep.base.numpyextension as numxext
 import pydeep.misc.io as io
@@ -88,7 +88,8 @@ rbm = model.GaussianBinaryVarianceRBM(number_visibles=v1 * v2,
                                       dtype=numx.float64)
 
 # Set the hidden bias such that the scaling factor is 0.01
-rbm.bh = -(numxext.get_norms(rbm.w + rbm.bv.T, axis=0) - numxext.get_norms(rbm.bv, axis=None)) / 2.0 + numx.log(0.01)
+rbm.bh = -(numxext.get_norms(rbm.w + rbm.bv.T, axis=0) - numxext.get_norms(
+    rbm.bv, axis=None)) / 2.0 + numx.log(0.01)
 rbm.bh = rbm.bh.reshape(1, h1 * h2)
 
 # TRaining with CD-1
