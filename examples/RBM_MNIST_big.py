@@ -41,13 +41,16 @@ import pydeep.misc.io as io
 import pydeep.misc.visualization as vis
 import pydeep.misc.measuring as mea
 
+import mkl
+mkl.set_num_threads(2)
+
 # Set random seed (optional)
 numx.random.seed(42)
 
 # normal RBM
 #update_offsets = 0.0
 # centered RBM
-update_offsets = 0.01
+update_offsets = 0.0
 
 # Input and hidden dimensionality
 v1 = v2 = 28
@@ -55,24 +58,32 @@ h1 = 25
 h2 = 20
 
 # Load data , get it from 'deeplearning.net/data/mnist/mnist.pkl.gz'
-train_data = io.load_mnist("../../data/mnist.pkl.gz", True)[0]
+train_data,_,valid_data,_,test_data,_ = io.load_mnist("../../data/mnist.pkl.gz", True)
+
+train_data = numx.vstack((train_data, valid_data))
 
 # Training paramters
 batch_size = 100
 epochs = 200
-rbm = io.load_object("mnist500.rbm")
+#rbm = io.load_object("mnist500.rbm")
 
 # Create centered or normal model
 if update_offsets <= 0.0:
     rbm = model.BinaryBinaryRBM(number_visibles=v1 * v2,
                                 number_hiddens=h1 * h2,
-                                data=train_data,
+                                data=None,
+                                initial_weights=0.01,
+                                initial_visible_bias=0.0,
+                                initial_hidden_bias=0.0,
                                 initial_visible_offsets=0.0,
                                 initial_hidden_offsets=0.0)
 else:
     rbm = model.BinaryBinaryRBM(number_visibles=v1 * v2,
                                 number_hiddens=h1 * h2,
                                 data=train_data,
+                                initial_weights=0.01,
+                                initial_visible_bias='AUTO',
+                                initial_hidden_bias='AUTO',
                                 initial_visible_offsets='AUTO',
                                 initial_hidden_offsets='AUTO')
 
@@ -87,7 +98,7 @@ print('Epoch\t\tRecon. Error\tLog likelihood \tExpected End-Time')
 for epoch in range(1, epochs + 1):
 
     # Shuffle training samples (optional)
-    train_data = numx.random.permutation(train_data)
+    #train_data = numx.random.permutation(train_data)
 
     # Loop over all batches
     for b in range(0, train_data.shape[0], batch_size):
@@ -106,7 +117,7 @@ for epoch in range(1, epochs + 1):
         print(epoch)
 
 # Save the model
-io.save_object(rbm, "mnist500.rbm")
+io.save_object(rbm, "mnist500_"+str(update_offsets)+".rbm")
 
 # Stop time measurement
 measurer.end()
@@ -116,14 +127,16 @@ print("End-time: \t{}".format(measurer.get_end_time()))
 print("Training time:\t{}".format(measurer.get_interval()))
 
 # Approximate partition function using AIS for lower bound approximiation
-Z = estimator.annealed_importance_sampling(rbm)[0]
-print("AIS Partition: {} (LL: {})".format(Z, numx.mean(
-    estimator.log_likelihood_v(rbm, Z, train_data))))
+logZ = estimator.annealed_importance_sampling(rbm)[0]
+print("AIS Partition: {} (LL train: {}, LL test: {})".format(logZ, numx.mean(
+    estimator.log_likelihood_v(rbm, logZ, train_data)),numx.mean(
+    estimator.log_likelihood_v(rbm, logZ, test_data))))
 
 # Approximate partition function using reverse AIS for upper bound approximiation
-Z = estimator.reverse_annealed_importance_sampling(rbm)[0]
-print("reverse AIS Partition: {} (LL: {})".format(Z, numx.mean(
-    estimator.log_likelihood_v(rbm, Z, train_data))))
+logZ = estimator.reverse_annealed_importance_sampling(rbm)[0]
+print("reverse AIS Partition: {} (LL train: {}, LL test: {})".format(logZ, numx.mean(
+    estimator.log_likelihood_v(rbm, logZ, train_data)),numx.mean(
+    estimator.log_likelihood_v(rbm, logZ, test_data))))
 
 # Reorder RBM features by average activity decreasingly
 reordered_rbm = vis.reorder_filter_by_hidden_activation(rbm, train_data)
