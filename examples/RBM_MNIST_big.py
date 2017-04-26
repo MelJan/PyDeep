@@ -43,7 +43,7 @@ import pydeep.misc.visualization as vis
 import pydeep.misc.measuring as mea
 
 # normal/centered RBM --> 0.0/0.01
-update_offsets = 0.01
+update_offsets = 0.0
 
 # Set random seed (optional)
 numx.random.seed(42)
@@ -90,9 +90,6 @@ measurer = mea.Stopwatch()
 print('Training')
 print('Epoch\t\tRecon. Error\tLog likelihood \tExpected End-Time')
 for epoch in range(1, epochs + 1):
-
-    # Shuffle training samples (optional)
-    train_data = numx.random.permutation(train_data)
 
     # Loop over all batches
     for b in range(0, train_data.shape[0], batch_size):

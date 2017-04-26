@@ -1,9 +1,9 @@
 Big centered binary RBM on MNIST
 ==========================================================
 
-Example for training a centered binary restricted Boltzmann machine on the MNIST handwritten digit dataset.
-The model has 500 hidden units, is trainer 200 epochs, and the Log-likelihood is evaluated using Annealed Importance Sampling.
-and allows to reproduce the the results from the publication `How to Center Deep Boltzmann Machines. Melchior, J., Fischer, A., & Wiskott, L.. (2016). Journal of Machine Learning Research, 17(99), 1–61. <http://jmlr.org/papers/v17/14-237.html>`_
+Example for training a centered and normal binary restricted Boltzmann machine on the MNIST handwritten digit dataset.
+The model has 500 hidden units, is trained for 200 epochs, and the log-likelihood is evaluated using annealed importance sampling.
+It allows to reproduce the results from the publication `How to Center Deep Boltzmann Machines. Melchior, J., Fischer, A., & Wiskott, L.. (2016). Journal of Machine Learning Research, 17(99), 1–61. <http://jmlr.org/papers/v17/14-237.html>`_
 Running the code as it is reproduces a single trial of the plot in Figure 9. (PCD-1) for $dd^b_s$.
 
 See also `RBM_MNIST_small <RBM_MNIST_small.html#RBM_MNIST_small>`__.
@@ -11,11 +11,11 @@ See also `RBM_MNIST_small <RBM_MNIST_small.html#RBM_MNIST_small>`__.
 Theory
 ***********
 
-For an analysis of advantage of centering in RBMs see `How to Center Deep Boltzmann Machines. Melchior, J., Fischer, A., & Wiskott, L.. (2016). Journal of Machine Learning Research, 17(99), 1–61. <http://jmlr.org/papers/v17/14-237.html>`_
+For an analysis of the advantage of centering in RBMs see `How to Center Deep Boltzmann Machines. Melchior, J., Fischer, A., & Wiskott, L.. (2016). Journal of Machine Learning Research, 17(99), 1–61. <http://jmlr.org/papers/v17/14-237.html>`_
 
-If you are new on RBMs, have a look into my `master's theses <https://www.ini.rub.de/PEOPLE/wiskott/Reprints/Melchior-2012-MasterThesis-RBMs.pdf>`_
+If you are new on RBMs, you can have have a look into my `master's theses <https://www.ini.rub.de/PEOPLE/wiskott/Reprints/Melchior-2012-MasterThesis-RBMs.pdf>`_
 
-A good theoretical introduction is also given by `Course Material RBMs <https://www.ini.rub.de/PEOPLE/wiskott/Teaching/Material/index.html>`_ and in the following video.
+A good theoretical introduction is also given by `Course Material RBMs <https://www.ini.rub.de/PEOPLE/wiskott/Teaching/Material/index.html>`_ including a video lecture.
 
 .. raw:: html
 
@@ -43,19 +43,42 @@ The filters have been normalized such that the structure is more prominent.
    :scale: 75 %
    :alt: weights centered
 
-Sampling results for some examples. The first row shows training data and the following rows are the results after one Gibbs-sampling step starting from the previous row.
+Sampling results for some examples. The first row shows some training data and the following rows are the results after one Gibbs-sampling step starting from the previous row.
 
 .. figure:: images/BRBM_big_centered_samples.png
    :scale: 75 %
    :alt: samples centered
 
-The Log-Likelihood is calculated using annealed importance sampling estimation (optimistic) and reverse annealed importance sampling estimation (pessimistic).
+The log-Likelihood is estimated using annealed importance sampling (optimistic) and reverse annealed importance sampling (pessimistic).
 
 .. code-block:: Python
 
-   Training time:          0:49:51.186054
-   AIS Partition:          951.21017149  (LL: -76.0479396244)
-   reverse AIS Partition:  954.687597369 (LL: -79.525365503)
+   Training time:         1:18:12.536887
+   AIS Partition:         968.971299741 (LL train: -82.5839850187, LL test: -84.8560508601)
+   reverse AIS Partition: 980.722421486 (LL train: -94.3351067638, LL test: -96.6071726052)
+
+Now we have a look at the filters learned for a normal binary RBM with 500 hidden units on the MNIST dataset.
+The filters have also been normalized such that the structure is more prominent.
+
+.. figure:: images/BRBM_big_normal_weights.png
+   :scale: 75 %
+   :alt: weights centered
+
+Sampling results for some examples. The first row shows the training data and the following rows are the results after one Gibbs-sampling step starting from the previous row.
+
+.. figure:: images/BRBM_big_normal_samples.png
+   :scale: 75 %
+   :alt: samples centered
+
+.. code-block:: Python
+
+   Training time:	      1:16:37.808645
+   AIS Partition:         959.098055647 (LL train: -128.009777345, LL test: -130.808849443)
+   reverse AIS Partition: 958.714291654 (LL train: -127.626013352, LL test: -130.42508545)
+
+The structure of the filters and the samples are quite similar. But the samples for the centered RBM look a bit sharper
+and the log-likelihood is significantly higher. Note that zou can reach better values with normal RBMs but this highly
+depends pm the training setup. while centering is rather robust to that.
 
 Source code
 ***********

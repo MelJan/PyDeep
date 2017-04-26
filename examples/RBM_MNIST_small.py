@@ -47,7 +47,7 @@ import pydeep.misc.measuring as mea
 # Choose normal/centered RBM and normal/flipped MNIST
 
 # normal/centered RBM --> 0.0/0.01
-update_offsets = 0.01
+update_offsets = 0.0
 
 # Flipped/Normal MNIST --> True/False
 flipped = False
@@ -66,10 +66,14 @@ train_data = numx.vstack((train_data, valid_data))
 # Flip the dataset if chosen
 if flipped:
     train_data = 1 - train_data
+    test_data = 1 - test_data
+    print("Flipped MNIST")
+else:
+    print("Normal MNIST")
 
 # Training parameters
 batch_size = 100
-epochs = 40
+epochs = 50
 
 # Create centered or normal model
 if update_offsets <= 0.0:
@@ -78,12 +82,14 @@ if update_offsets <= 0.0:
                                 data=train_data,
                                 initial_visible_offsets=0.0,
                                 initial_hidden_offsets=0.0)
+    print("Normal RBM")
 else:
     rbm = model.BinaryBinaryRBM(number_visibles=v1 * v2,
                                 number_hiddens=h1 * h2,
                                 data=train_data,
                                 initial_visible_offsets='AUTO',
                                 initial_hidden_offsets='AUTO')
+    print("Centered RBM")
 
 # Create trainer
 trainer_pcd = trainer.PCD(rbm, num_chains=batch_size)
@@ -95,9 +101,6 @@ measurer = mea.Stopwatch()
 print('Training')
 print('Epoch\tRecon. Error\tLog likelihood train\tLog likelihood test\tExpected End-Time')
 for epoch in range(epochs):
-
-    # Shuffle training samples (optional)
-    train_data = numx.random.permutation(train_data)
 
     # Loop over all batches
     for b in range(0, train_data.shape[0], batch_size):
