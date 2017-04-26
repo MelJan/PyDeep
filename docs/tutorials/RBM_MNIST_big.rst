@@ -72,7 +72,7 @@ Sampling results for some examples. The first row shows the training data and th
 
 .. code-block:: Python
 
-   Training time:	      1:16:37.808645
+   Training time:         1:16:37.808645
    AIS Partition:         959.098055647 (LL train: -128.009777345, LL test: -130.808849443)
    reverse AIS Partition: 958.714291654 (LL train: -127.626013352, LL test: -130.42508545)
 

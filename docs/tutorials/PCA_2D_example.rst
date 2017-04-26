@@ -34,7 +34,7 @@ Data and extracted principal components can also be plotted in the projected spa
    :scale: 75 %
    :alt: Examples of PCA 2D in projected space
 
-The PCA class can also perform whitening and data and extracted principal components are plotted in the whitened space.
+The PCA-class can also perform whitening. Data and extracted principal components are plotted in the whitened space.
 
 .. image:: images/PCA_2D_whitened.png
    :scale: 50 %

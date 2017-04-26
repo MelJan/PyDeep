@@ -47,7 +47,7 @@ import pydeep.misc.measuring as mea
 # Choose normal/centered RBM and normal/flipped MNIST
 
 # normal/centered RBM --> 0.0/0.01
-update_offsets = 0.0
+update_offsets = 0.01
 
 # Flipped/Normal MNIST --> True/False
 flipped = False

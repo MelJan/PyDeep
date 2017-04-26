@@ -31,7 +31,7 @@ Visualization of the data and true mixing matrix projected to the whitened space
 
 .. figure:: images/ICA_2D_mixing_whitened.png
    :scale: 75 %
-   :alt: Examples of Mixing matrix 2D in whitened space
+   :alt: Examples of mixing matrix 2D in whitened space
 
 Visualization of the whitened data with the ICA projection matrix, that is the estimation of the whitened mixing matrix.
 Note that ICA is invariant to sign flips of the sources. Thus the columns of the estimated mixing matrix are most likely a permutation of the columns of the original mixing matrix's and can also be a 180 degrees rotated version (original vector multiplied by -1).
@@ -44,7 +44,7 @@ We can also project the ICA projection matrix back to the original space and com
 
 .. image:: images/ICA_2D_mixing.png
    :scale: 75 %
-   :alt: Examples of Mixing matrix 2D
+   :alt: Examples of mixing matrix 2D
 
 .. image:: images/ICA_2D_estimate.png
    :scale: 75 %

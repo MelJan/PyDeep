@@ -49,9 +49,9 @@ The Log-Likelihood is calculated using the exact Partition function, an annealed
 
 .. code-block:: Python
 
-True Partition:         310.18444704  (LL train: -143.149739926, LL test: -142.56382054)
-AIS Partition:          309.693954732 (LL train: -142.659247618, LL test: -142.073328232)
-reverse AIS Partition:  316.30736142  (LL train: -149.272654305, LL test: -148.686734919)
+   True Partition:         310.18444704  (LL train: -143.149739926, LL test: -142.56382054)
+   AIS Partition:          309.693954732 (LL train: -142.659247618, LL test: -142.073328232)
+   reverse AIS Partition:  316.30736142  (LL train: -149.272654305, LL test: -148.686734919)
 
 The code can also be executed without centering by setting
 
@@ -116,6 +116,9 @@ The normal RBM has not.
 .. figure:: images/BRBM_small_normal_samples_flipped.png
    :scale: 75 %
    :alt: flipped samples normal
+
+For a realistic setting see `RBM_MNIST_big <RBM_MNIST_big.html#RBM_MNIST_big>`__.
+
 
 Source code
 ***********

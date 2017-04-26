@@ -41,13 +41,13 @@ The cumulative sum of the Eigenvalues show how 'compressable' the dataset is.
    :scale: 50 %
    :alt: Eigenspectrum of the face dataset
 
-For example using only the first 50 Eigenvectors retains 87,5 % of the variance of the data and the reconstructed images look as follows.
+For example using only the first 50 eigenvectors retains 87,5 % of the variance of data and the reconstructed images look as follows.
 
 .. image:: images/reconstruction50.png
    :scale: 75 %
    :alt: Reconstruction using 50 PCs
 
-For 200 Eigenvectors we retain 98,0 % of the variance of the data and the reconstructed images look as follows.
+For 200 eigenvectors we retain 98,0 % of the variance of the data and the reconstructed images look as follows.
 
 .. image:: images/reconstruction50.png
    :scale: 75 %
