@@ -69,7 +69,7 @@ if flipped:
 
 # Training parameters
 batch_size = 100
-epochs = 39
+epochs = 40
 
 # Create centered or normal model
 if update_offsets <= 0.0:
@@ -93,8 +93,8 @@ measurer = mea.Stopwatch()
 
 # Train model
 print('Training')
-print('Epoch\t\tRecon. Error\tLog likelihood \tExpected End-Time')
-for epoch in range(1, epochs + 1):
+print('Epoch\tRecon. Error\tLog likelihood train\tLog likelihood test\tExpected End-Time')
+for epoch in range(epochs):
 
     # Shuffle training samples (optional)
     train_data = numx.random.permutation(train_data)
@@ -103,7 +103,7 @@ for epoch in range(1, epochs + 1):
     for b in range(0, train_data.shape[0], batch_size):
         batch = train_data[b:b + batch_size, :]
         trainer_pcd.train(data=batch,
-                          epsilon=0.05,
+                          epsilon=0.01,
                           update_visible_offsets=update_offsets,
                           update_hidden_offsets=update_offsets)
 
@@ -113,10 +113,10 @@ for epoch in range(1, epochs + 1):
         ll_train = numx.mean(estimator.log_likelihood_v(rbm, logZ, train_data))
         ll_test = numx.mean(estimator.log_likelihood_v(rbm, logZ, test_data))
         re = numx.mean(estimator.reconstruction_error(rbm, train_data))
-        print('{}\t\t{:.4f}\t\t\t{:.4f}\t\t\t{:.4f}\t\t\t{}'.format(
-            epoch, re, ll_train, ll_test, measurer.get_expected_end_time(epoch, epochs)))
+        print('{}\t\t{:.4f}\t\t\t{:.4f}\t\t\t\t{:.4f}\t\t\t{}'.format(
+            epoch+1, re, ll_train, ll_test, measurer.get_expected_end_time(epoch+1, epochs)))
     else:
-        print(epoch)
+        print(epoch+1)
 
 measurer.end()
 
