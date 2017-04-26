@@ -44,7 +44,7 @@ import pydeep.misc.visualization as vis
 numx.random.seed(42)
 
 # Load data (download is not existing)
-data = io.load_olivetti_faces(path='../../data/olivettifaces.mat')
+data = io.load_olivetti_faces(path='olivettifaces.mat')
 
 # Specify image width and height for displaying
 width = height = 64

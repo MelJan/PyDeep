@@ -54,7 +54,7 @@ h1 = 25
 h2 = 20
 
 # Load data (download is not existing)
-train_data, _, valid_data, _, test_data, _ = io.load_mnist("../../data/mnist.pkl.gz", True)
+train_data, _, valid_data, _, test_data, _ = io.load_mnist("mnist.pkl.gz", True)
 train_data = numx.vstack((train_data, valid_data))
 
 # Training paramters

@@ -77,8 +77,8 @@ Sampling results for some examples. The first row shows the training data and th
    reverse AIS Partition: 958.714291654 (LL train: -127.626013352, LL test: -130.42508545)
 
 The structure of the filters and the samples are quite similar. But the samples for the centered RBM look a bit sharper
-and the log-likelihood is significantly higher. Note that zou can reach better values with normal RBMs but this highly
-depends pm the training setup. while centering is rather robust to that.
+and the log-likelihood is significantly higher. Note that you can reach better values with normal RBMs but this highly
+depends on the training setup, whereas centering is rather robust to that.
 
 Source code
 ***********

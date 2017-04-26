@@ -9,7 +9,7 @@ The learned filters are similar to those of ICA, see also `ICA_natural_images <I
 Theory
 ***********
 
-If you are new on GRBMs, have a look into my `master's theses <https://www.ini.rub.de/PEOPLE/wiskott/Reprints/Melchior-2012-MasterThesis-RBMs.pdf>`_ .
+If you are new on GRBMs, you can have a look into my `master's theses <https://www.ini.rub.de/PEOPLE/wiskott/Reprints/Melchior-2012-MasterThesis-RBMs.pdf>`_ .
 
 For an theoretical and empirical analysis of on GRBMs on natural image patches see `Gaussian-binary restricted Boltzmann machines for modeling natural image statistics. Melchior, J., Wang, N., & Wiskott, L.. (2017). PLOS ONE, 12(2), 1–24. <http://doi.org/10.1371/journal.pone.0171015>`_
 
@@ -24,13 +24,13 @@ Visualization of the learned filters, which are very similar to those of ICA.
    :scale: 75 %
    :alt: GRBM weights unnormalized
 
-For a better visualization of the structure, t he same filter normalized independently.
+For a better visualization of the structure, here are the same filters normalized independently.
 
 .. figure:: images/GRBM_weights_normalized.png
    :scale: 75 %
    :alt: GRBM weights normalized
 
-Sampling results for some examples. The first row shows training data and the following rows are the results after one step of Gibbs-sampling starting from the previous row.
+Sampling results for some examples. The first row shows some training data and the following rows are the results after one step of Gibbs-sampling starting from the previous row.
 
 .. figure:: images/GRBM_samples.png
    :scale: 75 %
