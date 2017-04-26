@@ -1,4 +1,5 @@
-""" Example for Gaussian-binary restricted Boltzmann machines (GRBM) on natural image patches.
+""" Example for Gaussian-binary restricted Boltzmann machines (GRBM)
+    on natural image patches.
 
     :Version:
         1.1.0
@@ -33,7 +34,7 @@
 
 """
 
-# Import numpy, numpy extensions, input output functions, preprocessing, and visualization.
+# Import numpy+extensions, i/o functions, preprocessing, and visualization.
 import numpy as numx
 import pydeep.base.numpyextension as numxext
 import pydeep.misc.io as io
@@ -46,12 +47,13 @@ import pydeep.rbm.model as model
 import pydeep.rbm.trainer as trainer
 
 # Set random seed (optional)
+# (optional, if stochastic processes are involved we get the same results)
 numx.random.seed(42)
 
 # Load data (download is not existing)
 data = io.load_natural_image_patches('../../../data/NaturalImage.mat')
 
-# Remove the mean of ech image patch separately
+# Remove the mean of ech image patch separately (also works without)
 data = pre.remove_rows_means(data)
 
 # Set 2D input/output dimensions
@@ -60,7 +62,7 @@ v2 = 14
 h1 = 14
 h2 = 14
 
-# Whiten data
+# Whiten data using ZCA
 zca = pre.ZCA(v1 * v2)
 zca.train(data)
 data = zca.project(data)
@@ -75,10 +77,12 @@ eps = 0.1
 batch_size = 100
 max_epochs = 200
 
-# Create model
+# Create model, initial weights=Glorot init., initial sigma=1.0, initial bias=0,
+# no centering (Usually pass the data=training_data for a automatic init. that is
+# set the bias and sigma to the data mean and data std. respectively, for
+# whitened data centering is not an advantage)
 rbm = model.GaussianBinaryVarianceRBM(number_visibles=v1 * v2,
                                       number_hiddens=h1 * h2,
-                                      data=train_data,
                                       initial_weights='AUTO',
                                       initial_visible_bias=0,
                                       initial_hidden_bias=0,
@@ -92,7 +96,7 @@ rbm.bh = -(numxext.get_norms(rbm.w + rbm.bv.T, axis=0) - numxext.get_norms(
     rbm.bv, axis=None)) / 2.0 + numx.log(0.01)
 rbm.bh = rbm.bh.reshape(1, h1 * h2)
 
-# TRaining with CD-1
+# Training with CD-1
 k = 1
 trainer_cd = trainer.CD(rbm)
 
@@ -105,13 +109,14 @@ for epoch in range(0, max_epochs + 1, 1):
     # Shuffle training samples (optional)
     train_data = numx.random.permutation(train_data)
 
-    # Print epoch and reconstruction errors
+    # Print epoch and reconstruction errors every 'step' epochs.
     if epoch % step == 0:
         RE_train = numx.mean(estimator.reconstruction_error(rbm, train_data))
         RE_test = numx.mean(estimator.reconstruction_error(rbm, test_data))
         print '%5d \t%0.5f \t%0.5f' % (epoch, RE_train, RE_test)
 
-    # Train one epoch
+    # Train one epoch with gradient restriction/clamping
+    # No weight decay, momentum or sparseness is used
     for b in range(0, train_data.shape[0], batch_size):
         trainer_cd.train(data=train_data[b:(b + batch_size), :],
                          num_epochs=1,
@@ -136,20 +141,24 @@ RE_test = numx.mean(estimator.reconstruction_error(rbm, test_data))
 print '%5d \t%0.5f \t%0.5f' % (max_epochs, RE_train, RE_test)
 
 # Approximate partition function by AIS (tends to overestimate)
-Z = estimator.annealed_importance_sampling(rbm)[0]
-LL_train = numx.mean(estimator.log_likelihood_v(rbm, Z, train_data))
-LL_test = numx.mean(estimator.log_likelihood_v(rbm, Z, test_data))
+logZ = estimator.annealed_importance_sampling(rbm)[0]
+LL_train = numx.mean(estimator.log_likelihood_v(rbm, logZ, train_data))
+LL_test = numx.mean(estimator.log_likelihood_v(rbm, logZ, test_data))
 print 'AIS: t%0.5f \t%0.5f' % (LL_train, LL_test)
 
 # Approximate partition function by reverse AIS (tends to underestimate)
-Z = estimator.reverse_annealed_importance_sampling(rbm)[0]
-LL_train = numx.mean(estimator.log_likelihood_v(rbm, Z, train_data))
-LL_test = numx.mean(estimator.log_likelihood_v(rbm, Z, test_data))
+logZ = estimator.reverse_annealed_importance_sampling(rbm)[0]
+LL_train = numx.mean(estimator.log_likelihood_v(rbm, logZ, train_data))
+LL_test = numx.mean(estimator.log_likelihood_v(rbm, logZ, test_data))
 print 'rfeverse AIS t%0.5f \t%0.5f' % (LL_train, LL_test)
 
-# Prepare results
+# Reorder RBM features by average activity decreasingly
 rbmReordered = vis.reorder_filter_by_hidden_activation(rbm, train_data)
+
+# Display RBM parameters
 vis.imshow_standard_rbm_parameters(rbmReordered, v1, v2, h1, h2)
+
+# Sample some steps and show results
 samples = vis.generate_samples(rbm, train_data[0:30], 30, 1, v1, v2, False, None)
 vis.imshow_matrix(samples, 'Samples')
 

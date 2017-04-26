@@ -38,7 +38,7 @@ import pydeep.rbm.model as model
 import pydeep.rbm.trainer as trainer
 import pydeep.rbm.estimator as estimator
 
-# Import numpy, input output functions, visualization, and measurement module
+# Import numpy, input output functions, visualization, and measurement
 import numpy as numx
 import pydeep.misc.io as io
 import pydeep.misc.visualization as vis
@@ -46,14 +46,10 @@ import pydeep.misc.measuring as mea
 
 # Choose normal/centered RBM and normal/flipped MNIST
 
-# normal RBM
-#update_offsets = 0.0
-# centered RBM
+# normal/centered RBM --> 0.0/0.01
 update_offsets = 0.01
 
-# Flipped/Inverse MNIST
-#flipped = True
-# Normal MNIST
+# Flipped/Normal MNIST --> True/False
 flipped = False
 
 # Set random seed (optional)
@@ -63,14 +59,15 @@ numx.random.seed(42)
 v1 = v2 = 28
 h1 = h2 = 4
 
-# Load data , get it from 'deeplearning.net/data/mnist/mnist.pkl.gz'
-train_data = io.load_mnist("../../data/mnist.pkl.gz", True)[0]
+# Load data (download is not existing)
+train_data, _, valid_data, _, test_data, _ = io.load_mnist("../../data/mnist.pkl.gz", True)
+train_data = numx.vstack((train_data, valid_data))
 
 # Flip the dataset if chosen
 if flipped:
-    train_data = 1-train_data
+    train_data = 1 - train_data
 
-# Training paramters
+# Training parameters
 batch_size = 100
 epochs = 39
 
@@ -87,8 +84,9 @@ else:
                                 data=train_data,
                                 initial_visible_offsets='AUTO',
                                 initial_hidden_offsets='AUTO')
+
 # Create trainer
-trainer = trainer.PCD(rbm, batch_size)
+trainer_pcd = trainer.PCD(rbm, num_chains=batch_size)
 
 # Measuring time
 measurer = mea.Stopwatch()
@@ -104,18 +102,19 @@ for epoch in range(1, epochs + 1):
     # Loop over all batches
     for b in range(0, train_data.shape[0], batch_size):
         batch = train_data[b:b + batch_size, :]
-        trainer.train(data=batch,
-                      epsilon=0.05,
-                      update_visible_offsets=update_offsets,
-                      update_hidden_offsets=update_offsets)
+        trainer_pcd.train(data=batch,
+                          epsilon=0.05,
+                          update_visible_offsets=update_offsets,
+                          update_hidden_offsets=update_offsets)
 
     # Calculate Log-Likelihood, reconstruction error and expected end time every 10th epoch
     if epoch % 10 == 0:
         logZ = estimator.partition_function_factorize_h(rbm)
-        ll = numx.mean(estimator.log_likelihood_v(rbm, logZ, train_data))
+        ll_train = numx.mean(estimator.log_likelihood_v(rbm, logZ, train_data))
+        ll_test = numx.mean(estimator.log_likelihood_v(rbm, logZ, test_data))
         re = numx.mean(estimator.reconstruction_error(rbm, train_data))
-        print('{}\t\t{:.4f}\t\t\t{:.4f}\t\t\t{}'.format(
-            epoch, re, ll, measurer.get_expected_end_time(epoch, epochs)))
+        print('{}\t\t{:.4f}\t\t\t{:.4f}\t\t\t{:.4f}\t\t\t{}'.format(
+            epoch, re, ll_train, ll_test, measurer.get_expected_end_time(epoch, epochs)))
     else:
         print(epoch)
 
@@ -127,19 +126,22 @@ print("Training time:\t{}".format(measurer.get_interval()))
 
 # Calculate true partition function
 logZ = estimator.partition_function_factorize_h(rbm, batchsize_exponent=h1, status=False)
-print("True Partition: {} (LL: {})".format(logZ, numx.mean(
-    estimator.log_likelihood_v(rbm, logZ, train_data))))
+print("True Partition: {} (LL train: {}, LL test: {})".format(logZ,
+    numx.mean(estimator.log_likelihood_v(rbm, logZ, train_data)),
+    numx.mean(estimator.log_likelihood_v(rbm, logZ, test_data))))
 
 # Approximate partition function by AIS (tends to overestimate)
-logZ_approx_ = estimator.annealed_importance_sampling(rbm)[0]
-print(
-"AIS Partition: {} (LL: {})".format(logZ_approx_, numx.mean(
-    estimator.log_likelihood_v(rbm, logZ_approx_, train_data))))
+logZ_approx_AIS = estimator.annealed_importance_sampling(rbm)[0]
+print("AIS Partition: {} (LL train: {}, LL test: {})".format(logZ_approx_AIS,
+    numx.mean(estimator.log_likelihood_v(rbm, logZ_approx_AIS, train_data)),
+    numx.mean(estimator.log_likelihood_v(rbm, logZ_approx_AIS, test_data))))
 
 # Approximate partition function by reverse AIS (tends to underestimate)
-logZ_approx_up = estimator.reverse_annealed_importance_sampling(rbm, data=train_data)[0]
-print("reverse AIS Partition: {} (LL: {})".format(logZ_approx_up, numx.mean(
-    estimator.log_likelihood_v(rbm, logZ_approx_up, train_data))))
+logZ_approx_rAIS = estimator.reverse_annealed_importance_sampling(rbm)[0]
+print("reverse AIS Partition: {} (LL train: {}, LL test: {})".format(
+    logZ_approx_rAIS,
+    numx.mean(estimator.log_likelihood_v(rbm, logZ_approx_rAIS, train_data)),
+    numx.mean(estimator.log_likelihood_v(rbm, logZ_approx_rAIS, test_data))))
 
 # Reorder RBM features by average activity decreasingly
 reordered_rbm = vis.reorder_filter_by_hidden_activation(rbm, train_data)

@@ -43,14 +43,14 @@ import pydeep.misc.visualization as vis
 # (optional, if stochastic processes are involved we always get the same results)
 numx.random.seed(42)
 
-# Load the data (automatic download if it does not exist at given path)
+# Load data (download is not existing)
 data = io.load_natural_image_patches('../../data/NaturalImage.mat')
 
 # Specify image width and height for displaying
 width = height = 14
 
-# Create a ZCA node to whiten the data and train it
-# (you could also use PCA whitened=True)
+# Use ZCA to whiten the data and train it
+# (you could also use PCA whitened=True + unproject for visualization)
 zca = ZCA(input_dim=width * height)
 zca.train(data=data)
 

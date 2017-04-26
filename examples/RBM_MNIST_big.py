@@ -42,12 +42,8 @@ import pydeep.misc.io as io
 import pydeep.misc.visualization as vis
 import pydeep.misc.measuring as mea
 
-# Choose normal/centered RBM
-
-# normal RBM
-#update_offsets = 0.0
-# centered RBM
-update_offsets = 0.0
+# normal/centered RBM --> 0.0/0.01
+update_offsets = 0.01
 
 # Set random seed (optional)
 numx.random.seed(42)
@@ -57,9 +53,8 @@ v1 = v2 = 28
 h1 = 25
 h2 = 20
 
-# Load data , get it from 'deeplearning.net/data/mnist/mnist.pkl.gz'
-train_data,_,valid_data,_,test_data,_ = io.load_mnist("../../data/mnist.pkl.gz", True)
-
+# Load data (download is not existing)
+train_data, _, valid_data, _, test_data, _ = io.load_mnist("../../data/mnist.pkl.gz", True)
 train_data = numx.vstack((train_data, valid_data))
 
 # Training paramters
@@ -86,7 +81,7 @@ else:
                                 initial_visible_offsets='AUTO',
                                 initial_hidden_offsets='AUTO')
 
-trainer_pcd = trainer.PCD(rbm, batch_size)
+trainer_pcd = trainer.PCD(rbm, num_chains=batch_size)
 
 # Measuring time
 measurer = mea.Stopwatch()
@@ -123,16 +118,17 @@ print("End-time: \t{}".format(measurer.get_end_time()))
 print("Training time:\t{}".format(measurer.get_interval()))
 
 # Approximate partition function by AIS (tends to overestimate)
-logZ = estimator.annealed_importance_sampling(rbm)[0]
-print("AIS Partition: {} (LL train: {}, LL test: {})".format(logZ, numx.mean(
-    estimator.log_likelihood_v(rbm, logZ, train_data)),numx.mean(
-    estimator.log_likelihood_v(rbm, logZ, test_data))))
+logZ_approx_AIS = estimator.annealed_importance_sampling(rbm)[0]
+print("AIS Partition: {} (LL train: {}, LL test: {})".format(logZ_approx_AIS,
+    numx.mean(estimator.log_likelihood_v(rbm, logZ_approx_AIS, train_data)),
+    numx.mean(estimator.log_likelihood_v(rbm, logZ_approx_AIS, test_data))))
 
 # Approximate partition function by reverse AIS (tends to underestimate)
-logZ = estimator.reverse_annealed_importance_sampling(rbm)[0]
-print("reverse AIS Partition: {} (LL train: {}, LL test: {})".format(logZ, numx.mean(
-    estimator.log_likelihood_v(rbm, logZ, train_data)),numx.mean(
-    estimator.log_likelihood_v(rbm, logZ, test_data))))
+logZ_approx_rAIS = estimator.reverse_annealed_importance_sampling(rbm)[0]
+print("reverse AIS Partition: {} (LL train: {}, LL test: {})".format(
+    logZ_approx_rAIS,
+    numx.mean(estimator.log_likelihood_v(rbm, logZ_approx_rAIS, train_data)),
+    numx.mean(estimator.log_likelihood_v(rbm, logZ_approx_rAIS, test_data))))
 
 # Reorder RBM features by average activity decreasingly
 reordered_rbm = vis.reorder_filter_by_hidden_activation(rbm, train_data)
