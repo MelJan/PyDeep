@@ -44,7 +44,7 @@ import pydeep.misc.visualization as vis
 numx.random.seed(42)
 
 # Load data (download is not existing)
-data = io.load_natural_image_patches('NaturalImage.mat')
+data = io.load_natural_image_patches('../../data/NaturalImage.mat')
 
 # Specify image width and height for displaying
 width = height = 14
@@ -97,6 +97,28 @@ ica_filters = vis.tile_matrix_rows(matrix=ica.projection_matrix,
                                    normalized=True)
 vis.imshow_matrix(matrix=ica_filters,
                   windowtitle='Filters learned by ICA')
+
+# Get the optimal gabor wavelet frequency and angle for the filters
+opt_frq, opt_ang = vis.filter_frequency_and_angle(ica.projection_matrix,
+                                                  num_of_angles=40)
+
+# Show some tuning curves
+num_filters = 20
+vis.imshow_filter_tuning_curve(ica.projection_matrix[:,0:num_filters],
+                               num_of_ang=40)
+
+# Show some optima grating
+vis.imshow_filter_optimal_gratings(ica.projection_matrix[:,0:num_filters],
+                                   opt_frq[0:num_filters],
+                                   opt_ang[0:num_filters])
+
+# Show histograms of frequencies and angles.
+vis.imshow_filter_frequency_angle_histogram(opt_frq=opt_frq,
+                                            opt_ang=opt_ang,
+                                            max_wavelength=14)
+
+print("log-likelihood on all data: "+str(numx.mean(
+    ica.log_likelihood(data=whitened_data))))
 
 # Show all windows.
 vis.show()

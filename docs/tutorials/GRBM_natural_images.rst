@@ -9,7 +9,7 @@ The learned filters are similar to those of ICA, see also `ICA_natural_images <I
 Theory
 ***********
 
-If you are new on GRBMs, `GRBM_2D_example <GRBM_2D_example.html#GRBM_2D_example>`__.
+If you are new on GRBMs, first see `GRBM_2D_example <GRBM_2D_example.html#GRBM_2D_example>`__.
 
 For a theoretical and empirical analysis of on GRBMs on natural image patches see `Gaussian-binary restricted Boltzmann machines for modeling natural image statistics. Melchior et. al. PLOS ONE 2017 <http://doi.org/10.1371/journal.pone.0171015>`_
 
@@ -44,6 +44,24 @@ The log-likelihood and reconstruction error for training and test data
    AIS:         200 	0.73291 	0.75427 	-268.34107 	-270.82759
    reverse AIS:         0.73291 	0.75427 	-268.34078 	-270.82731
 
+To analyze the optimal response of the learn filters we can fit a Gabor-wavelet parametrized in angle and frequency, and plot
+the optimal grating, here for 20 filters
+
+.. figure:: images/GRBM_grating.png
+   :scale: 75 %
+   :alt: GRBM filters with fitted Gabor-wavelets.
+
+as well as the corresponding tuning curves, which show the responds/activities as a function of angle.
+
+.. figure:: images/GRBM_tuning.png
+   :scale: 75 %
+   :alt: GRBM  fiter's tuning curves
+
+Furthermore, we can plot the histogram of all filters over angle as well as frequency.
+
+.. figure:: images/GRBM_histogram.png
+   :scale: 75 %
+   :alt: GRBM histogram of frequency and angle
 
 .. _code:
 

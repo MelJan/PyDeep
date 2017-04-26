@@ -8,7 +8,7 @@ Example for Principal Component Analysis (PCA) on face images also known as `Eig
 Theory
 ***********
 
-If you are new on PCA, see first `PCA_2D_example <PCA_2D_example.html#PCA_2D_example>`__.
+If you are new on PCA, first see `PCA_2D_example <PCA_2D_example.html#PCA_2D_example>`__.
 
 Results
 ***********

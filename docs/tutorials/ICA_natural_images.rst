@@ -9,7 +9,7 @@ on natural image patches. The independent components (columns of the ICA project
 Theory
 ***********
 
-If you are new on ICA and blind source separation, see first `ICA_2D_example <ICA_2D_example.html#ICA_2D_example>`__.
+If you are new on ICA and blind source separation, first see `ICA_2D_example <ICA_2D_example.html#ICA_2D_example>`__.
 
 For a comparison of ICA and GRBMs on natural image patches see `Gaussian-binary restricted Boltzmann machines for modeling natural image statistics. Melchior et. al. PLOS ONE 2017 <http://doi.org/10.1371/journal.pone.0171015>`_.
 
@@ -35,6 +35,31 @@ The learned filters/independent components learned from the whitened natural ima
 .. figure:: images/ICA_natural_images_filter.png
    :scale: 75 %
    :alt: ICA filter on natural images
+
+The log-likelihood on all data is:
+
+.. code-block:: Python
+
+   log-likelihood on all data: -260.064878919
+
+To analyze the optimal response of the learn filters we can fit a Gabor-wavelet parametrized in angle and frequency, and plot
+the optimal grating, here for 20 filters
+
+.. figure:: images/ICA_grating.png
+   :scale: 75 %
+   :alt: ICA filters with fitted Gabor-wavelets.
+
+as well as the corresponding tuning curves, which show the responds/activities as a function of angle.
+
+.. figure:: images/ICA_tuning.png
+   :scale: 75 %
+   :alt: ICA  fiter's tuning curves
+
+Furthermore, we can plot the histogram of all filters over angle as well as frequency.
+
+.. figure:: images/ICA_histogram.png
+   :scale: 75 %
+   :alt: ICA histogram of frequency and angle
 
 See also `GRBM_natural_images <GRBM_natural_images.html#GRBM_natural_images>`__.
 

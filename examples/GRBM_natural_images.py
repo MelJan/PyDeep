@@ -139,7 +139,7 @@ for epoch in range(0, max_epochs + 1, 1):
 RE_train = numx.mean(estimator.reconstruction_error(rbm, train_data))
 RE_test = numx.mean(estimator.reconstruction_error(rbm, test_data))
 print '%5d \t%0.5f \t%0.5f' % (max_epochs, RE_train, RE_test)
-'''
+
 # Approximate partition function by AIS (tends to overestimate)
 logZ = estimator.annealed_importance_sampling(rbm)[0]
 LL_train = numx.mean(estimator.log_likelihood_v(rbm, logZ, train_data))
@@ -151,7 +151,7 @@ logZ = estimator.reverse_annealed_importance_sampling(rbm)[0]
 LL_train = numx.mean(estimator.log_likelihood_v(rbm, logZ, train_data))
 LL_test = numx.mean(estimator.log_likelihood_v(rbm, logZ, test_data))
 print 'reverse AIS \t%0.5f \t%0.5f' % (LL_train, LL_test)
-'''
+
 # Reorder RBM features by average activity decreasingly
 rbmReordered = vis.reorder_filter_by_hidden_activation(rbm, train_data)
 
@@ -170,10 +170,14 @@ num_filters =20
 vis.imshow_filter_tuning_curve(rbm.w[:,0:num_filters], num_of_ang=40)
 
 # Show some optima grating
-vis.imshow_filter_optimal_gratings(rbm.w[:,0:num_filters], opt_frq[0:num_filters], opt_ang[0:num_filters])
+vis.imshow_filter_optimal_gratings(rbm.w[:,0:num_filters],
+                                   opt_frq[0:num_filters],
+                                   opt_ang[0:num_filters])
 
 # Show histograms of frequencies and angles.
-vis.imshow_filter_frequency_angle_histogram(opt_frq=opt_frq,opt_ang=opt_ang,max_wavelength=14)
+vis.imshow_filter_frequency_angle_histogram(opt_frq=opt_frq,
+                                            opt_ang=opt_ang,
+                                            max_wavelength=14)
 
 # Show all windows.
 vis.show()
