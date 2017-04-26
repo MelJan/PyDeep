@@ -3,33 +3,16 @@ Big centered binary RBM on MNIST
 
 Example for training a centered and normal binary restricted Boltzmann machine on the MNIST handwritten digit dataset.
 The model has 500 hidden units, is trained for 200 epochs, and the log-likelihood is evaluated using annealed importance sampling.
-It allows to reproduce the results from the publication `How to Center Deep Boltzmann Machines. Melchior, J., Fischer, A., & Wiskott, L.. (2016). Journal of Machine Learning Research, 17(99), 1–61. <http://jmlr.org/papers/v17/14-237.html>`_
-Running the code as it is reproduces a single trial of the plot in Figure 9. (PCD-1) for $dd^b_s$.
 
-See also `RBM_MNIST_small <RBM_MNIST_small.html#RBM_MNIST_small>`__.
+It allows to reproduce the results from the publication `How to Center Deep Boltzmann Machines. Melchior et al. JMLR 2016. <http://jmlr.org/papers/v17/14-237.html>`_
+Running the code as it is reproduces a single trial of the plot in Figure 9. (PCD-1) for $dd^b_s$.
 
 Theory
 ***********
 
-For an analysis of the advantage of centering in RBMs see `How to Center Deep Boltzmann Machines. Melchior, J., Fischer, A., & Wiskott, L.. (2016). Journal of Machine Learning Research, 17(99), 1–61. <http://jmlr.org/papers/v17/14-237.html>`_
+If you are new on RBMs, see first `RBM_MNIST_small <RBM_MNIST_small.html#RBM_MNIST_small>`__.
 
-If you are new on RBMs, you can have have a look into my `master's theses <https://www.ini.rub.de/PEOPLE/wiskott/Reprints/Melchior-2012-MasterThesis-RBMs.pdf>`_
-
-A good theoretical introduction is also given by `Course Material RBMs <https://www.ini.rub.de/PEOPLE/wiskott/Teaching/Material/index.html>`_ including a video lecture.
-
-.. raw:: html
-
-    <div style="margin-top:10px;">
-      <iframe width="560" height="315" src="http://www.youtube.com/embed/bMaITeXhOaE" frameborder="0" allowfullscreen></iframe>
-    </div>
-
-and
-
-.. raw:: html
-
-    <div style="margin-top:10px;">
-      <iframe width="560" height="315" src="http://www.youtube.com/embed/nyk5XUklb5M" frameborder="0" allowfullscreen></iframe>
-    </div>
+For an analysis of the advantage of centering in RBMs see `How to Center Deep Boltzmann Machines. Melchior et al. JMLR 2016. <http://jmlr.org/papers/v17/14-237.html>`_
 
 Results
 ***********
@@ -79,6 +62,8 @@ Sampling results for some examples. The first row shows the training data and th
 The structure of the filters and the samples are quite similar. But the samples for the centered RBM look a bit sharper
 and the log-likelihood is significantly higher. Note that you can reach better values with normal RBMs but this highly
 depends on the training setup, whereas centering is rather robust to that.
+
+For real valued input see also `GRBM_natural_images <GRBM_natural_images.html#GRBM_natural_images>`__.
 
 Source code
 ***********

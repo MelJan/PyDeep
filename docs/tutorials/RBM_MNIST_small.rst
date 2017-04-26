@@ -1,17 +1,19 @@
-Small centered/normal binary RBM on MNIST
+Small binary RBM on MNIST
 ==========================================================
 
-Example for training a centered and normal Binary Restricted Boltzmann machine on the MNIST handwritten digit dataset and its flipped version.
+Example for training a centered and normal Binary Restricted Boltzmann machine on the MNIST handwritten digit dataset and its flipped version (1-MNIST).
 The model is small enough to calculate the exact log-Likelihood. For comparision annealed importance sampling and reverse annealed importance sampling are used for estimating the partition function.
+
+It allows to reproduce the results from the publication `How to Center Deep Boltzmann Machines. Melchior et al. JMLR 2016. <http://jmlr.org/papers/v17/14-237.html>`_
 
 Theory
 ***********
 
-For an analysis of the advantage of centering in RBMs see `How to Center Deep Boltzmann Machines. Melchior, J., Fischer, A., & Wiskott, L.. (2016). Journal of Machine Learning Research, 17(99), 1–61. <http://jmlr.org/papers/v17/14-237.html>`_
+For an analysis of the advantage of centering in RBMs see `How to Center Deep Boltzmann Machines. Melchior et al. JMLR 2016. <http://jmlr.org/papers/v17/14-237.html>`_
 
 If you are new on RBMs, you can have a look into my `master's theses <https://www.ini.rub.de/PEOPLE/wiskott/Reprints/Melchior-2012-MasterThesis-RBMs.pdf>`_
 
-A good theoretical introduction is also given by `Course Material RBMs <https://www.ini.rub.de/PEOPLE/wiskott/Teaching/Material/index.html>`_ including video lectures
+A good theoretical introduction is also given by the `Course Material PCA <https://www.ini.rub.de/PEOPLE/wiskott/Teaching/Material/index.html>`_ in combination with the following video lectures.
 
 .. raw:: html
 
@@ -117,8 +119,7 @@ The normal RBM has not.
    :scale: 75 %
    :alt: flipped samples normal
 
-For a realistic setting see `RBM_MNIST_big <RBM_MNIST_big.html#RBM_MNIST_big>`__.
-
+For a large number of hidden units see `RBM_MNIST_big <RBM_MNIST_big.html#RBM_MNIST_big>`__.
 
 Source code
 ***********

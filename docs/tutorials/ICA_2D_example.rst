@@ -5,8 +5,10 @@ Independent Component Analysis on a 2D example.
 
 Example for Independent Component Analysis (`ICA <https://en.wikipedia.org/wiki/Principal_component_analysis>`_) used for blind source separation on a linear 2D mixture.
 
-If you are new on ICA and blind source separation, a good theoretical introduction is given by `Course Material ICA <https://www.ini.rub.de/PEOPLE/wiskott/Teaching/Material/index.html>`_ .
-As well as a video lecture on linear mixtures and blind source separation
+Theory
+***********
+
+If you are new on ICA and blind source separation, good theoretical introduction is given by the `Course Material PCA <https://www.ini.rub.de/PEOPLE/wiskott/Teaching/Material/index.html>`_ in combination with the following video lectures.
 
 .. raw:: html
 

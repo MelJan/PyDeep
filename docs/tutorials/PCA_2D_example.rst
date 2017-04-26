@@ -1,15 +1,14 @@
 .. _PCA_2D_example:
 
-Principal Component Analysis 2D example.
+Principal Component Analysis on a 2D example.
 ============================================
 
 Example for Principal Component Analysis (`PCA <https://en.wikipedia.org/wiki/Principal_component_analysis>`_) on a linear 2D mixture.
 
-
 Theory
 ***********
 
-If you are new on PCA, a good theoretical introduction is given by `Course Material PCA <https://www.ini.rub.de/PEOPLE/wiskott/Teaching/Material/index.html>`_ and in the following videos.
+If you are new on PCA, a good theoretical introduction is given by the `Course Material PCA <https://www.ini.rub.de/PEOPLE/wiskott/Teaching/Material/index.html>`_ in combination with the following video lectures.
 
 .. raw:: html
 

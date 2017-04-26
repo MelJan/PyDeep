@@ -8,15 +8,7 @@ Example for Principal Component Analysis (PCA) on face images also known as `Eig
 Theory
 ***********
 
-If you are new on PCA, a good theoretical introduction is given by `Course Material PCA <https://www.ini.rub.de/PEOPLE/wiskott/Teaching/Material/index.html>`_ and in the following videos.
-
-.. raw:: html
-
-    <div style="margin-top:10px;">
-      <iframe width="560" height="315" src="http://www.youtube.com/embed/9H-1FH1gn6w" frameborder="0" allowfullscreen></iframe>
-    </div>
-
-See also `PCA_2D_example <PCA_2D_example.html#PCA_2D_example>`__.
+If you are new on PCA, see first `PCA_2D_example <PCA_2D_example.html#PCA_2D_example>`__.
 
 Results
 ***********

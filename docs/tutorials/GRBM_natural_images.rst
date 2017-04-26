@@ -9,9 +9,9 @@ The learned filters are similar to those of ICA, see also `ICA_natural_images <I
 Theory
 ***********
 
-If you are new on GRBMs, you can have a look into my `master's theses <https://www.ini.rub.de/PEOPLE/wiskott/Reprints/Melchior-2012-MasterThesis-RBMs.pdf>`_ .
+If you are new on GRBMs, `GRBM_2D_example <GRBM_2D_example.html#GRBM_2D_example>`__.
 
-For an theoretical and empirical analysis of on GRBMs on natural image patches see `Gaussian-binary restricted Boltzmann machines for modeling natural image statistics. Melchior, J., Wang, N., & Wiskott, L.. (2017). PLOS ONE, 12(2), 1–24. <http://doi.org/10.1371/journal.pone.0171015>`_
+For a theoretical and empirical analysis of on GRBMs on natural image patches see `Gaussian-binary restricted Boltzmann machines for modeling natural image statistics. Melchior et. al. PLOS ONE 2017 <http://doi.org/10.1371/journal.pone.0171015>`_
 
 Results
 ***********
@@ -43,6 +43,7 @@ The log-likelihood and reconstruction error for training and test data
                 Epoch	RE train	RE test 	LL train	LL test
    AIS:         200 	0.73291 	0.75427 	-268.34107 	-270.82759
    reverse AIS:         0.73291 	0.75427 	-268.34078 	-270.82731
+
 
 .. _code:
 
