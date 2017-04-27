@@ -49,13 +49,13 @@ the optimal grating, here for 20 filters
    :scale: 75 %
    :alt: ICA filters with fitted Gabor-wavelets.
 
-as well as the corresponding tuning curves, which show the responds/activities as a function of angle.
+as well as the corresponding tuning curves, which show the responds/activities as a function frequency in pixels/cycle (left) and angle in rad (right).
 
 .. figure:: images/ICA_tuning.png
    :scale: 75 %
    :alt: ICA  fiter's tuning curves
 
-Furthermore, we can plot the histogram of all filters over angle as well as frequency.
+Furthermore, we can plot the histogram of all filters over the frequencies in pixels/cycle (left) and angles in rad (right).
 
 .. figure:: images/ICA_histogram.png
    :scale: 75 %

@@ -8,7 +8,7 @@ Example for Independent Component Analysis (`ICA <https://en.wikipedia.org/wiki/
 Theory
 ***********
 
-If you are new on ICA and blind source separation, a good theoretical introduction is given by the `Course Material ICA <https://www.ini.rub.de/PEOPLE/wiskott/Teaching/Material/index.html>`_ in combination with the following video lectures.
+If you are new on ICA and blind source separation, a good theoretical introduction is given by the `Course Material <https://www.ini.rub.de/PEOPLE/wiskott/Teaching/Material/index.html>`_ in combination with the following video lectures.
 
 .. raw:: html
 
@@ -36,7 +36,7 @@ Visualization of the data and true mixing matrix projected to the whitened space
    :alt: Examples of mixing matrix 2D in whitened space
 
 Visualization of the whitened data with the ICA projection matrix, that is the estimation of the whitened mixing matrix.
-Note that ICA is invariant to sign flips of the sources. Thus the columns of the estimated mixing matrix are most likely a permutation of the columns of the original mixing matrix's and can also be a 180 degrees rotated version (original vector multiplied by -1).
+Note that ICA is invariant to sign flips of the sources. The columns of the estimated mixing matrix are most likely a permutation of the columns of the original mixing matrix and can also be a 180 degrees rotated version (original vector multiplied by -1).
 
 .. image:: images/ICA_2D_estimate_whitened.png
    :scale: 75 %

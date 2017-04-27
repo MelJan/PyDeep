@@ -1,16 +1,15 @@
-Big centered binary RBM on MNIST
+Big binary RBM on MNIST
 ==========================================================
 
 Example for training a centered and normal binary restricted Boltzmann machine on the MNIST handwritten digit dataset.
 The model has 500 hidden units, is trained for 200 epochs, and the log-likelihood is evaluated using annealed importance sampling.
 
-It allows to reproduce the results from the publication `How to Center Deep Boltzmann Machines. Melchior et al. JMLR 2016. <http://jmlr.org/papers/v17/14-237.html>`_
- Running the code as it is for example reproduces a single trial of the plot in Figure 9. (PCD-1) for $dd^b_s$.
+It allows to reproduce the results from the publication `How to Center Deep Boltzmann Machines. Melchior et al. JMLR 2016. <http://jmlr.org/papers/v17/14-237.html>`_. Running the code as it is for example reproduces a single trial of the plot in Figure 9. (PCD-1) for $dd^b_s$.
 
 Theory
 ***********
 
-If you are new on RBMs, see first `RBM_MNIST_small <RBM_MNIST_small.html#RBM_MNIST_small>`__.
+If you are new on RBMs, first see `RBM_MNIST_small <RBM_MNIST_small.html#RBM_MNIST_small>`__.
 
 For an analysis of the advantage of centering in RBMs see `How to Center Deep Boltzmann Machines. Melchior et al. JMLR 2016. <http://jmlr.org/papers/v17/14-237.html>`_
 
@@ -23,13 +22,11 @@ Learned filters of a centered binary RBM with 500 hidden units on the MNIST data
 The filters have been normalized such that the structure is more prominent.
 
 .. figure:: images/BRBM_big_centered_weights.png
-   :scale: 75 %
    :alt: weights centered
 
 Sampling results for some examples. The first row shows some training data and the following rows are the results after one Gibbs-sampling step starting from the previous row.
 
 .. figure:: images/BRBM_big_centered_samples.png
-   :scale: 75 %
    :alt: samples centered
 
 The log-Likelihood is estimated using annealed importance sampling (optimistic) and reverse annealed importance sampling (pessimistic).
@@ -44,13 +41,11 @@ Now we have a look at the filters learned for a normal binary RBM with 500 hidde
 The filters have also been normalized such that the structure is more prominent.
 
 .. figure:: images/BRBM_big_normal_weights.png
-   :scale: 75 %
    :alt: weights centered
 
 Sampling results for some examples. The first row shows the training data and the following rows are the results after one Gibbs-sampling step starting from the previous row.
 
 .. figure:: images/BRBM_big_normal_samples.png
-   :scale: 75 %
    :alt: samples centered
 
 .. code-block:: Python

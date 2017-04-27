@@ -8,7 +8,7 @@ Example for Principal Component Analysis (`PCA <https://en.wikipedia.org/wiki/Pr
 Theory
 ***********
 
-If you are new on PCA, a good theoretical introduction is given by the `Course Material PCA <https://www.ini.rub.de/PEOPLE/wiskott/Teaching/Material/index.html>`_ in combination with the following video lectures.
+If you are new on PCA, a good theoretical introduction is given by the `Course Material <https://www.ini.rub.de/PEOPLE/wiskott/Teaching/Material/index.html>`_ in combination with the following video lectures.
 
 .. raw:: html
 

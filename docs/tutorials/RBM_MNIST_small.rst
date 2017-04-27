@@ -13,7 +13,7 @@ For an analysis of the advantage of centering in RBMs see `How to Center Deep Bo
 
 If you are new on RBMs, you can have a look into my `master's theses <https://www.ini.rub.de/PEOPLE/wiskott/Reprints/Melchior-2012-MasterThesis-RBMs.pdf>`_
 
-A good theoretical introduction is also given by the `Course Material PCA <https://www.ini.rub.de/PEOPLE/wiskott/Teaching/Material/index.html>`_ in combination with the following video lectures.
+A good theoretical introduction is also given by the `Course Material <https://www.ini.rub.de/PEOPLE/wiskott/Teaching/Material/index.html>`_ in combination with the following video lectures.
 
 .. raw:: html
 
