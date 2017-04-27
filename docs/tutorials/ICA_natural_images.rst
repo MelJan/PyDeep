@@ -52,7 +52,6 @@ the optimal grating, here for 20 filters
 as well as the corresponding tuning curves, which show the responds/activities as a function frequency in pixels/cycle (left) and angle in rad (right).
 
 .. figure:: images/ICA_tuning.png
-   :scale: 75 %
    :alt: ICA  fiter's tuning curves
 
 Furthermore, we can plot the histogram of all filters over the frequencies in pixels/cycle (left) and angles in rad (right).
