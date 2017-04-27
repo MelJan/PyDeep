@@ -57,3 +57,5 @@ To test whether PyDeep functions properly you can run unittest:
 .. code-block:: bash
 
     python -m unittest discover testunits
+
+In this case you test everything, which can take several minutes up to an hour.
