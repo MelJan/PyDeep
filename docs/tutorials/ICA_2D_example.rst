@@ -52,6 +52,12 @@ We can also project the ICA projection matrix back to the original space and com
    :scale: 60 %
    :alt: Examples of ICA 2D
 
+The log-likelihood on all data is:
+
+.. code-block:: Python
+
+   log-likelihood on all data: -2.73863050034
+
 For a real-world application see the `ICA_natural_images <ICA_natural_images.html#_ICA_Natural_Images>`__ example.
 
 Source code

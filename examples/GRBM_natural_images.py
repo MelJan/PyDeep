@@ -1,5 +1,4 @@
-""" Example for Gaussian-binary restricted Boltzmann machines (GRBM)
-    on natural image patches.
+""" Example for Gaussian-binary restricted Boltzmann machines (GRBM) on 2D data.
 
     :Version:
         1.1.0

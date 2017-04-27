@@ -52,12 +52,20 @@ data, mixing_matrix = generate_2d_mixtures(num_samples=50000,
 # Zero Phase Component Analysis (ZCA) - Whitening in original space
 zca = ZCA(data.shape[1])
 zca.train(data)
-data_zca = zca.project(data)
+whitened_data = zca.project(data)
 
 # Independent Component Analysis (ICA)
-ica = ICA(data_zca.shape[1])
-ica.train(data_zca, iterations=1000, status=True)
-data_ica = ica.project(data_zca)
+ica = ICA(whitened_data.shape[1])
+
+ica.train(whitened_data, iterations=1000, status=False)
+data_ica = ica.project(whitened_data)
+
+# print the ll on the data
+print("log-likelihood on all data: "+str(numx.mean(
+    ica.log_likelihood(data=whitened_data))))
+
+print "amari distanca between true mixing matrix and estimated mixing matrix: "+str(
+    vis.calculate_amari_distance(zca.project(mixing_matrix.T).T, ica.projection_matrix))
 
 # For better visualization the principal components are rescaled
 scale_factor = 3
@@ -78,7 +86,7 @@ vis.axis([-4, 4, -4, 4])
 # Figure 2 - Data and mixing matrix in whitened space
 vis.figure(1, figsize=[7, 7])
 vis.title("Data and mixing matrix in whitened space")
-vis.plot_2d_data(data_zca)
+vis.plot_2d_data(whitened_data)
 vis.plot_2d_weights(numxext.resize_norms(scale_factor * zca.project(mixing_matrix.T).T,
                                          norm=scale_factor,
                                          axis=0))
@@ -88,7 +96,7 @@ vis.axis([-4, 4, -4, 4])
 # Figure 3 - Data and ica estimation of the mixing matrix in whitened space
 vis.figure(2, figsize=[7, 7])
 vis.title("Data and ica estimation of the mixing matrix in whitened space")
-vis.plot_2d_data(data_zca)
+vis.plot_2d_data(whitened_data)
 vis.plot_2d_weights(numxext.resize_norms(scale_factor * ica.projection_matrix,
                                          norm=scale_factor,
                                          axis=0))
@@ -105,6 +113,8 @@ vis.plot_2d_weights(
                          axis=0))
 vis.axis('equal')
 vis.axis([-4, 4, -4, 4])
+
+
 
 # Show all windows
 vis.show()
