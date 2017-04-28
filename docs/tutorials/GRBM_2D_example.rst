@@ -15,7 +15,7 @@ Results
 
 The code_ given below produces the following output.
 
-Visualization of 4 weight vectors learned by the GRBM with 4 hidden units together with the contour plot of the learned probability desnsity function (PDF).
+Visualization of the weight vectors learned by the GRBM with 4 hidden units together with the contour plot of the learned probability desnsity function (PDF).
 
 .. figure:: images/GRBM_2D_PDF.png
    :scale: 60 %
@@ -30,6 +30,7 @@ For a better visualization also the log-PDF.
    :alt: Visualization of the log PDF learned by the GRBM
 
 The parameters values and the component scaling values P(h_i) are as follows:
+
 .. code-block:: bash
 
    Weigths:
@@ -53,10 +54,8 @@ The exact log-likelihood, annealed importance sampling estimation, and reverse a
 
 .. code-block:: bash
 
-   True log partition:  1.40422867085  ( LL_train:  -2.74117592643 , LL_test:  -2.73620936613  )
-
-   AIS  log partition:  1.40390312781  ( LL_train:  -2.74085038339 , LL_test:  -2.73588382309  )
-
+   True log partition:   1.40422867085  ( LL_train:  -2.74117592643 , LL_test:  -2.73620936613  )
+   AIS  log partition:   1.40390312781  ( LL_train:  -2.74085038339 , LL_test:  -2.73588382309  )
    rAIS  log partition:  1.40644042744  ( LL_train:  -2.74338768302 , LL_test:  -2.73842112273  )
 
 For comparison here is the original mixing matrix an the corresponding ICA estimation.
@@ -72,6 +71,7 @@ For comparison here is the original mixing matrix an the corresponding ICA estim
    :alt: Examples ICA estimation of the mixing matrix.
 
 The exact log-likelihood for ICA is almost the same as that for the GRBM with 4 hidden units.
+
 .. code-block:: bash
    ICA log-likelihood on train data: -2.74149951412
    ICA log-likelihood on test data: -2.73579105422
@@ -80,17 +80,15 @@ The exact log-likelihood for ICA is almost the same as that for the GRBM with 4 
 We can also calculate the Amari distanca between true mixing , the ICA estimation, and the GRBM estimation.
 Since the GRBM has learned 4 weight vectors we calculate teh Amari distance between the true mixing matrix and all sets of 2 weightvectors of the GRBM.
 
-.. code-block:: Python
+.. code-block:: bash
 
-   0.00989836830489
-
-Amari distanca between true mixing matrix and ICA estimation: 0.00621143307663
-Amari distanca between true mixing matrix and GRBM weight vector 1 and 2: 0.0292827450487
-Amari distanca between true mixing matrix and GRBM weight vector 1 and 3: 0.0397992351592
-Amari distanca between true mixing matrix and GRBM weight vector 1 and 4: 0.336416964036
-Amari distanca between true mixing matrix and GRBM weight vector 2 and 3: 0.435997388341
-Amari distanca between true mixing matrix and GRBM weight vector 2 and 4: 0.0557649366433
-Amari distanca between true mixing matrix and GRBM weight vector 3 and 4: 0.0666442992135
+   Amari distanca between true mixing matrix and ICA estimation:             0.00621143307663
+   Amari distanca between true mixing matrix and GRBM weight vector 1 and 2: 0.0292827450487
+   Amari distanca between true mixing matrix and GRBM weight vector 1 and 3: 0.0397992351592
+   Amari distanca between true mixing matrix and GRBM weight vector 1 and 4: 0.336416964036
+   Amari distanca between true mixing matrix and GRBM weight vector 2 and 3: 0.435997388341
+   Amari distanca between true mixing matrix and GRBM weight vector 2 and 4: 0.0557649366433
+   Amari distanca between true mixing matrix and GRBM weight vector 3 and 4: 0.0666442992135
 
 Weight vectors 1 and 4 as well as 2 and 3 are almost 180 degrees rotated version of each other as can also be seen from the weight matrix values given above.
 
