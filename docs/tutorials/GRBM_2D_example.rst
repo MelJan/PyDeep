@@ -1,4 +1,4 @@
-.. _ICA_2D_example:
+.. _GRBM_2D_example:
 
 Gaussian-binary restricted Boltzmann machine on a 2D linear mixture.
 =======================================================
@@ -8,7 +8,11 @@ Example for Gaussian-binary restricted Boltzmann machine used for blind source s
 Theory
 ***********
 
+The results are part of the publication `Gaussian-binary restricted Boltzmann machines for modeling natural image statistics. Melchior, J., Wang, N., & Wiskott, L.. (2017). PLOS ONE, 12(2), 1–24. <http://doi.org/10.1371/journal.pone.0171015>`_ .
+
 If you are new on GRBMs, you can have a look into my `master's theses <https://www.ini.rub.de/PEOPLE/wiskott/Reprints/Melchior-2012-MasterThesis-RBMs.pdf>`_
+
+See also `ICA_2D_example <ICA_2D_example.html#ICA_2D_example>`__
 
 Results
 ***********
