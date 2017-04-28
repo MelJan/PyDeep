@@ -100,6 +100,8 @@ from the weight matrix values given above and thus the Amari distance to the mix
 
 For a real-world application see the `GRBM_natural_images <GRBM_natural_images.html#GRBM_natural_images>`__ example.
 
+.. _code:
+
 Source code
 ***********
 
