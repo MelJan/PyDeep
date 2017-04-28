@@ -316,7 +316,7 @@ class ICA(PCA):
     def train(self,
               data,
               iterations=1000,
-              convergence=1.0,
+              convergence=0.0,
               status=False):
         """ Training the model (full batch).
 

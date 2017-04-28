@@ -43,7 +43,7 @@ The Amari distance is invariant to permutations and flips of the matrix columns 
 Amari distanca between true mixing matrix and estimated mixing matrix:
 .. code-block:: Python
 
-   0.00989830345692
+   0.00989836830489
 
 .. image:: images/ICA_2D_estimate_whitened.png
    :scale: 60 %

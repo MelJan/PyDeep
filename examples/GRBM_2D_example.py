@@ -4,7 +4,7 @@
         1.1.0
 
     :Date:
-        25.04.2017
+        28.04.2017
 
     :Author:
         Jan Melchior
@@ -89,10 +89,9 @@ trainer_cd = trainer.CD(rbm)
 
 # Hyperparameters
 batch_size = 1000
-max_epochs = 100
+max_epochs = 50
 k = 1
-epsilon = [0.5, 0.0, 0.5, 0.05]
-restrict_gradient = 0.01 * numx.max(numxext.get_norms(train_data, axis=1))
+epsilon = [1,0,1,0.1]
 
 # Train model
 print 'Training'
@@ -115,7 +114,7 @@ for epoch in range(1, max_epochs + 1):
                          desired_sparseness=0.0,
                          update_visible_offsets=0.0,
                          update_hidden_offsets=0.0,
-                         restrict_gradient=restrict_gradient,
+                         restrict_gradient=False,
                          restriction_norm='Cols',
                          use_hidden_states=False,
                          use_centered_gradient=False)
@@ -139,6 +138,11 @@ logZ_AIS = estimator.annealed_importance_sampling(rbm,
                                                   k=1,
                                                   betas=1000,
                                                   status=False)[0]
+logZ_rAIS = estimator.reverse_annealed_importance_sampling(rbm,
+                                                  num_chains=100,
+                                                  k=1,
+                                                  betas=1000,
+                                                  status=False)[0]
 
 # Calculate and print LL
 print ""
@@ -150,7 +154,11 @@ print "\nAIS  log partition: ", logZ_AIS, " ( LL_train: ", numx.mean(
     estimator.log_likelihood_v(
         rbm, logZ_AIS, train_data)), ",", "LL_test: ", numx.mean(
     estimator.log_likelihood_v(rbm, logZ_AIS, test_data)), " )"
-print ""
+print "\nrAIS  log partition: ", logZ_rAIS, " ( LL_train: ", numx.mean(
+    estimator.log_likelihood_v(
+        rbm, logZ_rAIS, train_data)), ",", "LL_test: ", numx.mean(
+    estimator.log_likelihood_v(rbm, logZ_rAIS, test_data)), " )"
+print
 # Print parameter
 print '\nWeigths:\n', rbm.w
 print 'Visible bias:\n', rbm.bv
@@ -160,11 +168,48 @@ print
 
 # Calculate P(h) wich are the scaling factors of the Gaussian components
 h_i = numx.zeros((1, h1 * h2))
+print "Scaling factors:"
 print 'P(h_0)', numx.exp(rbm.log_probability_h(logZ, h_i))
 for i in range(h1 * h2):
     h_i = numx.zeros((1, h1 * h2))
     h_i[0, i] = 1
     print 'P(h', (i + 1), ')', numx.exp(rbm.log_probability_h(logZ, h_i))
+print
+
+
+# Independent Component Analysis (ICA)
+ica = pre.ICA(train_data.shape[1])
+ica.train(train_data, iterations=100,status=False)
+data_ica = ica.project(train_data)
+
+# Print ICA log-likelihood
+print "ICA log-likelihood on train data: " + str(numx.mean(
+    ica.log_likelihood(data=train_data)))
+print "ICA log-likelihood on test data: " + str(numx.mean(
+    ica.log_likelihood(data=test_data)))
+print
+
+# Print Amari distances
+print "Amari distanca between true mixing matrix and ICA estimation: "+str(
+    vis.calculate_amari_distance(zca.project(mixing_matrix.T), ica.projection_matrix.T))
+
+print "Amari distanca between true mixing matrix and GRBM weight vector 1 and 2: "+str(
+    vis.calculate_amari_distance(zca.project(mixing_matrix.T), numx.vstack((rbm.w.T[0:1],rbm.w.T[1:2]))))
+
+print "Amari distanca between true mixing matrix and GRBM weight vector 1 and 3: "+str(
+    vis.calculate_amari_distance(zca.project(mixing_matrix.T), numx.vstack((rbm.w.T[0:1],rbm.w.T[2:3]))))
+
+print "Amari distanca between true mixing matrix and GRBM weight vector 1 and 4: "+str(
+    vis.calculate_amari_distance(zca.project(mixing_matrix.T), numx.vstack((rbm.w.T[0:1],rbm.w.T[3:4]))))
+
+print "Amari distanca between true mixing matrix and GRBM weight vector 2 and 3: "+str(
+    vis.calculate_amari_distance(zca.project(mixing_matrix.T), numx.vstack((rbm.w.T[1:2],rbm.w.T[2:3]))))
+
+print "Amari distanca between true mixing matrix and GRBM weight vector 2 and 4: "+str(
+    vis.calculate_amari_distance(zca.project(mixing_matrix.T), numx.vstack((rbm.w.T[1:2],rbm.w.T[3:4]))))
+
+print "Amari distanca between true mixing matrix and GRBM weight vector 3 and 4: "+str(
+    vis.calculate_amari_distance(zca.project(mixing_matrix.T), numx.vstack((rbm.w.T[2:3],rbm.w.T[3:4]))))
 
 # Display results
 # create a new figure of size 5x5
@@ -206,17 +251,9 @@ vis.plot_2d_weights(numxext.resize_norms(zca.project(mixing_matrix.T).T,
 vis.axis('equal')
 vis.axis([-5, 5, -5, 5])
 
-# Independent Component Analysis (ICA)
-ica = pre.ICA(whitened_data.shape[1])
-ica.train(whitened_data, iterations=1000, status=True)
-data_ica = ica.project(whitened_data)
-
-print "ICA log-likelihood on all data: " + str(numx.mean(
-    ica.log_likelihood(data=whitened_data)))
-
 # Figure 3 - Data and ica estimation of the mixing matrix in whitened space
 vis.figure(4, figsize=[7, 7])
-vis.title("Data and ica estimation of the mixing matrix in whitened space")
+vis.title("Data and ICA estimation of the mixing matrix in whitened space")
 vis.plot_2d_data(whitened_data)
 vis.plot_2d_weights(numxext.resize_norms(ica.projection_matrix,
                                          norm=1,

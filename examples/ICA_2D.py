@@ -57,15 +57,15 @@ whitened_data = zca.project(data)
 # Independent Component Analysis (ICA)
 ica = ICA(whitened_data.shape[1])
 
-ica.train(whitened_data, iterations=1000, status=False)
+ica.train(whitened_data, iterations=100, status=False)
 data_ica = ica.project(whitened_data)
 
 # print the ll on the data
-print("log-likelihood on all data: "+str(numx.mean(
+print("Log-likelihood on all data: "+str(numx.mean(
     ica.log_likelihood(data=whitened_data))))
 
-print "amari distanca between true mixing matrix and estimated mixing matrix: "+str(
-    vis.calculate_amari_distance(zca.project(mixing_matrix.T).T, ica.projection_matrix))
+print "Amari distanca between true mixing matrix and estimated mixing matrix: "+str(
+    vis.calculate_amari_distance(zca.project(mixing_matrix.T), ica.projection_matrix.T))
 
 # For better visualization the principal components are rescaled
 scale_factor = 3
@@ -87,7 +87,7 @@ vis.axis([-4, 4, -4, 4])
 vis.figure(1, figsize=[7, 7])
 vis.title("Data and mixing matrix in whitened space")
 vis.plot_2d_data(whitened_data)
-vis.plot_2d_weights(numxext.resize_norms(scale_factor * zca.project(mixing_matrix.T).T,
+vis.plot_2d_weights(numxext.resize_norms(zca.project(mixing_matrix.T).T,
                                          norm=scale_factor,
                                          axis=0))
 vis.axis('equal')
@@ -95,9 +95,9 @@ vis.axis([-4, 4, -4, 4])
 
 # Figure 3 - Data and ica estimation of the mixing matrix in whitened space
 vis.figure(2, figsize=[7, 7])
-vis.title("Data and ica estimation of the mixing matrix in whitened space")
+vis.title("Data and ICA estimation of the mixing matrix in whitened space")
 vis.plot_2d_data(whitened_data)
-vis.plot_2d_weights(numxext.resize_norms(scale_factor * ica.projection_matrix,
+vis.plot_2d_weights(numxext.resize_norms(ica.projection_matrix,
                                          norm=scale_factor,
                                          axis=0))
 vis.axis('equal')
@@ -105,10 +105,10 @@ vis.axis([-4, 4, -4, 4])
 
 # Figure 3 - Data and ica estimation of the mixing matrix
 vis.figure(3, figsize=[7, 7])
-vis.title("Data and ica estimation of the mixing matrix")
+vis.title("Data and ICA estimation of the mixing matrix")
 vis.plot_2d_data(data)
 vis.plot_2d_weights(
-    numxext.resize_norms(scale_factor * zca.unproject(ica.projection_matrix.T).T,
+    numxext.resize_norms(zca.unproject(ica.projection_matrix.T).T,
                          norm=scale_factor,
                          axis=0))
 vis.axis('equal')

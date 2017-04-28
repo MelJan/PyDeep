@@ -36,6 +36,7 @@ Sampling results for some examples. The first row shows some training data and t
 
 .. figure:: images/GRBM_samples.png
    :alt: GRBM samples
+   :scale: 150 %
    :align: center
 
 The log-likelihood and reconstruction error for training and test data
@@ -67,6 +68,7 @@ Furthermore, we can plot the histogram of all filters over the frequencies in pi
    :align: center
    :alt: GRBM histogram of frequency and angle
 
+Compare the results with thos of `ICA_natural_images <ICA_natural_images.html#ICA_natural_images>`__.
 
 .. _code:
 
