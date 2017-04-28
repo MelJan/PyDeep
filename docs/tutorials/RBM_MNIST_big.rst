@@ -23,11 +23,13 @@ The filters have been normalized such that the structure is more prominent.
 
 .. figure:: images/BRBM_big_centered_weights.png
    :alt: weights centered
+   :align: center
 
 Sampling results for some examples. The first row shows some training data and the following rows are the results after one Gibbs-sampling step starting from the previous row.
 
 .. figure:: images/BRBM_big_centered_samples.png
    :alt: samples centered
+   :align: center
 
 The log-Likelihood is estimated using annealed importance sampling (optimistic) and reverse annealed importance sampling (pessimistic).
 
@@ -42,11 +44,13 @@ The filters have also been normalized such that the structure is more prominent.
 
 .. figure:: images/BRBM_big_normal_weights.png
    :alt: weights centered
+   :align: center
 
 Sampling results for some examples. The first row shows the training data and the following rows are the results after one Gibbs-sampling step starting from the previous row.
 
 .. figure:: images/BRBM_big_normal_samples.png
    :alt: samples centered
+   :align: center
 
 .. code-block:: Python
 

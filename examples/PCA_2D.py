@@ -54,11 +54,14 @@ data_pca = pca.project(data)
 
 # Display results
 
+# For better visualization the principal components are rescaled
+scale_factor = 3
+
 # Figure 1 - Data with estimated principal components
 vis.figure(0, figsize=[7, 7])
 vis.title("Data with estimated principal components")
 vis.plot_2d_data(data)
-vis.plot_2d_weights(pca.projection_matrix)
+vis.plot_2d_weights(scale_factor*pca.projection_matrix)
 vis.axis('equal')
 vis.axis([-4, 4, -4, 4])
 
@@ -66,7 +69,7 @@ vis.axis([-4, 4, -4, 4])
 vis.figure(2, figsize=[7, 7])
 vis.title("Data with estimated principal components in projected space")
 vis.plot_2d_data(data_pca)
-vis.plot_2d_weights(pca.project(pca.projection_matrix.T))
+vis.plot_2d_weights(scale_factor*pca.project(pca.projection_matrix.T))
 vis.axis('equal')
 vis.axis([-4, 4, -4, 4])
 

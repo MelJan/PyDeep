@@ -22,18 +22,21 @@ Visualization of 100 examples of the gray scale natural image dataset.
 
 .. figure:: images/ICA_natural_images_data.png
    :scale: 75 %
+   :align: center
    :alt: 100 gray scale natural image patch examples
 
 The corresponding whitened image patches.
 
 .. figure:: images/ICA_natural_images_data_whitened.png
    :scale: 75 %
+   :align: center
    :alt: 100 gray scale natural image patch examples whitend
 
 The learned filters/independent components learned from the whitened natural image patches.
 
 .. figure:: images/ICA_natural_images_filter.png
    :scale: 75 %
+   :align: center
    :alt: ICA filter on natural images
 
 The log-likelihood on all data is:
@@ -47,18 +50,21 @@ the optimal grating, here for 20 filters
 
 .. figure:: images/ICA_grating.png
    :scale: 75 %
+   :align: center
    :alt: ICA filters with fitted Gabor-wavelets.
 
 as well as the corresponding tuning curves, which show the responds/activities as a function frequency in pixels/cycle (left) and angle in rad (right).
 
 .. figure:: images/ICA_tuning.png
    :alt: ICA  fiter's tuning curves
+   :align: center
 
 Furthermore, we can plot the histogram of all filters over the frequencies in pixels/cycle (left) and angles in rad (right).
 
 .. figure:: images/ICA_histogram.png
    :scale: 75 %
    :alt: ICA histogram of frequency and angle
+   :align: center
 
 See also `GRBM_natural_images <GRBM_natural_images.html#GRBM_natural_images>`__.
 

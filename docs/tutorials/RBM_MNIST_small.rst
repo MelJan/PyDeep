@@ -39,12 +39,14 @@ The filters have been normalized such that the structure is more prominent.
 
 .. figure:: images/BRBM_small_centered_weights.png
    :scale: 50 %
+   :align: center
    :alt: weights centered
 
 Sampling results for some examples. The first row shows the training data and the following rows are the results after one Gibbs-sampling step starting from the previous row.
 
 .. figure:: images/BRBM_small_centered_samples.png
    :alt: samples centered
+   :align: center
 
 The Log-Likelihood is calculated using the exact Partition function, an annealed importance sampling estimation (optimistic) and reverse annealed importance sampling estimation (pessimistic).
 
@@ -65,9 +67,11 @@ Resulting in the following weights and sampling steps.
 .. figure:: images/BRBM_small_normal_weights.png
    :scale: 50 %
    :alt: weights normal
+   :align: center
 
 .. figure:: images/BRBM_small_normal_samples.png
    :alt: samples normal
+   :align: center
 
 The Log-Likelihood for this model is worse (6.5 nats lower).
 
@@ -96,9 +100,11 @@ While the centered model has a similar performance on the flipped version,
 .. figure:: images/BRBM_small_centered_weights_flipped.png
    :scale: 50 %
    :alt: flipped filters centered
+   :align: center
 
 .. figure:: images/BRBM_small_centered_samples_flipped.png
    :alt: flipped samples centered
+   :align: center
 
 The normal RBM has not.
 
@@ -111,9 +117,11 @@ The normal RBM has not.
 .. figure:: images/BRBM_small_normal_weights_flipped.png
    :scale: 50 %
    :alt: flipped filters normal
+   :align: center
 
 .. figure:: images/BRBM_small_normal_samples_flipped.png
    :alt: flipped samples normal
+   :align: center
 
 For a large number of hidden units see `RBM_MNIST_big <RBM_MNIST_big.html#RBM_MNIST_big>`__.
 

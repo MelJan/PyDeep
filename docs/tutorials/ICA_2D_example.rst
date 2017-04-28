@@ -33,23 +33,33 @@ Visualization of the data and true mixing matrix projected to the whitened space
 
 .. figure:: images/ICA_2D_mixing_whitened.png
    :scale: 60 %
+   :align: center
    :alt: Examples of mixing matrix 2D in whitened space
 
 Visualization of the whitened data with the ICA projection matrix, that is the estimation of the whitened mixing matrix.
 Note that ICA is invariant to sign flips of the sources. The columns of the estimated mixing matrix are most likely a permutation of the columns of the original mixing matrix and can also be a 180 degrees rotated version (original vector multiplied by -1).
+The Amari distance is invariant to permutations and flips of the matrix columns and can thus be used to compare to mixing matrices.
+
+Amari distanca between true mixing matrix and estimated mixing matrix:
+.. code-block:: Python
+
+   0.00989830345692
 
 .. image:: images/ICA_2D_estimate_whitened.png
    :scale: 60 %
+   :align: center
    :alt: Examples of ICA 2D in whitened space
 
 We can also project the ICA projection matrix back to the original space and compare the results in the original space.
 
 .. image:: images/ICA_2D_mixing.png
    :scale: 60 %
+   :align: center
    :alt: Examples of mixing matrix 2D
 
 .. image:: images/ICA_2D_estimate.png
    :scale: 60 %
+   :align: center
    :alt: Examples of ICA 2D
 
 The log-likelihood on all data is:
