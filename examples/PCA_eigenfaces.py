@@ -32,9 +32,10 @@
         along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 """
-# Import PCA, numpy, input output module, and visualization module
-from pydeep.preprocessing import PCA
+
+# Import numpy, PCA, input output module, and visualization module
 import numpy as numx
+from pydeep.preprocessing import PCA
 import pydeep.misc.io as io
 import pydeep.misc.visualization as vis
 
@@ -42,13 +43,13 @@ import pydeep.misc.visualization as vis
 # (optional, if stochastic processes are involved we get the same results)
 numx.random.seed(42)
 
-# Load the data
-data = io.load_olivetti_faces(path='../../data/olivettifaces.mat')
+# Load data (download is not existing)
+data = io.load_olivetti_faces(path='olivettifaces.mat')
 
 # Specify image width and height for displaying
 width = height = 64
 
-# Create a PCA node and train it
+# PCA
 pca = PCA(input_dim=width * height)
 pca.train(data=data)
 

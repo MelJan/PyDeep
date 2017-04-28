@@ -32,18 +32,20 @@
         along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
-# Import PCA, the toyproblem, numpy, numpy extensions, and visualization module
+# Import numpy, numpy extensions, PCA, 2D linear mixture, and visualization module
 import numpy as numx
-import pydeep.misc.visualization as vis
 from pydeep.preprocessing import PCA
 from pydeep.misc.toyproblems import generate_2d_mixtures
+import pydeep.misc.visualization as vis
 
 # Set the random seed
 # (optional, if stochastic processes are involved we get the same results)
 numx.random.seed(42)
 
-# Create 2D linear mixture
-data = generate_2d_mixtures(50000, 0, 3.0)[0]
+# Create 2D linear mixture, 50000 samples, mean = 0, std = 3
+data, _ = generate_2d_mixtures(num_samples=50000,
+                               mean=0.0,
+                               scale=3.0)
 
 # PCA
 pca = PCA(data.shape[1])
@@ -51,25 +53,32 @@ pca.train(data)
 data_pca = pca.project(data)
 
 # Display results
+
+# For better visualization the principal components are rescaled
+scale_factor = 3
+
+# Figure 1 - Data with estimated principal components
 vis.figure(0, figsize=[7, 7])
 vis.title("Data with estimated principal components")
 vis.plot_2d_data(data)
-vis.plot_2d_weights(pca.projection_matrix)
+vis.plot_2d_weights(scale_factor*pca.projection_matrix)
 vis.axis('equal')
 vis.axis([-4, 4, -4, 4])
 
+# Figure 2 - Data with estimated principal components in projected space
 vis.figure(2, figsize=[7, 7])
 vis.title("Data with estimated principal components in projected space")
 vis.plot_2d_data(data_pca)
-vis.plot_2d_weights(pca.project(pca.projection_matrix.T))
+vis.plot_2d_weights(scale_factor*pca.project(pca.projection_matrix.T))
 vis.axis('equal')
 vis.axis([-4, 4, -4, 4])
 
-# PCA with whitened ouput
-pca = PCA(data.shape[1],True)
+# PCA with whitening
+pca = PCA(data.shape[1], whiten=True)
 pca.train(data)
 data_pca = pca.project(data)
 
+# Figure 3 - Data with estimated principal components in whitened space
 vis.figure(3, figsize=[7, 7])
 vis.title("Data with estimated principal components in whitened space")
 vis.plot_2d_data(data_pca)
@@ -77,5 +86,5 @@ vis.plot_2d_weights(pca.project(pca.projection_matrix.T).T)
 vis.axis('equal')
 vis.axis([-4, 4, -4, 4])
 
-# Show all windows.
+# Show all windows
 vis.show()
