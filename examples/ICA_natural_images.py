@@ -44,7 +44,7 @@ import pydeep.misc.visualization as vis
 numx.random.seed(42)
 
 # Load data (download is not existing)
-data = io.load_natural_image_patches('../../data/NaturalImage.mat')
+data = io.load_natural_image_patches('NaturalImage.mat')
 
 # Specify image width and height for displaying
 width = height = 14
