@@ -3,7 +3,7 @@ import io
 import os
 
 
-def extract_package_structure(root_path="pydeep/",ext=".py"):
+def extract_package_structure(root_path="../pydeep/",ext=".py"):
     """ Get all files and depth level
 
     :param root_path: Root directory
