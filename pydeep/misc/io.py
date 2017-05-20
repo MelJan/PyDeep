@@ -306,7 +306,7 @@ def load_cifar(path, grayscale=True):
         print('-> training data extracted')
 
         train_set = numx.vstack((batch_1['data'], batch_2['data'], batch_3['data'], batch_4['data']))
-        train_lab = numx.vstack((batch_1['labels'], batch_2['labels'], batch_3['labels'], batch_4['labels']))
+        train_lab = numx.hstack((batch_1['labels'], batch_2['labels'], batch_3['labels'], batch_4['labels']))
         valid_set = batch_valid['data']
         valid_lab = batch_valid['labels']
         test_set = batch_test['data']
