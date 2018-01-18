@@ -165,7 +165,7 @@ def compare_BipartiteGraph_after_adding(
 
 class Test_BipartiteGraph(unittest.TestCase):
     def test___init__(self):
-        print('BipartiteGraph -> Performing BipartiteGraph initialzation test ...')
+        sys.stdout.write('BipartiteGraph -> Performing BipartiteGraph initialzation test ...')
         sys.stdout.flush()
 
         # Check init scalar
@@ -314,11 +314,11 @@ class Test_BipartiteGraph(unittest.TestCase):
         assert numx.all(model.bh == initial_hidden_bias)
         assert numx.all(model.ov == initial_visible_offsets)
         assert numx.all(model.oh == initial_hidden_offsets)
-        print('successfully passed!')
+        print(' successfully passed!')
         sys.stdout.flush()
 
     def test__add_hidden_units(self):
-        print('BipartiteGraph -> Performing add_hidden_units test ...')
+        sys.stdout.write('BipartiteGraph -> Performing add_hidden_units test ...')
         sys.stdout.flush()
         num_hid = 4
         pos = num_hid / 2
@@ -344,11 +344,11 @@ class Test_BipartiteGraph(unittest.TestCase):
                 check_newpart = False
             compare_BipartiteGraph_after_adding(bpgraph, bpgraph_old, pos,
                                                 num_hid, 'hid', check_newpart)
-        print('successfully passed!')
+        print(' successfully passed!')
         sys.stdout.flush()
 
     def test__remove_hidden_units(self):
-        print('BipartiteGraph -> Performing remove_hidden_units test ...')
+        sys.stdout.write('BipartiteGraph -> Performing remove_hidden_units test ...')
         sys.stdout.flush()
         bpgraph = BipartiteGraph(number_visibles=2, number_hiddens=4)
         bpgraph_old = copy.deepcopy(bpgraph)
@@ -356,11 +356,11 @@ class Test_BipartiteGraph(unittest.TestCase):
         bpgraph._remove_hidden_units(indices)
         compare_BipartiteGraph_after_removing(bpgraph, bpgraph_old, indices,
                                               unit_type="hid")
-        print('successfully passed!')
+        print(' successfully passed!')
         sys.stdout.flush()
 
     def test__add_visible_units(self):
-        print('BipartiteGraph -> Performing add_visible_units test ...')
+        sys.stdout.write('BipartiteGraph -> Performing add_visible_units test ...')
         sys.stdout.flush()
         num_vis = 4
         pos = num_vis / 2
@@ -386,11 +386,11 @@ class Test_BipartiteGraph(unittest.TestCase):
                 check_newpart = False
             compare_BipartiteGraph_after_adding(bpgraph, bpgraph_old, pos,
                                                 num_vis, 'vis', check_newpart)
-        print('successfully passed!')
+        print(' successfully passed!')
         sys.stdout.flush()
 
     def test__remove_visible_units(self):
-        print('BipartiteGraph -> Performing remove_visible_units test ...')
+        sys.stdout.write('BipartiteGraph -> Performing remove_visible_units test ...')
         sys.stdout.flush()
         bpgraph = BipartiteGraph(number_visibles=4, number_hiddens=3)
         bpgraph_old = copy.deepcopy(bpgraph)
@@ -398,26 +398,26 @@ class Test_BipartiteGraph(unittest.TestCase):
         bpgraph._remove_visible_units(indices)
         compare_BipartiteGraph_after_removing(bpgraph, bpgraph_old, indices,
                                               unit_type='vis')
-        print('successfully passed!')
+        print(' successfully passed!')
         sys.stdout.flush()
 
     def test_get_parameters(self):
         """check whether the return of the function is iterable
         """
-        print('BipartiteGraph -> Performing get_parameters test ...')
+        sys.stdout.write('BipartiteGraph -> Performing get_parameters test ...')
         sys.stdout.flush()
         bpgraph = BipartiteGraph(number_visibles=2, number_hiddens=3)
         parameter_list = bpgraph.get_parameters()
         # provide more error information here
         # check whether the parameter actually exisit in the instance?
         assert isinstance(parameter_list, Iterable)
-        print('successfully passed!')
+        print(' successfully passed!')
         sys.stdout.flush()
 
     def test_update_parameters(self):
         """use the old parameters to check the updated parameters
         """
-        print('BipartiteGraph -> Performing update_parameters test ...')
+        sys.stdout.write('BipartiteGraph -> Performing update_parameters test ...')
         sys.stdout.flush()
         bpgraph = BipartiteGraph(number_visibles=2, number_hiddens=3)
         old_param = copy.deepcopy(bpgraph.get_parameters())
@@ -425,13 +425,13 @@ class Test_BipartiteGraph(unittest.TestCase):
         for each_new_param, each_old_param in \
                 zip(bpgraph.get_parameters(), old_param):
             assert numx.all(each_new_param == 2 * each_old_param)
-        print('successfully passed!')
+        print(' successfully passed!')
         sys.stdout.flush()
 
     def test_update_offsets(self):
         """use the double of the old offsets to check the updated offsets.
         """
-        print('BipartiteGraph -> Performing update_offsets test ...')
+        sys.stdout.write('BipartiteGraph -> Performing update_offsets test ...')
         sys.stdout.flush()
         bpgraph = BipartiteGraph(number_visibles=2, number_hiddens=3,
                                  initial_visible_offsets=1.0, initial_hidden_offsets=1.0)
@@ -450,13 +450,13 @@ class Test_BipartiteGraph(unittest.TestCase):
                         old_bv + numx.dot(old_oh, bpgraph.w.T) * offset_ratio)
         assert numx.all(bpgraph.bh == \
                         old_bh + numx.dot(old_ov, bpgraph.w) * offset_ratio)
-        print('successfully passed!')
+        print(' successfully passed!')
         sys.stdout.flush()
 
     def test_visible_activation(self):
         """use the double of the old offsets to check the updated offsets.
         """
-        print('BipartiteGraph -> Performing visible_activation test ...')
+        sys.stdout.write('BipartiteGraph -> Performing visible_activation test ...')
         sys.stdout.flush()
         bpgraph = BipartiteGraph(number_visibles=2, number_hiddens=3,
                                  initial_visible_offsets=1.0, initial_hidden_offsets=1.0)
@@ -464,26 +464,26 @@ class Test_BipartiteGraph(unittest.TestCase):
             numx.dot(numx.ones((1, 3)) - bpgraph.oh, bpgraph.w.T) + bpgraph.bv)
         visact_test = bpgraph.visible_activation(numx.ones((1, 3)))
         assert numx.all(visact == visact_test)
-        print('successfully passed!')
+        print(' successfully passed!')
         sys.stdout.flush()
 
     def test_hidden_activation(self):
         """use the double of the old offsets to check the updated offsets.
         """
-        print('BipartiteGraph -> Performing hidden_activation test ...')
+        sys.stdout.write('BipartiteGraph -> Performing hidden_activation test ...')
         sys.stdout.flush()
         bpgraph = BipartiteGraph(number_visibles=2, number_hiddens=3,
                                  initial_visible_offsets=1.0, initial_hidden_offsets=1.0)
         hidact = bpgraph.hidden_activation_function.f(numx.dot(numx.ones((1, 2)) - bpgraph.ov, bpgraph.w) + bpgraph.bh)
         hidact_test = bpgraph.hidden_activation(numx.ones((1, 2)))
         assert numx.all(hidact == hidact_test)
-        print('successfully passed!')
+        print(' successfully passed!')
         sys.stdout.flush()
 
 
 class Test_StackOfBipartiteGraphs(unittest.TestCase):
     def test___init__(self):
-        print('StackOfBipartiteGraphs -> Performing initialzation and property test ...')
+        sys.stdout.write('StackOfBipartiteGraphs -> Performing initialzation and property test ...')
         sys.stdout.flush()
 
         # Check init scalar
@@ -533,11 +533,11 @@ class Test_StackOfBipartiteGraphs(unittest.TestCase):
         assert numx.all(stack.depth == 4)
         assert numx.all(stack[1].dtype == numx.float64)
 
-        print('successfully passed!')
+        print(' successfully passed!')
         sys.stdout.flush()
 
     def test_append_pop(self):
-        print('StackOfBipartiteGraphs -> Performing pop and append test ...')
+        sys.stdout.write('StackOfBipartiteGraphs -> Performing pop and append test ...')
         sys.stdout.flush()
 
         # Check init scalar
@@ -638,11 +638,11 @@ class Test_StackOfBipartiteGraphs(unittest.TestCase):
         assert numx.all(stack.num_layers == 0)
         assert numx.all(stack.depth == 1)
 
-        print('successfully passed!')
+        print(' successfully passed!')
         sys.stdout.flush()
 
     def test_forward_backward_reconstruct(self):
-        print('StackOfBipartiteGraphs -> Performing forward, backward, and reconstruct test ...')
+        sys.stdout.write('StackOfBipartiteGraphs -> Performing forward, backward, and reconstruct test ...')
         sys.stdout.flush()
 
         # Check init scalar
@@ -696,7 +696,7 @@ class Test_StackOfBipartiteGraphs(unittest.TestCase):
             stack.backward_propagate(stack.forward_propagate(numx.array([[1, 2], [3, 4]]))) - rec_target) < 0.000001)
         assert numx.sum(numx.abs(stack.reconstruct(numx.array([[1, 2], [3, 4]])) - rec_target) < 0.000001)
 
-        print('successfully passed!')
+        print(' successfully passed!')
         sys.stdout.flush()
 
 

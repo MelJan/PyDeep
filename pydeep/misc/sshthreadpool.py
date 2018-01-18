@@ -142,7 +142,8 @@ class SSHConnection(object):
 
     def execute_command_in_screen(self, command):
         """ Executes a command in a screen on the server which is automatically detached and returns stdin, stdout, \
-            and stderr. Screen closes automatically when the job is done.
+            and stderr. Screen closes automatically when the job is
+            done.
 
         :param command: Command to be executed.
         :type command: string

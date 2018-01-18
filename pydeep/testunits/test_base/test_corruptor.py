@@ -45,69 +45,69 @@ epsilon = 0.000001
 class TestCorruptor(unittest.TestCase):
 
     def test_Corruptor_Identity(self):
-        print('Corruptor -> Performing Identity test ...')
+        sys.stdout.write('Corruptor -> Performing Identity test ...')
         sys.stdout.flush()
         corr = Identity()
         x = numx.array([1.1, 0.9, 9.0, 4.0])
         assert numx.all(numx.abs(x - corr.corrupt(x)) < epsilon)
-        print('successfully passed!')
+        print(' successfully passed!')
         sys.stdout.flush()
 
     def test_Additive_Gauss_noise(self):
-        print('Corruptor -> Performing Additive_Gauss_noise test ...')
+        sys.stdout.write('Corruptor -> Performing Additive_Gauss_noise test ...')
         sys.stdout.flush()
         numx.random.seed(42)
         corr = AdditiveGaussNoise(1.0, 4.0)
         x = numx.array([1.1, 0.9, 9.0, 4.0])
         assert numx.all(
             numx.abs(numx.array([4.08685661, 1.3469428, 12.59075415, 11.09211943]) - corr.corrupt(x)) < epsilon)
-        print('successfully passed!')
+        print(' successfully passed!')
         sys.stdout.flush()
 
     def test_Multi_Gauss_noise(self):
-        print('Corruptor -> Performing Multi_Gauss_noise test ...')
+        sys.stdout.write('Corruptor -> Performing Multi_Gauss_noise test ...')
         sys.stdout.flush()
         numx.random.seed(42)
         corr = MultiGaussNoise(1.0, 4.0)
         x = numx.array([1.1, 0.9, 9.0, 4.0])
         target = corr.corrupt(x)
         assert numx.all(numx.abs(numx.array([3.28554227, 0.40224852, 32.31678737, 28.3684777]) - target) < epsilon)
-        print('successfully passed!')
+        print(' successfully passed!')
         sys.stdout.flush()
 
     def test_Dropout(self):
-        print('Corruptor -> Performing Dropout test ...')
+        sys.stdout.write('Corruptor -> Performing Dropout test ...')
         sys.stdout.flush()
         numx.random.seed(42)
         corr = Dropout(0.5)
         x = numx.array([1.1, 0.9, 9.0, 4.0])
         assert numx.all(numx.abs(numx.array([0., 1.8, 18., 8.]) - corr.corrupt(x)) < epsilon)
-        print('successfully passed!')
+        print(' successfully passed!')
         sys.stdout.flush()
 
     def test_RandomPermutation(self):
-        print('Corruptor -> Performing RandomPermutation test ...')
+        sys.stdout.write('Corruptor -> Performing RandomPermutation test ...')
         sys.stdout.flush()
         numx.random.seed(42)
         corr = RandomPermutation(0.4)
         x = numx.array([[0, 18, 16, 88, 9, 77, 44, 1, 2, 5], [0, 12, 4, 19, 17, 56, 5, 3, 2, 1]])
         target = numx.array([[18, 0, 16, 88, 9, 2, 44, 1, 77, 5], [2, 56, 4, 19, 17, 12, 5, 3, 0, 1]])
         assert numx.all(numx.abs(target - corr.corrupt(x)) < epsilon)
-        print('successfully passed!')
+        print(' successfully passed!')
         sys.stdout.flush()
 
     def test_Sampling_Binary(self):
-        print('Corruptor -> Performing Sampling_Binary test ...')
+        sys.stdout.write('Corruptor -> Performing Sampling_Binary test ...')
         sys.stdout.flush()
         numx.random.seed(42)
         corr = SamplingBinary()
         x = numx.array([1.1, 0.9, 9.0, 4.0])
         assert numx.all(numx.array([True, False, True, True]) == corr.corrupt(x))
-        print('successfully passed!')
+        print(' successfully passed!')
         sys.stdout.flush()
 
     def test_KeepKWinner(self):
-        print('Corruptor -> Performing KeepKWinner test ...')
+        sys.stdout.write('Corruptor -> Performing KeepKWinner test ...')
         sys.stdout.flush()
         numx.random.seed(42)
         numx.random.seed(42)
@@ -121,11 +121,11 @@ class TestCorruptor(unittest.TestCase):
         target = numx.array([[0, 18, 16, 0, 0], [0, 0, 0, 19, 17], [14, 0, 0, 20, 0], [13, 0, 0, 15, 0]])
         cor = KeepKWinner(k, 1)
         assert numx.all(target == cor.corrupt(data))
-        print('successfully passed!')
+        print(' successfully passed!')
         sys.stdout.flush()
 
     def test_KWinnerTakesAll(self):
-        print('Corruptor -> Performing KWinnerTakesAll test ...')
+        sys.stdout.write('Corruptor -> Performing KWinnerTakesAll test ...')
         sys.stdout.flush()
         numx.random.seed(42)
         data = numx.arange(1, 21)
@@ -140,7 +140,7 @@ class TestCorruptor(unittest.TestCase):
         cor = KWinnerTakesAll(k, 1)
         x = cor.corrupt(data)
         assert numx.all(target == x)
-        print('successfully passed!')
+        print(' successfully passed!')
         sys.stdout.flush()
 
 

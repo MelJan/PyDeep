@@ -45,7 +45,7 @@ epsilon = 0.000001
 class TestActivationFunction(unittest.TestCase):
 
     def test_Identity(self):
-        print('Activationfunction -> Performing Identity() test ...')
+        sys.stdout.write('Activationfunction -> Performing Identity() test ...')
         sys.stdout.flush()
         assert numx.all(numx.abs(4.0 - Identity().f(4.0)) < epsilon)
         assert numx.all(numx.abs(0.0 - Identity().f(0.0)) < epsilon)
@@ -66,11 +66,11 @@ class TestActivationFunction(unittest.TestCase):
         assert numx.all(numx.abs(1.0 - Identity().dg(4.0)) < epsilon)
         assert numx.all(numx.abs(1.0 - Identity().dg(0.0)) < epsilon)
         assert numx.all(numx.abs(1.0 - Identity().dg(-4.0)) < epsilon)
-        print('successfully passed!')
+        print(' successfully passed!')
         sys.stdout.flush()
 
     def test_Sigmoid(self):
-        print('Activationfunction -> Performing Sigmoid() test ...')
+        sys.stdout.write('Activationfunction -> Performing Sigmoid() test ...')
         sys.stdout.flush()
         assert numx.all(numx.abs(0.982013790038 - Sigmoid().f(4.0)) < epsilon)
         assert numx.all(numx.abs(0.5 - Sigmoid().f(0.0)) < epsilon)
@@ -91,36 +91,36 @@ class TestActivationFunction(unittest.TestCase):
         assert numx.all(numx.abs(4.0 - Sigmoid().dg(0.5)) < epsilon)
         assert numx.all(numx.abs(-1.0 / 0.75 - Sigmoid().dg(-0.5)) < epsilon)
         assert numx.all(numx.abs(5.33333333333 - Sigmoid().dg(0.75)) < epsilon)
-        print('successfully passed!')
+        print(' successfully passed!')
         sys.stdout.flush()
 
-    def test_TangentsHyperbolicus(self):
-        print('Activationfunction -> Performing TangentsHyperbolicus() test ...')
+    def test_HyperbolicTangent(self):
+        sys.stdout.write('Activationfunction -> Performing HyperbolicTangent() test ...')
         sys.stdout.flush()
-        assert numx.all(numx.abs(0.999329299739 - TangentsHyperbolicus().f(4.0)) < epsilon)
-        assert numx.all(numx.abs(0.0 - TangentsHyperbolicus().f(0.0)) < epsilon)
-        assert numx.all(numx.abs(-0.999329299739 - TangentsHyperbolicus().f(-4.0)) < epsilon)
+        assert numx.all(numx.abs(0.999329299739 - HyperbolicTangent().f(4.0)) < epsilon)
+        assert numx.all(numx.abs(0.0 - HyperbolicTangent().f(0.0)) < epsilon)
+        assert numx.all(numx.abs(-0.999329299739 - HyperbolicTangent().f(-4.0)) < epsilon)
 
-        assert numx.all(numx.abs(-0.972955074528 - TangentsHyperbolicus().g(-0.75)) < epsilon)
-        assert numx.all(numx.abs(0.0 - TangentsHyperbolicus().g(0.0)) < epsilon)
-        assert numx.all(numx.abs(0.972955074528 - TangentsHyperbolicus().g(0.75)) < epsilon)
+        assert numx.all(numx.abs(-0.972955074528 - HyperbolicTangent().g(-0.75)) < epsilon)
+        assert numx.all(numx.abs(0.0 - HyperbolicTangent().g(0.0)) < epsilon)
+        assert numx.all(numx.abs(0.972955074528 - HyperbolicTangent().g(0.75)) < epsilon)
 
-        assert numx.all(numx.abs(0.00134095068303 - TangentsHyperbolicus().df(4.0)) < epsilon)
-        assert numx.all(numx.abs(1.0 - TangentsHyperbolicus().df(0.0)) < epsilon)
-        assert numx.all(numx.abs(0.00134095068303 - TangentsHyperbolicus().df(-4.0)) < epsilon)
+        assert numx.all(numx.abs(0.00134095068303 - HyperbolicTangent().df(4.0)) < epsilon)
+        assert numx.all(numx.abs(1.0 - HyperbolicTangent().df(0.0)) < epsilon)
+        assert numx.all(numx.abs(0.00134095068303 - HyperbolicTangent().df(-4.0)) < epsilon)
 
-        assert numx.all(numx.abs(-0.00268010261411 - TangentsHyperbolicus().ddf(4.0)) < epsilon)
-        assert numx.all(numx.abs(-.0 - TangentsHyperbolicus().ddf(0.0)) < epsilon)
-        assert numx.all(numx.abs(0.00268010261411 - TangentsHyperbolicus().ddf(-4.0)) < epsilon)
+        assert numx.all(numx.abs(-0.00268010261411 - HyperbolicTangent().ddf(4.0)) < epsilon)
+        assert numx.all(numx.abs(-.0 - HyperbolicTangent().ddf(0.0)) < epsilon)
+        assert numx.all(numx.abs(0.00268010261411 - HyperbolicTangent().ddf(-4.0)) < epsilon)
 
-        assert numx.all(numx.abs(2.28571428571 - TangentsHyperbolicus().dg(-0.75)) < epsilon)
-        assert numx.all(numx.abs(1.0 - TangentsHyperbolicus().dg(0.0)) < epsilon)
-        assert numx.all(numx.abs(2.28571428571 - TangentsHyperbolicus().dg(0.75)) < epsilon)
-        print('successfully passed!')
+        assert numx.all(numx.abs(2.28571428571 - HyperbolicTangent().dg(-0.75)) < epsilon)
+        assert numx.all(numx.abs(1.0 - HyperbolicTangent().dg(0.0)) < epsilon)
+        assert numx.all(numx.abs(2.28571428571 - HyperbolicTangent().dg(0.75)) < epsilon)
+        print(' successfully passed!')
         sys.stdout.flush()
 
     def test_SoftSign(self):
-        print('Activationfunction -> Performing SoftSign() test ...')
+        sys.stdout.write('Activationfunction -> Performing SoftSign() test ...')
         sys.stdout.flush()
         assert numx.all(numx.abs(0.8 - SoftSign().f(4.0)) < epsilon)
         assert numx.all(numx.abs(0.0 - SoftSign().f(0.0)) < epsilon)
@@ -133,11 +133,11 @@ class TestActivationFunction(unittest.TestCase):
         assert numx.all(numx.abs(-0.016 - SoftSign().ddf(4.0)) < epsilon)
         assert numx.all(numx.abs(-1.99999400001 - SoftSign().ddf(0.000001)) < epsilon)
         assert numx.all(numx.abs(0.016 - SoftSign().ddf(-4.0)) < epsilon)
-        print('successfully passed!')
+        print(' successfully passed!')
         sys.stdout.flush()
 
     def test_Step(self):
-        print('Activationfunction -> Performing Step() test ...')
+        sys.stdout.write('Activationfunction -> Performing Step() test ...')
         sys.stdout.flush()
         assert numx.all(numx.abs(0.0 - Step().f(-1.0)) < epsilon)
         assert numx.all(numx.abs(1.0 - Step().f(+1.0)) < epsilon)
@@ -148,11 +148,11 @@ class TestActivationFunction(unittest.TestCase):
         assert numx.all(numx.abs(0.0 - Step().ddf(0.0)) < epsilon)
         assert numx.all(numx.abs(0.0 - Step().ddf(0.0)) < epsilon)
 
-        print('successfully passed!')
+        print(' successfully passed!')
         sys.stdout.flush()
 
     def test_Rectifier(self):
-        print('Activationfunction -> Performing Rectifier() test ...')
+        sys.stdout.write('Activationfunction -> Performing Rectifier() test ...')
         sys.stdout.flush()
         assert numx.all(numx.abs(0.0 - Rectifier().f(-0.0001)) < epsilon)
         assert numx.all(numx.abs(0.0 - Rectifier().f(-4.0)) < epsilon)
@@ -168,11 +168,11 @@ class TestActivationFunction(unittest.TestCase):
         assert numx.all(numx.abs(0.0 - Rectifier().ddf(-4.0)) < epsilon)
         assert numx.all(numx.abs(0.0 - Rectifier().ddf(+0.0001)) < epsilon)
         assert numx.all(numx.abs(0.0 - Rectifier().ddf(4.0)) < epsilon)
-        print('successfully passed!')
+        print(' successfully passed!')
         sys.stdout.flush()
 
     def test_SoftPlus(self):
-        print('Activationfunction -> Performing SoftPlus() test ...')
+        sys.stdout.write('Activationfunction -> Performing SoftPlus() test ...')
         sys.stdout.flush()
 
         assert numx.all(numx.abs(4.01814992792 - SoftPlus().f(4.0)) < epsilon)
@@ -193,11 +193,11 @@ class TestActivationFunction(unittest.TestCase):
         assert numx.all(numx.abs(0.25 - SoftPlus().ddf(0.0)) < epsilon)
         assert numx.all(numx.abs(0.0176627062133 - SoftPlus().ddf(-4.0)) < epsilon)
 
-        print('successfully passed!')
+        print(' successfully passed!')
         sys.stdout.flush()
 
     def test_SoftMax(self):
-        print('Activationfunction -> Performing SoftMax() test ...')
+        sys.stdout.write('Activationfunction -> Performing SoftMax() test ...')
         sys.stdout.flush()
 
         assert numx.all(numx.abs(
@@ -214,11 +214,11 @@ class TestActivationFunction(unittest.TestCase):
         assert numx.all(
             numx.abs(numx.array([[[0.0099, 0.], [0., 0.]]]) - SoftMax().df(numx.array([[0.99, 0.0]]))) < epsilon)
 
-        print('successfully passed!')
+        print(' successfully passed!')
         sys.stdout.flush()
 
     def test_Sinus(self):
-        print('Activationfunction -> Performing Sinus() test ...')
+        sys.stdout.write('Activationfunction -> Performing Sinus() test ...')
         sys.stdout.flush()
 
         assert numx.all(numx.abs(0.0 - Sinus().f(0.0)) < epsilon)
@@ -242,31 +242,31 @@ class TestActivationFunction(unittest.TestCase):
         assert numx.all(numx.abs(0.0 - Sinus().df(numx.pi / 2)) < epsilon)
         assert numx.all(numx.abs(0.0 - Sinus().df(3 * (numx.pi / 2))) < epsilon)
 
-        print('successfully passed!')
+        print(' successfully passed!')
         sys.stdout.flush()
 
-    def test_RectifierRestricted(self):
-        print('Activationfunction -> Performing test_RestrictedRectifier() test ...')
+    def test_RestrictedRectifier(self):
+        sys.stdout.write('Activationfunction -> Performing test_RestrictedRectifier() test ...')
         sys.stdout.flush()
-        assert numx.all(numx.abs(0.0 - RectifierRestricted().f(-0.0001)) < epsilon)
-        assert numx.all(numx.abs(0.0 - RectifierRestricted().f(-4.0)) < epsilon)
-        assert numx.all(numx.abs(0.0001 - RectifierRestricted().f(+0.0001)) < epsilon)
-        assert numx.all(numx.abs(1.0 - RectifierRestricted().f(4.0)) < epsilon)
+        assert numx.all(numx.abs(0.0 - RestrictedRectifier().f(-0.0001)) < epsilon)
+        assert numx.all(numx.abs(0.0 - RestrictedRectifier().f(-4.0)) < epsilon)
+        assert numx.all(numx.abs(0.0001 - RestrictedRectifier().f(+0.0001)) < epsilon)
+        assert numx.all(numx.abs(1.0 - RestrictedRectifier().f(4.0)) < epsilon)
 
-        assert numx.all(numx.abs(0.0 - RectifierRestricted().df(-0.0001)) < epsilon)
-        assert numx.all(numx.abs(0.0 - RectifierRestricted().df(-4.0)) < epsilon)
-        assert numx.all(numx.abs(1.0 - RectifierRestricted().df(+0.0001)) < epsilon)
-        assert numx.all(numx.abs(0.0 - RectifierRestricted().df(4.0)) < epsilon)
+        assert numx.all(numx.abs(0.0 - RestrictedRectifier().df(-0.0001)) < epsilon)
+        assert numx.all(numx.abs(0.0 - RestrictedRectifier().df(-4.0)) < epsilon)
+        assert numx.all(numx.abs(1.0 - RestrictedRectifier().df(+0.0001)) < epsilon)
+        assert numx.all(numx.abs(0.0 - RestrictedRectifier().df(4.0)) < epsilon)
 
-        assert numx.all(numx.abs(0.0 - RectifierRestricted().ddf(-0.0001)) < epsilon)
-        assert numx.all(numx.abs(0.0 - RectifierRestricted().ddf(-4.0)) < epsilon)
-        assert numx.all(numx.abs(0.0 - RectifierRestricted().ddf(+0.0001)) < epsilon)
-        assert numx.all(numx.abs(0.0 - RectifierRestricted().ddf(4.0)) < epsilon)
-        print('successfully passed!')
+        assert numx.all(numx.abs(0.0 - RestrictedRectifier().ddf(-0.0001)) < epsilon)
+        assert numx.all(numx.abs(0.0 - RestrictedRectifier().ddf(-4.0)) < epsilon)
+        assert numx.all(numx.abs(0.0 - RestrictedRectifier().ddf(+0.0001)) < epsilon)
+        assert numx.all(numx.abs(0.0 - RestrictedRectifier().ddf(4.0)) < epsilon)
+        print(' successfully passed!')
         sys.stdout.flush()
 
     def test_RadialBasis(self):
-        print('Activationfunction -> Performing RadialBasis() test ...')
+        sys.stdout.write('Activationfunction -> Performing RadialBasis() test ...')
         sys.stdout.flush()
 
         assert numx.all(numx.abs(0.0183156388887 - RadialBasis(0.0, 1.0).f(2.0)) < epsilon)
@@ -282,9 +282,55 @@ class TestActivationFunction(unittest.TestCase):
         assert numx.all(numx.abs(-0.68455615871 - RadialBasis(1.0, 1.5).df(2.0)) < epsilon)
         assert numx.all(numx.abs(0.68455615871 - RadialBasis(1.0, 1.5).df(0.0)) < epsilon)
         assert numx.all(numx.abs(0.00991500870667 - RadialBasis(1.0, 1.5).df(-2.0)) < epsilon)
-        print('successfully passed!')
+        print(' successfully passed!')
         sys.stdout.flush()
 
+    def test_LeakyRestricted(self):
+        sys.stdout.write('Activationfunction -> Performing test_LeakyRectifier() test ...')
+        sys.stdout.flush()
+        rect = LeakyRectifier(0.01, 0.5)
+        assert numx.all(numx.abs(-2.0*rect.negativeSlope - rect.f(-2.0)) < epsilon)
+        assert numx.all(numx.abs(0.0*rect.positiveSlope  - rect.f(0.0)) < epsilon)
+        assert numx.all(numx.abs(2.0*rect.positiveSlope - rect.f(2.0)) < epsilon)
+
+        assert numx.all(numx.abs(rect.negativeSlope - rect.df(-2.0)) < epsilon)
+        assert numx.all(numx.abs(rect.positiveSlope  - rect.df(0.0)) < epsilon)
+        assert numx.all(numx.abs(rect.positiveSlope - rect.df(2.0)) < epsilon)
+
+        print(' successfully passed!')
+        sys.stdout.flush()
+
+    def test_SigmoidWeightedLinear(self):
+        sys.stdout.write('Activationfunction -> Performing test_SigmoidWeightedLinear() test ...')
+        sys.stdout.flush()
+        sig = SigmoidWeightedLinear()
+
+        assert numx.all(numx.abs(-0.26894142137- sig.f(-1.0)) < epsilon)
+        assert numx.all(numx.abs(0.0 - sig.f(0.0)) < epsilon)
+        assert numx.all(numx.abs(0.73105857863 - sig.f(1.0)) < epsilon)
+
+        assert numx.all(numx.abs(0.0723294881285 - sig.df(-1.0)) < epsilon)
+        assert numx.all(numx.abs(0.5 - sig.df(0.0)) < epsilon)
+        assert numx.all(numx.abs(0.927670511871 - sig.df(1.0)) < epsilon)
+
+        print(' successfully passed!')
+        sys.stdout.flush()
+
+    def test_ExponentialLinear(self):
+        sys.stdout.write('Activationfunction -> Performing test_ExponentialLinear() test ...')
+        sys.stdout.flush()
+        expLin = ExponentialLinear()
+
+        assert numx.all(numx.abs(-0.632120558829 - expLin.f(-1.0)) < epsilon)
+        assert numx.all(numx.abs(0.0 - expLin.f(0.0)) < epsilon)
+        assert numx.all(numx.abs(2.0 - expLin.f(2.0)) < epsilon)
+
+        assert numx.all(numx.abs(0.367879441171 - expLin.df(-1.0)) < epsilon)
+        assert numx.all(numx.abs(1.0 - expLin.df(0.0)) < epsilon)
+        assert numx.all(numx.abs(1.0 - expLin.df(2.0)) < epsilon)
+
+        print(' successfully passed!')
+        sys.stdout.flush()
 
 if __name__ is "__main__":
     unittest.main()

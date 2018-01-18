@@ -1,26 +1,38 @@
 """ Different kind of non linear activation functions and their derivatives.
 
     :Implemented:
-        - Identity
-        - Sigmoid
-        - Tangents Hyperbolicus
-        - SoftSign
-        - Step function.
-        - Rectifier
-        - Rectifier_Restricted
-        - SoftPlus
-        - Radial Basis function
-        - SoftMax
-        - Sinus
+
+    # Unbounded
+        # Linear
+            - Identity
+        # Piecewise-linear
+            - Rectifier
+            - RestrictedRectifier (hard bounded)
+            - LeakyRectifier
+        # Soft-linear
+            - ExponentialLinear
+            - SigmoidWeightedLinear
+            - SoftPlus
+    # Bounded
+        # Step
+            - Step
+        # Soft-Step
+            - Sigmoid
+            - SoftSign
+            - HyperbolicTangent
+            - SoftMax
+        # Symmetric, periodic
+            - Radial Basis function
+            - Sinus
 
     :Info:
         http://en.wikipedia.org/wiki/Activation_function
 
     :Version:
-        1.1.0
+        1.1.1
 
     :Date:
-        13.03.2017
+        16.01.2018
 
     :Author:
         Jan Melchior
@@ -30,7 +42,7 @@
 
     :License:
 
-        Copyright (C) 2017 Jan Melchior
+        Copyright (C) 2018 Jan Melchior
 
         This file is part of the Python library PyDeep.
 
@@ -50,6 +62,11 @@
 """
 import numpy as numx
 from pydeep.base.numpyextension import log_sum_exp
+
+
+# Unbounded
+
+# Linear
 
 
 class Identity(object):
@@ -128,232 +145,12 @@ class Identity(object):
             return numx.ones(y.shape)
 
 
-class Sigmoid(object):
-    """ Sigmoid function.
-          
-        :Info: http://www.wolframalpha.com/input/?i=sigmoid
-    """
-
-    @classmethod
-    def f(cls, x):
-        """ Calculates the Sigmoid function value for a given input x.
-
-        :param x: Input data.
-        :type x: scalar or numpy array.
-
-        :return: Value of the Sigmoid function for x.
-        :rtype: scalar or numpy array with the same shape as x.
-        """
-        return 0.5 + 0.5 * numx.tanh(0.5 * x)
-
-    @classmethod
-    def g(cls, y):
-        """ Calculates the inverse Sigmoid function value for a given input y.
-
-        :param y: Input data.
-        :type y: scalar or numpy array.
-
-        :return: Value of the inverse Sigmoid function for y.
-        :rtype: scalar or numpy array with the same shape as y.
-        """
-        return 2.0 * numx.arctanh(2.0 * y - 1.0)
-
-    @classmethod
-    def df(cls, x):
-        """ Calculates the derivative of the Sigmoid function value for a given input x.
-
-        :param x: Input data.
-        :type x: scalar or numpy array.
-
-        :return: Value of the derivative of the Sigmoid function for x.
-        :rtype: scalar or numpy array with the same shape as x.
-        """
-        sig = cls.f(x)
-        return sig * (1.0 - sig)
-
-    @classmethod
-    def ddf(cls, x):
-        """ Calculates the second derivative of the Sigmoid function value for a given input x.
-
-        :param x: Input data.
-        :type x: scalar or numpy array.
-
-        :return: Value of the second derivative of the Sigmoid function for x.
-        :rtype:  scalar or numpy array with the same shape as x.
-        """
-        sig = cls.f(x)
-        return sig - 3 * (sig ** 2) + 2 * (sig ** 3)
-
-    @classmethod
-    def dg(cls, y):
-        """ Calculates the derivative of the inverse Sigmoid function value for a given input y.
-
-        :param y: Input data.
-        :type y: scalar or numpy array.
-
-        :return: Value of the derivative of the inverse Sigmoid function for y.
-        :rtype: scalar or numpy array with the same shape as y.
-        """
-        return 1.0 / (y - y ** 2)
-
-
-class TangentsHyperbolicus(object):
-    """ Tangents hyperbolicus function.
-    
-        :Info: http://www.wolframalpha.com/input/?i=tanh
-    """
-
-    @classmethod
-    def f(cls, x):
-        """ Calculates the tangents hyperbolicus function value for a given input x.
-
-        :param x: Input data.
-        :type x: scalar or numpy array.
-
-        :return: Value of the tangents hyperbolicus function for x.
-        :rtype: scalar or numpy array with the same shape as x.
-        """
-        return numx.tanh(x)
-
-    @classmethod
-    def g(cls, y):
-        """ Calculates the inverse tangents hyperbolicus function value for a given input y.
-
-        :param y: Input data.
-        :type y: scalar or numpy array.
-
-        :return: alue of the inverse tangents hyperbolicus function for y.
-        :rtype: scalar or numpy array with the same shape as x.
-        """
-        return 0.5 * (numx.log(1.0 + y) - numx.log(1.0 - y))
-
-    @classmethod
-    def df(cls, x):
-        """ Calculates the derivative of the tangents hyperbolicus function value for a given input x.
-
-        :param x: Input data.
-        :type x: scalar or numpy array.
-
-        :return: Value of the derivative of the tangents hyperbolicus function for x.
-        :rtype: scalar or numpy array with the same shape as x.
-        """
-        tanh = cls.f(x)
-        return 1.0 - tanh ** 2
-
-    @classmethod
-    def ddf(cls, x):
-        """ Calculates the second derivative of the tangents hyperbolicus function value for a given input x.
-
-        :param x: Input data.
-        :type x: scalar or numpy array.
-
-        :return: Value of the second derivative of the tangents hyperbolicus function for x.
-        :rtype: scalar or numpy array with the same shape as x.
-        """
-        tanh = cls.f(x)
-        return -2 * tanh * (1 - (tanh ** 2))
-
-    @classmethod
-    def dg(cls, y):
-        """ Calculates the derivative of the inverse tangents hyperbolicus function value for a given input y.
-
-        :param y: Input data.
-        :type y: scalar or numpy array.
-
-        :return: Value the derivative of the inverse tangents hyperbolicus function for x.
-        :rtype: scalar or numpy array with the same shape as y.
-        """
-        return numx.exp(-numx.log((1.0 - y ** 2)))
-
-
-class SoftSign(object):
-    """ SoftSign function.
-          
-        :Info: http://www.wolframalpha.com/input/?i=x%2F%281%2Babs%28x%29%29
-    """
-
-    @classmethod
-    def f(cls, x):
-        """ Calculates the SoftSign function value for a given input x.
-
-        :param x: Input data.
-        :type x: scalar or numpy array.
-
-        :return: Value of the SoftSign function for x.
-        :rtype: scalar or numpy array with the same shape as x.
-        """
-        return x / (1.0 + numx.abs(x))
-
-    @classmethod
-    def df(cls, x):
-        """ Calculates the derivative of the SoftSign function value for a given input x.
-
-        :param x: Input data.
-        :type x: scalar or numpy array.
-
-        :return: Value of the SoftSign function for x.
-        :rtype: scalar or numpy array with the same shape as x.
-        """
-        return 1.0 / ((1.0 + numx.abs(x)) ** 2)
-
-    @classmethod
-    def ddf(cls, x):
-        """ Calculates the second derivative of the SoftSign function value for a given input x.
-
-        :param x: Input data.
-        :type x: scalar or numpy array.
-
-        :return: Value of the 2nd derivative of the SoftSign function for x.
-        :rtype: scalar or numpy array with the same shape as x.
-        """
-        absx = numx.abs(x)
-        return -(2.0 * x) / (absx * (1 + absx) ** 3)
-
-
-class Step(object):
-    """ Step activation function function.
-    """
-
-    @classmethod
-    def f(cls, x):
-        """ Calculates the step function value for a given input x.
-
-        :param x: Input data.
-        :type x: scalar or numpy array.
-
-        :return: Value of the step function for x.
-        :rtype: scalar or numpy array with the same shape as x.
-        """
-        return numx.float64(x > 0)
-
-    @classmethod
-    def df(cls, x):
-        """ Calculates the derivative of the step function value for a given input x.
-
-        :param x: Input data.
-        :type x: scalar or numpy array.
-
-        :return: Value of the derivative of the step function for x.
-        :rtype: scalar or numpy array with the same shape as x.
-        """
-        return 0.0
-
-    @classmethod
-    def ddf(cls, x):
-        """ Calculates the second derivative of the step function value for a given input x.
-
-        :param x: Input data.
-        :type x: scalar or numpy array.
-
-        :return: Value of the derivative of the Step function for x.
-        :rtype: scalar or numpy array with the same shape as x.
-        """
-        return 0.0
+# Piecewise-linear
 
 
 class Rectifier(object):
     """ Rectifier activation function function.
-          
+
         :Info: http://www.wolframalpha.com/input/?i=max%280%2Cx%29&dataset=&asynchronous=false&equal=Submit
     """
 
@@ -392,6 +189,167 @@ class Rectifier(object):
         :rtype: scalar or numpy array with the same shape as x.
         """
         return 0.0
+
+
+class RestrictedRectifier(Rectifier):
+    """ Restricted Rectifier activation function function.
+
+        :Info: http://www.wolframalpha.com/input/?i=max%280%2Cx%29&dataset=&asynchronous=false&equal=Submit
+    """
+
+    def __init__(self, restriction=1.0):
+        """ Constructor.
+
+        :param restriction: Restriction value / upper limit value.
+        :type restriction: float.
+        """
+        self.restriction = restriction
+
+    def f(self, x):
+        """ Calculates the Restricted Rectifier function value for a given input x.
+
+        :param x: Input data.
+        :type x: scalar or numpy array.
+
+        :return: Value of the Restricted Rectifier function for x.
+        :rtype: scalar or numpy array with the same shape as x.
+        """
+        return numx.minimum(numx.maximum(0.0, x), self.restriction)
+
+    def df(self, x):
+        """ Calculates the derivative of the Restricted Rectifier function value for a given input x.
+
+        :param x: Input data.
+        :type x: scalar or numpy array
+
+        :return: Value of the derivative of the Restricted Rectifier function for x.
+        :rtype: scalar or numpy array with the same shape as x.
+        """
+        return numx.float64(x > 0.0) * numx.float64(x < self.restriction)
+
+
+class LeakyRectifier(Rectifier):
+    """ Leaky Rectifier activation function function.
+
+        :Info: https://en.wikipedia.org/wiki/Activation_function
+    """
+
+    def __init__(self, negativeSlope=0.01, positiveSlope=1.0):
+        """ Constructor.
+
+        :param negativeSlope: Slope when x < 0
+        :type negativeSlope: scalar
+
+        :param positiveSlope: Slope when x >= 0
+        :type positiveSlope: scalar
+
+        """
+        self.negativeSlope = negativeSlope
+        self.positiveSlope = positiveSlope
+
+    def f(self, x):
+        """ Calculates the Leaky Rectifier function value for a given input x.
+
+        :param x: Input data.
+        :type x: scalar or numpy array.
+
+        :return: Value of the Leaky Rectifier function for x.
+        :rtype: scalar or numpy array with the same shape as x.
+        """
+        return x*((x < 0)*(self.negativeSlope-self.positiveSlope) + self.positiveSlope)
+
+    def df(self, x):
+        """ Calculates the derivative of the Leaky Rectifier function value for a given input x.
+
+        :param x: Input data.
+        :type x: scalar or numpy array
+
+        :return: Value of the derivative of the Leaky Rectifier function for x.
+        :rtype: scalar or numpy array with the same shape as x.
+        """
+        return (x < 0)*(self.negativeSlope-self.positiveSlope) + self.positiveSlope
+
+
+# Soft-linear
+
+
+class ExponentialLinear(object):
+    """ Exponential Linear activation function function.
+
+        :Info: https://en.wikipedia.org/wiki/Activation_function
+    """
+
+    def __init__(self, alpha=1.0):
+        """ Constructor.
+
+        :param alpha: scaling factor
+        :type alpha: scalar
+
+        """
+        self.alpha = alpha
+
+    def f(self, x):
+        """ Calculates the Exponential Linear function value for a given input x.
+
+        :param x: Input data.
+        :type x: scalar or numpy array.
+
+        :return: Value of the Exponential Linear function for x.
+        :rtype: scalar or numpy array with the same shape as x.
+        """
+        decision = x > 0.0
+        return x*decision+(1.0-decision)*self.alpha*(numx.exp(x)-1.0)
+
+    def df(self, x):
+        """ Calculates the derivative of the Exponential Linear function value for a given input x.
+
+        :param x: Input data.
+        :type x: scalar or numpy array.
+
+        :return: Value of the derivative of the Exponential Linear function for x.
+        :rtype: scalar or numpy array with the same shape as x.
+        """
+        decision = x > 0.0
+        return decision+(1.0-decision)*self.alpha*numx.exp(x)
+
+
+class SigmoidWeightedLinear(object):
+    """ Sigmoid weighted linear units (also named Swish)
+
+        :Info: https://arxiv.org/pdf/1702.03118v1.pdf and for Swish: https://arxiv.org/pdf/1710.05941.pdf
+    """
+
+    def __init__(self, beta=1.0):
+        """ Constructor.
+
+        :param beta: scaling factor
+        :type beta: scalar
+
+        """
+        self.beta = beta
+
+    def f(self, x):
+        """ Calculates the Sigmoid weighted linear function value for a given input x.
+
+        :param x: Input data.
+        :type x: scalar or numpy array.
+
+        :return: Value of the Sigmoid weighted linear function for x.
+        :rtype: scalar or numpy array with the same shape as x.
+        """
+        return x*Sigmoid.f(self.beta*x)
+
+    def df(self, x):
+        """ Calculates the derivative of the Sigmoid weighted linear function value for a given input x.
+
+        :param x: Input data.
+        :type x: scalar or numpy array.
+
+        :return: Value of the derivative of the Sigmoid weighted linear function for x.
+        :rtype: scalar or numpy array with the same shape as x.
+        """
+        sig = Sigmoid.f(self.beta*x)
+        return sig*(1.0+x*(1.0-sig))
 
 
 class SoftPlus(object):
@@ -462,9 +420,242 @@ class SoftPlus(object):
         return 1.0 / (1.0 - numx.exp(-y))
 
 
+# Bounded
+
+# Step
+
+
+class Step(object):
+    """ Step activation function function.
+    """
+
+    @classmethod
+    def f(cls, x):
+        """ Calculates the step function value for a given input x.
+
+        :param x: Input data.
+        :type x: scalar or numpy array.
+
+        :return: Value of the step function for x.
+        :rtype: scalar or numpy array with the same shape as x.
+        """
+        return numx.float64(x > 0)
+
+    @classmethod
+    def df(cls, x):
+        """ Calculates the derivative of the step function value for a given input x.
+
+        :param x: Input data.
+        :type x: scalar or numpy array.
+
+        :return: Value of the derivative of the step function for x.
+        :rtype: scalar or numpy array with the same shape as x.
+        """
+        return 0.0
+
+    @classmethod
+    def ddf(cls, x):
+        """ Calculates the second derivative of the step function value for a given input x.
+
+        :param x: Input data.
+        :type x: scalar or numpy array.
+
+        :return: Value of the derivative of the Step function for x.
+        :rtype: scalar or numpy array with the same shape as x.
+        """
+        return 0.0
+
+# Soft-step
+
+
+class Sigmoid(object):
+    """ Sigmoid function.
+          
+        :Info: http://www.wolframalpha.com/input/?i=sigmoid
+    """
+
+    @classmethod
+    def f(cls, x):
+        """ Calculates the Sigmoid function value for a given input x.
+
+        :param x: Input data.
+        :type x: scalar or numpy array.
+
+        :return: Value of the Sigmoid function for x.
+        :rtype: scalar or numpy array with the same shape as x.
+        """
+        return 0.5 + 0.5 * numx.tanh(0.5 * x)
+
+    @classmethod
+    def g(cls, y):
+        """ Calculates the inverse Sigmoid function value for a given input y.
+
+        :param y: Input data.
+        :type y: scalar or numpy array.
+
+        :return: Value of the inverse Sigmoid function for y.
+        :rtype: scalar or numpy array with the same shape as y.
+        """
+        return 2.0 * numx.arctanh(2.0 * y - 1.0)
+
+    @classmethod
+    def df(cls, x):
+        """ Calculates the derivative of the Sigmoid function value for a given input x.
+
+        :param x: Input data.
+        :type x: scalar or numpy array.
+
+        :return: Value of the derivative of the Sigmoid function for x.
+        :rtype: scalar or numpy array with the same shape as x.
+        """
+        # expx = numx.exp(-x)
+        # return numx.exp(-x)/((1+numx.exp(-x))**2)
+        sig = cls.f(x)
+        return sig * (1.0 - sig)
+
+    @classmethod
+    def ddf(cls, x):
+        """ Calculates the second derivative of the Sigmoid function value for a given input x.
+
+        :param x: Input data.
+        :type x: scalar or numpy array.
+
+        :return: Value of the second derivative of the Sigmoid function for x.
+        :rtype:  scalar or numpy array with the same shape as x.
+        """
+        sig = cls.f(x)
+        return sig - 3 * (sig ** 2) + 2 * (sig ** 3)
+
+    @classmethod
+    def dg(cls, y):
+        """ Calculates the derivative of the inverse Sigmoid function value for a given input y.
+
+        :param y: Input data.
+        :type y: scalar or numpy array.
+
+        :return: Value of the derivative of the inverse Sigmoid function for y.
+        :rtype: scalar or numpy array with the same shape as y.
+        """
+        return 1.0 / (y - y ** 2)
+
+
+class SoftSign(object):
+    """ SoftSign function.
+          
+        :Info: http://www.wolframalpha.com/input/?i=x%2F%281%2Babs%28x%29%29
+    """
+
+    @classmethod
+    def f(cls, x):
+        """ Calculates the SoftSign function value for a given input x.
+
+        :param x: Input data.
+        :type x: scalar or numpy array.
+
+        :return: Value of the SoftSign function for x.
+        :rtype: scalar or numpy array with the same shape as x.
+        """
+        return x / (1.0 + numx.abs(x))
+
+    @classmethod
+    def df(cls, x):
+        """ Calculates the derivative of the SoftSign function value for a given input x.
+
+        :param x: Input data.
+        :type x: scalar or numpy array.
+
+        :return: Value of the SoftSign function for x.
+        :rtype: scalar or numpy array with the same shape as x.
+        """
+        return 1.0 / ((1.0 + numx.abs(x)) ** 2)
+
+    @classmethod
+    def ddf(cls, x):
+        """ Calculates the second derivative of the SoftSign function value for a given input x.
+
+        :param x: Input data.
+        :type x: scalar or numpy array.
+
+        :return: Value of the 2nd derivative of the SoftSign function for x.
+        :rtype: scalar or numpy array with the same shape as x.
+        """
+        absx = numx.abs(x)
+        return -(2.0 * x) / (absx * (1 + absx) ** 3)
+
+
+class HyperbolicTangent(object):
+    """ HyperbolicTangent function.
+
+        :Info: http://www.wolframalpha.com/input/?i=tanh
+    """
+
+    @classmethod
+    def f(cls, x):
+        """ Calculates the Hyperbolic Tangent function value for a given input x.
+
+        :param x: Input data.
+        :type x: scalar or numpy array.
+
+        :return: Value of the Hyperbolic Tangent function for x.
+        :rtype: scalar or numpy array with the same shape as x.
+        """
+        return numx.tanh(x)
+
+    @classmethod
+    def g(cls, y):
+        """ Calculates the inverse Hyperbolic Tangent function value for a given input y.
+
+        :param y: Input data.
+        :type y: scalar or numpy array.
+
+        :return: alue of the inverse Hyperbolic Tangent function for y.
+        :rtype: scalar or numpy array with the same shape as x.
+        """
+        return 0.5 * (numx.log(1.0 + y) - numx.log(1.0 - y))
+
+    @classmethod
+    def df(cls, x):
+        """ Calculates the derivative of the Hyperbolic Tangent function value for a given input x.
+
+        :param x: Input data.
+        :type x: scalar or numpy array.
+
+        :return: Value of the derivative of the Hyperbolic Tangent function for x.
+        :rtype: scalar or numpy array with the same shape as x.
+        """
+        tanh = cls.f(x)
+        return 1.0 - tanh ** 2
+
+    @classmethod
+    def ddf(cls, x):
+        """ Calculates the second derivative of the Hyperbolic Tangent function value for a given input x.
+
+        :param x: Input data.
+        :type x: scalar or numpy array.
+
+        :return: Value of the second derivative of the Hyperbolic Tangent function for x.
+        :rtype: scalar or numpy array with the same shape as x.
+        """
+        tanh = cls.f(x)
+        return -2 * tanh * (1 - (tanh ** 2))
+
+    @classmethod
+    def dg(cls, y):
+        """ Calculates the derivative of the inverse Hyperbolic Tangent function value for a given input y.
+
+        :param y: Input data.
+        :type y: scalar or numpy array.
+
+        :return: Value the derivative of the inverse Hyperbolic Tangent function for x.
+        :rtype: scalar or numpy array with the same shape as y.
+        """
+        return numx.exp(-numx.log((1.0 - y ** 2)))
+
+
 class SoftMax(object):
     """ Soft Max function.
 
+        :Info: https://en.wikipedia.org/wiki/Activation_function
     """
 
     @classmethod
@@ -509,86 +700,7 @@ class SoftMax(object):
         '''
         return result
 
-
-class Sinus(object):
-    """ Sinus function.
-
-        :Info: http://www.wolframalpha.com/input/?i=sin(x)
-    """
-
-    @classmethod
-    def f(cls, x):
-        """ Calculates the function value of the Sinus function value for a given input x.
-
-        :param x: Input data.
-        :type x: scalar or numpy array
-
-        :return: Value of the Sinus function for x.
-        :rtype: scalar or numpy array with the same shape as x.
-        """
-        return numx.sin(x)
-
-    @classmethod
-    def df(cls, x):
-        """ Calculates the derivative of the Sinus function value for a given input x.
-
-        :param x: Input data.
-        :type x: scalar or numpy array
-
-        :return: Value of the derivative of the Sinus function for x.
-        :rtype: scalar or numpy array with the same shape as x.
-        """
-        return numx.cos(x)
-
-    @classmethod
-    def ddf(cls, x):
-        """ Calculates the second derivative of the Sinus function value for a given input x.
-
-        :param x: Input data.
-        :type x: scalar or numpy array
-
-        :return: Value of the second derivative of the Sinus function for x.
-        :rtype: scalar or numpy array with the same shape as x.
-        """
-        return -numx.sin(x)
-
-
-class RectifierRestricted(Rectifier):
-    """ Restricted Rectifier activation function function.
-
-        :Info: http://www.wolframalpha.com/input/?i=max%280%2Cx%29&dataset=&asynchronous=false&equal=Submit
-    """
-
-    def __init__(self, restriction=1.0):
-        """ Constructor.
-
-        :param restriction: Restriction value / upper limit value.
-        :type restriction: float.
-        """
-        self.restriction = restriction
-
-    def f(self, x):
-        """ Calculates the Restricted Rectifier function value for a given input x.
-
-        :param x: Input data.
-        :type x: scalar or numpy array.
-
-        :return: Value of the Restricted Rectifier function for x.
-        :rtype: scalar or numpy array with the same shape as x.
-        """
-        return numx.minimum(numx.maximum(0.0, x), self.restriction)
-
-    def df(self, x):
-        """ Calculates the derivative of the Restricted Rectifier function value for a given input x.
-
-        :param x: Input data.
-        :type x: scalar or numpy array
-
-        :return: Value of the derivative of the Restricted Rectifier function for x.
-        :rtype: scalar or numpy array with the same shape as x.
-        """
-        return numx.float64(x > 0.0) * numx.float64(x < self.restriction)
-
+# Symmetric, periodic
 
 class RadialBasis(object):
     """ Radial Basis function.
@@ -642,3 +754,47 @@ class RadialBasis(object):
         """
         activation = ((x - self.mean) ** 2) / self.variance
         return 2.0 / self.variance * numx.exp(-activation) * (2 * activation - 1.0)
+
+
+class Sinus(object):
+    """ Sinus function.
+
+        :Info: http://www.wolframalpha.com/input/?i=sin(x)
+    """
+
+    @classmethod
+    def f(cls, x):
+        """ Calculates the function value of the Sinus function value for a given input x.
+
+        :param x: Input data.
+        :type x: scalar or numpy array
+
+        :return: Value of the Sinus function for x.
+        :rtype: scalar or numpy array with the same shape as x.
+        """
+        return numx.sin(x)
+
+    @classmethod
+    def df(cls, x):
+        """ Calculates the derivative of the Sinus function value for a given input x.
+
+        :param x: Input data.
+        :type x: scalar or numpy array
+
+        :return: Value of the derivative of the Sinus function for x.
+        :rtype: scalar or numpy array with the same shape as x.
+        """
+        return numx.cos(x)
+
+    @classmethod
+    def ddf(cls, x):
+        """ Calculates the second derivative of the Sinus function value for a given input x.
+
+        :param x: Input data.
+        :type x: scalar or numpy array
+
+        :return: Value of the second derivative of the Sinus function for x.
+        :rtype: scalar or numpy array with the same shape as x.
+        """
+        return -numx.sin(x)
+

@@ -45,7 +45,7 @@ epsilon = 0.0001
 class TestCostFunction(unittest.TestCase):
 
     def test_MeanSquaredError(self):
-        print('CostFunction -> Performing MeanSquaredError test ...')
+        sys.stdout.write('CostFunction -> Performing MeanSquaredError test ...')
         sys.stdout.flush()
         x = numx.array([[0.0, -92.0, 42.0, 87.0]])
         t = numx.array([[0.00000001, 2, 4.0, 86.9999]])
@@ -57,11 +57,11 @@ class TestCostFunction(unittest.TestCase):
         t = numx.array([[0, 1, 2, 3]])
         assert numx.all(numx.abs(0.0 - SquaredError.f(x, t)) < epsilon)
         assert numx.all(numx.abs(0.0 - SquaredError.df(x, t)) < epsilon)
-        print('successfully passed!')
+        print(' successfully passed!')
         sys.stdout.flush()
 
     def test_MeanAbsoluteError(self):
-        print('CostFunction -> Performing MeanAbsoluteError test ...')
+        sys.stdout.write('CostFunction -> Performing MeanAbsoluteError test ...')
         sys.stdout.flush()
         x = numx.array([[0.0, -92.0, 42.0, 87.0]])
         t = numx.array([[0.00000001, 2, 4.0, 86.9999]])
@@ -73,11 +73,11 @@ class TestCostFunction(unittest.TestCase):
         t = numx.array([[0, 1, 2, 3]])
         assert numx.all(numx.abs(0.0 - AbsoluteError.f(x, t)) < epsilon)
         assert numx.all(numx.abs(0.0 - AbsoluteError.df(x, t)) < epsilon)
-        print('successfully passed!')
+        print(' successfully passed!')
         sys.stdout.flush()
 
     def test_CrossEntropyError(self):
-        print('CostFunction -> Performing CrossEntropyError test ...')
+        sys.stdout.write('CostFunction -> Performing CrossEntropyError test ...')
         sys.stdout.flush()
         x = numx.array([[0.5, 0.01, 0.99]])
         t = numx.array([[0.0, 0.0, 1.0]])
@@ -98,11 +98,11 @@ class TestCostFunction(unittest.TestCase):
         t = numx.array([[0.0, 1.0]])
         res = numx.array([[1., -1.]])
         assert numx.all(numx.abs(res - CrossEntropyError.df(x, t)) < epsilon)
-        print('successfully passed!')
+        print(' successfully passed!')
         sys.stdout.flush()
 
     def test_NegLogLikelihood(self):
-        print('CostFunction -> Performing NegLogLikelihood test ...')
+        sys.stdout.write('CostFunction -> Performing NegLogLikelihood test ...')
         sys.stdout.flush()
         x = numx.array([[0.5, 0.01, 0.99]])
         t = numx.array([[0.0, 0.0, 1.0]])
@@ -115,7 +115,7 @@ class TestCostFunction(unittest.TestCase):
         assert numx.all(numx.abs(0.69314718 - NegLogLikelihood.f(x, t)) < epsilon)
         res = numx.array([[-2., 0., 0.]])
         assert numx.all(numx.abs(res - NegLogLikelihood.df(x, t)) < epsilon)
-        print('successfully passed!')
+        print(' successfully passed!')
         sys.stdout.flush()
 
 

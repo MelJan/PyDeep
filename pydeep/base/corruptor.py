@@ -2,11 +2,11 @@
 
     :Implemented:
         - Identity
+        - Sampling Binary
         - Additive Gauss Noise
         - Multiplicative Gauss Noise
         - Dropout
         - Random Permutation
-        - Sampling Binary
         - KeepKWinner
         - KWinnerTakesAll
 
@@ -65,23 +65,6 @@ class Identity(object):
         return data
 
 
-class SamplingBinary(object):
-    """ Sample binary states (zero out) corruption.
-    """
-
-    @classmethod
-    def corrupt(cls, data):
-        """ The function corrupts the data.
-
-        :param data: Input of the layer.
-        :type data: numpy array [num samples, layer dim]
-
-        :return: Corrupted data.
-        :rtype: numpy array [num samples, layer dim]
-        """
-        return data > numx.random.random(data.shape)
-
-
 class AdditiveGaussNoise(object):
     """ An object that corrupts data by adding Gauss noise.
     """
@@ -136,6 +119,23 @@ class MultiGaussNoise(object):
         :rtype: numpy array [num samples, layer dim]
         """
         return data * (self.mean + numx.random.standard_normal(data.shape) * self.std)
+
+
+class SamplingBinary(object):
+    """ Sample binary states (zero out) corruption.
+    """
+
+    @classmethod
+    def corrupt(cls, data):
+        """ The function corrupts the data.
+
+        :param data: Input of the layer.
+        :type data: numpy array [num samples, layer dim]
+
+        :return: Corrupted data.
+        :rtype: numpy array [num samples, layer dim]
+        """
+        return data > numx.random.random(data.shape)
 
 
 class Dropout(object):

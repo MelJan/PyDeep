@@ -4,10 +4,8 @@
         - Save/Load arbitrary objects.
         - Save/Load images.
         - Load MNIST.
-        - Load Caltech.
         - Load CIFAR.
-        - load Natural image patches
-        - load olivetti face images
+        - Load Caltech.
 
     :Version:
         1.1.0
@@ -328,7 +326,7 @@ def load_cifar(path, grayscale=True):
 
 def load_natural_image_patches(path):
     """ Loads the natural image patches used in the publication 'Gaussian-binary restricted Boltzmann machines for \
-        modeling natural image statistics'. \
+        modeling natural image statistics'.
          .. seealso:: http://journals.plos.org/plosone/article/authors?id=10.1371/journal.pone.0171015
 
     :param path: Path and name of the file to load.
@@ -352,40 +350,3 @@ def load_natural_image_patches(path):
         raise Exception('-> File reading Error: ')
     data = numx.array(data, dtype=numx.double)
     return data
-
-def load_olivetti_faces(path, correct_orientation=True):
-    """ Loads the Olivetti face dataset 400 images, size 64x64
-
-    :param path: Path and name of the file to load.
-    :type path: string
-
-    :param correct_orientation: Corrects the orientation of the images.
-    :type correct_orientation: bool
-
-    :return: Olivetti face dataset
-    :rtype: numpy array
-    """
-    if not os.path.isfile(path):
-        print('-> File not existing: ' + path)
-        try:
-            download_file('http://www.cs.nyu.edu/~roweis/data/olivettifaces.mat', path, buffer_size=10 * 1024 ** 2)
-        except:
-            try:
-                download_file('https://github.com/probml/pmtk3/tree/master/bigData/facesOlivetti/facesOlivetti.mat',
-                              path, buffer_size=10 * 1024 ** 2)
-            except:
-                raise Exception('Download failed, make sure you have internet connection!')
-    print('-> loading data ... ')
-    try:
-        data = scipy.io.loadmat(path)['faces'].T
-        if correct_orientation:
-            import pydeep.base.numpyextension as npext
-            for i in range(data.shape[0]):
-                data[i] = npext.rotate(data[i].reshape(64,64),270).reshape(64*64)
-            print('-> orientation corrected!')
-        print('-> done!')
-    except:
-        raise Exception('-> File reading Error: ')
-    data = numx.array(data, dtype=numx.double)
-    return data
-
