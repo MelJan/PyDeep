@@ -39,66 +39,98 @@ import sys
 import pydeep.rbm.dbn as STACK
 import pydeep.rbm.model as MODEL
 
-print "\n... pydeep.rbm.dbn.py"
+print("\n... pydeep.rbm.dbn.py")
 
 
 class TestDBNModel(unittest.TestCase):
-    def test_forward_backward_reconstruct_sampling(self):
-        print('Deep Believe Network -> Performing forward backward prop test ...')
+
+    numx.random.seed(42)
+    rbm1 = MODEL.BinaryBinaryRBM(number_visibles=2,
+                                 number_hiddens=4)
+    rbm2 = MODEL.BinaryBinaryRBM(number_visibles=4,
+                                 number_hiddens=2)
+    stack = STACK.DBN([rbm1, rbm2])
+
+    def test_forward_propagate(self):
+        sys.stdout.write('Deep Believe Network -> Performing forward_propagate test ...')
+        sys.stdout.flush()
+
+        forward_target = numx.array([[0.54640997, 0.8437009], [0.45359003, 0.1562991]])
+
+        assert numx.sum(numx.abs(
+            TestDBNModel.stack.forward_propagate(numx.array([[1, 0], [0, 1]])) - forward_target)) < 0.000001
+
+        forward_target = numx.array([[0, 1], [1, 1]])
+        assert numx.sum(
+            numx.abs(TestDBNModel.stack.forward_propagate(numx.array([[1, 0], [0, 1]]),
+                                                          True) - forward_target)) < 0.000001
+        print(' successfully passed!')
+        sys.stdout.flush()
+
+    def test_backward_propagate(self):
+        sys.stdout.write('Deep Believe Network -> Performing backward_propagate test ...')
+        sys.stdout.flush()
+
+        backward_target = numx.array([[0.30266536, 0.52656316], [0.69733464, 0.47343684]])
+        assert numx.sum(
+            numx.abs(
+                TestDBNModel.stack.backward_propagate(numx.array([[1, 0], [0, 1]])) - backward_target)) < 0.000001
+
+        backward_target = numx.array([[0, 0], [1, 1]])
+        assert numx.sum(
+            numx.abs(TestDBNModel.stack.backward_propagate(numx.array([[1, 0], [0, 1]]),
+                                                           True) - backward_target)) < 0.000001
+        print(' successfully passed!')
+        sys.stdout.flush()
+
+    def test_reconstruct(self):
+        sys.stdout.write('Deep Believe Network -> Performing reconstruct test ...')
+        sys.stdout.flush()
+
+        rec_target = numx.array([[0.57055553, 0.23073692], [0.42944447, 0.76926308]])
+        assert numx.sum(
+            numx.abs(TestDBNModel.stack.reconstruct(numx.array([[1, 0], [0, 1]])) - rec_target)) < 0.000001
+
+        rec_target = numx.array([[0, 1], [1, 0]])
+        assert numx.sum(
+            numx.abs(TestDBNModel.stack.reconstruct(numx.array([[1, 0], [0, 1]]), True) - rec_target)) < 0.000001
+        print(' successfully passed!')
+        sys.stdout.flush()
+
+    def test_reconstruct_sample_top_layer(self):
+        sys.stdout.write('Deep Believe Network -> Performing reconstruct_sample_top_layer test ...')
         sys.stdout.flush()
 
         numx.random.seed(42)
-
-        rbm1 = MODEL.BinaryBinaryRBM(number_visibles=2,
-                                     number_hiddens=4)
-        rbm2 = MODEL.BinaryBinaryRBM(number_visibles=4,
-                                     number_hiddens=2)
-        stack = STACK.DBN([rbm1, rbm2])
-
-        forward_target = numx.array([[0.54640997, 0.8437009], [0.45359003, 0.1562991]])
-        backward_target = numx.array([[0.30266536, 0.52656316], [0.69733464, 0.47343684]])
-        rec_target = numx.array([[0.57055553, 0.23073692], [0.42944447, 0.76926308]])
-
-        assert numx.sum(numx.abs(stack.forward_propagate(numx.array([[1, 0], [0, 1]])) - forward_target) < 0.000001)
         assert numx.sum(
-            numx.abs(stack.backward_propagate(numx.array([[1, 0], [0, 1]])) - backward_target) < 0.000001)
-        assert numx.sum(numx.abs(
-            stack.backward_propagate(
-                stack.forward_propagate(numx.array([[1, 0], [0, 1]]))) - rec_target) < 0.000001)
-        assert numx.sum(numx.abs(stack.reconstruct(numx.array([[1, 0], [0, 1]])) - rec_target) < 0.000001)
-
-        forward_target = numx.array([[1, 1], [1, 0]])
-        backward_target = numx.array([[1, 1], [0, 0]])
-        rec_target = numx.array([[1, 0], [0, 0]])
-
-        assert numx.sum(
-            numx.abs(stack.forward_propagate(numx.array([[1, 0], [0, 1]]), True) - forward_target) < 0.000001)
-        assert numx.sum(
-            numx.abs(stack.backward_propagate(numx.array([[1, 0], [0, 1]]), True) - backward_target) < 0.000001)
-        assert numx.sum(numx.abs(
-            stack.backward_propagate(
-                stack.forward_propagate(numx.array([[1, 0], [0, 1]])), True) - rec_target) < 0.000001)
-        assert numx.sum(numx.abs(stack.reconstruct(numx.array([[1, 0], [0, 1]]), True) - rec_target) < 0.000001)
-
-        assert numx.sum(numx.abs(stack.sample_top_layer(1, sample=False)
-                                 - numx.array([[0.81216745, 0.80223488], [0.94668029, 0.05014349]])) < 0.000001)
+            numx.abs(TestDBNModel.stack.reconstruct_sample_top_layer(input_data=numx.array([[1, 0], [0, 1]]),
+                                                                     sampling_steps=10,
+                                                                     sample_forward_backward=False) - numx.array(
+                [[0.69733464, 0.47343684], [0.69733464, 0.47343684]]))) < 0.000001
         numx.random.seed(42)
         assert numx.sum(
-            numx.abs(stack.sample_top_layer(100, sample=True) - numx.array([[0, 0], [0, 1]])) < 0.000001)
-        numx.random.seed(42)
-        assert numx.sum(numx.abs(stack.sample_top_layer(100, initial_state=numx.array([[1, 1], [1, 1]]),
-                                                        sample=True) - numx.array([[0, 1], [1, 0]])) < 0.000001)
+            numx.abs(TestDBNModel.stack.reconstruct_sample_top_layer(input_data=numx.array([[1, 1], [1, 1]]),
+                                                                     sampling_steps=10,
+                                                                     sample_forward_backward=True) - numx.array(
+                [[0, 0], [0, 0]]))) < 0.000001
 
-        numx.random.seed(42)
-        assert numx.sum(numx.abs(stack.reconstruct_sample_top_layer(input_data=numx.array([[1, 0], [0, 1]]),
-               sampling_steps=10, sample_forward_backward=False)- numx.array([[0.69733464,0.47343684], [0.69733464,  0.47343684]])) < 0.000001)
+        print(' successfully passed!')
+        sys.stdout.flush()
+
+    def test_sample_top_layer(self):
+        sys.stdout.write('Deep Believe Network -> Performing sample_top_layer test ...')
+        sys.stdout.flush()
+        assert numx.sum(numx.abs(TestDBNModel.stack.sample_top_layer(1, sample=False)
+                                 - numx.array([[0.81216745, 0.80223488], [0.05331971, 0.94985651]]))) < 0.000001
         numx.random.seed(42)
         assert numx.sum(
-            numx.abs(stack.reconstruct_sample_top_layer(input_data=numx.array([[1, 1], [1, 1]]),sampling_steps=10,
-            sample_forward_backward=True) - numx.array([[0, 0], [0, 0]])) < 0.000001)
-
-
-        print('successfully passed!')
+            numx.abs(
+                TestDBNModel.stack.sample_top_layer(100, sample=True) - numx.array([[0, 0], [0, 1]]))) < 0.000001
+        numx.random.seed(42)
+        assert numx.sum(
+            numx.abs(TestDBNModel.stack.sample_top_layer(100, initial_state=numx.array([[1, 1], [1, 1]]),
+                                                         sample=True) - numx.array([[0, 0], [0, 1]]))) < 0.000001
+        print(' successfully passed!')
         sys.stdout.flush()
 
 

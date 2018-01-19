@@ -42,14 +42,14 @@ import pydeep.rbm.trainer as Trainer
 import pydeep.base.numpyextension as npExt
 import pydeep.rbm.estimator as Estimator
 
-print "\n... pydeep.rbm.trainer.py"
+print("\n... pydeep.rbm.trainer.py")
 
 
 class TestTrainer(unittest.TestCase):
     epsilon = 0.00001
 
     def test__calculate_centered_gradient(self):
-        print ('RBM Trainer -> Performing calculate_centered_gradient test ...')
+        sys.stdout.write('RBM Trainer -> Performing calculate_centered_gradient test ... ')
         sys.stdout.flush()
         numx.random.seed(42)
         gradsOrg = [numx.array([[0.3, 0.5], [-0.4, 0.8]]), numx.array([[2.0, 4.0]]), numx.array([[-2.0, -1.0]])]
@@ -70,7 +70,7 @@ class TestTrainer(unittest.TestCase):
         sys.stdout.flush()
 
     def test___init__(self):
-        print ('RBM Trainer -> Performing init test ...')
+        sys.stdout.write('RBM Trainer -> Performing init test ... ')
         sys.stdout.flush()
         data = generate_bars_and_stripes_complete(2)
         data = numx.vstack((data[0], data, data[5]))
@@ -84,7 +84,7 @@ class TestTrainer(unittest.TestCase):
         sys.stdout.flush()
 
     def test_adapt_gradient(self):
-        print ('RBM Trainer -> Performing adapt_gradient test ...')
+        sys.stdout.write('RBM Trainer -> Performing adapt_gradient test ... ')
         sys.stdout.flush()
         # Test identity
         numx.random.seed(42)
@@ -315,7 +315,7 @@ class TestTrainer(unittest.TestCase):
         sys.stdout.flush()
 
     def test__train(self):
-        print ('RBM Trainer -> Performing train test ...')
+        sys.stdout.write('RBM Trainer -> Performing train test ... ')
         sys.stdout.flush()
         # Zero offsets
         numx.random.seed(42)
@@ -414,7 +414,7 @@ class TestTrainer(unittest.TestCase):
         sys.stdout.flush()
 
     def test_GD(self):
-        print ('RBM Trainer -> Performing GD test ...')
+        sys.stdout.write('RBM Trainer -> Performing GD test ... ')
         sys.stdout.flush()
         bbrbmBestLLPossible = -1.732867951
         # Test normal RBM
@@ -532,7 +532,7 @@ class TestTrainer(unittest.TestCase):
         sys.stdout.flush()
 
     def test_CD(self):
-        print ('RBM Trainer -> Performing CD test ...')
+        sys.stdout.write('RBM Trainer -> Performing CD test ... ')
         sys.stdout.flush()
         bbrbmBestLLPossible = -1.732867951
         thres = 0.2
@@ -652,7 +652,7 @@ class TestTrainer(unittest.TestCase):
         sys.stdout.flush()
 
     def test_PCD(self):
-        print ('RBM Trainer -> Performing PCD test ...')
+        sys.stdout.write('RBM Trainer -> Performing PCD test ... ')
         sys.stdout.flush()
         bbrbmBestLLPossible = -1.732867951
         thres = 0.3
@@ -779,7 +779,7 @@ class TestTrainer(unittest.TestCase):
         sys.stdout.flush()
 
     def test_PT(self):
-        print ('RBM Trainer -> Performing PT test ...')
+        sys.stdout.write('RBM Trainer -> Performing PT test ... ')
         sys.stdout.flush()
         bbrbmBestLLPossible = -1.732867951
         thres = 0.2
@@ -899,7 +899,7 @@ class TestTrainer(unittest.TestCase):
         sys.stdout.flush()
 
     def test_IPT(self):
-        print ('RBM Trainer -> Performing IPT test ...')
+        sys.stdout.write('RBM Trainer -> Performing IPT test ... ')
         sys.stdout.flush()
         bbrbmBestLLPossible = -1.732867951
         thres = 0.2

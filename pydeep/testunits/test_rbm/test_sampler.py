@@ -40,7 +40,7 @@ from pydeep.misc.toyproblems import generate_bars_and_stripes_complete
 import pydeep.rbm.model as Model
 import pydeep.rbm.sampler as Sampler
 
-print "\n... pydeep.rbm.sampler.py"
+print("\n... pydeep.rbm.sampler.py")
 
 
 class TestSampler(unittest.TestCase):
@@ -97,7 +97,7 @@ class TestSampler(unittest.TestCase):
         return [probCD1, probCD2, probCS1, probCS2, probCS3, probCS4, sumProbs]
 
     def test_Gibbs_sampler(self):
-        print ('RBM Sampler -> Performing GibbsSampler test ...')
+        sys.stdout.write('RBM Sampler -> Performing GibbsSampler test ... ')
         sys.stdout.flush()
         numx.random.seed(42)
         sampler = Sampler.GibbsSampler(self.bbrbm)
@@ -113,7 +113,7 @@ class TestSampler(unittest.TestCase):
         sys.stdout.flush()
 
     def test_Persistent_Gibbs_sampler(self):
-        print ('RBM Sampler -> Performing PersistentGibbsSampler test ...')
+        sys.stdout.write('RBM Sampler -> Performing PersistentGibbsSampler test ... ')
         sys.stdout.flush()
         numx.random.seed(42)
         sampler = Sampler.PersistentGibbsSampler(self.bbrbm, 1)
@@ -129,7 +129,7 @@ class TestSampler(unittest.TestCase):
         sys.stdout.flush()
 
     def test_Parallel_Tempering_sampler(self):
-        print ('RBM Sampler -> Performing ParallelTemperingSampler test ...')
+        sys.stdout.write('RBM Sampler -> Performing ParallelTemperingSampler test ... ')
         sys.stdout.flush()
         numx.random.seed(42)
         sampler = Sampler.ParallelTemperingSampler(self.bbrbm, 10)
@@ -145,7 +145,7 @@ class TestSampler(unittest.TestCase):
         sys.stdout.flush()
 
     def test_Independent_Parallel_Tempering_sampler(self):
-        print ('RBM Sampler -> Performing IndependentParallelTemperingSampler test ...')
+        sys.stdout.write('RBM Sampler -> Performing IndependentParallelTemperingSampler test ... ')
         sys.stdout.flush()
         numx.random.seed(42)
         sampler = Sampler.IndependentParallelTemperingSampler(self.bbrbm, 10, 10)

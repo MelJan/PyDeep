@@ -61,7 +61,7 @@ class TestEstimator(unittest.TestCase):
     epsilon = 0.00001
 
     def test_reconstruction_error(self):
-        print ('RBM Estimator -> Performing reconstruction_error test ...')
+        sys.stdout.write('RBM Estimator -> Performing reconstruction_error test ...')
         sys.stdout.flush()
         numx.random.seed(42)
         rec = Estimator.reconstruction_error(self.bbrbm,
@@ -110,11 +110,11 @@ class TestEstimator(unittest.TestCase):
                                              use_states=False,
                                              absolut_error=False)
         assert numx.all(numx.abs(rec) < self.epsilon)
-        print('successfully passed!')
+        print(' successfully passed!')
         sys.stdout.flush()
 
     def test_log_likelihood_v(self):
-        print ('RBM Estimator -> Performing log_likelihood_v test ...')
+        sys.stdout.write('RBM Estimator -> Performing log_likelihood_v test ...')
         sys.stdout.flush()
         numx.random.seed(42)
         ll = numx.mean(Estimator.log_likelihood_v(self.bbrbm, self.bbrbmTruelogZ, self.bbrbmData, 1.0))
@@ -125,11 +125,11 @@ class TestEstimator(unittest.TestCase):
             testList.append(self.bbrbmData[i].reshape(1, 4))
         ll = numx.mean(Estimator.log_likelihood_v(self.bbrbm, self.bbrbmTruelogZ, testList, 1.0))
         assert numx.all(numx.abs(ll - self.bbrbmTrueLL) < self.epsilon)
-        print('successfully passed!')
+        print(' successfully passed!')
         sys.stdout.flush()
 
     def test_log_likelihood_h(self):
-        print ('RBM Estimator -> Performing log_likelihood_h test ...')
+        sys.stdout.write('RBM Estimator -> Performing log_likelihood_h test ...')
         sys.stdout.flush()
         numx.random.seed(42)
         hdata = numx.float64(self.bbrbm.probability_h_given_v(self.bbrbmData) < 0.5)
@@ -141,11 +141,11 @@ class TestEstimator(unittest.TestCase):
             testList.append(hdata[i].reshape(1, 4))
         ll = numx.mean(Estimator.log_likelihood_v(self.bbrbm, self.bbrbmTruelogZ, testList, 1.0))
         assert numx.all(numx.abs(ll + 9.55929166739) < self.epsilon)
-        print('successfully passed!')
+        print(' successfully passed!')
         sys.stdout.flush()
 
     def test_partition_function_factorize_v(self):
-        print ('RBM Estimator -> Performing partition_function_factorize_v test ...')
+        sys.stdout.write('RBM Estimator -> Performing partition_function_factorize_v test ...')
         sys.stdout.flush()
         LogZ = Estimator.partition_function_factorize_v(self.bbrbm, beta=None, batchsize_exponent='AUTO', status=False)
         assert numx.all(numx.abs(LogZ - self.bbrbmTruelogZ) < self.epsilon)
@@ -155,11 +155,11 @@ class TestEstimator(unittest.TestCase):
         assert numx.all(numx.abs(LogZ - self.bbrbmTruelogZ) < self.epsilon)
         LogZ = Estimator.partition_function_factorize_v(self.bbrbm, beta=None, batchsize_exponent=555, status=False)
         assert numx.all(numx.abs(LogZ - self.bbrbmTruelogZ) < self.epsilon)
-        print('successfully passed!')
+        print(' successfully passed!')
         sys.stdout.flush()
 
     def test_partition_function_factorize_h(self):
-        print ('RBM Estimator -> Performing partition_function_factorize_v test ...')
+        sys.stdout.write('RBM Estimator -> Performing partition_function_factorize_v test ...')
         sys.stdout.flush()
         LogZ = Estimator.partition_function_factorize_h(self.bbrbm, beta=None, batchsize_exponent='AUTO', status=False)
         assert numx.all(numx.abs(LogZ - self.bbrbmTruelogZ) < self.epsilon)
@@ -169,11 +169,11 @@ class TestEstimator(unittest.TestCase):
         assert numx.all(numx.abs(LogZ - self.bbrbmTruelogZ) < self.epsilon)
         LogZ = Estimator.partition_function_factorize_h(self.bbrbm, beta=None, batchsize_exponent=555, status=False)
         assert numx.all(numx.abs(LogZ - self.bbrbmTruelogZ) < self.epsilon)
-        print('successfully passed!')
+        print(' successfully passed!')
         sys.stdout.flush()
 
     def test_annealed_importance_sampling(self):
-        print ('RBM Estimator -> Performing annealed_importance_sampling test ...')
+        sys.stdout.write('RBM Estimator -> Performing annealed_importance_sampling test ...')
         sys.stdout.flush()
         numx.random.seed(42)
         LogZ = Estimator.annealed_importance_sampling(self.bbrbm, num_chains=100, k=1, betas=100, status=False)
@@ -182,11 +182,11 @@ class TestEstimator(unittest.TestCase):
         assert numx.all(numx.abs(LogZ[0] - self.bbrbmTruelogZ) < 0.05)
         LogZ = Estimator.annealed_importance_sampling(self.bbrbm, num_chains=100, k=1, betas=10000, status=False)
         assert numx.all(numx.abs(LogZ[0] - self.bbrbmTruelogZ) < 0.005)
-        print('successfully passed!')
+        print(' successfully passed!')
         sys.stdout.flush()
 
     def test_reverse_annealed_importance_sampling(self):
-        print ('RBM Estimator -> Performing reverse_annealed_importance_sampling test ...')
+        sys.stdout.write('RBM Estimator -> Performing reverse_annealed_importance_sampling test ...')
         sys.stdout.flush()
         numx.random.seed(42)
         LogZ = Estimator.reverse_annealed_importance_sampling(self.bbrbm, num_chains=100, k=1, betas=100, status=False)
@@ -196,7 +196,7 @@ class TestEstimator(unittest.TestCase):
         LogZ = Estimator.reverse_annealed_importance_sampling(self.bbrbm, num_chains=100, k=1, betas=10000,
                                                               status=False)
         assert numx.all(numx.abs(LogZ[0] - self.bbrbmTruelogZ) < 0.005)
-        print('successfully passed!')
+        print(' successfully passed!')
         sys.stdout.flush()
 
 
