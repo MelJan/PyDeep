@@ -11,8 +11,8 @@
         - GD   (Exact Gradient descent (only for small binary models))
 
     :Info:
-        For the derivations \
-        .. seealso:: http://www.ini.rub.de/data/documents/tns/masterthesis_janmelchior.pdf
+        For the derivations .. seealso::
+        http://www.ini.rub.de/data/documents/tns/masterthesis_janmelchior.pdf
 
     :Version:
         1.1.0
@@ -590,7 +590,8 @@ class IPT(CD):
                  num_samples,
                  betas=3,
                  data=None):
-        """ The constructor initializes the IPT trainer with a given model and data.
+        """ The constructor initializes the IPT trainer with a given model and
+            data.
 
         :param model: The model to sample from.
         :type model: Valid model class.

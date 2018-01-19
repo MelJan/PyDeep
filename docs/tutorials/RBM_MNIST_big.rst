@@ -2,7 +2,8 @@ Big binary RBM on MNIST
 ==========================================================
 
 Example for training a centered and normal binary restricted Boltzmann machine on the MNIST handwritten digit dataset.
-The model has 500 hidden units, is trained for 200 epochs, and the log-likelihood is evaluated using annealed importance sampling.
+The model has 500 hidden units, is trained for 200 epochs (That takes a while, reduce it if you like), and the
+log-likelihood is evaluated using annealed importance sampling.
 
 It allows to reproduce the results from the publication `How to Center Deep Boltzmann Machines. Melchior et al. JMLR 2016. <http://jmlr.org/papers/v17/14-237.html>`_. Running the code as it is for example reproduces a single trial of the plot in Figure 9. (PCD-1) for $dd^b_s$.
 

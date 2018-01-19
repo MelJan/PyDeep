@@ -47,7 +47,9 @@ class DBN(StackOfBipartiteGraphs):
         """
         super(DBN, self).__init__(list_of_layers=list_of_rbms)
 
-    def forward_propagate(self, input_data, sample=False):
+    def forward_propagate(self,
+                          input_data,
+                          sample=False):
         """ Propagates the data through the network.
 
         :param input_data: Input data
@@ -68,7 +70,9 @@ class DBN(StackOfBipartiteGraphs):
                 self.states[l + 1] = self._layers[l].sample_h(self.states[l + 1])
         return self.states[len(self._layers)]
 
-    def backward_propagate(self, output_data, sample=False):
+    def backward_propagate(self,
+                           output_data,
+                           sample=False):
         """ Propagates the output back through the input.
 
         :param output_data: Output data.
@@ -89,7 +93,9 @@ class DBN(StackOfBipartiteGraphs):
                 self.states[l - 1] = self._layers[l - 1].sample_v(self.states[l - 1])
         return self.states[0]
 
-    def reconstruct(self, input_data, sample=False):
+    def reconstruct(self,
+                    input_data,
+                    sample=False):
         """ Reconstructs the data by propagating the data to the output and back to the input.
 
         :param input_data: Input data.
@@ -103,7 +109,10 @@ class DBN(StackOfBipartiteGraphs):
         """
         return self.backward_propagate(self.forward_propagate(input_data, sample), sample)
 
-    def sample_top_layer(self, sampling_steps=100, initial_state=None, sample=True):
+    def sample_top_layer(self,
+                         sampling_steps=100,
+                         initial_state=None,
+                         sample=True):
         """ Samples the top most layer, if initial_state is None the current state is used otherwise sampling is \
             started from the given initial state
 
@@ -134,7 +143,10 @@ class DBN(StackOfBipartiteGraphs):
                     self.states[len(self._layers)])
         return self.states[len(self._layers)]
 
-    def reconstruct_sample_top_layer(self, input_data, sampling_steps=100, sample_forward_backward=False):
+    def reconstruct_sample_top_layer(self,
+                                     input_data,
+                                     sampling_steps=100,
+                                     sample_forward_backward=False):
         """ Reconstructs data by propagating the data forward, sampling the top most layer and propagating the result \
             backward.
 

@@ -43,12 +43,13 @@ def read(fname):
 
 setup(
     name="PyDeep",
-    version="1.1.0",
+    version="1.2.0",
     author="Jan Melchior",
     author_email="JanMelchior@gmx.de",
     description=("Machine learning library with focus on Restricted Boltzmann machines."),
     license="GNU",
-    keywords="Machine learning, Deep Learning, Restricted Boltzmann machines, Independent Component Analysis, "
+    keywords="Machine learning, Deep Learning, Feed-Forward Neural Networks, Autoencoder, "
+             "Restricted Boltzmann machines, Deep Boltzmann machines, Independent Component Analysis, "
              "Principal Component Analysis, Zero-Phase Component Analysis",
     url="https://github.com/MelJan/PyDeep",
     packages=['pydeep', 'pydeep.base', 'pydeep.misc', 'pydeep.rbm'],

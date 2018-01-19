@@ -10,8 +10,8 @@
         - Independent Parallel Tempering Sampling
 
     :Info:
-        For the derivations \
-        .. seealso:: https://www.ini.rub.de/PEOPLE/wiskott/Reprints/Melchior-2012-MasterThesis-RBMs.pdf
+        For the derivations .. seealso::
+        https://www.ini.rub.de/PEOPLE/wiskott/Reprints/Melchior-2012-MasterThesis-RBMs.pdf
 
     :Version:
         1.1.0
