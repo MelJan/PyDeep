@@ -18,7 +18,7 @@ def extract_package_structure(root_path="../pydeep/",ext=".py"):
             if name.endswith((ext, ext[1:])):
                 fullpath= os.path.join(root, name)
                 structure.append([fullpath,
-                                  fullpath.replace("/",".").replace(ext,""),
+                                  fullpath.replace(ext,"").replace("/","."),
                                   name.replace(".py",""),
                                   fullpath.count("/")])
     return sorted(structure)
