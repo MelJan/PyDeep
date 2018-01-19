@@ -3,7 +3,7 @@ import io
 import os
 
 
-def extract_package_structure(root_path="../pydeep/",ext=".py"):
+def extract_package_structure(root_path="../pydeep/",ext=".py", exclude_unittest=True):
     """ Get all files and depth level
 
     :param root_path: Root directory
@@ -17,10 +17,11 @@ def extract_package_structure(root_path="../pydeep/",ext=".py"):
         for name in files:
             if name.endswith((ext, ext[1:])):
                 fullpath= os.path.join(root, name)
-                structure.append([fullpath,
-                                  fullpath.replace(ext,"").replace("/","."),
-                                  name.replace(".py",""),
-                                  fullpath.count("/")])
+                if not exclude_unittest or fullpath.find('test')<0:
+                    structure.append([fullpath,
+                                      fullpath.replace("/",".").replace("...","").replace(ext,""),
+                                      name.replace(".py",""),
+                                      fullpath.count("/")])
     return sorted(structure)
 
 def print_classes_and_members(root_path,module_path,module_structure,module_name,depth):
