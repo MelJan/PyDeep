@@ -8,14 +8,16 @@ its extensive use of unittests assures a high level of reliability and correctne
 
 News
 ''''''''''''''''''''''''''''''''''''''''''''''''''''
-- (DONE) The documentation updated to restructured text
-- (DONE) Documentation hosted
-- (DONE) Unit tests added
-- Upcoming: Tutorials will be added
+- New activation functions added
+- Unit tests up to date
+- Prepared repository for autoencoder module
+
 - Upcoming: MDP integration will be added
 - Upcoming: Auto encoders will be added
-- Upcoming mid/long term: Feed Forward neural networks will be added
-- Upcoming mid/long term: Deep Boltzmann machines will be added
+
+- Future: Feed Forward neural networks will be added
+- Future: MDP integration
+- Future: Deep Boltzmann machines will be added
 
 Features index
 ''''''''''''''''''''''''''''''''''''''''''''''''''''
