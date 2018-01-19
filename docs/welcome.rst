@@ -11,6 +11,7 @@ News
 - New activation functions added
 - Unit tests up to date
 - Prepared repository for autoencoder module
+- Prepared for license change
 
 - Upcoming: MDP integration will be added
 - Upcoming: Auto encoders will be added
