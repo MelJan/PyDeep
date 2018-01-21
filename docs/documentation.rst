@@ -9,6 +9,50 @@ pydeep
 
 .. automodule:: pydeep
 
+ae
+````````````````````````````````````````````````````
+
+.. automodule:: pydeep.ae
+
+model
+''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+.. automodule:: pydeep.ae.model
+
+AutoEncoder
+....................................................
+
+.. autoclass:: pydeep.ae.model.AutoEncoder
+   :members:
+   :private-members:
+   :special-members: __init__
+
+sae
+''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+.. automodule:: pydeep.ae.sae
+
+SAE
+....................................................
+
+.. autoclass:: pydeep.ae.sae.SAE
+   :members:
+   :private-members:
+   :special-members: __init__
+
+trainer
+''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+.. automodule:: pydeep.ae.trainer
+
+GDTrainer
+....................................................
+
+.. autoclass:: pydeep.ae.trainer.GDTrainer
+   :members:
+   :private-members:
+   :special-members: __init__
+
 base
 ````````````````````````````````````````````````````
 
