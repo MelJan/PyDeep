@@ -4,7 +4,7 @@
         1.1.0
 
     :Date:
-        06.04.2017
+        21.01.2018
 
     :Author:
         Jan Melchior
@@ -14,7 +14,7 @@
 
     :License:
 
-        Copyright (C) 2017 Jan Melchior
+        Copyright (C) 2018 Jan Melchior
 
         This file is part of the Python library PyDeep.
 

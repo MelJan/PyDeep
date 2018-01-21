@@ -12,7 +12,7 @@
         1.0
         
     :Date:
-        08.02.2016
+        21.01.2018
 
     :Author:
         Jan Melchior
@@ -22,7 +22,7 @@
 
     :License:
 
-        Copyright (C) 2016 Jan Melchior
+        Copyright (C) 2018 Jan Melchior
 
         This program is free software: you can redistribute it and/or modify
         it under the terms of the GNU General Public License as published by

@@ -30,4 +30,4 @@
         along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 '''
-__all__ = ["model", "trainer","sae"]
+__all__ = ["model", "trainer", "sae"]
