@@ -21,71 +21,71 @@ Features index
 
 - Principal Component Analysis (PCA)
 
-* Zero Phase Component Analysis (ZCA)
+    * Zero Phase Component Analysis (ZCA)
 
 - Independent Component Analysis (ICA)
 
 - Restricted Boltzmann machines
 
-* centered BinaryBinary RBM (BB-RBM)
+    * centered BinaryBinary RBM (BB-RBM)
 
-* centered GaussianBinary RBM (GB-RBM) with fixed variance
+    * centered GaussianBinary RBM (GB-RBM) with fixed variance
 
-* centered GaussianBinaryVariance RBM (GB-RBM) with trainable variance
+    * centered GaussianBinaryVariance RBM (GB-RBM) with trainable variance
 
-* centered BinaryBinaryLabel RBM (BBL-RBM)
+    * centered BinaryBinaryLabel RBM (BBL-RBM)
 
-* centered GaussianBinaryLabel RBM (GBL-RBM)
+    * centered GaussianBinaryLabel RBM (GBL-RBM)
 
-* centered BinaryRect RBM (BR-RBM)
+    * centered BinaryRect RBM (BR-RBM)
 
-* centered RectBinary RBM (RB-RBM)
+    * centered RectBinary RBM (RB-RBM)
 
-* centered RectRect RBM (RR-RBM)
+    * centered RectRect RBM (RR-RBM)
 
-* centered GaussianRect RBM (GR-RBM)
+    * centered GaussianRect RBM (GR-RBM)
 
-* centered GaussianRectVariance RBM (GRV-RBM)
+    * centered GaussianRectVariance RBM (GRV-RBM)
 
-* Sampling Algorithms for RBMs
+    * Sampling Algorithms for RBMs
 
-+ Gibbs Sampling
+        + Gibbs Sampling
 
-+ Persistent Gibbs Sampling
+        + Persistent Gibbs Sampling
 
-+ Parallel Tempering Sampling
+        + Parallel Tempering Sampling
 
-+ Independent Parallel Tempering Sampling
+        + Independent Parallel Tempering Sampling
 
-* Training for RBMs
+    * Training for RBMs
 
-+ Exact gradient (GD)
+        + Exact gradient (GD)
 
-+ Contrastive Divergence (CD)
+        + Contrastive Divergence (CD)
 
-+ Persistent Contrastive Divergence (PCD)
+        + Persistent Contrastive Divergence (PCD)
 
-+ Independent Parallel Tempering Sampling
+        + Independent Parallel Tempering Sampling
 
-* Log-likelihodd estimation for RBMs
+    * Log-likelihodd estimation for RBMs
 
-+ Exact Partition function
+        + Exact Partition function
 
-+ Annealed Importance Sampling (AIS)
+        + Annealed Importance Sampling (AIS)
 
-+ reverse Annealed Importance Sampling (AIS)
+        + reverse Annealed Importance Sampling (AIS)
 
 - Autoencoder
 
-* Centered denoising autoencoder including various noise functions
+    * Centered denoising autoencoder including various noise functions
 
-* Centered contractive autoencoder
+    * Centered contractive autoencoder
 
-* Centered sparse autoencoder
+    * Centered sparse autoencoder
 
-* Centered slowness autoencoder
+    * Centered slowness autoencoder
 
-* Several regularization methods like l1,l2 norm, Dropout, gradient clipping, ...
+    * Several regularization methods like l1,l2 norm, Dropout, gradient clipping, ...
 
 
 Scientific use
