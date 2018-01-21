@@ -25,6 +25,18 @@ Features index
 
 - Independent Component Analysis (ICA)
 
+- Autoencoder
+
+    * Centered denoising autoencoder including various noise functions
+
+    * Centered contractive autoencoder
+
+    * Centered sparse autoencoder
+
+    * Centered slowness autoencoder
+
+    * Several regularization methods like l1,l2 norm, Dropout, gradient clipping, ...
+
 - Restricted Boltzmann machines
 
     * centered BinaryBinary RBM (BB-RBM)
@@ -74,18 +86,6 @@ Features index
         + Annealed Importance Sampling (AIS)
 
         + reverse Annealed Importance Sampling (AIS)
-
-- Autoencoder
-
-    * Centered denoising autoencoder including various noise functions
-
-    * Centered contractive autoencoder
-
-    * Centered sparse autoencoder
-
-    * Centered slowness autoencoder
-
-    * Several regularization methods like l1,l2 norm, Dropout, gradient clipping, ...
 
 
 Scientific use
