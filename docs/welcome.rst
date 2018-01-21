@@ -8,15 +8,11 @@ its extensive use of unittests assures a high level of reliability and correctne
 
 News
 ''''''''''''''''''''''''''''''''''''''''''''''''''''
-- New activation functions added
-- Unit tests up to date
-- Prepared repository for autoencoder module
-- Prepared for license change
+- Auto encoder module added including denoising, sparse, contractive, slowness AE's
+- Unittests added, examples and tutorials will follow next week
 
-- Upcoming: MDP integration will be added
-- Upcoming: Auto encoders will be added
+- Upcoming (mid-term): Feed Forward neural networks will be added
 
-- Future: Feed Forward neural networks will be added
 - Future: MDP integration
 - Future: Deep Boltzmann machines will be added
 
@@ -25,51 +21,71 @@ Features index
 
         - Principal Component Analysis (PCA)
 
-        - Zero Phase Component Analysis (ZCA)
+        --- Zero Phase Component Analysis (ZCA)
 
         - Independent Component Analysis (ICA)
 
-        - centered BinaryBinary RBM (BB-RBM)
+        - Restricted Boltzmann machines
 
-        - centered GaussianBinary RBM (GB-RBM) with fixed variance
+        --- centered BinaryBinary RBM (BB-RBM)
 
-        - centered GaussianBinaryVariance RBM (GB-RBM) with trainable variance
+        --- centered GaussianBinary RBM (GB-RBM) with fixed variance
 
-        - centered BinaryBinaryLabel RBM (BBL-RBM)
+        --- centered GaussianBinaryVariance RBM (GB-RBM) with trainable variance
 
-        - centered GaussianBinaryLabel RBM (GBL-RBM)
+        --- centered BinaryBinaryLabel RBM (BBL-RBM)
 
-        - centered BinaryRect RBM (BR-RBM)
+        --- centered GaussianBinaryLabel RBM (GBL-RBM)
 
-        - centered RectBinary RBM (RB-RBM)
+        --- centered BinaryRect RBM (BR-RBM)
 
-        - centered RectRect RBM (RR-RBM)
+        --- centered RectBinary RBM (RB-RBM)
 
-        - centered GaussianRect RBM (GR-RBM)
+        --- centered RectRect RBM (RR-RBM)
 
-        - centered GaussianRectVariance RBM (GRV-RBM)
+        --- centered GaussianRect RBM (GR-RBM)
 
-        - Gibbs Sampling
+        --- centered GaussianRectVariance RBM (GRV-RBM)
 
-        - Persistent Gibbs Sampling
+        --- Sampling Algorithms for RBMs
 
-        - Parallel Tempering Sampling
+        ------ Gibbs Sampling
 
-        - Independent Parallel Tempering Sampling
+        ------ Persistent Gibbs Sampling
 
-        - Annealed Importance Sampling (AIS)
+        ------ Parallel Tempering Sampling
 
-        - reverse Annealed Importance Sampling (AIS)
+        ------ Independent Parallel Tempering Sampling
 
-        - Contrastive Divergence (CD)
+        --- Training for RBMs
 
-        - Persistent Contrastive Divergence (PCD)
+        ------ Exact gradient (GD)
 
-        - Tempering Sampling Contrastive Divergence (PT)
+        ------ Contrastive Divergence (CD)
 
-        - Independent Tempering Sampling Contrastive Divergence (IPT)
+        ------ Persistent Contrastive Divergence (PCD)
 
-        - Exact Gradient (GD)
+        ------ Independent Parallel Tempering Sampling
+
+        --- Log-likelihodd estimation for RBMs
+
+        ------ Exact Partition function
+
+        ------ Annealed Importance Sampling (AIS)
+
+        ------ reverse Annealed Importance Sampling (AIS)
+
+        - Autoencoder
+
+        --- Centered denoising autoencoder including various noise functions
+
+        --- Centered contractive autoencoder
+
+        --- Centered sparse autoencoder
+
+        --- Centered slowness autoencoder
+
+        --- Several regularization methods like l1,l2 norm, Dropout, gradient clipping, ...
 
 
 Scientific use
