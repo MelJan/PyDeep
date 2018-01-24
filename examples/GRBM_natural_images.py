@@ -55,7 +55,7 @@ data = io.load_natural_image_patches('NaturalImage.mat')
 # Remove the mean of ech image patch separately (also works without)
 data = pre.remove_rows_means(data)
 
-# Set 2D input/output dimensions
+# Set input/output dimensions
 v1 = 14
 v2 = 14
 h1 = 14
