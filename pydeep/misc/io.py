@@ -363,11 +363,11 @@ def load_olivetti_faces(path, correct_orientation=True):
     if not os.path.isfile(path):
         print('-> File not existing: ' + path)
         try:
-            download_file('http://www.cs.nyu.edu/~roweis/data/olivettifaces.mat', path, buffer_size=10 * 1024 ** 2)
+            download_file('http://www.cs.nyu.edu/~roweis/data/olivettifaces.mat', path, buffer_size=1 * 1024 ** 2)
         except:
             try:
                 download_file('https://github.com/probml/pmtk3/tree/master/bigData/facesOlivetti/facesOlivetti.mat',
-                              path, buffer_size=10 * 1024 ** 2)
+                              path, buffer_size=1 * 1024 ** 2)
             except:
                 raise Exception('Download failed, make sure you have internet connection!')
     print('-> loading data ... ')
