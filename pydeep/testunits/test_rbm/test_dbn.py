@@ -60,7 +60,8 @@ class TestDBNModel(unittest.TestCase):
         assert numx.sum(numx.abs(
             TestDBNModel.stack.forward_propagate(numx.array([[1, 0], [0, 1]])) - forward_target)) < 0.000001
 
-        forward_target = numx.array([[0, 1], [1, 1]])
+        numx.random.seed(42)
+        forward_target = numx.array([[1, 1], [1, 0]])
         assert numx.sum(
             numx.abs(TestDBNModel.stack.forward_propagate(numx.array([[1, 0], [0, 1]]),
                                                           True) - forward_target)) < 0.000001
@@ -76,7 +77,8 @@ class TestDBNModel(unittest.TestCase):
             numx.abs(
                 TestDBNModel.stack.backward_propagate(numx.array([[1, 0], [0, 1]])) - backward_target)) < 0.000001
 
-        backward_target = numx.array([[0, 0], [1, 1]])
+        numx.random.seed(42)
+        backward_target = numx.array([[0, 0], [1, 0]])
         assert numx.sum(
             numx.abs(TestDBNModel.stack.backward_propagate(numx.array([[1, 0], [0, 1]]),
                                                            True) - backward_target)) < 0.000001
@@ -91,7 +93,8 @@ class TestDBNModel(unittest.TestCase):
         assert numx.sum(
             numx.abs(TestDBNModel.stack.reconstruct(numx.array([[1, 0], [0, 1]])) - rec_target)) < 0.000001
 
-        rec_target = numx.array([[0, 1], [1, 0]])
+        numx.random.seed(42)
+        rec_target = numx.array([[1, 0], [0, 1]])
         assert numx.sum(
             numx.abs(TestDBNModel.stack.reconstruct(numx.array([[1, 0], [0, 1]]), True) - rec_target)) < 0.000001
         print(' successfully passed!')
