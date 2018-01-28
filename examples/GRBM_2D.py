@@ -59,7 +59,8 @@ whitened_data = zca.project(data)
 
 # split training test data
 train_data = whitened_data[0:numx.int32(whitened_data.shape[0] / 2.0), :]
-test_data = whitened_data[numx.int32(whitened_data.shape[0] / 2.0):whitened_data.shape[0], :]
+test_data = whitened_data[numx.int32(whitened_data.shape[0] / 2.0
+                                     ):whitened_data.shape[0], :]
 
 # Input output dims
 h1 = 2
@@ -194,22 +195,28 @@ print "Amari distanca between true mixing matrix and ICA estimation: "+str(
     vis.calculate_amari_distance(zca.project(mixing_matrix.T), ica.projection_matrix.T))
 
 print "Amari distanca between true mixing matrix and GRBM weight vector 1 and 2: "+str(
-    vis.calculate_amari_distance(zca.project(mixing_matrix.T), numx.vstack((rbm.w.T[0:1],rbm.w.T[1:2]))))
+    vis.calculate_amari_distance(zca.project(mixing_matrix.T),
+                                 numx.vstack((rbm.w.T[0:1],rbm.w.T[1:2]))))
 
 print "Amari distanca between true mixing matrix and GRBM weight vector 1 and 3: "+str(
-    vis.calculate_amari_distance(zca.project(mixing_matrix.T), numx.vstack((rbm.w.T[0:1],rbm.w.T[2:3]))))
+    vis.calculate_amari_distance(zca.project(mixing_matrix.T),
+                                 numx.vstack((rbm.w.T[0:1],rbm.w.T[2:3]))))
 
 print "Amari distanca between true mixing matrix and GRBM weight vector 1 and 4: "+str(
-    vis.calculate_amari_distance(zca.project(mixing_matrix.T), numx.vstack((rbm.w.T[0:1],rbm.w.T[3:4]))))
+    vis.calculate_amari_distance(zca.project(mixing_matrix.T),
+                                 numx.vstack((rbm.w.T[0:1],rbm.w.T[3:4]))))
 
 print "Amari distanca between true mixing matrix and GRBM weight vector 2 and 3: "+str(
-    vis.calculate_amari_distance(zca.project(mixing_matrix.T), numx.vstack((rbm.w.T[1:2],rbm.w.T[2:3]))))
+    vis.calculate_amari_distance(zca.project(mixing_matrix.T),
+                                 numx.vstack((rbm.w.T[1:2],rbm.w.T[2:3]))))
 
 print "Amari distanca between true mixing matrix and GRBM weight vector 2 and 4: "+str(
-    vis.calculate_amari_distance(zca.project(mixing_matrix.T), numx.vstack((rbm.w.T[1:2],rbm.w.T[3:4]))))
+    vis.calculate_amari_distance(zca.project(mixing_matrix.T),
+                                 numx.vstack((rbm.w.T[1:2],rbm.w.T[3:4]))))
 
 print "Amari distanca between true mixing matrix and GRBM weight vector 3 and 4: "+str(
-    vis.calculate_amari_distance(zca.project(mixing_matrix.T), numx.vstack((rbm.w.T[2:3],rbm.w.T[3:4]))))
+    vis.calculate_amari_distance(zca.project(mixing_matrix.T),
+                                 numx.vstack((rbm.w.T[2:3],rbm.w.T[3:4]))))
 
 # Display results
 # create a new figure of size 5x5

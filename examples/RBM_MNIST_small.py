@@ -117,7 +117,7 @@ for epoch in range(epochs):
         ll_test = numx.mean(estimator.log_likelihood_v(rbm, logZ, test_data))
         re = numx.mean(estimator.reconstruction_error(rbm, train_data))
         print('{}\t\t{:.4f}\t\t\t{:.4f}\t\t\t\t{:.4f}\t\t\t{}'.format(
-            epoch+1, re, ll_train, ll_test, measurer.get_expected_end_time(epoch+1, epochs)))
+        epoch+1, re, ll_train, ll_test, measurer.get_expected_end_time(epoch+1, epochs)))
     else:
         print(epoch+1)
 
