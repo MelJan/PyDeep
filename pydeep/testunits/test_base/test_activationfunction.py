@@ -332,5 +332,42 @@ class TestActivationFunction(unittest.TestCase):
         print(' successfully passed!')
         sys.stdout.flush()
 
+    def test_KWinnerTakeAll(self):
+        sys.stdout.write('Activationfunction -> Performing KWinnerTakeAll() test ...')
+        sys.stdout.flush()
+
+        act = KWinnerTakeAll(k=2,axis = 1,activation_function=Identity())
+
+        data = numx.array([[0.28001309, 0.34200877, 0.37797814], [3, 1, 6]])
+        target = numx.array([[0.0, 0.34200877, 0.37797814], [3, 0, 6]])
+        assert numx.all(numx.abs(target - act.f(data) < epsilon))
+
+        target = numx.array([[0, 1, 1], [1, 0, 1]])
+        assert numx.all(numx.abs(target - act.df(data) < epsilon))
+
+        act = KWinnerTakeAll(k=1,axis = 0,activation_function=Identity())
+
+        data = numx.array([[0.28001309, 0.34200877, 0.37797814], [3, 0, -1]])
+        target = numx.array([[0, 0.34200877, 0.37797814], [3, 0, 0]])
+
+        assert numx.all(numx.abs(target - act.f(data) < epsilon))
+
+        target = numx.array([[0, 1, 1], [1, 0, 0]])
+        assert numx.all(numx.abs(target - act.df(data) < epsilon))
+
+
+        act = KWinnerTakeAll(k=2,axis = 1,activation_function=Sigmoid())
+
+        data = numx.array([[0.28001309, 0.34200877, 0.37797814], [3, 1, 6]])
+        target = numx.array([[0.0, Sigmoid.f(0.34200877), Sigmoid.f(0.37797814)], [Sigmoid.f(3), 0, Sigmoid.f(6)]])
+        print target, act.f(data)
+        assert numx.all(numx.abs(target - act.f(data) < epsilon))
+
+        target = numx.array([[0.0, Sigmoid.df(0.34200877), Sigmoid.df(0.37797814)], [Sigmoid.df(3), 0, Sigmoid.df(6)]])
+        assert numx.all(numx.abs(target - act.df(data) < epsilon))
+
+        print(' successfully passed!')
+        sys.stdout.flush()
+
 if __name__ is "__main__":
     unittest.main()

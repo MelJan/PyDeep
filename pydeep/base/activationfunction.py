@@ -21,6 +21,7 @@
             - SoftSign
             - HyperbolicTangent
             - SoftMax
+            - K-Winner takes all
         # Symmetric, periodic
             - Radial Basis function
             - Sinus
@@ -798,3 +799,60 @@ class Sinus(object):
         """
         return -numx.sin(x)
 
+
+class KWinnerTakeAll(object):
+    """ K Winner take all activation function.
+
+        :WARNING: The derivative gets already calcluated in the forward pass. 
+                  Thus, for the same data-point the order should always be forward_pass, backward_pass!
+
+    """
+
+    def __init__(self, k, axis=1, activation_function=Identity()):
+        """ Constructor.
+
+        :param k: Number of active units.
+        :type k: int
+
+        :param axis: Axis to compute the maximum.
+        :type axis: int
+
+        :param k: activation_function
+        :type k: Instance of an activation function
+
+        """
+        self.k = k
+        self.axis = axis
+        self.activation_function = activation_function
+        self._temp_derivative = None
+
+    def f(self, x):
+        """ Calculates the K-max function value for a given input x.
+
+        :param x: Input data.
+        :type x: scalar or numpy array
+
+        :return: Value of the Kmax function for x.
+        :rtype: scalar or numpy array with the same shape as x.
+
+        """
+        act = self.activation_function.f(numx.atleast_2d(x))
+        winner = None
+        if self.axis == 0:
+            winner = numx.float64(act >= numx.atleast_2d(numx.sort(act, axis=self.axis)[-self.k, :]))
+        else:
+            winner = numx.float64(act.T >= numx.atleast_2d(numx.sort(act, axis=self.axis)[:, -self.k])).T
+        self._temp_derivative = winner * self.activation_function.df(x)
+        return act * winner
+
+    def df(self, x):
+        """ Calculates the derivative of the KWTA function.
+
+        :param x: Input data.
+        :type x: scalar or numpy array
+
+        :return: Derivative of the KWTA function
+        :rtype: scalar or numpy array with the same shape as x.
+
+        """
+        return self._temp_derivative
