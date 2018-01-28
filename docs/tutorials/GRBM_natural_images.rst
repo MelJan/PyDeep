@@ -68,7 +68,8 @@ Furthermore, we can plot the histogram of all filters over the frequencies in pi
    :align: center
    :alt: GRBM histogram of frequency and angle
 
-Compare the results with thos of `ICA_natural_images <ICA_natural_images.html#ICA_natural_images>`__.
+Compare the results with thos of `ICA_natural_images <ICA_natural_images.html#ICA_natural_images>`__,
+and `AE_natural_images <AE_natural_images.html#AE_natural_images>`__..
 
 .. _code:
 

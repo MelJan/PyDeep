@@ -3,18 +3,23 @@
 Autoencoder on a natural image patches
 ==========================================================
 
-Example for Autoencoders (`Autoencoder <https://en.wikipedia.org/wiki/Autoencoder>`_)
-on natural image patches.
+Example for Autoencoders (`Autoencoder <https://en.wikipedia.org/wiki/Autoencoder>`_) on natural image patches.
 
 Theory
 ***********
 
-If you are new on Neural networks and Autoencoders , visit `Autoencoder tutorial <http://ufldl.stanford.edu/wiki/index.php/Autoencoders_and_Sparsity>`_.
+If you are new on Autoencoders visit `Autoencoder tutorial <http://ufldl.stanford.edu/wiki/index.php/Autoencoders_and_Sparsity>`_ or watch the video course by Hugo Larochelle
+
+.. raw:: html
+
+    <div style="margin-top:10px;">
+      <iframe width="560" height="315" src="https://www.youtube.com/watch?v=FzS3tMl4Nsc" frameborder="0" allowfullscreen></iframe>
+    </div>
 
 Results
 ***********
 
-The code_ given below produces the following output.
+The code_ given below produces the following output that is impressively similar to the results produced by ICA or GRBMs.
 
 Visualization of 100 examples of the gray scale natural image dataset.
 
@@ -65,12 +70,17 @@ Furthermore, we can plot the histogram of all filters over the frequencies in pi
    :alt: ICA histogram of frequency and angle
    :align: center
 
-We can also train the model on the unwhitened data leading to the following filters.
+We can also train the model on the unwhitened data leading to the following filters that cover also lower frequencies.
 
 .. figure:: images/SAE_natural_images_filter_unwhitened.png
    :scale: 75 %
    :alt: ICA histogram of frequency and angle
    :align: center
+
+See also `GRBM_natural_images <GRBM_natural_images.html#GRBM_natural_images>`__,
+and `ICA_natural_images <ICA_natural_images.html#ICA_natural_images>`__..
+
+.. _code:
 
 .. _code:
 
