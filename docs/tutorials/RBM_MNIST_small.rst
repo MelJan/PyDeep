@@ -89,8 +89,6 @@ Further, the models can be trained on the flipped version of MNIST (1-MNIST).
 
    flipped = True
 
-.. _code:
-
 While the centered model has a similar performance on the flipped version,
 
 .. code-block:: Python
@@ -128,6 +126,8 @@ The normal RBM has not.
    :align: center
 
 For a large number of hidden units see `RBM_MNIST_big <RBM_MNIST_big.html#RBM_MNIST_big>`__.
+
+.. _code:
 
 Source code
 ***********
