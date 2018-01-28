@@ -13,7 +13,7 @@ If you are new on Autoencoders visit `Autoencoder tutorial <http://ufldl.stanfor
 .. raw:: html
 
     <div style="margin-top:10px;">
-      <iframe width="560" height="315" src="https://www.youtube.com/watch?v=FzS3tMl4Nsc" frameborder="0" allowfullscreen></iframe>
+      <iframe width="560" height="315" src="http://www.youtube.com/watch?v=FzS3tMl4Nsc" frameborder="0" allowfullscreen></iframe>
     </div>
 
 Results
@@ -78,11 +78,10 @@ We can also train the model on the unwhitened data leading to the following filt
    :align: center
 
 See also `GRBM_natural_images <GRBM_natural_images.html#GRBM_natural_images>`__,
-and `ICA_natural_images <ICA_natural_images.html#ICA_natural_images>`__..
+and `ICA_natural_images <ICA_natural_images.html#ICA_natural_images>`__.
 
 .. _code:
 
-.. _code:
 
 Source code
 ***********

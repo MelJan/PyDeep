@@ -67,7 +67,8 @@ Furthermore, we can plot the histogram of all filters over the frequencies in pi
    :align: center
 
 See also `GRBM_natural_images <GRBM_natural_images.html#GRBM_natural_images>`__.
-and `AE_natural_images <AE_natural_images.html#AE_natural_images>`__..
+and `AE_natural_images <AE_natural_images.html#AE_natural_images>`__.
+
 .. _code:
 
 Source code

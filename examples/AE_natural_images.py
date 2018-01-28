@@ -75,7 +75,7 @@ test_data = data[50000:70000]
 batch_size = 10
 max_epochs = 20
 
-# Create model with sigmoid hidden units, linear output units, and squared error loss.
+# Create model with sigmoid hidden units, linear output units, and squared error.
 ae = aeModel.AutoEncoder(v1*v2,
                          h1*h2,
                          data = train_data,
@@ -84,7 +84,8 @@ ae = aeModel.AutoEncoder(v1*v2,
                          cost_function = cost.SquaredError(),
                          initial_weights = 0.01,
                          initial_visible_bias = 0.0,
-                         initial_hidden_bias = -2.0, # Set initially the units to be inactive, speeds up learning a little bit
+                         initial_hidden_bias = -2.0,
+# Set initially the units to be inactive, speeds up learning a little bit
                          initial_visible_offsets = 0.0,
                          initial_hidden_offsets = 0.02,
                          dtype = numx.float64)
@@ -101,9 +102,10 @@ for epoch in range(0,max_epochs+1,1) :
     train_data = numx.random.permutation(train_data)
 
     # Print reconstruction errors and sparseness for Training and test data
-    print epoch, ' \t\t', numx.mean(ae.reconstruction_error(train_data)), ' \t',\
-        numx.mean(ae.reconstruction_error(test_data)), ' \t', numx.mean(ae.encode(train_data)), ' \t',\
-        numx.mean(ae.encode(test_data))
+    print epoch, ' \t\t', numx.mean(ae.reconstruction_error(train_data)), \
+        ' \t', numx.mean(ae.reconstruction_error(test_data)),\
+        ' \t', numx.mean(ae.encode(train_data)), \
+        ' \t', numx.mean(ae.encode(test_data))
     for b in range(0,train_data.shape[0],batch_size):
 
         trainer.train(data = train_data[b:(b+batch_size),:],
@@ -115,24 +117,30 @@ for epoch in range(0,max_epochs+1,1) :
                       reg_L1Norm=0.0,
                       reg_L2Norm=0.0,
                       corruptor=None,
-                      reg_sparseness = 2.0, # Rather strong sparsity regularization
+                      # Rather strong sparsity regularization
+                      reg_sparseness = 2.0,
                       desired_sparseness=0.001,
                       reg_contractive=0.0,
                       reg_slowness=0.0,
                       data_next=None,
-                      restrict_gradient=0.1, # The gradient restriction is important for fast learning, see also GRBMs
+# The gradient restriction is important for fast learning, see also GRBMs
+                      restrict_gradient=0.1,
                       restriction_norm='Cols')
 
 # Show filters/features
-filters = vis.tile_matrix_rows(ae.w, v1,v2,h1,h2, border_size = 1,normalized = True)
+filters = vis.tile_matrix_rows(ae.w, v1,v2,h1,h2, border_size = 1,
+                               normalized = True)
 vis.imshow_matrix(filters, 'Filter')
 
 # Show samples
-samples = vis.tile_matrix_rows(train_data[0:100].T, v1,v2,10,10, border_size = 1,normalized = True)
+samples = vis.tile_matrix_rows(train_data[0:100].T, v1,v2,10,10,
+                               border_size = 1,normalized = True)
 vis.imshow_matrix(samples, 'Data samples')
 
 # Show reconstruction
-samples = vis.tile_matrix_rows(ae.decode(ae.encode(train_data[0:100])).T, v1,v2,10,10, border_size = 1,normalized = True)
+samples = vis.tile_matrix_rows(ae.decode(ae.encode(train_data[0:100])).T,
+                               v1,v2,10,10, border_size = 1,
+                               normalized = True)
 vis.imshow_matrix(samples, 'Reconstructed samples')
 
 # Get the optimal gabor wavelet frequency and angle for the filters

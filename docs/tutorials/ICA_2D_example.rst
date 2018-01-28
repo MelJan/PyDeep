@@ -70,6 +70,8 @@ The log-likelihood on all data is:
 
 For a real-world application see the `ICA_natural_images <ICA_natural_images.html#_ICA_Natural_Images>`__ example.
 
+.. _code:
+
 Source code
 ***********
 

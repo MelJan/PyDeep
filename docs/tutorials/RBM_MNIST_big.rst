@@ -67,6 +67,8 @@ depends on the training setup, whereas centering is rather robust to that.
 
 For real valued input see also `GRBM_natural_images <GRBM_natural_images.html#GRBM_natural_images>`__.
 
+.. _code:
+
 Source code
 ***********
 
