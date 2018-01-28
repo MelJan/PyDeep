@@ -22,6 +22,8 @@ In this section you will find tutorials for several algorithms like PCA, ICA, RB
 
    GRBM on natural images<tutorials/GRBM_natural_images.rst>
 
+   AE on natural images<tutorials/AE_natural_images.rst>
+
 The tutorials show how to reproduce results described in the following publications
 
 - `Gaussian-binary restricted Boltzmann machines for modeling natural image statistics. Melchior, J., Wang, N., & Wiskott, L.. (2017). PLOS ONE, 12(2), 1–24. <http://doi.org/10.1371/journal.pone.0171015>`_
