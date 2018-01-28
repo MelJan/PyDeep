@@ -60,7 +60,7 @@ And the corresponding reconstruction of the model.
    :alt: AE filter on MNIST with contrastive penalty
 
 
-See also `RBM_MNIST <RBM_MNIST.html#RBM_MNIST>`__.
+See also `RBM_MNIST_big <RBM_MNIST_big.html#RBM_MNIST_big>`__.
 
 .. _code:
 
