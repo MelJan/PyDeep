@@ -175,6 +175,14 @@ Sinus
    :private-members:
    :special-members: __init__
 
+KWinnerTakeAll
+....................................................
+
+.. autoclass:: pydeep.base.activationfunction.KWinnerTakeAll
+   :members:
+   :private-members:
+   :special-members: __init__
+
 basicstructure
 ''''''''''''''''''''''''''''''''''''''''''''''''''''
 
