@@ -86,7 +86,8 @@ for epoch in range(0,max_epochs+1,1) :
 
     # Print reconstruction errors and sparseness for Training and test data
     print epoch, ' \t\t', numx.mean(ae.reconstruction_error(train_data)), ' \t',\
-        numx.mean(ae.reconstruction_error(test_data)), ' \t', numx.mean(ae.encode(train_data)), ' \t',\
+        numx.mean(ae.reconstruction_error(test_data)), ' \t', \
+        numx.mean(ae.encode(train_data)), ' \t',\
         numx.mean(ae.encode(test_data))
     for b in range(0,train_data.shape[0],batch_size):
 
