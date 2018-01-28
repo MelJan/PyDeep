@@ -8,12 +8,12 @@ Example for Autoencoders (`Autoencoder <https://en.wikipedia.org/wiki/Autoencode
 Theory
 ***********
 
-If you are new on Autoencoders visit `Autoencoder tutorial <http://ufldl.stanford.edu/wiki/index.php/Autoencoders_and_Sparsity>`_ or watch the video course by Hugo Larochelle
+If you are new on Autoencoders visit `Autoencoder tutorial <http://ufldl.stanford.edu/wiki/index.php/Autoencoders_and_Sparsity>`_ or watch the video course by Andrew Ng.
 
 .. raw:: html
 
     <div style="margin-top:10px;">
-      <iframe width="560" height="315" src="http://www.youtube.com/watch?v=FzS3tMl4Nsc" frameborder="0" allowfullscreen></iframe>
+      <iframe width="560" height="315" src="https://www.youtube.com/watch?v=vfnxKO2rMq4" frameborder="0" allowfullscreen></iframe>
     </div>
 
 Results
