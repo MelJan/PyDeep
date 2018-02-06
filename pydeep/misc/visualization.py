@@ -167,7 +167,7 @@ def imshow_matrix(matrix, windowtitle, interpolation='nearest'):
     :param interpolation: Interpolation style
     :type interpolation: string
     """
-    figure().suptitle(windowtitle)
+    figure(windowtitle).suptitle(windowtitle)
     gray()
     imshow(np.array(matrix, np.float64), interpolation=interpolation)
 
