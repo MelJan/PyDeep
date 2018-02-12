@@ -491,7 +491,7 @@ class AutoEncoder(BipartiteGraph):
            -type: numpy array [1, hidden dim]
         '''
         mean_h = numx.atleast_2d(numx.mean(h, axis=0))
-        if self.hidden_activation_function == Sigmoid or isinstance(self.hidden_activation_function, list):
+        if self.hidden_activation_function == Sigmoid or isinstance(self.hidden_activation_function, Sigmoid):
             min_value = 1e-10
             max_value = 1.0 - min_value
             mean_h = numx.clip(mean_h, min_value, max_value)
