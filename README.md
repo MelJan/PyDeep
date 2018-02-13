@@ -1,7 +1,7 @@
 Documentation: http://pydeep.readthedocs.io/en/latest/index.html
 
-
 Welcome
+##################################
 
 PyDeep is a machine learning / deep learning library with focus on unsupervised learning.
 The library has a modular design, is well documented and purely written in Python/Numpy.
@@ -9,69 +9,87 @@ This allows you to understand, use, modify, and debug the code easily. Furthermo
 its extensive use of unittests assures a high level of reliability and correctness.
 
 News
+''''''''''''''''''''''''''''''''''''''''''''''''''''
+- Auto encoder module added including denoising, sparse, contractive, slowness AE's
+- Unittests added, examples
+- tutorials added
 
-- New activation functions added
-- Unitstest update to date
-- Prepared for Autoencoder release
-- Prepared to change License
+- Upcoming (mid-term): Feed Forward neural networks will be added
 
-- Upcoming: Tutorials will be updated
-- Upcoming: Auto encoders will be added
-
-- Future: Feed Forward neural networks will be added
+- Future: MDP integration
 - Future: Deep Boltzmann machines will be added
-- Future: MDP integration will be added
+- Future: RBM/DBM in tensorFlow
 
-Features
+Features index
+''''''''''''''''''''''''''''''''''''''''''''''''''''
 
-        - Principal Component Analysis (PCA)
+- Principal Component Analysis (PCA)
 
-        - Zero Phase Component Analysis (ZCA)
+    * Zero Phase Component Analysis (ZCA)
 
-        - Independent Component Analysis (ICA)
+- Independent Component Analysis (ICA)
 
-        - centered BinaryBinary RBM (BB-RBM)
+- Autoencoder
 
-        - centered GaussianBinary RBM (GB-RBM) with fixed variance
+    * Centered denoising autoencoder including various noise functions
 
-        - centered GaussianBinaryVariance RBM (GB-RBM) with trainable variance
+    * Centered contractive autoencoder
 
-        - centered BinaryBinaryLabel RBM (BBL-RBM)
+    * Centered sparse autoencoder
 
-        - centered GaussianBinaryLabel RBM (GBL-RBM)
+    * Centered slowness autoencoder
 
-        - centered BinaryRect RBM (BR-RBM)
+    * Several regularization methods like l1,l2 norm, Dropout, gradient clipping, ...
 
-        - centered RectBinary RBM (RB-RBM)
+- Restricted Boltzmann machines
 
-        - centered RectRect RBM (RR-RBM)
+    * centered BinaryBinary RBM (BB-RBM)
 
-        - centered GaussianRect RBM (GR-RBM)
+    * centered GaussianBinary RBM (GB-RBM) with fixed variance
 
-        - centered GaussianRectVariance RBM (GRV-RBM)
+    * centered GaussianBinaryVariance RBM (GB-RBM) with trainable variance
 
-        - Gibbs Sampling
+    * centered BinaryBinaryLabel RBM (BBL-RBM)
 
-        - Persistent Gibbs Sampling
+    * centered GaussianBinaryLabel RBM (GBL-RBM)
 
-        - Parallel Tempering Sampling
+    * centered BinaryRect RBM (BR-RBM)
 
-        - Independent Parallel Tempering Sampling
+    * centered RectBinary RBM (RB-RBM)
 
-        - Annealed Importance Sampling (AIS)
+    * centered RectRect RBM (RR-RBM)
 
-        - reverse Annealed Importance Sampling (AIS)
+    * centered GaussianRect RBM (GR-RBM)
 
-        - Contrastive Divergence (CD)
+    * centered GaussianRectVariance RBM (GRV-RBM)
 
-        - Persistent Contrastive Divergence (PCD)
+    * Sampling Algorithms for RBMs
 
-        - Tempering Sampling Contrastive Divergence (PT)
+        + Gibbs Sampling
 
-        - Independent Tempering Sampling Contrastive Divergence (IPT)
+        + Persistent Gibbs Sampling
 
-        - Exact Gradient (GD)
+        + Parallel Tempering Sampling
 
+        + Independent Parallel Tempering Sampling
+
+    * Training for RBMs
+
+        + Exact gradient (GD)
+
+        + Contrastive Divergence (CD)
+
+        + Persistent Contrastive Divergence (PCD)
+
+        + Independent Parallel Tempering Sampling
+
+    * Log-likelihodd estimation for RBMs
+
+        + Exact Partition function
+
+        + Annealed Importance Sampling (AIS)
+
+        + reverse Annealed Importance Sampling (AIS)
 
 Scientific use
 
