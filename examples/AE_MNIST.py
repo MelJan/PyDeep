@@ -1,4 +1,4 @@
-""" Example for sparse Autoencoder (SAE) on natural image patches.
+""" Example for contractive Autoencoder (SAE) on MNIST.
 
     :Version:
         1.0.0
