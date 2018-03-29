@@ -6,12 +6,23 @@
         - Load MNIST.
         - Load CIFAR.
         - Load Caltech.
+        - Load olivietti face dataset
+        - Load nactural image patches
+        - Load UCI binary dataset
+        - Adult dataset
+        - Connect4 dataset
+        - Nips dataset
+        - Web dataset
+        - RCV1 dataset
+        - Mushrooms dataset
+        - DNA dataset
+        - OCR_letters dataset
 
     :Version:
         1.1.0
 
     :Date:
-        19.03.2017
+        29.03.2018
 
     :Author:
         Jan Melchior
@@ -21,7 +32,7 @@
 
     :License:
 
-        Copyright (C) 2017 Jan Melchior
+        Copyright (C) 2018 Jan Melchior
 
         This file is part of the Python library PyDeep.
 
@@ -47,7 +58,7 @@ import scipy.io
 import scipy.misc
 import requests
 import pydeep.misc.measuring as mea
-
+from pydeep.base.numpyextension import get_binary_label
 
 def save_object(obj, path, info=True, compressed=True):
     """ Saves an object to file.
@@ -353,10 +364,13 @@ def load_natural_image_patches(path):
 
 def load_olivetti_faces(path, correct_orientation=True):
     """ Loads the Olivetti face dataset 400 images, size 64x64
+
     :param path: Path and name of the file to load.
     :type path: string
+
     :param correct_orientation: Corrects the orientation of the images.
     :type correct_orientation: bool
+
     :return: Olivetti face dataset
     :rtype: numpy array
     """
@@ -383,3 +397,219 @@ def load_olivetti_faces(path, correct_orientation=True):
         raise Exception('-> File reading Error: ')
     data = numx.array(data, dtype=numx.double)
     return data
+
+def load_mlpython_dataset(dataset, path='uci_binary/', return_label=True):
+    """ Loads datasets from mlpython.
+
+    :param dataset: Dataset to load like mlpython.datasets.adult
+    :type dataset: object
+
+    :param path: Path without name of file!.
+    :type path: string
+
+    :param return_label: If False no labels are return.
+    :type return_label: bool
+
+    :return: Dataset [train_set, train_lab, valid_set, valid_lab, test_set, test_lab]
+    :rtype: list of numpy arrays
+    """
+    if path is '/':
+        path = ''
+    try:
+        print('-> loading data ... ')
+        if not os.path.exists(path):
+            os.makedirs(path)
+            print('-> Created Directory '+path)
+        dic = dataset.load(path, load_to_memory=True)
+        print('-> done!')
+    except:
+        try:
+            print('-> not existing!')
+            dataset.obtain(path)
+        except:
+            raise Exception('Download failed, make sure you have internet connection!')
+        try:
+            print('-> loading data ... ')
+            dic = dataset.load(path, load_to_memory=True)
+            print('-> done!')
+        except:
+            raise Exception('-> File reading Error: ')
+        print('-> done!')
+    train_set = numx.array(dic['train'][0].mem_data[0], dtype=numx.double)
+    valid_set = numx.array(dic['valid'][0].mem_data[0], dtype=numx.double)
+    test_set = numx.array(dic['test'][0].mem_data[0], dtype=numx.double)
+    if return_label:
+        train_lab = get_binary_label(numx.array(dic['train'][0].mem_data[1], dtype=numx.int))
+        valid_lab = get_binary_label(numx.array(dic['valid'][0].mem_data[1], dtype=numx.int))
+        test_lab = get_binary_label(numx.array(dic['test'][0].mem_data[1], dtype=numx.int))
+        return train_set, train_lab, valid_set, valid_lab, test_set, test_lab
+    else:
+        return train_set, valid_set, test_set
+
+def load_adult(path='uci_binary/', mlpython_path="../../../data/get_binary_datasets/mlpython"):
+    """ Loads the Adult dataset.
+
+    :param path: Path without name of file!.
+    :type path: string
+
+    :param mlpython_path: Path to mlpython folder. Needed if not already in system PATH variable.
+    :type mlpython_path: string
+
+    :return: Adult dataset [train_set, train_lab, valid_set, valid_lab, test_set, test_lab]
+    :rtype: list of numpy arrays
+    """
+    try:
+        import sys
+        sys.path.append(mlpython_path)
+        from mlpython.datasets import adult
+    except:
+        raise Exception('MLpython is missing see http://www.dmi.usherb.ca/~larocheh/mlpython/ '\
+                        'you might need to specify the mlpython_path')
+    return load_mlpython_dataset(adult, path)
+
+def load_connect4(path='uci_binary/', mlpython_path="../../../data/get_binary_datasets/mlpython"):
+    """ Loads the Connect4 dataset.
+
+    :param path: Path without name of file!.
+    :type path: string
+
+    :param mlpython_path: Path to mlpython folder. Needed if not already in system PATH variable.
+    :type mlpython_path: string
+
+    :return: Connect4 dataset [train_set, train_lab, valid_set, valid_lab, test_set, test_lab]
+    :rtype: list of numpy arrays
+    """
+    try:
+        import sys
+        sys.path.append(mlpython_path)
+        from mlpython.datasets import connect4
+    except:
+        raise Exception('MLpython is missing see http://www.dmi.usherb.ca/~larocheh/mlpython/ '\
+                        'you might need to specify the mlpython_path')
+    return load_mlpython_dataset(connect4, path)
+
+def load_dna(path='uci_binary/', mlpython_path="../../../data/get_binary_datasets/mlpython"):
+    """ Loads the DNA dataset.
+
+    :param path: Path without name of file!.
+    :type path: string
+
+    :param mlpython_path: Path to mlpython folder. Needed if not already in system PATH variable.
+    :type mlpython_path: string
+
+    :return: DNA dataset [train_set, train_lab, valid_set, valid_lab, test_set, test_lab]
+    :rtype: list of numpy arrays
+    """
+    try:
+        import sys
+        sys.path.append(mlpython_path)
+        from mlpython.datasets import dna
+    except:
+        raise Exception('MLpython is missing see http://www.dmi.usherb.ca/~larocheh/mlpython/ '\
+                        'you might need to specify the mlpython_path')
+    return load_mlpython_dataset(dna, path)
+
+def load_nips(path='uci_binary/', mlpython_path="../../../data/get_binary_datasets/mlpython"):
+    """ Loads the NIPS dataset.
+
+    :param path: Path without name of file!.
+    :type path: string
+
+    :param mlpython_path: Path to mlpython folder. Needed if not already in system PATH variable.
+    :type mlpython_path: string
+
+    :return: NIPS dataset [train_set, train_lab, valid_set, valid_lab, test_set, test_lab]
+    :rtype: list of numpy arrays
+    """
+    try:
+        import sys
+        sys.path.append(mlpython_path)
+        from mlpython.datasets import nips
+    except:
+        raise Exception('MLpython is missing see http://www.dmi.usherb.ca/~larocheh/mlpython/ '\
+                        'you might need to specify the mlpython_path')
+    return load_mlpython_dataset(nips, path, False)
+
+def load_mushrooms(path='uci_binary/', mlpython_path="../../../data/get_binary_datasets/mlpython"):
+    """ Loads the Mushrooms dataset.
+
+    :param path: Path without name of file!.
+    :type path: string
+
+    :param mlpython_path: Path to mlpython folder. Needed if not already in system PATH variable.
+    :type mlpython_path: string
+
+    :return: Mushrooms dataset [train_set, train_lab, valid_set, valid_lab, test_set, test_lab]
+    :rtype: list of numpy arrays
+    """
+    try:
+        import sys
+        sys.path.append(mlpython_path)
+        from mlpython.datasets import mushrooms
+    except:
+        raise Exception('MLpython is missing see http://www.dmi.usherb.ca/~larocheh/mlpython/ '\
+                        'you might need to specify the mlpython_path')
+    return load_mlpython_dataset(mushrooms, path)
+
+def load_ocr_letters(path='uci_binary/', mlpython_path="../../../data/get_binary_datasets/mlpython"):
+    """ Loads the Mushrooms dataset.
+
+    :param path: Path without name of file!.
+    :type path: string
+
+    :param mlpython_path: Path to mlpython folder. Needed if not already in system PATH variable.
+    :type mlpython_path: string
+
+    :return: Mushrooms dataset [train_set, train_lab, valid_set, valid_lab, test_set, test_lab]
+    :rtype: list of numpy arrays
+    """
+    try:
+        import sys
+        sys.path.append(mlpython_path)
+        from mlpython.datasets import ocr_letters
+    except:
+        raise Exception('MLpython is missing see http://www.dmi.usherb.ca/~larocheh/mlpython/ '\
+                        'you might need to specify the mlpython_path')
+    return load_mlpython_dataset(ocr_letters, path)
+
+def load_rcv1(path='uci_binary/', mlpython_path="../../../data/get_binary_datasets/mlpython"):
+    """ Loads the RCV1 dataset.
+
+    :param path: Path without name of file!.
+    :type path: string
+
+    :param mlpython_path: Path to mlpython folder. Needed if not already in system PATH variable.
+    :type mlpython_path: string
+
+    :return: RCV1 dataset [train_set, train_lab, valid_set, valid_lab, test_set, test_lab]
+    :rtype: list of numpy arrays
+    """
+    try:
+        import sys
+        sys.path.append(mlpython_path)
+        from mlpython.datasets import rcv1
+    except:
+        raise Exception('MLpython is missing see http://www.dmi.usherb.ca/~larocheh/mlpython/ '\
+                        'you might need to specify the mlpython_path')
+    return load_mlpython_dataset(rcv1, path)
+
+def load_web(path='uci_binary/', mlpython_path="../../../data/get_binary_datasets/mlpython"):
+    """ Loads the Web dataset.
+
+    :param path: Path without name of file!.
+    :type path: string
+
+    :param mlpython_path: Path to mlpython folder. Needed if not already in system PATH variable.
+    :type mlpython_path: string
+
+    :return: Web dataset [train_set, train_lab, valid_set, valid_lab, test_set, test_lab]
+    :rtype: list of numpy arrays
+    """
+    try:
+        import sys
+        sys.path.append(mlpython_path)
+        from mlpython.datasets import web
+    except:
+        raise Exception('MLpython is missing see http://www.dmi.usherb.ca/~larocheh/mlpython/ '\
+                        'you might need to specify the mlpython_path')
+    return load_mlpython_dataset(web, path)
