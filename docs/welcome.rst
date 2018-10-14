@@ -12,10 +12,11 @@ News
 - Unittests added, examples
 - tutorials added
 
-- Upcoming (mid-term): Feed Forward neural networks will be added
+- Upcoming (short-term): Deep Boltzmann machines will be added
 
-- Future: MDP integration
-- Future: Deep Boltzmann machines will be added
+- Upcoming (short-term): Feed Forward neural networks will be added
+
+- Future:
 - Future: RBM/DBM in tensorFlow
 
 Features index
@@ -111,10 +112,10 @@ If you want to use PyDeep in your publication, you can cite it as follows.
 
 .. code-block:: latex
 
-   @misc{melchior2017pydeep,
+   @misc{melchior2018pydeep,
          title={PyDeep},
          author={Melchior, Jan},
-         year={2017},
+         year={2018},
          publisher={GitHub},
          howpublished={\url{https://github.com/MelJan/PyDeep.git}},
         }

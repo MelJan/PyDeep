@@ -56,7 +56,7 @@ the optimal grating, here for 20 filters
 as well as the corresponding tuning curves, which show the responds/activities as a function frequency in pixels/cycle (left) and angle in rad (right).
 
 .. figure:: images/ICA_tuning.png
-   :scale: 75 %
+   :scale: 50 %
    :alt: ICA  fiter's tuning curves
    :align: center
 
