@@ -12,8 +12,8 @@ If you are new on Autoencoders visit `Autoencoder tutorial <http://ufldl.stanfor
 
 .. raw:: html
 
-    <div class="video-container">
-      <iframe width="560" height="315" src="http://www.youtube.com/embed/vfnxKO2rMq4" frameborder="0" allowfullscreen></iframe>
+    <div style="margin-top:10px;">
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/vfnxKO2rMq4" frameborder="0" allowfullscreen></iframe>
     </div>
 
 Results
@@ -38,7 +38,7 @@ The corresponding whitened image patches.
 The learned filters from the whitened natural image patches.
 
 .. figure:: images/SAE_natural_images_filter.png
-   :scale: 40 %
+   :scale: 10 %
    :align: center
    :alt: ICA filter on natural images
 
