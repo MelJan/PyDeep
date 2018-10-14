@@ -16,7 +16,7 @@ If you are new on Autoencoders visit `Autoencoder tutorial <http://ufldl.stanfor
 .. raw:: html
 
     <div style="margin-top:10px;">
-      <iframe width="560" height="315" src="http://www.youtube.com/embed/vfnxKO2rMq4" frameborder="0" allowfullscreen></iframe>
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/vfnxKO2rMq4" frameborder="0" allowfullscreen></iframe>
     </div>
 
 Results

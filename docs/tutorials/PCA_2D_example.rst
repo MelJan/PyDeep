@@ -13,7 +13,7 @@ If you are new on PCA, a good theoretical introduction is given by the `Course M
 .. raw:: html
 
     <div style="margin-top:10px;">
-      <iframe width="560" height="315" src="http://www.youtube.com/embed/9H-1FH1gn6w" frameborder="0" allowfullscreen></iframe>
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/9H-1FH1gn6w" frameborder="0" allowfullscreen></iframe>
     </div>
 
 Results

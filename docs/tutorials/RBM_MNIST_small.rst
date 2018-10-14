@@ -18,7 +18,7 @@ A good theoretical introduction is also given by the `Course Material <https://w
 .. raw:: html
 
     <div style="margin-top:10px;">
-      <iframe width="560" height="315" src="http://www.youtube.com/embed/bMaITeXhOaE" frameborder="0" allowfullscreen></iframe>
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/bMaITeXhOaE" frameborder="0" allowfullscreen></iframe>
     </div>
 
 and
@@ -26,7 +26,7 @@ and
 .. raw:: html
 
     <div style="margin-top:10px;">
-      <iframe width="560" height="315" src="http://www.youtube.com/embed/nyk5XUklb5M" frameborder="0" allowfullscreen></iframe>
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/nyk5XUklb5M" frameborder="0" allowfullscreen></iframe>
     </div>
 
 Results
