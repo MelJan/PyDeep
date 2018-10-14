@@ -38,7 +38,7 @@ The corresponding whitened image patches.
 The learned filters from the whitened natural image patches.
 
 .. figure:: images/SAE_natural_images_filter.png
-   :scale: 75 %
+   :scale: 40 %
    :align: center
    :alt: ICA filter on natural images
 
