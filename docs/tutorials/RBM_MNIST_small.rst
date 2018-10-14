@@ -38,19 +38,13 @@ Learned filters of a centered binary RBM on the MNIST dataset.
 The filters have been normalized such that the structure is more prominent.
 
 .. figure:: images/BRBM_small_centered_weights.png
-   :height: 800 px
-   :width: 600 px
-   :scale: 50 %
    :align: center
    :alt: weights centered
 
 Sampling results for some examples. The first row shows the training data and the following rows are the results after one Gibbs-sampling step starting from the previous row.
 
 .. figure:: images/BRBM_small_centered_samples.png
-   :height: 2400 px
-   :width: 1190 px
    :alt: samples centered
-   :scale: 50 %
    :align: center
 
 The Log-Likelihood is calculated using the exact Partition function, an annealed importance sampling estimation (optimistic) and reverse annealed importance sampling estimation (pessimistic).
@@ -70,17 +64,11 @@ The code can also be executed without centering by setting
 Resulting in the following weights and sampling steps.
 
 .. figure:: images/BRBM_small_normal_weights.png
-   :height: 800 px
-   :width: 600 px
-   :scale: 50 %
    :alt: weights normal
    :align: center
 
 .. figure:: images/BRBM_small_normal_samples.png
-   :height: 2400 px
-   :width: 1190 px
    :alt: samples normal
-   :scale: 50 %
    :align: center
 
 The Log-Likelihood for this model is worse (6.5 nats lower).
@@ -106,17 +94,11 @@ While the centered model has a similar performance on the flipped version,
    reverse AIS Partition:  309.188366165 (LL train: -141.755241282, LL test: -141.029631984)
 
 .. figure:: images/BRBM_small_centered_weights_flipped.png
-   :height: 800 px
-   :width: 600 px
-   :scale: 50 %
    :alt: flipped filters centered
    :align: center
 
 .. figure:: images/BRBM_small_centered_samples_flipped.png
-   :height: 2400 px
-   :width: 1190 px
    :alt: flipped samples centered
-   :scale: 50 %
    :align: center
 
 The normal RBM has not.
@@ -128,17 +110,11 @@ The normal RBM has not.
    reverse AIS Partition:  3495.20117625 (LL train: -183.188469308, LL test: -183.289157393)
 
 .. figure:: images/BRBM_small_normal_weights_flipped.png
-   :height: 800 px
-   :width: 600 px
-   :scale: 50 %
    :alt: flipped filters normal
    :align: center
 
 .. figure:: images/BRBM_small_normal_samples_flipped.png
-   :height: 2400 px
-   :width: 1190 px
    :alt: flipped samples normal
-   :scale: 50 %
    :align: center
 
 For a large number of hidden units see `RBM_MNIST_big <RBM_MNIST_big.html#RBM_MNIST_big>`__.
