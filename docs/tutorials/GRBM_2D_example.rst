@@ -22,14 +22,12 @@ The code_ given below produces the following output.
 Visualization of the weight vectors learned by the GRBM with 4 hidden units together with the contour plot of the learned probability density function (PDF).
 
 .. figure:: images/GRBM_2D_PDF.png
-   :scale: 60 %
    :align: center
    :alt: Visualization of the PDF learned by the GRBM
 
 For a better visualization also the log-PDF.
 
 .. figure:: images/GRBM_2D_logPDF.png
-   :scale: 60 %
    :align: center
    :alt: Visualization of the log PDF learned by the GRBM
 
@@ -65,12 +63,10 @@ The exact log-likelihood, annealed importance sampling estimation, and reverse a
 For comparison here is the original mixing matrix an the corresponding ICA estimation.
 
 .. image:: images/GRBM_2D_MIX.png
-   :scale: 60 %
    :align: center
    :alt: Examples of mixing matrix 2D
 
 .. image:: images/GRBM_2D_ICA.png
-   :scale: 60 %
    :align: center
    :alt: Examples ICA estimation of the mixing matrix.
 

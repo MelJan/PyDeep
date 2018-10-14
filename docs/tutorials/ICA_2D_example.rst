@@ -32,7 +32,6 @@ The code_ given below produces the following output.
 Visualization of the data and true mixing matrix projected to the whitened space.
 
 .. figure:: images/ICA_2D_mixing_whitened.png
-   :scale: 60 %
    :align: center
    :alt: Examples of mixing matrix 2D in whitened space
 
@@ -46,19 +45,16 @@ Amari distanca between true mixing matrix and estimated mixing matrix:
    0.00989836830489
 
 .. image:: images/ICA_2D_estimate_whitened.png
-   :scale: 60 %
    :align: center
    :alt: Examples of ICA 2D in whitened space
 
 We can also project the ICA projection matrix back to the original space and compare the results in the original space.
 
 .. image:: images/ICA_2D_mixing.png
-   :scale: 60 %
    :align: center
    :alt: Examples of mixing matrix 2D
 
 .. image:: images/ICA_2D_estimate.png
-   :scale: 60 %
    :align: center
    :alt: Examples of ICA 2D
 
