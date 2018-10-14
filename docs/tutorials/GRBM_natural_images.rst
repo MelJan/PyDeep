@@ -21,18 +21,21 @@ The code_ given below produces the following output.
 Visualization of the learned filters, which are very similar to those of ICA.
 
 .. figure:: images/GRBM_weights_unnormalized.png
+   :scale: 50 %
    :align: center
    :alt: GRBM weights unnormalized
 
 For a better visualization of the structure, here are the same filters normalized independently.
 
 .. figure:: images/GRBM_weights_normalized.png
+   :scale: 50 %
    :align: center
    :alt: GRBM weights normalized
 
 Sampling results for some examples. The first row shows some training data and the following rows are the results after one step of Gibbs-sampling starting from the previous row.
 
 .. figure:: images/GRBM_samples.png
+   :scale: 35 %
    :alt: GRBM samples
    :align: center
 
@@ -48,18 +51,21 @@ To analyze the optimal response of the learn filters we can fit a Gabor-wavelet 
 the optimal grating, here for 20 filters
 
 .. figure:: images/GRBM_grating.png
+   :scale: 75 %
    :align: center
    :alt: GRBM filters with fitted Gabor-wavelets.
 
 as well as the corresponding tuning curves, which show the responds/activities as a function frequency in pixels/cycle (left) and angle in rad (right).
 
 .. figure:: images/GRBM_tuning.png
+   :scale: 75 %
    :alt: GRBM  fiter's tuning curves
    :align: center
 
 Furthermore, we can plot the histogram of all filters over the frequencies in pixels/cycle (left) and angles in rad (right).
 
 .. figure:: images/GRBM_histogram.png
+   :scale: 75 %
    :align: center
    :alt: GRBM histogram of frequency and angle
 

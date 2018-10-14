@@ -27,30 +27,35 @@ The code_ given below produces the following output that is quite similar to the
 Visualization of 100 test samples.
 
 .. figure:: images/AE_MNIST_DATA.png
+   :scale: 75 %
    :align: center
    :alt: 100 MNIST digits (test data)
 
 The learned filters without regularization.
 
 .. figure:: images/AE_MNIST_FILTER.png
+   :scale: 75 %
    :align: center
    :alt: AE filter on MNIST
 
 The corresponding reconstruction of the model, that is the encoding followed by the decoding.
 
 .. figure:: images/AE_MNIST_REC.png
+   :scale: 75 %
    :align: center
    :alt: AE filter on MNIST
 
 The learned filters when a contractive penalty is used, leading to much more localized and less noisy filters.
 
 .. figure:: images/AE_MNIST_FILTER_CON.png
+   :scale: 75 %
    :align: center
    :alt: AE filter on MNIST with contrastive penalty
 
 And the corresponding reconstruction of the model.
 
 .. figure:: images/AE_MNIST_REC_CON.png
+   :scale: 75 %
    :align: center
    :alt: AE filter on MNIST with contrastive penalty
 

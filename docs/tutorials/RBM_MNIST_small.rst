@@ -45,6 +45,7 @@ The filters have been normalized such that the structure is more prominent.
 Sampling results for some examples. The first row shows the training data and the following rows are the results after one Gibbs-sampling step starting from the previous row.
 
 .. figure:: images/BRBM_small_centered_samples.png
+   :scale: 35 %
    :alt: samples centered
    :align: center
 
@@ -70,6 +71,7 @@ Resulting in the following weights and sampling steps.
    :align: center
 
 .. figure:: images/BRBM_small_normal_samples.png
+   :scale: 35 %
    :alt: samples normal
    :align: center
 
@@ -101,6 +103,7 @@ While the centered model has a similar performance on the flipped version,
    :align: center
 
 .. figure:: images/BRBM_small_centered_samples_flipped.png
+   :scale: 35 %
    :alt: flipped samples centered
    :align: center
 
@@ -118,6 +121,7 @@ The normal RBM has not.
    :align: center
 
 .. figure:: images/BRBM_small_normal_samples_flipped.png
+   :scale: 35 %
    :alt: flipped samples normal
    :align: center
 
