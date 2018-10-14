@@ -12,7 +12,7 @@ If you are new on Autoencoders visit `Autoencoder tutorial <http://ufldl.stanfor
 
 .. raw:: html
 
-    <div style="margin-top:10px;">
+    <div class="video-container">
       <iframe width="560" height="315" src="http://www.youtube.com/embed/vfnxKO2rMq4" frameborder="0" allowfullscreen></iframe>
     </div>
 
