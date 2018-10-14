@@ -23,12 +23,16 @@ Learned filters of a centered binary RBM with 500 hidden units on the MNIST data
 The filters have been normalized such that the structure is more prominent.
 
 .. figure:: images/BRBM_big_centered_weights.png
+   :height: 2400 px
+   :width: 1190 px
    :alt: weights centered
    :align: center
 
 Sampling results for some examples. The first row shows some training data and the following rows are the results after one Gibbs-sampling step starting from the previous row.
 
 .. figure:: images/BRBM_big_centered_samples.png
+   :height: 2400 px
+   :width: 1190 px
    :alt: samples centered
    :scale: 50 %
    :align: center
@@ -45,12 +49,16 @@ Now we have a look at the filters learned for a normal binary RBM with 500 hidde
 The filters have also been normalized such that the structure is more prominent.
 
 .. figure:: images/BRBM_big_normal_weights.png
+   :height: 2400 px
+   :width: 1190 px
    :alt: weights centered
    :align: center
 
 Sampling results for some examples. The first row shows the training data and the following rows are the results after one Gibbs-sampling step starting from the previous row.
 
 .. figure:: images/BRBM_big_normal_samples.png
+   :height: 2400 px
+   :width: 1190 px
    :alt: samples centered
    :scale: 50 %
    :align: center

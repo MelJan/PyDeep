@@ -36,7 +36,7 @@ Sampling results for some examples. The first row shows some training data and t
 
 .. figure:: images/GRBM_samples.png
    :alt: GRBM samples
-   :scale: 50 %
+   :scale: 75 %
    :align: center
 
 The log-likelihood and reconstruction error for training and test data

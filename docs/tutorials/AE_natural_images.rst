@@ -38,7 +38,7 @@ The corresponding whitened image patches.
 The learned filters from the whitened natural image patches.
 
 .. figure:: images/SAE_natural_images_filter.png
-   :scale: 30 %
+   :scale: 40 %
    :align: center
    :alt: ICA filter on natural images
 
@@ -73,7 +73,7 @@ Furthermore, we can plot the histogram of all filters over the frequencies in pi
 We can also train the model on the unwhitened data leading to the following filters that cover also lower frequencies.
 
 .. figure:: images/SAE_natural_images_filter_unwhitened.png
-   :scale: 75 %
+   :scale: 40 %
    :alt: ICA histogram of frequency and angle
    :align: center
 
