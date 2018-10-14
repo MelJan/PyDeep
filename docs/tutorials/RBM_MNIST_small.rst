@@ -46,7 +46,7 @@ Sampling results for some examples. The first row shows the training data and th
 
 .. figure:: images/BRBM_small_centered_samples.png
    :alt: samples centered
-   :scale: 150 %
+   :scale: 50 %
    :align: center
 
 The Log-Likelihood is calculated using the exact Partition function, an annealed importance sampling estimation (optimistic) and reverse annealed importance sampling estimation (pessimistic).
@@ -72,7 +72,7 @@ Resulting in the following weights and sampling steps.
 
 .. figure:: images/BRBM_small_normal_samples.png
    :alt: samples normal
-   :scale: 150 %
+   :scale: 50 %
    :align: center
 
 The Log-Likelihood for this model is worse (6.5 nats lower).
@@ -104,7 +104,7 @@ While the centered model has a similar performance on the flipped version,
 
 .. figure:: images/BRBM_small_centered_samples_flipped.png
    :alt: flipped samples centered
-   :scale: 150 %
+   :scale: 50 %
    :align: center
 
 The normal RBM has not.
@@ -122,7 +122,7 @@ The normal RBM has not.
 
 .. figure:: images/BRBM_small_normal_samples_flipped.png
    :alt: flipped samples normal
-   :scale: 150 %
+   :scale: 50 %
    :align: center
 
 For a large number of hidden units see `RBM_MNIST_big <RBM_MNIST_big.html#RBM_MNIST_big>`__.

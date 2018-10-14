@@ -30,7 +30,7 @@ Sampling results for some examples. The first row shows some training data and t
 
 .. figure:: images/BRBM_big_centered_samples.png
    :alt: samples centered
-   :scale: 150 %
+   :scale: 50 %
    :align: center
 
 The log-Likelihood is estimated using annealed importance sampling (optimistic) and reverse annealed importance sampling (pessimistic).
@@ -52,7 +52,7 @@ Sampling results for some examples. The first row shows the training data and th
 
 .. figure:: images/BRBM_big_normal_samples.png
    :alt: samples centered
-   :scale: 150 %
+   :scale: 50 %
    :align: center
 
 .. code-block:: Python
