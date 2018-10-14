@@ -24,28 +24,28 @@ The code_ given below produces the following output that is impressively similar
 Visualization of 100 examples of the gray scale natural image dataset.
 
 .. figure:: images/SAE_natural_images_data_raw.png
-   :scale: 75 %
+   :scale: 50 %
    :align: center
    :alt: 100 gray scale natural image patch examples
 
 The corresponding whitened image patches.
 
 .. figure:: images/SAE_natural_images_data.png
-   :scale: 75 %
+   :scale: 50 %
    :align: center
    :alt: 100 gray scale natural image patch examples whitened
 
 The learned filters from the whitened natural image patches.
 
 .. figure:: images/SAE_natural_images_filter.png
-   :scale: 75 %
+   :scale: 30 %
    :align: center
    :alt: ICA filter on natural images
 
 The corresponding reconstruction of the model, that is the encoding followed by the decoding.
 
 .. figure:: images/SAE_natural_images_reconstruction.png
-   :scale: 75 %
+   :scale: 50 %
    :align: center
    :alt: ICA filter on natural images
 
@@ -74,7 +74,7 @@ Furthermore, we can plot the histogram of all filters over the frequencies in pi
 We can also train the model on the unwhitened data leading to the following filters that cover also lower frequencies.
 
 .. figure:: images/SAE_natural_images_filter_unwhitened.png
-   :scale: 75 %
+   :scale: 30 %
    :alt: ICA histogram of frequency and angle
    :align: center
 

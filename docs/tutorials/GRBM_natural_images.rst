@@ -35,7 +35,7 @@ For a better visualization of the structure, here are the same filters normalize
 Sampling results for some examples. The first row shows some training data and the following rows are the results after one step of Gibbs-sampling starting from the previous row.
 
 .. figure:: images/GRBM_samples.png
-   :scale: 35 %
+   :scale: 30 %
    :alt: GRBM samples
    :align: center
 
@@ -58,7 +58,7 @@ the optimal grating, here for 20 filters
 as well as the corresponding tuning curves, which show the responds/activities as a function frequency in pixels/cycle (left) and angle in rad (right).
 
 .. figure:: images/GRBM_tuning.png
-   :scale: 75 %
+   :scale: 50 %
    :alt: GRBM  fiter's tuning curves
    :align: center
 
