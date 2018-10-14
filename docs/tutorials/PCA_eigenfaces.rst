@@ -30,7 +30,7 @@ The first 100 principal components extracted from the dataset. The components fo
 The cumulative sum of the Eigenvalues show how 'compressable' the dataset is.
 
 .. image:: images/eigenspectrum_faces.png
-   :scale: 75 %
+   :scale: 50 %
    :align: center
    :alt: Eigenspectrum of the face dataset
 
