@@ -14,6 +14,8 @@ In this section you will find tutorials for several algorithms like PCA, ICA, RB
 
    ICA on natural images<tutorials/ICA_natural_images.rst>
 
+   FNN on MNIST <tutorials/FNN_MNIST.rst>
+
    RBM small on MNIST <tutorials/RBM_MNIST_small.rst>
 
    RBM big on MNIST <tutorials/RBM_MNIST_big.rst>

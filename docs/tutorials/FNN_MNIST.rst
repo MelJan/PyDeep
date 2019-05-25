@@ -40,7 +40,6 @@ See also `RBM_MNIST_big <RBM_MNIST_big.html#RBM_MNIST_big>`__.
 
 .. _code:
 
-
 Source code
 ***********
 
