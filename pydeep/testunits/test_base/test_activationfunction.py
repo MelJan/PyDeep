@@ -360,7 +360,6 @@ class TestActivationFunction(unittest.TestCase):
 
         data = numx.array([[0.28001309, 0.34200877, 0.37797814], [3, 1, 6]])
         target = numx.array([[0.0, Sigmoid.f(0.34200877), Sigmoid.f(0.37797814)], [Sigmoid.f(3), 0, Sigmoid.f(6)]])
-        print target, act.f(data)
         assert numx.all(numx.abs(target - act.f(data) < epsilon))
 
         target = numx.array([[0.0, Sigmoid.df(0.34200877), Sigmoid.df(0.37797814)], [Sigmoid.df(3), 0, Sigmoid.df(6)]])
