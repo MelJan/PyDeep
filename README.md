@@ -25,6 +25,22 @@ Features index
 
 - Independent Component Analysis (ICA)
 
+- Feed Forward Neural Networks
+    
+    * Fully Connected Layer / Randomly Connected Layer
+    
+    * Backpropagation / AdaGrad
+    
+    * Dropout / Centering / Corruptors / L1 / L2 / Sparseness
+    
+    * Various Activation Functions
+    
+    * Various Loss Functions
+    
+    * Gradient restriction
+    
+    * Finite Differences Test
+
 - Autoencoder
 
     * Centered denoising autoencoder including various noise functions
