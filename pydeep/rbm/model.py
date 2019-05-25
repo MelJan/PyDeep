@@ -678,12 +678,14 @@ class GaussianBinaryRBM(BinaryBinaryRBM):
                 new_sigma = numx.ones((1, num_new_visibles)) * initial_sigmas
             else:
                 new_sigma = numx.array(initial_sigmas)
-        self.sigma = numx.insert(self.sigma, numx.ones(num_new_visibles) * position, new_sigma, axis=1)
+        self.sigma = numx.insert(self.sigma, numx.array(numx.ones(num_new_visibles) * position, dtype=int), new_sigma,
+                                 axis=1)
 
         new_bv_base = numx.zeros((1, num_new_visibles))
         if data is not None:
             new_bv_base = data.mean(axis=0).reshape(1, data.shape[1])
-        self.bv_base = numx.insert(bv_base_old, numx.ones(num_new_visibles) * position, new_bv_base, axis=1)
+        self.bv_base = numx.insert(bv_base_old, numx.array(numx.ones(num_new_visibles) * position, dtype=int),
+                                   new_bv_base, axis=1)
 
     def _add_hidden_units(self,
                           num_new_hiddens,
@@ -1061,6 +1063,7 @@ class GaussianBinaryVarianceRBM(GaussianBinaryRBM):
         return [self._calculate_weight_gradient(v, h), self._calculate_visible_bias_gradient(v),
                 self._calculate_hidden_bias_gradient(h), self._calculate_sigma_gradient(v, h)]
 
+
 class BinaryBinaryLabelRBM(BinaryBinaryRBM):
     """ Implementation of a centered Restricted Boltzmann machine with Binary visible plus Softmax label units and \
         binary hidden units.
@@ -1335,7 +1338,7 @@ class GaussianBinaryLabelRBM(GaussianBinaryRBM):
         :rtype: numpy array [batch size, input dim]
         """
         if beta is None:
-            res = v[:, 0:self.data_dim] + numx.random.randn(v.shape[0],self.data_dim) * self.sigma[:, 0:self.data_dim]
+            res = v[:, 0:self.data_dim] + numx.random.randn(v.shape[0], self.data_dim) * self.sigma[:, 0:self.data_dim]
         else:
             res = (v[:, 0:self.data_dim] + numx.random.randn(v.shape[0], self.data_dim)
                    * (beta * (self.sigma - self._data_std) + self._data_std)[:, 0:self.data_dim])

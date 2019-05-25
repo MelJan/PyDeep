@@ -10,15 +10,11 @@ its extensive use of unittests assures a high level of reliability and correctne
 
 News
 ''''''''''''''''''''''''''''''''''''''''''''''''''''
-- Auto encoder module added including denoising, sparse, contractive, slowness AE's
-- Unittests added, examples
-- tutorials added
+- Feed Forward neural networks will be added
 
-- Upcoming (mid-term): Feed Forward neural networks will be added
-
-- Future: MDP integration
 - Future: Deep Boltzmann machines will be added
-- Future: RBM/DBM in tensorFlow
+- Future: RBM/DBM in tensorFlow / PyTorch
+
 
 Features index
 ''''''''''''''''''''''''''''''''''''''''''''''''''''

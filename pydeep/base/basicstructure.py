@@ -303,8 +303,7 @@ class BipartiteGraph(object):
                 new_weights = numx.random.randn(self.input_dim, num_new_hiddens) * initial_weights
             else:
                 new_weights = initial_weights
-        self.w = numx.array(numx.insert(self.w, numx.ones(num_new_hiddens) * position, new_weights, axis=1),
-                            self.dtype)
+        self.w = numx.array(numx.insert(self.w, numx.array(numx.ones(num_new_hiddens) * position,dtype=int), new_weights, axis=1),self.dtype)
 
         # AUTO   -> Initialized to Hidden range mean
         # Scalar -> Initialized to given value
@@ -316,7 +315,7 @@ class BipartiteGraph(object):
                 new_oh = numx.zeros((1, num_new_hiddens)) + initial_offsets
             else:
                 new_oh = initial_offsets
-        self.oh = numx.array(numx.insert(self.oh, numx.ones(num_new_hiddens) * position, new_oh, axis=1), self.dtype)
+        self.oh = numx.array(numx.insert(self.oh, numx.array(numx.ones(num_new_hiddens) * position,dtype=int), new_oh, axis=1),self.dtype)
 
         # AUTO   -> Initialized to randn()*0.01
         # Scalar -> Initialized to given value + randn()*0.01
@@ -331,7 +330,7 @@ class BipartiteGraph(object):
                     new_bias = initial_bias + numx.zeros((1, num_new_hiddens))
                 else:
                     new_bias = numx.array(initial_bias, dtype=self.dtype)
-        self.bh = numx.array(numx.insert(self.bh, numx.ones(num_new_hiddens) * position, new_bias, axis=1), self.dtype)
+        self.bh = numx.array(numx.insert(self.bh, numx.array(numx.ones(num_new_hiddens) * position,dtype=int), new_bias, axis=1), self.dtype)
 
         self.output_dim = self.w.shape[1]
 
@@ -382,9 +381,9 @@ class BipartiteGraph(object):
                 data = numx.concatenate(data)
             new_data_mean = data.mean(axis=0).reshape(1, num_new_visibles)
             new_data_std = data.std(axis=0).reshape(1, num_new_visibles)
-        self._data_mean = numx.array(numx.insert(self._data_mean, numx.ones(num_new_visibles) * position,
+        self._data_mean = numx.array(numx.insert(self._data_mean, numx.array(numx.ones(num_new_visibles)* position, dtype=int),
                                                  new_data_mean, axis=1), self.dtype)
-        self._data_std = numx.array(numx.insert(self._data_std, numx.ones(num_new_visibles) * position,
+        self._data_std = numx.array(numx.insert(self._data_std, numx.array(numx.ones(num_new_visibles) * position, dtype=int),
                                                 new_data_std, axis=1), self.dtype)
 
         # AUTO   -> Small random values out of 
@@ -400,7 +399,7 @@ class BipartiteGraph(object):
                 new_weights = numx.random.randn(num_new_visibles, self.output_dim) * initial_weights
             else:
                 new_weights = initial_weights
-        self.w = numx.array(numx.insert(self.w, numx.ones(num_new_visibles) * position, new_weights, axis=0),
+        self.w = numx.array(numx.insert(self.w, numx.array(numx.ones(num_new_visibles) * position,dtype = int), new_weights, axis=0),
                             self.dtype)
 
         if initial_offsets is 'AUTO':
@@ -413,7 +412,7 @@ class BipartiteGraph(object):
                 new_ov = numx.zeros((1, num_new_visibles)) + initial_offsets
             else:
                 new_ov = initial_offsets
-        self.ov = numx.array(numx.insert(self.ov, numx.ones(num_new_visibles) * position, new_ov, axis=1), self.dtype)
+        self.ov = numx.array(numx.insert(self.ov, numx.array(numx.ones(num_new_visibles) * position,dtype = int), new_ov, axis=1), self.dtype)
 
         # AUTO   -> data != None -> Initialized to the inverse sigmoid of 
         #           data mean
@@ -430,7 +429,7 @@ class BipartiteGraph(object):
                 new_bias = numx.zeros((1, num_new_visibles)) + initial_bias
             else:
                 new_bias = initial_bias
-        self.bv = numx.array(numx.insert(self.bv, numx.ones(num_new_visibles) * position, new_bias, axis=1), self.dtype)
+        self.bv = numx.array(numx.insert(self.bv, numx.array(numx.ones(num_new_visibles) * position,dtype = int), new_bias, axis=1), self.dtype)
         self.input_dim = self.w.shape[0]
 
     def _remove_visible_units(self, indices):
