@@ -12,6 +12,7 @@ Results
 The code_ given below produces the following output that is quite similar to the results produced by an RBM.
 
 .. code-block:: Python
+
     1 	0.1 	0.0337166666667 	0.0396
     2 	0.1 	0.023 	            0.0285
     3 	0.1 	0.0198666666667 	0.0276
