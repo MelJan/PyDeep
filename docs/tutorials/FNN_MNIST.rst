@@ -46,4 +46,4 @@ Source code
    :scale: 20 %
    :target: https://github.com/MelJan/PyDeep/blob/master/examples/FNN_MNIST.py
 
-.. literalinclude:: ../../examples/AFNN_MNIST.py
+.. literalinclude:: ../../examples/FNN_MNIST.py
