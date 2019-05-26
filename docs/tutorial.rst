@@ -20,6 +20,8 @@ In this section you will find tutorials for several algorithms like PCA, ICA, RB
 
    RBM big on MNIST <tutorials/RBM_MNIST_big.rst>
 
+   DBM big on MNIST <tutorials/DBM_MNIST.rst>
+
    GRBM 2D<tutorials/GRBM_2D_example.rst>
 
    GRBM on natural images<tutorials/GRBM_natural_images.rst>
