@@ -10,9 +10,9 @@ its extensive use of unittests assures a high level of reliability and correctne
 
 News
 ''''''''''''''''''''''''''''''''''''''''''''''''''''
-- Feed Forward neural networks will be added
+- Feed Forward neural networks added
+- Deep Boltzmann machines added
 
-- Future: Deep Boltzmann machines will be added
 - Future: RBM/DBM in tensorFlow / PyTorch
 
 
@@ -102,6 +102,14 @@ Features index
         + Annealed Importance Sampling (AIS)
 
         + reverse Annealed Importance Sampling (AIS)
+
+- Deep Boltzmann machines
+    
+    * Binary / SoftMax / Gaussian / Rectifier Units
+    
+    * Fully connected and convolving weight layer
+    
+    * CD / PCD / Mean field sampling
 
 Scientific use
 

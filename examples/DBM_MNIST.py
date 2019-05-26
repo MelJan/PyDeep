@@ -9,7 +9,7 @@ from pydeep.dbm.model import *
 numx.random.seed(42)
 
 # Load Data
-train_data = IO.load_mnist("../../../data/mnist.pkl.gz", True)[0]
+train_data = IO.load_mnist("../../data/mnist.pkl.gz", True)[0]
 
 # Set dimensions Layer 1-3
 v11 = v12 = 28
@@ -44,7 +44,7 @@ l2 = Binary_layer(wl1,
                   initial_offsets='AUTO',
                   dtype=numx.float64)
 
-l3 =Binary_layer(wl2,
+l3 = Binary_layer(wl2,
                   None,
                   data=None,
                   initial_bias='AUTO',
@@ -52,8 +52,8 @@ l3 =Binary_layer(wl2,
                   dtype=numx.float64)
 
 # Initialize parameters
-max_epochs =100
-batch_size = 10
+max_epochs = 10
+batch_size = 20
 
 # Sampling Setps positive and negative phase
 k_d = 3
@@ -95,17 +95,15 @@ for epoch in range(0, max_epochs):
         z_d = numx.zeros((batch_size, O)) + l3.offset
         chain_d = [x_d, y_d, z_d]
 
-        # Sample for k_d steps inplace, but clamp the data units
-        model.sample(chain_d, k_d, [True, False, True], True)
+        # Sample for k_d steps mean field estimation inplace, but clamp the data units
+        model.meanfield(chain_d, k_d, [True, False, False], True)
+        # or sample instead
+        #model.sample(chain_d, k_d, [True, False, False], True)
 
         # Negative Phase
 
         # PCD, sample k_m steps without clamping
         model.sample(chain_m, k_m, [False, False, False], True)
-
-        # Alternatively use CD sampling, by not starting from the last state in the MArkov chains but from the data.
-        #chain_m[0] = x_d
-        #chain_m = model.sample(chain_d, k_m, [False,False,False], False)
 
         # Update the model using the sampled states and learning rates
         model.update(chain_d, chain_m, lr_W1, lr_b1, lr_o1)
@@ -114,8 +112,7 @@ for epoch in range(0, max_epochs):
     print numx.mean(numxExt.get_norms(wl1.weights)), '\t', numx.mean(numxExt.get_norms(wl2.weights)), '\t',
     print numx.mean(numxExt.get_norms(l1.bias)), '\t', numx.mean(numxExt.get_norms(l2.bias)), '\t',
     print numx.mean(numxExt.get_norms(l3.bias)), '\t', numx.mean(l1.offset), '\t', numx.mean(
-    l2.offset), '\t', numx.mean(l3.offset)
-
+        l2.offset), '\t', numx.mean(l3.offset)
 
 # Show weights
 VIS.imshow_matrix(VIS.tile_matrix_rows(wl1.weights, v11, v12, v21, v22, border_size=1, normalized=False), 'Weights 1')
@@ -124,9 +121,12 @@ VIS.imshow_matrix(
     'Weights 2')
 
 # # Samplesome steps
-chain_m = [numx.zeros((batch_size, v11 * v12)) + l1.offset, numx.zeros((batch_size, v21 * v22)) + l2.offset, numx.zeros((batch_size, v31 * v32)) + l3.offset]
+chain_m = [numx.float64(numx.random.rand(10 * batch_size, v11 * v12) < 0.5),
+           numx.float64(numx.random.rand(10 * batch_size, v21 * v22) < 0.5),
+           numx.float64(numx.random.rand(10 * batch_size, v31 * v32) < 0.5)]
 model.sample(chain_m, 100, [False, False, False], True)
-
-VIS.imshow_matrix(VIS.tile_matrix_columns(chain_m[0], v11, v12, 1, batch_size, 1, False), 'Samples')
+# GEt probabilities
+samples = l1.activation(None, chain_m[1])[0]
+VIS.imshow_matrix(VIS.tile_matrix_columns(samples, v11, v12, 10, batch_size, 1, False), 'Samples')
 
 VIS.show()
