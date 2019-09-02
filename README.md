@@ -10,6 +10,7 @@ its extensive use of unittests assures a high level of reliability and correctne
 
 News
 ''''''''''''''''''''''''''''''''''''''''''''''''''''
+- Exact log-lLikelihood and annealed importance sampling estimate for a 3 layer Deep Boltzmann machines added
 - Feed Forward neural networks added
 - Deep Boltzmann machines added
 
@@ -110,6 +111,10 @@ Features index
     * Fully connected and convolving weight layer
     
     * CD / PCD / Mean field sampling
+    
+    * Exact and annealed importance sampling estimate of the partition function of a 3 layer Deep Boltzmann machines.
+    
+    * Estimation of the log-likelihood lower bound of a 3 layer Deep Boltzmann machines.
 
 Scientific use
 
