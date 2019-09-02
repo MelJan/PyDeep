@@ -1,6 +1,6 @@
 import pydeep.misc.visualization as VIS
 import pydeep.misc.io as IO
-import pydeep.base.numpyextension as npExt
+import pydeep.base.numpyextension as numxExt
 from pydeep.dbm.unit_layer import *
 from pydeep.dbm.weight_layer import *
 from pydeep.dbm.model import *
