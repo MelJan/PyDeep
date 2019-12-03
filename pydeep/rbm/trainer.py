@@ -46,7 +46,6 @@
         along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 """
-import exceptions as ex
 import pydeep.rbm.sampler as sampler
 import pydeep.rbm.model as models
 import pydeep.rbm.estimator as estimator
@@ -113,7 +112,7 @@ class CD(object):
         self.hidden_offsets = 0.5 * numx.ones((1, self.model.output_dim))
         if data is not None:
             if self.model.input_dim != data.shape[1]:
-                raise ex.ValueError("Data dimension and model input dimension have to be equal!")
+                raise ValueError("Data dimension and model input dimension have to be equal!")
             self.visible_offsets = data.mean(axis=0).reshape(1, data.shape[1])
         else:
             self.visible_offsets = 0.5 * numx.ones((1, self.model.input_dim))
@@ -633,7 +632,7 @@ class GD(CD):
         :type data: numpy array [num. samples x input dim]
         """
         if not isinstance(model, models.BinaryBinaryRBM):
-            raise ex.ValueError("True gradient only possible for Binary Binary RBMs!")
+            raise ValueError("True gradient only possible for Binary Binary RBMs!")
 
         # Call super constructor of CD
         super(GD, self).__init__(model, data)
