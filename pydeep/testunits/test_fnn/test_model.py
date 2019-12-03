@@ -1,5 +1,5 @@
 ''' Test module for FNN model methods.
-        
+
     :Version:
         1.0
 
@@ -42,12 +42,12 @@ from pydeep.base.numpyextension import generate_2d_connection_matrix
 
 import sys
 
-print "\n... pydeep.fnn.model.py"
+print("\n... pydeep.fnn.model.py")
 
 class Test_FNN_model(unittest.TestCase):
-    
+
     epsilon = 0.00001
-    
+
     def test___init__(self):
         sys.stdout.write('FNN_model -> Performing init test ... ')
         sys.stdout.flush()
@@ -124,7 +124,7 @@ class Test_FNN_model(unittest.TestCase):
         assert passed
         print('successfully passed!')
         sys.stdout.flush()
-        
+
     def test_pop_layer(self):
         sys.stdout.write('FNN_model -> Performing pop_layer test ... ')
         sys.stdout.flush()
@@ -156,7 +156,7 @@ class Test_FNN_model(unittest.TestCase):
         assert numx.all(model.num_layers == 3 == len(model.layers))
         print('successfully passed!')
         sys.stdout.flush()
-   
+
     def test_forward_propagate(self):
         sys.stdout.write('FNN_model -> Performing forward_propagate test ...')
         sys.stdout.flush()
@@ -246,7 +246,7 @@ class Test_FNN_model(unittest.TestCase):
                                         cost_targets = [None,None,c],
                                         full = True)
                             if res > delta:
-                                print "Failed!     ", res, a1 ,a2, a3, c
+                                print("Failed!     ", res, a1 ,a2, a3, c)
                             assert numx.all(res < delta)
         print('successfully passed!')
         sys.stdout.flush()
@@ -281,7 +281,7 @@ class Test_FNN_model(unittest.TestCase):
                                         cost_targets = [None,None,c],
                                         full = True)
                             if res > delta:
-                                print "Failed!     ", res, a1 ,a2, a3, c
+                                print("Failed!     ", res, a1 ,a2, a3, c)
                             assert numx.all(res < delta)
         print('successfully passed!')
         sys.stdout.flush()
@@ -316,7 +316,7 @@ class Test_FNN_model(unittest.TestCase):
                                         cost_targets = [None,None,c],
                                         full = True)
                             if res > delta:
-                                print "Failed!     ", res, a1 ,a2, a3, c
+                                print("Failed!     ", res, a1 ,a2, a3, c)
                             assert numx.all(res < delta)
         print('successfully passed!')
         sys.stdout.flush()
@@ -360,7 +360,7 @@ class Test_FNN_model(unittest.TestCase):
                                             cost_targets = [CFct.NegLogLikelihood,CFct.SquaredError,c],
                                             full = True)
                                 if res > delta:
-                                    print "Failed!     ", res, a1 ,a2, a3, c
+                                    print("Failed!     ", res, a1 ,a2, a3, c)
                                 assert numx.all(res < delta)
                                 res =self.check(data = data,
                                             delta = delta,
@@ -375,7 +375,7 @@ class Test_FNN_model(unittest.TestCase):
                                             cost_targets = [CFct.CrossEntropyError,CFct.SquaredError,c],
                                             full = True)
                                 if res > delta:
-                                    print "Failed!     ", res, a1 ,a2, a3, c
+                                    print("Failed!     ", res, a1 ,a2, a3, c)
                                 assert numx.all(res < delta)
                                 res = self.check(data = data,
                                             delta = delta,
@@ -390,7 +390,7 @@ class Test_FNN_model(unittest.TestCase):
                                             cost_targets = [CFct.SquaredError,CFct.SquaredError,c],
                                             full = True)
                                 if res > delta:
-                                    print "Failed!     ", res, a1 ,a2, a3, c
+                                    print("Failed!     ", res, a1 ,a2, a3, c)
                                 assert numx.all(res < delta)
                             elif a1 == AFct.Sigmoid:
                                 res = self.check(data = data,
@@ -406,7 +406,7 @@ class Test_FNN_model(unittest.TestCase):
                                             cost_targets = [CFct.CrossEntropyError,CFct.SquaredError,c],
                                             full = True)
                                 if res > delta:
-                                    print "Failed!     ", res, a1 ,a2, a3, c
+                                    print("Failed!     ", res, a1 ,a2, a3, c)
                                 assert numx.all(res < delta)
                                 res = self.check(data = data,
                                             delta = delta,
@@ -421,7 +421,7 @@ class Test_FNN_model(unittest.TestCase):
                                             cost_targets = [CFct.SquaredError,CFct.SquaredError,c],
                                             full = True)
                                 if res > delta:
-                                    print "Failed!     ", res, a1 ,a2, a3, c
+                                    print("Failed!     ", res, a1 ,a2, a3, c)
                                 assert numx.all(res < delta)
                             else:
                                 res = self.check(data = data,
@@ -437,7 +437,7 @@ class Test_FNN_model(unittest.TestCase):
                                             cost_targets = [CFct.SquaredError,CFct.SquaredError,c],
                                             full = True)
                                 if res > delta:
-                                    print "Failed!     ", res, a1 ,a2, a3, c
+                                    print("Failed!     ", res, a1 ,a2, a3, c)
                                 assert numx.all(res < delta)
         print('successfully passed!')
         sys.stdout.flush()

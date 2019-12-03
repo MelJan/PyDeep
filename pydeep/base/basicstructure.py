@@ -95,7 +95,7 @@ class BipartiteGraph(object):
         :type initial_hidden_offsets: 'AUTO', scalar or numpy array [1, output_dim]
 
         :param dtype: Used data type i.e. numpy.float64.
-        :type dtype: numpy.float32 or numpy.float64 or numpy.float128
+        :type dtype: numpy.float32 or numpy.float64 or numpy.longdouble
         """
         # Set internal datatype
         self.dtype = dtype

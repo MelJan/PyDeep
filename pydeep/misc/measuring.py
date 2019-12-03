@@ -63,12 +63,12 @@ def print_progress(step,
     print('\r')
     if gauge:
         # print gauge
-        print ('=' * int(step * length / num_steps) + '>' + '.' * int(length - step * length / num_steps))
+        print('=' * int(step * length / num_steps) + '>' + '.' * int(length - step * length / num_steps))
     # Define where to start printing the difits
     percent_format = '%'+str(3+decimal_place+numx.sign(decimal_place))+'.'+str(decimal_place)+'f%%'
     # Print formated percentage
     percent = (step * 100.0 / num_steps)
-    print (percent_format % percent)
+    print(percent_format % percent)
     if step == num_steps:
         print("")
 

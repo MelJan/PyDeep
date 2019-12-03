@@ -122,7 +122,7 @@ class GibbsSampler(object):
         """
         # Sample k times
         vis = self.model.probability_v_given_h(hid_states, betas)
-        for _ in xrange(k - 1):
+        for _ in range(k - 1):
             vis = self.model.sample_v(vis, betas)
             hid = self.model.probability_h_given_v(vis, betas)
             hid = self.model.sample_h(hid, betas)
@@ -195,7 +195,7 @@ class PersistentGibbsSampler(object):
         :rtype: numpy array [num samples, input dimension]
         """
         # Sample k times
-        for _ in xrange(k):
+        for _ in range(k):
             hid = self.model.probability_h_given_v(self.chains, betas)
             hid = self.model.sample_h(hid, betas)
             vis = self.model.probability_v_given_h(hid, betas)
@@ -211,10 +211,10 @@ class PersistentGibbsSampler(object):
             # If more samples than chains,
             repeats = numx.int32(num_samples / self.chains.shape[0])
 
-            for _ in xrange(repeats):
+            for _ in range(repeats):
 
                 # Sample k times
-                for u in xrange(k):
+                for u in range(k):
                     hid = self.model.probability_h_given_v(self.chains, betas)
                     hid = self.model.sample_h(hid, betas)
                     vis = self.model.probability_v_given_h(hid, betas)
@@ -300,12 +300,12 @@ class ParallelTemperingSampler(object):
         samples = numx.empty((num_samples, self.model.input_dim))
 
         # Generate a sample for each given data sample
-        for b in xrange(0, num_samples):
+        for b in range(0, num_samples):
 
             # Perform k steps of Gibbs sampling
             hid = self.model.probability_h_given_v(self.chains, self.betas)
             hid = self.model.sample_h(hid, self.betas)
-            for _ in xrange(k - 1):
+            for _ in range(k - 1):
                 vis = self.model.probability_v_given_h(hid, self.betas)
                 vis = self.model.sample_v(vis, self.betas)
                 hid = self.model.probability_h_given_v(vis, self.betas)
@@ -358,7 +358,7 @@ class ParallelTemperingSampler(object):
             energies = model.energy(chains, hid_states)
 
             # even neighbor swapping
-            for t in xrange(0, betas.shape[0] - 1, 2):
+            for t in range(0, betas.shape[0] - 1, 2):
 
                 # Calculate swap probability
                 pswap = numx.exp((energies[t + 1, 0] - energies[t, 0])
@@ -372,7 +372,7 @@ class ParallelTemperingSampler(object):
                     hid_states[[t, t + 1], :] = hid_states[[t + 1, t], :]
 
             # odd neighbor swapping
-            for t in xrange(1, betas.shape[0] - 1, 2):
+            for t in range(1, betas.shape[0] - 1, 2):
 
                 # Calculate swap probability
                 pswap = numx.exp((energies[t + 1, 0] - energies[t, 0]) * (betas[t + 1, 0] - betas[t, 0]))
@@ -387,13 +387,13 @@ class ParallelTemperingSampler(object):
 
             chains_swap = numx.copy(chains)
             hid_states_swap = numx.copy(hid_states)
-            for t in xrange(0, betas.shape[0] - 1, 2):
+            for t in range(0, betas.shape[0] - 1, 2):
                 chains_swap[[t, t + 1], :] = chains_swap[[t + 1, t], :]
                 hid_states_swap[[t, t + 1], :] = hid_states_swap[[t + 1, t], :]
             energies_swap = model.energy(chains_swap, hid_states_swap, betas)
 
             # even neighbor swapping
-            for t in xrange(0, betas.shape[0] - 1, 2):
+            for t in range(0, betas.shape[0] - 1, 2):
 
                 # Calculate swap probability
                 pswap = numx.exp((energies[t + 1, 0] - energies_swap[t, 0] - energies_swap[t + 1, 0] + energies[t, 0]))
@@ -406,13 +406,13 @@ class ParallelTemperingSampler(object):
             energies = model.energy(chains, hid_states, betas)
             chains_swap = numx.copy(chains)
             hid_states_swap = numx.copy(hid_states)
-            for t in xrange(1, betas.shape[0] - 1, 2):
+            for t in range(1, betas.shape[0] - 1, 2):
                 chains_swap[[t, t + 1], :] = chains_swap[[t + 1, t], :]
                 hid_states_swap[[t, t + 1], :] = hid_states_swap[[t + 1, t], :]
             energies_swap = model.energy(chains_swap, hid_states_swap, betas)
 
             # odd neighbor swapping
-            for t in xrange(1, betas.shape[0] - 1, 2):
+            for t in range(1, betas.shape[0] - 1, 2):
 
                 pswap = numx.exp((energies[t + 1, 0] - energies_swap[t, 0] - energies_swap[t + 1, 0] + energies[t, 0]))
                 # Probability higher then a random number
@@ -514,7 +514,7 @@ class IndependentParallelTemperingSampler(object):
         # Perform k steps of Gibbs sampling
         hid = self.model.probability_h_given_v(self.chains, self.betas)
         hid = self.model.sample_h(hid, self.betas)
-        for _ in xrange(k - 1):
+        for _ in range(k - 1):
             vis = self.model.probability_v_given_h(hid, self.betas)
             vis = self.model.sample_v(vis, self.betas)
             hid = self.model.probability_h_given_v(vis, self.betas)
@@ -535,11 +535,11 @@ class IndependentParallelTemperingSampler(object):
             self.chains = self.model.sample_v(self.chains, self.betas)
 
         repeats = numx.int32(num_samples / self.select_indices.shape[0])
-        for _ in xrange(repeats):
+        for _ in range(repeats):
             # Perform k steps of Gibbs sampling
             hid = self.model.probability_h_given_v(self.chains, self.betas)
             hid = self.model.sample_h(hid, self.betas)
-            for u in xrange(k - 1):
+            for u in range(k - 1):
                 vis = self.model.probability_v_given_h(hid, self.betas)
                 vis = self.model.sample_v(vis, self.betas)
                 hid = self.model.probability_h_given_v(vis, self.betas)
@@ -589,10 +589,10 @@ class IndependentParallelTemperingSampler(object):
         num_betas = chains.shape[0] / num_chains
 
         # for each batch
-        for m in xrange(0, num_chains, 1):
+        for m in range(0, num_chains, 1):
 
             # for each temperature even
-            for b in xrange(0, num_betas - 1, 2):
+            for b in range(0, num_betas - 1, 2):
 
                 t = m * num_betas + b
 
@@ -608,7 +608,7 @@ class IndependentParallelTemperingSampler(object):
                     hid_states[[t, t + 1], :] = hid_states[[t + 1, t], :]
 
             # for each temperature odd
-            for b in xrange(1, num_betas - 1, 2):
+            for b in range(1, int(num_betas - 1, 2)):
 
                 t = m * num_betas + b
 

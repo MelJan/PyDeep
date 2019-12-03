@@ -109,10 +109,9 @@ for epoch in range(0, max_epochs):
         model.update(chain_d, chain_m, lr_W1, lr_b1, lr_o1)
 
     # Print Norms of the Parameters
-    print numx.mean(numxExt.get_norms(wl1.weights)), '\t', numx.mean(numxExt.get_norms(wl2.weights)), '\t',
-    print numx.mean(numxExt.get_norms(l1.bias)), '\t', numx.mean(numxExt.get_norms(l2.bias)), '\t',
-    print numx.mean(numxExt.get_norms(l3.bias)), '\t', numx.mean(l1.offset), '\t', numx.mean(
-        l2.offset), '\t', numx.mean(l3.offset)
+    print(numx.mean(numxExt.get_norms(wl1.weights)), '\t', numx.mean(numxExt.get_norms(wl2.weights)), '\t')
+    print(numx.mean(numxExt.get_norms(l1.bias)), '\t', numx.mean(numxExt.get_norms(l2.bias)), '\t')
+    print(numx.mean(numxExt.get_norms(l3.bias)), '\t', numx.mean(l1.offset), '\t', numx.mean(l2.offset), '\t', numx.mean(l3.offset))
 
 # Show weights
 VIS.imshow_matrix(VIS.tile_matrix_rows(wl1.weights, v11, v12, v21, v22, border_size=1, normalized=False), 'Weights 1')

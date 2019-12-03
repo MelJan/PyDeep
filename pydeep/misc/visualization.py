@@ -1,5 +1,5 @@
 """ This module provides functions for displaying and visualize data.
-    It extends the matplotlib.pyplot. 
+    It extends the matplotlib.pyplot.
 
     :Implemented:
         - Tile a matrix rows
@@ -138,11 +138,10 @@ def tile_matrix_rows(matrix,
         result = np.max(rescale_data(matrix))
     else:
         result = np.max(matrix)
-    result *= np.ones((tile_width * num_tiles_x + (num_tiles_x - 1)
-                       * border_size, tile_height * num_tiles_y
-                       + (num_tiles_y - 1) * border_size))
-    for x in xrange(num_tiles_x):
-        for y in xrange(num_tiles_y):
+    result *= np.ones( (int(tile_width * num_tiles_x + (num_tiles_x - 1) * border_size),
+                        int(tile_height * num_tiles_y + (num_tiles_y - 1) * border_size)))
+    for x in range(int(num_tiles_x)):
+        for y in range(int(num_tiles_y)):
             single_image = matrix[:, (x * num_tiles_y) + y].reshape(tile_width,
                                                                     tile_height)
             if normalized is True:
@@ -313,7 +312,7 @@ def plot_2d_contour(probability_function,
     :type colormap: string
     """
     # Generate x,y coordinates
-    # Suprisingly using the stepsize of 
+    # Suprisingly using the stepsize of
     # arange directly does not work ( np.arange(min_x,max_x,step_size) )
     x = np.arange(value_range[0] / step_size, (value_range[1] + step_size) / step_size, 1.0) * step_size
     y = np.arange(value_range[2] / step_size, (value_range[3] + step_size) / step_size, 1.0) * step_size
@@ -325,14 +324,14 @@ def plot_2d_contour(probability_function,
     # Generate 2D coordinate grid
     tablei = np.indices((dist_x, dist_y), dtype=np.float64)
 
-    # Modify data to certain range 
+    # Modify data to certain range
     tablei[0, :] = tablei[0, :] * step_size + value_range[0]
     tablei[1, :] = tablei[1, :] * step_size + value_range[2]
 
     # Reshape the array having all possible combination in a 2D array
     data = tablei.reshape(2, dist_x * dist_y)
 
-    # we need to flip the first and second dimension to get the 
+    # we need to flip the first and second dimension to get the
     # ordering of x,y
     data = np.vstack((data[1, :], data[0, :]))
 
@@ -487,7 +486,7 @@ def generate_samples(rbm,
     if whitening is not None:
         result = whitening.unproject(data)
     vis_states = data
-    for i in xrange(1, iterations + 1):
+    for i in range(1, iterations + 1):
         hid_probs = rbm.probability_h_given_v(vis_states)
         hid_states = rbm.sample_h(hid_probs)
         vis_probs = rbm.probability_v_given_h(hid_states)

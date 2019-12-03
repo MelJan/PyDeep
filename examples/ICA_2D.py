@@ -64,8 +64,8 @@ data_ica = ica.project(whitened_data)
 print("Log-likelihood on all data: "+str(numx.mean(
     ica.log_likelihood(data=whitened_data))))
 
-print "Amari distanca between true mixing matrix and estimated mixing matrix: "+str(
-    vis.calculate_amari_distance(zca.project(mixing_matrix.T), ica.projection_matrix.T))
+print("Amari distanca between true mixing matrix and estimated mixing matrix: "+str(
+    vis.calculate_amari_distance(zca.project(mixing_matrix.T), ica.projection_matrix.T)))
 
 # For better visualization the principal components are rescaled
 scale_factor = 3

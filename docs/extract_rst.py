@@ -41,8 +41,8 @@ def print_classes_and_members(root_path,module_path,module_structure,module_name
         depth -= 1
         print module_name
         print header_level[depth]
-        print ""
-        print ".. automodule:: " + module_structure
+        print("")
+        print(".. automodule:: " + module_structure)
         print
     else:
         pattern = re.compile('( def|class|def)\s(\S+)\(')
@@ -50,8 +50,8 @@ def print_classes_and_members(root_path,module_path,module_structure,module_name
         text = f.read()
         print module_name
         print header_level[depth]
-        print ""
-        print ".. automodule:: " + module_structure
+        print("")
+        print(".. automodule:: " + module_structure)
         print
         current_class = ""
         for p in pattern.findall(text):
@@ -59,24 +59,24 @@ def print_classes_and_members(root_path,module_path,module_structure,module_name
                 current_class = p[1]
                 print p[1]
                 print header_level[depth+1]
-                print ""
-                print ".. autoclass:: "+module_structure+"."+p[1]
-                print "   :members:"
-                print "   :private-members:"
-                print "   :special-members: __init__"
-                print ""
+                print("")
+                print(".. autoclass:: "+module_structure+"."+p[1])
+                print("   :members:")
+                print("   :private-members:")
+                print("   :special-members: __init__")
+                print("")
             elif p[0] == "def":
                 print p[1]
                 print header_level[depth+1]
-                print ""
-                print ".. automethod:: "+module_structure+"."+p[1]
-                print ""
+                print("")
+                print(".. automethod:: "+module_structure+"."+p[1])
+                print("")
             #else:
             #    print p[1]
             #    print header_level[depth+2]
-            #    print ""
-            #    print "   .. automethod:: "+module_structure+"."+current_class+"."+p[1]
-            #   print ""
+            #    print("")
+            #    print("   .. automethod:: "+module_structure+"."+current_class+"."+p[1])
+            #   print("")
 
 
 struct = extract_package_structure()
@@ -85,6 +85,3 @@ for s in struct:
     #print s
 
     print_classes_and_members("",s[0],s[1],s[2],s[3])
-
-
-

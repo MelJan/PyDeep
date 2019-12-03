@@ -228,7 +228,7 @@ def partition_function_factorize_v(model,
     num_batches = num_combinations / batchsize
     log_prob_vv_all = numx.zeros(num_combinations)
 
-    for batch in range(1, num_batches + 1):
+    for batch in range(1, int(num_batches + 1)):
         # Generate current batch
         bitcombinations = numxext.generate_binary_code(bit_length, batchsize_exponent, batch - 1)
 
@@ -279,7 +279,7 @@ def partition_function_factorize_h(model,
     num_batches = num_combinations / batchsize
     log_prob_vv_all = numx.zeros(num_combinations)
 
-    for batch in range(1, num_batches + 1):
+    for batch in range(1, int(num_batches + 1)):
         # Generate current batch
         bitcombinations = numxext.generate_binary_code(bit_length, batchsize_exponent, batch - 1)
 
@@ -361,7 +361,7 @@ def annealed_importance_sampling(model,
     # Calculate the unnormalized probabilties of v
     lnpvsum += model.unnormalized_log_probability_v(v, betas[betas.shape[0] - 1], True)
 
-    lnpvsum = numx.float128(lnpvsum)
+    lnpvsum = numx.longdouble(lnpvsum)
 
     # Calculate an estimate of logz .
     logz = numxext.log_sum_exp(lnpvsum) - numx.log(num_chains)
@@ -462,7 +462,7 @@ def reverse_annealed_importance_sampling(model,
     # Calculate the unnormalized probabilties of v
     lnpvsum -= model.unnormalized_log_probability_v(v, betas[0], True)
 
-    lnpvsum = numx.float128(lnpvsum)
+    lnpvsum = numx.longdouble(lnpvsum)
 
     # Calculate an estimate of logz .
     logz = numxext.log_sum_exp(lnpvsum) - numx.log(num_chains)

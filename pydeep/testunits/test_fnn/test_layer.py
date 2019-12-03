@@ -1,5 +1,5 @@
 ''' Test module for FNN layer methods.
-        
+
     :Version:
         1.0
 
@@ -39,12 +39,12 @@ from pydeep.base.numpyextension import generate_2d_connection_matrix
 
 import sys
 
-print "\n... pydeep.fnn.layer.py"
+print("\n... pydeep.fnn.layer.py")
 
 class Test_FNN_layer(unittest.TestCase):
-    
+
     epsilon = 0.00001
-    
+
     def test___init__(self):
         sys.stdout.write('FNN_layer -> Performing init test ... ')
         sys.stdout.flush()

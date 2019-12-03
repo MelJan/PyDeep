@@ -1,5 +1,5 @@
 """ Test module for corruptor.
-        
+
     :Version:
         1.1.0
 
@@ -37,7 +37,7 @@ import sys
 from pydeep.base.corruptor import *
 import numpy as numx
 
-print "\n... pydeep.base.corruptor.py"
+print("\n... pydeep.base.corruptor.py")
 
 epsilon = 0.000001
 

@@ -1,5 +1,5 @@
 ''' Test module for preprocessing methods.
-        
+
     :Version:
         1.1.0
 
@@ -42,14 +42,14 @@ from pydeep.preprocessing import binarize_data, rescale_data, remove_rows_means,
     ZCA, ICA
 from pydeep.misc.toyproblems import generate_2d_mixtures
 
-print "\n... pydeep.preprocessing_PCA_ICA.py"
+print("\n... pydeep.preprocessing_PCA_ICA.py")
 
 
 class Test_Preprocessing(unittest.TestCase):
     epsilon = 0.00001
 
     def test_binarize_data(self):
-        print ('Preprocessing -> Performing binarize_data test ...')
+        print('Preprocessing -> Performing binarize_data test ...')
         sys.stdout.flush()
         data = binarize_data(numx.random.rand(100, 100))
         assert numx.sum(data != 0.0) + numx.sum(data != 1.0) == 10000
@@ -59,7 +59,7 @@ class Test_Preprocessing(unittest.TestCase):
         sys.stdout.flush()
 
     def test_rescale_data(self):
-        print ('Preprocessing -> Performing rescale_data test ...')
+        print('Preprocessing -> Performing rescale_data test ...')
         sys.stdout.flush()
         data = rescale_data(numx.random.randn(100, 100), new_min=-2.0, new_max=4.0)
         assert numx.sum(data >= -2.0) + numx.sum(data <= 4.0) == 20000
@@ -67,7 +67,7 @@ class Test_Preprocessing(unittest.TestCase):
         sys.stdout.flush()
 
     def test_remove_rows_means(self):
-        print ('Preprocessing -> Performing remove_rows_means test ...')
+        print('Preprocessing -> Performing remove_rows_means test ...')
         sys.stdout.flush()
         data = numx.random.randn(100, 1000)
         dataMean = numx.mean(data, axis=1).reshape(100, 1)
@@ -79,7 +79,7 @@ class Test_Preprocessing(unittest.TestCase):
         sys.stdout.flush()
 
     def test_remove_cols_means(self):
-        print ('Preprocessing -> Performing remove_cols_means test ...')
+        print('Preprocessing -> Performing remove_cols_means test ...')
         sys.stdout.flush()
         data = numx.random.randn(100, 1000)
         dataMean = numx.mean(data, axis=0).reshape(1, 1000)
@@ -91,7 +91,7 @@ class Test_Preprocessing(unittest.TestCase):
         sys.stdout.flush()
 
     def test_STANDARIZER(self):
-        print ('Preprocessing -> Performing STANDARIZER test ...')
+        print('Preprocessing -> Performing STANDARIZER test ...')
         sys.stdout.flush()
         data = numx.random.randn(100, 1000)
         dataMean = numx.mean(data, axis=0).reshape(1, 1000)
@@ -114,7 +114,7 @@ class Test_Preprocessing(unittest.TestCase):
         sys.stdout.flush()
 
     def test_PCA(self):
-        print ('Preprocessing -> Performing PCA test ...')
+        print('Preprocessing -> Performing PCA test ...')
         sys.stdout.flush()
         cov = numx.array([[1.0, 0.8], [0.8, 1.0]])
         mean = numx.array([1.0, -1.0])
@@ -138,7 +138,7 @@ class Test_Preprocessing(unittest.TestCase):
         sys.stdout.flush()
 
     def test_ZCA(self):
-        print ('Preprocessing -> Performing ZCA test ...')
+        print('Preprocessing -> Performing ZCA test ...')
         sys.stdout.flush()
         cov = numx.array([[1.0, 0.8], [0.8, 1.0]])
         mean = numx.array([1.0, -1.0])
@@ -159,7 +159,7 @@ class Test_Preprocessing(unittest.TestCase):
         sys.stdout.flush()
 
     def test_ICA(self):
-        print ('Preprocessing -> Performing ICA test ...')
+        print('Preprocessing -> Performing ICA test ...')
         sys.stdout.flush()
         fail = 0
         for _ in range(100):

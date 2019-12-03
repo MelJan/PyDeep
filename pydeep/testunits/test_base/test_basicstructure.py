@@ -1,5 +1,5 @@
 """ Test module for basic structures.
-        
+
     :Version:
         1.1.0
 
@@ -42,13 +42,13 @@ import numpy as numx
 from pydeep.base.activationfunction import Sigmoid
 from pydeep.base.basicstructure import BipartiteGraph, StackOfBipartiteGraphs
 
-print "\n... pydeep.base.basicstructure.py"
+print("\n... pydeep.base.basicstructure.py")
 
 
 def compare_BipartiteGraph_after_removing(
         new_model, old_model, indices, unit_type):
-    """Compare the two bipartiteGraph instances after removing. 
-    All the parameters of the two models are arranged as 
+    """Compare the two bipartiteGraph instances after removing.
+    All the parameters of the two models are arranged as
     (changed_dimension, unchanged_dimension) for the easiness of comparison.
     """
     if unit_type is "vis":
@@ -112,7 +112,7 @@ def compare_BipartiteGraph_after_adding(
         new_model, old_model, position, num_new_units, unit_type,
         check_newpart=False, check_oldpart=True, check_dim=True):
     """Compare the two bipartiteGraph instances
-    All the parameters of the two models are arranged as 
+    All the parameters of the two models are arranged as
     (changed_dimension, unchanged_dimension) for the easiness of comparison.
     """
     pos = position
