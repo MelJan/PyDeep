@@ -339,7 +339,11 @@ class ICA(PCA):
                                                    data.shape[1])
         projection_matrix_old = numx.copy(self.projection_matrix)
         for epoch in range(0, iterations):
-            # One iteration
+            # One iteration.
+            # TODO: PendingDeprecationWarning: the matrix subclass is not the recommended
+            # way to represent matrices or deal with linear algebra (see
+            # https://docs.scipy.org/doc/numpy/user/numpy-for-matlab-users.html). Please
+            # adjust your code to use regular ndarray.
             hyptan = 1.0 - 2.0 / (numx.exp(2.0 * numx.dot(data, self.projection_matrix)) + 1.0)
             self.projection_matrix = (numx.dot(data.T, hyptan) / data.shape[0] - numx.array(numx.dot(numx.ones(
                 (data.shape[1], 1)), numx.matrix(numx.mean(1.0 - hyptan ** 2.0, axis=0)))) * self.projection_matrix)

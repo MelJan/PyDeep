@@ -158,178 +158,178 @@ class GDTrainer(object):
         '''
         failed = False
         if data.shape[1] != self.model.input_dim:
-            print Warning("Data dimension does not match the models output dimension")
+            print(Warning("Data dimension does not match the models output dimension"))
             failed = True
         if labels[len(labels)-1].shape[1] != self.model.output_dim:
-            print Warning("Labels["+str(len(labels)-1)+"] dimension does not match the models output dimension")
+            print(Warning("Labels["+str(len(labels)-1)+"] dimension does not match the models output dimension"))
             failed = True
 
         # Check main cost exists
         if not numx.isscalar(reg_costs[len(reg_costs)-1]) or reg_costs[len(reg_costs)-1] != 1:
-            print Warning("reg_costs["+str(len(reg_costs)-1)+"], which is the main cost should be 1.0")
+            print(Warning("reg_costs["+str(len(reg_costs)-1)+"], which is the main cost should be 1.0"))
             failed = True
             if reg_costs[len(reg_costs)-1] > 0.0:
                 if labels[len(reg_costs)-1] is None:
-                    print Warning("reg_costs["+str(len(reg_costs)-1)+"] > 0 then labels["+str(len(reg_costs)-1)+
-                                         "] has to be an array!")
+                    print(Warning("reg_costs["+str(len(reg_costs)-1)+"] > 0 then labels["+str(len(reg_costs)-1)+
+                                         "] has to be an array!"))
                     failed = True
         if labels[len(labels)-1] is None:
-            print Warning("labels["+str(len(labels)-1)+"] has to contain values.")
+            print(Warning("labels["+str(len(labels)-1)+"] has to contain values."))
             failed = True
 
         # Check norm restrictions
         if restriction_norm != 'Cols' and restriction_norm != 'Rows' and restriction_norm != 'Mat':
-            print Warning("restriction_norm has to be Cols, Rows or Mat")
+            print(Warning("restriction_norm has to be Cols, Rows or Mat"))
             failed = True
 
         if not isinstance(restrict_gradient,list):
-            print Warning("restrict_gradient has to be a list of length "+str(self.model.num_layers))
+            print(Warning("restrict_gradient has to be a list of length "+str(self.model.num_layers)))
             failed = True
         if not isinstance(epsilon,list):
-            print Warning("epsilon has to be a list of length "+str(self.model.num_layers))
+            print(Warning("epsilon has to be a list of length "+str(self.model.num_layers)))
             failed = True
         if not isinstance(momentum,list):
-            print Warning("momentum has to be a list of length "+str(self.model.num_layers))
+            print(Warning("momentum has to be a list of length "+str(self.model.num_layers)))
             failed = True
         if not isinstance(update_offsets,list):
-            print Warning("update_offsets has to be a list of length "+str(self.model.num_layers))
+            print(Warning("update_offsets has to be a list of length "+str(self.model.num_layers)))
             failed = True
         if not isinstance(reg_L1Norm,list):
-            print Warning("reg_L1Norm has to be a list of length "+str(self.model.num_layers))
+            print(Warning("reg_L1Norm has to be a list of length "+str(self.model.num_layers)))
             failed = True
         if not isinstance(reg_L2Norm,list):
-            print Warning("reg_L2Norm has to be a list of length "+str(self.model.num_layers))
+            print(Warning("reg_L2Norm has to be a list of length "+str(self.model.num_layers)))
             failed = True
         if not isinstance(corruptor,list) and corruptor is not None:
-            print Warning("corruptor has to be None or a list of length "+str(self.model.num_layers))
+            print(Warning("corruptor has to be None or a list of length "+str(self.model.num_layers)))
             failed = True
         if not isinstance(reg_sparseness,list):
-            print Warning("reg_sparseness has to be a list of length "+str(self.model.num_layers))
+            print(Warning("reg_sparseness has to be a list of length "+str(self.model.num_layers)))
             failed = True
         if not isinstance(desired_sparseness,list):
-            print Warning("desired_sparseness has to be a list of length "+str(self.model.num_layers))
+            print(Warning("desired_sparseness has to be a list of length "+str(self.model.num_layers)))
             failed = True
         if not isinstance(costs_sparseness,list):
-            print Warning("costs_sparseness has to be a list of length "+str(self.model.num_layers))
+            print(Warning("costs_sparseness has to be a list of length "+str(self.model.num_layers)))
             failed = True
         if not isinstance(reg_costs,list):
-            print Warning("reg_costs has to be a list of length "+str(self.model.num_layers))
+            print(Warning("reg_costs has to be a list of length "+str(self.model.num_layers)))
             failed = True
         if not isinstance(costs,list):
-            print Warning("costs has to be a list of length "+str(self.model.num_layers))
+            print(Warning("costs has to be a list of length "+str(self.model.num_layers)))
             failed = True
         if not isinstance(labels,list):
-            print Warning("labels has to be a list of length "+str(self.model.num_layers))
+            print(Warning("labels has to be a list of length "+str(self.model.num_layers)))
             failed = True
 
         if len(epsilon) != self.model.num_layers:
-            print Warning("len(epsilon) has to be equal to num _layers")
+            print(Warning("len(epsilon) has to be equal to num _layers"))
             failed = True
         if len(momentum) != self.model.num_layers:
-            print Warning("len(momentum) has to be equal to num _layers")
+            print(Warning("len(momentum) has to be equal to num _layers"))
             failed = True
         if len(update_offsets) != self.model.num_layers:
-            print Warning("len(update_offsets) has to be equal to num _layers")
+            print(Warning("len(update_offsets) has to be equal to num _layers"))
             failed = True
         if len(reg_L1Norm) != self.model.num_layers:
-            print Warning("len(reg_L1Norm) has to be equal to num _layers")
+            print(Warning("len(reg_L1Norm) has to be equal to num _layers"))
             failed = True
         if len(reg_L2Norm) != self.model.num_layers:
-            print Warning("len(reg_L2Norm) has to be equal to num _layers")
+            print(Warning("len(reg_L2Norm) has to be equal to num _layers"))
             failed = True
         if corruptor is not None:
             if len(corruptor) != self.model.num_layers+1:
-                print Warning("len(corruptor) has to be equal to num _layers+1")
+                print(Warning("len(corruptor) has to be equal to num _layers+1"))
                 failed = True
         if len(reg_sparseness) != self.model.num_layers:
-            print Warning("len(reg_sparseness) has to be equal to num _layers")
+            print(Warning("len(reg_sparseness) has to be equal to num _layers"))
             failed = True
         if len(desired_sparseness) != self.model.num_layers:
-            print Warning("len(desired_sparseness) has to be equal to num _layers")
+            print(Warning("len(desired_sparseness) has to be equal to num _layers"))
             failed = True
         if len(costs_sparseness) != self.model.num_layers:
-            print Warning("len(costs_sparseness) has to be equal to num _layers")
+            print(Warning("len(costs_sparseness) has to be equal to num _layers"))
             failed = True
         if len(reg_costs) != self.model.num_layers:
-            print Warning("len(reg_costs) has to be equal to num _layers")
+            print(Warning("len(reg_costs) has to be equal to num _layers"))
             failed = True
 
         if len(costs) != self.model.num_layers:
-            print Warning("len(costs) has to be equal to num _layers")
+            print(Warning("len(costs) has to be equal to num _layers"))
             failed = True
         if len(labels) != self.model.num_layers:
-            print Warning("len(labels) has to be equal to num _layers")
+            print(Warning("len(labels) has to be equal to num _layers"))
             failed = True
 
         if corruptor is not None:
             if not isinstance(corruptor[0], Corr.Identity) and not corruptor[0] is None:
-                print Warning("corruptor["+str(0)+"] has to be None or CFct.CostFunction")
+                print(Warning("corruptor["+str(0)+"] has to be None or CFct.CostFunction"))
                 failed = True
         # For each layer
         for l in range(self.model.num_layers):
             # Check simple hyperparameter
             if epsilon[l] < 0.0 or epsilon[l] > 1.0:
-                print Warning("epsilon["+str(l)+"] should to be a positive scalar in range [0,1]")
+                print(Warning("epsilon["+str(l)+"] should to be a positive scalar in range [0,1]"))
                 failed = True
             if momentum[l] < 0.0 or momentum[l] > 1.0:
-                print Warning("momentum["+str(l)+"] should to be a positive scalar in range [0,1]")
+                print(Warning("momentum["+str(l)+"] should to be a positive scalar in range [0,1]"))
                 failed = True
             if update_offsets[l] < 0.0 or update_offsets[l] > 1:
-                print Warning("reg_L2Norm["+str(l)+"] has to be a positive scalar in range [0,1]")
+                print(Warning("reg_L2Norm["+str(l)+"] has to be a positive scalar in range [0,1]"))
                 failed = True
             if reg_L1Norm[l] < 0.0 or reg_L1Norm[l] > 0.001:
-                print Warning("reg_L1Norm["+str(l)+"] should to be a positive scalar in range [0,0.001]")
+                print(Warning("reg_L1Norm["+str(l)+"] should to be a positive scalar in range [0,0.001]"))
                 failed = True
             if reg_L2Norm[l] < 0.0 or reg_L2Norm[l] > 0.001 :
-                print Warning("reg_L2Norm["+str(l)+"] should to be a positive scalar in range [0,0.001]")
+                print(Warning("reg_L2Norm["+str(l)+"] should to be a positive scalar in range [0,0.001]"))
                 failed = True
             if corruptor is not None:
                 if corruptor[l+1] is not None and not isinstance(corruptor[l+1],Corr.Identity):
-                    print Warning("corruptor["+str(l+1)+"] has to be None or CFct.CostFunction")
+                    print(Warning("corruptor["+str(l+1)+"] has to be None or CFct.CostFunction"))
                     failed = True
 
             # Check sparseness
             if not numx.isscalar(reg_sparseness[l]) or reg_sparseness[l] < 0.0:
-                print Warning("reg_sparseness["+str(l)+"] has to be a positive scalar")
+                print(Warning("reg_sparseness["+str(l)+"] has to be a positive scalar"))
                 failed = True
             if reg_sparseness[l] > 0.0:
                 if reg_sparseness[l] > 1.0:
-                    print Warning("reg_sparseness["+str(l)+"] should not be greater than 1")
+                    print(Warning("reg_sparseness["+str(l)+"] should not be greater than 1"))
                     failed = True
                 if not numx.isscalar(desired_sparseness[l]) or not desired_sparseness[l] > 0.0:
-                    print Warning("reg_sparseness["+str(l)+"] > 0 then desired_sparseness["+str(l)+
-                                         "] has to be a positive scalar!")
+                    print(Warning("reg_sparseness["+str(l)+"] > 0 then desired_sparseness["+str(l)+
+                                         "] has to be a positive scalar!"))
                     failed = True
                 if not costs_sparseness[l] is not None:
-                    print Warning("costs_sparseness["+str(l)+"] should not be None")
+                    print(Warning("costs_sparseness["+str(l)+"] should not be None"))
                     failed = True
 
 
             # Check cost
             if not numx.isscalar(reg_costs[l]) or reg_costs[l] < 0.0:
-                print Warning("reg_costs["+str(l)+"] has to be a positive scalar")
+                print(Warning("reg_costs["+str(l)+"] has to be a positive scalar"))
                 failed = True
             if reg_costs[l] > 0.0:
                 if reg_costs[l] > 1.0:
-                    print Warning("reg_costs["+str(l)+"] should not be greater than 1")
+                    print(Warning("reg_costs["+str(l)+"] should not be greater than 1"))
                     failed = True
                 if labels[l] is None:
-                    print Warning("reg_costs["+str(l)+"] > 0 then labels["+str(l)+
-                                         "] has to be an array!")
+                    print(Warning("reg_costs["+str(l)+"] > 0 then labels["+str(l)+
+                                         "] has to be an array!"))
                     failed = True
                 else:
                     if labels[l].shape[1] != self.model.layers[l].output_dim:
-                        print Warning("Label["+str(l)+"] dim. does not match layer["+str(l)+"] output dim")
+                        print(Warning("Label["+str(l)+"] dim. does not match layer["+str(l)+"] output dim"))
                         failed = True
                 if costs[l] is not None:
                     if ((costs[l] == CFct.CrossEntropyError or costs[l] == CFct.NegLogLikelihood) and not
                         (self.model.layers[l].activation_function == AFct.SoftMax or
                         self.model.layers[l].activation_function == AFct.Sigmoid)):
-                        print Warning("Layer "+str(l)+": Activation function "+str(self.model.layers[l].activation_function)
-                                        +" and cost "+str(costs[l])+" incompatible")
+                        print(Warning("Layer "+str(l)+": Activation function "+str(self.model.layers[l].activation_function)
+                                        +" and cost "+str(costs[l])+" incompatible"))
                         failed = True
                 else:
-                    print Warning("costs["+str(l)+"] should not be None")
+                    print(Warning("costs["+str(l)+"] should not be None"))
                     failed = True
         return not failed
 

@@ -135,7 +135,7 @@ class Test_AE_Model(unittest.TestCase):
                         if  maxW > 0.0001 or maxb > 0.0001 or maxc > 0.0001  :
                             print("Gradient check failed for ae with: ")
                             print(" CENTERING ",loss," ",act_in," ",act_out)
-                            print maxW,'\t',maxb,'\t',maxc
+                            print(maxW,'\t',maxb,'\t',maxc)
                         assert numx.all(maxW < 0.0001)
                         assert numx.all(maxb < 0.0001)
                         assert numx.all(maxc < 0.0001)

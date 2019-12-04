@@ -586,7 +586,7 @@ class IndependentParallelTemperingSampler(object):
         """
         # Calculate the energies for the samples and their hidden activity
         energies = model.energy(chains, hid_states)
-        num_betas = chains.shape[0] / num_chains
+        num_betas = int(chains.shape[0] / num_chains)
 
         # for each batch
         for m in range(0, num_chains, 1):
@@ -608,7 +608,7 @@ class IndependentParallelTemperingSampler(object):
                     hid_states[[t, t + 1], :] = hid_states[[t + 1, t], :]
 
             # for each temperature odd
-            for b in range(1, int(num_betas - 1, 2)):
+            for b in range(1, num_betas - 1, 2):
 
                 t = m * num_betas + b
 

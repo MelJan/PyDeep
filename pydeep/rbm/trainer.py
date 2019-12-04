@@ -738,7 +738,7 @@ class GD(CD):
 
         batchsize = numx.power(2, batch_size)
         num_combinations = numx.power(2, bit_length)
-        num_batches = num_combinations / batchsize
+        num_batches = int(num_combinations / batchsize)
 
         for batch in range(0, num_batches):
             # Generate current batch
