@@ -225,10 +225,10 @@ def partition_function_factorize_v(model,
     batchsize = numx.power(2, batchsize_exponent)
     num_combinations = numx.power(2, bit_length)
 
-    num_batches = num_combinations / batchsize
+    num_batches = num_combinations // batchsize
     log_prob_vv_all = numx.zeros(num_combinations)
 
-    for batch in range(1, int(num_batches + 1)):
+    for batch in range(1, num_batches + 1):
         # Generate current batch
         bitcombinations = numxext.generate_binary_code(bit_length, batchsize_exponent, batch - 1)
 
@@ -276,10 +276,10 @@ def partition_function_factorize_h(model,
     batchsize = numx.power(2, batchsize_exponent)
     num_combinations = numx.power(2, bit_length)
 
-    num_batches = num_combinations / batchsize
+    num_batches = num_combinations // batchsize
     log_prob_vv_all = numx.zeros(num_combinations)
 
-    for batch in range(1, int(num_batches + 1)):
+    for batch in range(1, num_batches + 1):
         # Generate current batch
         bitcombinations = numxext.generate_binary_code(bit_length, batchsize_exponent, batch - 1)
 

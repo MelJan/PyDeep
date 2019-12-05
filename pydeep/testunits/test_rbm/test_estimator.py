@@ -193,8 +193,7 @@ class TestEstimator(unittest.TestCase):
         assert numx.all(numx.abs(LogZ[0] - self.bbrbmTruelogZ) < 0.5)
         LogZ = Estimator.reverse_annealed_importance_sampling(self.bbrbm, num_chains=100, k=1, betas=1000, status=False)
         assert numx.all(numx.abs(LogZ[0] - self.bbrbmTruelogZ) < 0.05)
-        LogZ = Estimator.reverse_annealed_importance_sampling(self.bbrbm, num_chains=100, k=1, betas=10000,
-                                                              status=False)
+        LogZ = Estimator.reverse_annealed_importance_sampling(self.bbrbm, num_chains=100, k=1, betas=10000, status=False)
         assert numx.all(numx.abs(LogZ[0] - self.bbrbmTruelogZ) < 0.005)
         print(' successfully passed!')
         sys.stdout.flush()

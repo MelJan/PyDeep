@@ -321,7 +321,7 @@ class Test_BipartiteGraph(unittest.TestCase):
         sys.stdout.write('BipartiteGraph -> Performing add_hidden_units test ...')
         sys.stdout.flush()
         num_hid = 4
-        pos = num_hid / 2
+        pos = num_hid // 2
         init_value = 3.0
         check_list = ['AUTO', init_value, 'non-scalar']
         for each_case in check_list:

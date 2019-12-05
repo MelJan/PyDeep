@@ -393,8 +393,11 @@ def rotation_sequence(image, width, height, steps):
     for i in range(1, steps):
         angle = i * 360.0 / steps
         sample = rotate(image.reshape(width, height), angle)
-        sample = sample[(sample.shape[0] - width) / 2:(sample.shape[0] + width) / 2,
-                 (sample.shape[0] - height) / 2:(sample.shape[0] + height) / 2]
+        sample = sample[(sample.shape[0] - width) // 2:
+                        (sample.shape[0] + width) // 2,
+                        (sample.shape[0] - height) // 2:
+                        (sample.shape[0] + height) // 2]
+
         results[i] = sample.reshape(1, image.shape[0])
     return results
 

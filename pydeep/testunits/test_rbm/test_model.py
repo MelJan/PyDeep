@@ -46,7 +46,7 @@ print("\n... pydeep.rbm.model.py")
 class TestBinaryBinaryRBM(unittest.TestCase):
     # Known RBM
     bbrbmData = generate_bars_and_stripes_complete(2)
-    bbrbmData = numx.vstack((bbrbmData[0], bbrbmData, bbrbmData[5]))
+    bbrbmData = numx.vstack((bbrbmData[4], bbrbmData[0:3], bbrbmData[5:8], bbrbmData[3]))
     bbrbmw = numx.array([[0.12179488, 2.95950177, 0.33513356, 35.05380642],
                          [0.20318085, -28.62372894, 26.52611278, 28.41793445],
                          [-0.19105386, -28.58530584, -26.52747507, 28.78447320],
@@ -189,8 +189,7 @@ class TestBinaryBinaryRBM(unittest.TestCase):
         sys.stdout.write('BinaryBinaryRBM -> Performing energy test ...')
         sys.stdout.flush()
         energies = self.bbrbm.energy(self.bbrbmData, self.bbrbmData)
-        target = numx.array(
-            [[0.], [0.], [32.49137574], [32.50603837], [0.93641873], [0.91694445], [0.03276686], [0.03276686]])
+        target = numx.array([[0.], [0.], [32.49137574], [32.50603837], [0.93641873], [0.91694445], [0.03276686], [0.03276686]])
         assert numx.all(numx.abs(energies - target) < self.epsilon)
         print(' successfully passed!')
         sys.stdout.flush()

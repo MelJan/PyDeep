@@ -63,11 +63,11 @@ def _partition_function_exact_check(model, batchsize_exponent='AUTO'):
         batchsize_exponent = numx.min([model.W1.shape[1], 12])
     batchSize = numx.power(2, batchsize_exponent)
     num_combinations = numx.power(2, bit_length)
-    num_batches = num_combinations / batchSize
+    num_batches = num_combinations // batchSize
     bitCombinations = numx.zeros((batchSize, model.W1.shape[1]))
     log_prob_vv_all = numx.zeros(num_combinations)
 
-    for batch in range(1, int(num_batches + 1)):
+    for batch in range(1, num_batches + 1):
         # Generate current batch
         bitCombinations = npExt.generate_binary_code(bit_length,
                                                      batchsize_exponent,

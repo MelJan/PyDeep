@@ -502,7 +502,7 @@ class BinaryBinaryRBM(BipartiteGraph):
 
     def _getbasebias(self):
         """ Returns the maximum likelihood estimate of the visible bias, given the data. If no data is given the RBMs \
-            bias value is return, but is highly rcommended to pass the data.
+            bias value is return, but is highly recommended to pass the data.
 
         :return: Base bias.
         :rtype: numpy array [1,  input dim]

@@ -153,7 +153,7 @@ def generate_shifting_bars_complete(length,
                                     flipped=False):
     """ Creates a dataset containing all possible positions of a bar of length "bar_length" can take in a strip of \
         "length" dimensions.
-    
+
     :param length: Number of dimensions
     :type length: int
 
