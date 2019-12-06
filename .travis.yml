@@ -5,6 +5,9 @@ cache: pip
 install:
   - pip install coverage
   - pip install coveralls
+  - pip install matplotlib
+  - pip install numpy
+  - pip install scipy
   - pip install .
 script:
   - coverage run -m unittest discover
