@@ -48,7 +48,7 @@ import pydeep.ae.trainer as aeTrainer
 numx.random.seed(42)
 
 # Load data (download is not existing)
-data = io.load_natural_image_patches('../../../data/NaturalImage.mat')
+data = io.load_natural_image_patches('NaturalImage.mat')
 
 # Remove mean individually
 data = pre.remove_rows_means(data)

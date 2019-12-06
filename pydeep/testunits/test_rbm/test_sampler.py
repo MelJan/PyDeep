@@ -1,5 +1,5 @@
 ''' Test module for RBM sampler.
-        
+
     :Version:
         1.1.0
 
@@ -58,22 +58,22 @@ class TestSampler(unittest.TestCase):
 
     @classmethod
     def execute_sampler(cls, sampler, num_samples):
-        dictC = {'[ 0.  0.  0.  0.]': 0,  # 2
-                 '[ 1.  1.  1.  1.]': 0,  # 2
-                 '[ 0.  0.  1.  1.]': 0,  # 1
-                 '[ 1.  1.  0.  0.]': 0,  # 1
-                 '[ 1.  0.  1.  0.]': 0,  # 1
-                 '[ 0.  1.  0.  1.]': 0,  # 1
-                 '[ 0.  1.  1.  0.]': 0,
-                 '[ 1.  0.  0.  1.]': 0,
-                 '[ 0.  0.  0.  1.]': 0,
-                 '[ 0.  0.  1.  0.]': 0,
-                 '[ 0.  1.  0.  0.]': 0,
-                 '[ 1.  0.  0.  0.]': 0,
-                 '[ 0.  1.  1.  1.]': 0,
-                 '[ 1.  1.  1.  0.]': 0,
-                 '[ 1.  0.  1.  1.]': 0,
-                 '[ 1.  1.  0.  1.]': 0}
+        dictC = {'[0. 0. 0. 0.]': 0,  # 2
+                 '[1. 1. 1. 1.]': 0,  # 2
+                 '[0. 0. 1. 1.]': 0,  # 1
+                 '[1. 1. 0. 0.]': 0,  # 1
+                 '[1. 0. 1. 0.]': 0,  # 1
+                 '[0. 1. 0. 1.]': 0,  # 1
+                 '[0. 1. 1. 0.]': 0,
+                 '[1. 0. 0. 1.]': 0,
+                 '[0. 0. 0. 1.]': 0,
+                 '[0. 0. 1. 0.]': 0,
+                 '[0. 1. 0. 0.]': 0,
+                 '[1. 0. 0. 0.]': 0,
+                 '[0. 1. 1. 1.]': 0,
+                 '[1. 1. 1. 0.]': 0,
+                 '[1. 0. 1. 1.]': 0,
+                 '[1. 1. 0. 1.]': 0}
         for _ in range(numx.int32(num_samples)):
             if isinstance(sampler, Sampler.GibbsSampler):
                 # Start form random since model is rather deterministic
@@ -87,12 +87,12 @@ class TestSampler(unittest.TestCase):
                     samples = sampler.sample(1, 1, ret_states=True)
 
             dictC[str(samples[0])] += 1
-        probCD1 = dictC['[ 0.  0.  0.  0.]'] / num_samples
-        probCD2 = dictC['[ 1.  1.  1.  1.]'] / num_samples
-        probCS1 = dictC['[ 0.  0.  1.  1.]'] / num_samples
-        probCS2 = dictC['[ 1.  1.  0.  0.]'] / num_samples
-        probCS3 = dictC['[ 1.  0.  1.  0.]'] / num_samples
-        probCS4 = dictC['[ 0.  1.  0.  1.]'] / num_samples
+        probCD1 = dictC['[0. 0. 0. 0.]'] / num_samples
+        probCD2 = dictC['[1. 1. 1. 1.]'] / num_samples
+        probCS1 = dictC['[0. 0. 1. 1.]'] / num_samples
+        probCS2 = dictC['[1. 1. 0. 0.]'] / num_samples
+        probCS3 = dictC['[1. 0. 1. 0.]'] / num_samples
+        probCS4 = dictC['[0. 1. 0. 1.]'] / num_samples
         sumProbs = probCD1 + probCD2 + probCS1 + probCS2 + probCS3 + probCS4
         return [probCD1, probCD2, probCS1, probCS2, probCS3, probCS4, sumProbs]
 

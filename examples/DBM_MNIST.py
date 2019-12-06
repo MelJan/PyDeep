@@ -9,7 +9,7 @@ from pydeep.dbm.model import *
 numx.random.seed(42)
 
 # Load Data
-train_data = IO.load_mnist("../../data/mnist.pkl.gz", True)[0]
+train_data = IO.load_mnist("mnist.pkl.gz", True)[0]
 
 # Set dimensions Layer 1-3
 v11 = v12 = 28
