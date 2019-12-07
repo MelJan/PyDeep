@@ -363,7 +363,7 @@ class Test_BipartiteGraph(unittest.TestCase):
         sys.stdout.write('BipartiteGraph -> Performing add_visible_units test ...')
         sys.stdout.flush()
         num_vis = 4
-        pos = num_vis / 2
+        pos = num_vis // 2
         init_value = 3.0
         check_list = ['AUTO', init_value, 'non-scalar']
         for each_case in check_list:
