@@ -46,7 +46,7 @@ print("\n... pydeep.rbm.model.py")
 class TestBinaryBinaryRBM(unittest.TestCase):
     # Known RBM
     bbrbmData = generate_bars_and_stripes_complete(2)
-    bbrbmData = numx.vstack((bbrbmData[4], bbrbmData[0:3], bbrbmData[5:8], bbrbmData[3]))
+    bbrbmData = numx.vstack((bbrbmData[0], bbrbmData, bbrbmData[5]))
     bbrbmw = numx.array([[0.12179488, 2.95950177, 0.33513356, 35.05380642],
                          [0.20318085, -28.62372894, 26.52611278, 28.41793445],
                          [-0.19105386, -28.58530584, -26.52747507, 28.78447320],
