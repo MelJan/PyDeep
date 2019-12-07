@@ -10,6 +10,10 @@ install:
   - pip install scipy
   - pip install .
 script:
-  - travis_wait 60 coverage run -m unittest discover
+  # Output something every 5 minutes or Travis kills the tests
+  - while sleep 5m; do echo "\n=====[ Ran for $SECONDS seconds ]=====\n"; done &
+  - coverage run -m unittest discover
+  # Killing background sleep loop
+  - kill %1
 after_success:
   - coveralls
