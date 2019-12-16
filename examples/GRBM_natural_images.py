@@ -101,8 +101,8 @@ trainer_cd = trainer.CD(rbm)
 
 # Train model, status every 10th epoch
 step = 10
-print 'Training'
-print 'Epoch\tRE train\tRE test \tLL train\tLL test '
+print('Training')
+print('Epoch\tRE train\tRE test \tLL train\tLL test ')
 for epoch in range(0, max_epochs + 1, 1):
 
     # Shuffle training samples (optional)
@@ -112,7 +112,7 @@ for epoch in range(0, max_epochs + 1, 1):
     if epoch % step == 0:
         RE_train = numx.mean(estimator.reconstruction_error(rbm, train_data))
         RE_test = numx.mean(estimator.reconstruction_error(rbm, test_data))
-        print '%5d \t%0.5f \t%0.5f' % (epoch, RE_train, RE_test)
+        print('%5d \t%0.5f \t%0.5f' % (epoch, RE_train, RE_test))
 
     # Train one epoch with gradient restriction/clamping
     # No weight decay, momentum or sparseness is used
