@@ -39,8 +39,8 @@ def print_classes_and_members(root_path,module_path,module_structure,module_name
         module_name = pattern.findall(module_structure)[0]
         module_structure = module_structure.replace('.__init__','')
         depth -= 1
-        print (module_name)
-        print (header_level[depth])
+        print(module_name)
+        print(header_level[depth])
         print("")
         print(".. automodule:: " + module_structure)
         print
@@ -48,8 +48,8 @@ def print_classes_and_members(root_path,module_path,module_structure,module_name
         pattern = re.compile('( def|class|def)\s(\S+)\(')
         f = open(os.path.join(root_path, module_path), 'r')
         text = f.read()
-        print (module_name)
-        print (header_level[depth])
+        print(module_name)
+        print(header_level[depth])
         print("")
         print(".. automodule:: " + module_structure)
         print
