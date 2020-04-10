@@ -1,5 +1,5 @@
 ''' Test module for AE trainer.
-    
+
     :Version:
         1.0
 
@@ -149,7 +149,7 @@ class Test_AE_Trainer(unittest.TestCase):
                                               data_next = None,
                                               restrict_gradient = 0.0,
                                               restriction_norm = 'Cols')
-                
+
         for act_out in [AFct.Identity,AFct.SoftSign,AFct.Rectifier,AFct.SoftPlus,AFct.Sigmoid,AFct.HyperbolicTangent]:
             for act_in in [AFct.Identity,AFct.SoftSign,AFct.Rectifier,AFct.SoftPlus,AFct.Sigmoid,AFct.HyperbolicTangent]:
                 ae = MODEL.AutoEncoder(number_visibles = 16,

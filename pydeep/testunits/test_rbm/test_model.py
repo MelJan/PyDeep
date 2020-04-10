@@ -1,5 +1,5 @@
 ''' Test module for RBM models.
-        
+
     :Version:
         1.1.0
 

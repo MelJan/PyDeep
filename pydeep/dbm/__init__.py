@@ -1,19 +1,19 @@
 ''' Module initializer includes all sub-modules.
-        
+
     :Version:
         3.0
-        
+
     :Date:
         15.07.2014
-    
+
     :Author:
         Jan Melchior
-        
+
     :Contact:
         pydeep@gmail.com
-        
+
     :License:
-        
+
         Copyright (C) 2014  Jan Melchior
 
         This program is free software: you can redistribute it and/or modify
@@ -28,6 +28,6 @@
 
         You should have received a copy of the GNU General Public License
         along with this program.  If not, see <http://www.gnu.org/licenses/>.
-      
+
 '''
-__all__ = ["model", "unit_layer", "weight_layer"]
+__all__ = ["model", "unit_layer", "weight_layer", "binary3Layer"]
