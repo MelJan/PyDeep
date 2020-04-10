@@ -53,7 +53,7 @@ h1 = 10
 h2 = 10
 
 # Load data , get it from 'deeplearning.net/data/mnist/mnist.pkl.gz'
-train_data, _, _, _, test_data, _ = io.load_mnist("../../data/mnist.pkl.gz", False)
+train_data, _, _, _, test_data, _ = io.load_mnist("mnist.pkl.gz", False)
 
 # Set hyperparameters batchsize and number of epochs
 batch_size = 10

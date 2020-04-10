@@ -40,7 +40,16 @@ from setuptools import setup
 def read(fname):
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
 
-
+packages = ['pydeep',
+            'pydeep.ae',
+            'pydeep.base',
+            'pydeep.dbm',
+            'pydeep.dbm.binary3Layer',
+            'pydeep.fnn',
+            'pydeep.misc',
+            'pydeep.rbm',
+            ]
+            
 setup(
     name="PyDeep",
     version="1.2.0",
@@ -52,7 +61,7 @@ setup(
              "Restricted Boltzmann machines, Deep Boltzmann machines, Independent Component Analysis, "
              "Principal Component Analysis, Zero-Phase Component Analysis",
     url="https://github.com/MelJan/PyDeep",
-    packages=['pydeep', 'pydeep.base', 'pydeep.misc', 'pydeep.rbm'],
+    packages=packages,
     py_modules=[],
     setup_requires=['numpy','scipy','matplotlib'],
     long_description=read('README.md'),
