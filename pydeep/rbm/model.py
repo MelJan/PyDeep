@@ -111,7 +111,7 @@ class BinaryBinaryRBM(BipartiteGraph):
         :type initial_hidden_offsets: 'AUTO', scalar or numpy array [1, output_dim]
 
         :param dtype: Used data type i.e. numpy.float64
-        :type dtype: numpy.float32 or numpy.float64 or numpy.float128
+        :type dtype: numpy.float32 or numpy.float64 or numpy.longdouble
         """
         # Call constructor of superclass
         super(BinaryBinaryRBM,
@@ -502,7 +502,7 @@ class BinaryBinaryRBM(BipartiteGraph):
 
     def _getbasebias(self):
         """ Returns the maximum likelihood estimate of the visible bias, given the data. If no data is given the RBMs \
-            bias value is return, but is highly rcommended to pass the data.
+            bias value is return, but is highly recommended to pass the data.
 
         :return: Base bias.
         :rtype: numpy array [1,  input dim]
@@ -562,7 +562,7 @@ class GaussianBinaryRBM(BinaryBinaryRBM):
         :type initial_hidden_offsets: 'AUTO', scalar or numpy array [1, output_dim]
 
         :param dtype: Used data type i.e. numpy.float64
-        :type dtype: numpy.float32 or numpy.float64 or numpy.float128
+        :type dtype: numpy.float32 or numpy.float64 or numpy.longdouble
         """
         if initial_visible_bias is 'AUTO' or initial_visible_bias is 'INVERSE_SIGMOID':
             if data is not None:
@@ -1008,7 +1008,7 @@ class GaussianBinaryVarianceRBM(GaussianBinaryRBM):
         :type initial_hidden_offsets: 'AUTO', scalar or numpy array [1, output_dim]
 
         :param dtype: Used data type i.e. numpy.float64
-        :type dtype: numpy.float32 or numpy.float64 or numpy.float128
+        :type dtype: numpy.float32 or numpy.float64 or numpy.longdouble
         """
         # Call constructor of superclass
         super(GaussianBinaryVarianceRBM,
@@ -1116,7 +1116,7 @@ class BinaryBinaryLabelRBM(BinaryBinaryRBM):
         :type initial_hidden_offsets: 'AUTO', scalar or numpy array [1, output_dim]
 
         :param dtype: Used data type i.e. numpy.float64
-        :type dtype: numpy.float32 or numpy.float64 or numpy.float128
+        :type dtype: numpy.float32 or numpy.float64 or numpy.longdouble
         """
         # Call constructor of superclass
         super(BinaryBinaryLabelRBM,
@@ -1282,7 +1282,7 @@ class GaussianBinaryLabelRBM(GaussianBinaryRBM):
          :type initial_hidden_offsets: 'AUTO', scalar or numpy array [1, output_dim]
 
          :param dtype: Used data type i.e. numpy.float64
-         :type dtype: numpy.float32 or numpy.float64 or numpy.float128
+         :type dtype: numpy.float32 or numpy.float64 or numpy.longdouble
          """
         # Call constructor of superclass
         super(GaussianBinaryLabelRBM,
@@ -1440,7 +1440,7 @@ class BinaryRectRBM(BinaryBinaryRBM):
          :type initial_hidden_offsets: 'AUTO', scalar or numpy array [1, output_dim]
 
          :param dtype: Used data type i.e. numpy.float64
-         :type dtype: numpy.float32 or numpy.float64 or numpy.float128
+         :type dtype: numpy.float32 or numpy.float64 or numpy.longdouble
          """
         # Call constructor of superclass
         super(BinaryBinaryRBM,
@@ -1592,7 +1592,7 @@ class RectBinaryRBM(BinaryBinaryRBM):
          :type initial_hidden_offsets: 'AUTO', scalar or numpy array [1, output_dim]
 
          :param dtype: Used data type i.e. numpy.float64
-         :type dtype: numpy.float32 or numpy.float64 or numpy.float128
+         :type dtype: numpy.float32 or numpy.float64 or numpy.longdouble
          """
         # Call constructor of superclass
         super(BinaryBinaryRBM,
@@ -1751,7 +1751,7 @@ class RectRectRBM(BinaryRectRBM):
          :type initial_hidden_offsets: 'AUTO', scalar or numpy array [1, output_dim]
 
          :param dtype: Used data type i.e. numpy.float64
-         :type dtype: numpy.float32 or numpy.float64 or numpy.float128
+         :type dtype: numpy.float32 or numpy.float64 or numpy.longdouble
          """
         # Call constructor of superclass
         super(BinaryRectRBM,
@@ -1861,7 +1861,7 @@ class GaussianRectRBM(GaussianBinaryRBM):
         :type initial_hidden_offsets: 'AUTO', scalar or numpy array [1, output_dim]
 
         :param dtype: Used data type.
-        :type dtype: numpy.float32, numpy.float64 and, numpy.float128
+        :type dtype: numpy.float32, numpy.float64 and, numpy.longdouble
         """
 
         # Call constructor of superclass
@@ -2015,7 +2015,7 @@ class GaussianRectVarianceRBM(GaussianRectRBM):
         :type initial_hidden_offsets: 'AUTO', scalar or numpy array [1, output_dim]
 
         :param dtype: Used data type.
-        :type dtype: numpy.float32, numpy.float64 and, numpy.float128
+        :type dtype: numpy.float32, numpy.float64 and, numpy.longdouble
         """
         # Call constructor of superclass
         super(GaussianRectVarianceRBM,

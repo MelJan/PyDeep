@@ -189,8 +189,7 @@ class TestBinaryBinaryRBM(unittest.TestCase):
         sys.stdout.write('BinaryBinaryRBM -> Performing energy test ...')
         sys.stdout.flush()
         energies = self.bbrbm.energy(self.bbrbmData, self.bbrbmData)
-        target = numx.array(
-            [[0.], [0.], [32.49137574], [32.50603837], [0.93641873], [0.91694445], [0.03276686], [0.03276686]])
+        target = numx.array([[0.], [0.], [32.49137574], [32.50603837], [0.93641873], [0.91694445], [0.03276686], [0.03276686]])
         assert numx.all(numx.abs(energies - target) < self.epsilon)
         print(' successfully passed!')
         sys.stdout.flush()

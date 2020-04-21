@@ -37,8 +37,8 @@ import time
 import numpy as numx
 
 
-def print_progress(step, 
-                   num_steps, 
+def print_progress(step,
+                   num_steps,
                    gauge=False,
                    length=50,
                    decimal_place=1):
@@ -60,17 +60,17 @@ def print_progress(step,
     :type decimal_place: int
     """
     # jump to line beginning
-    print '\r',
+    print('\r')
     if gauge:
         # print gauge
-        print '=' * (step * length / num_steps) + '>' + '.' * (length - step * length / num_steps),
+        print('=' * int(step * length / num_steps) + '>' + '.' * int(length - step * length / num_steps))
     # Define where to start printing the difits
     percent_format = '%'+str(3+decimal_place+numx.sign(decimal_place))+'.'+str(decimal_place)+'f%%'
     # Print formated percentage
     percent = (step * 100.0 / num_steps)
-    print percent_format % percent
+    print(percent_format % percent)
     if step == num_steps:
-        print ""
+        print("")
 
 
 class Stopwatch(object):
@@ -80,19 +80,19 @@ class Stopwatch(object):
 
     def __init__(self):
         """ Constructor sets the starting time to the current time.
-        
+
             :Info: Will be overwritten by calling start()!
-           
+
         """
         self.__start_time = datetime.datetime.now()
         self.__end_time = None
         self.__interval = 0.0
         self.__t_start = time.time()
         self.__t_last = time.time()
-    
+
     def start(self):
         """ Sets the starting time to the current time.
-           
+
         """
         self.__start_time = datetime.datetime.now()
         self.__end_time = None
@@ -102,14 +102,14 @@ class Stopwatch(object):
 
     def pause(self):
         """ Pauses the time measuring.
-           
+
         """
         t_temp = time.time()
         self.__interval += t_temp - self.__t_last
 
     def resume(self):
         """ Resumes the time measuring.
-           
+
         """
         self.__t_last = time.time()
 
@@ -129,7 +129,7 @@ class Stopwatch(object):
 
     def end(self):
         """ Stops/ends the time measuring.
-           
+
         """
         self.update()
         self.__end_time = datetime.datetime.now()
@@ -141,7 +141,7 @@ class Stopwatch(object):
         :rtype: datetime
         """
         return self.__start_time
-    
+
     def get_end_time(self):
         """ Returns the end time.
 
@@ -152,15 +152,15 @@ class Stopwatch(object):
 
     def get_interval(self):
         """ Returns the current interval.
-           
+
         :return: Current interval:
         :rtype: timedelta
         """
         self.update()
         return datetime.timedelta(0, self.__interval)
-            
-    def get_expected_end_time(self, 
-                              iteration, 
+
+    def get_expected_end_time(self,
+                              iteration,
                               num_iterations):
         """ Returns the expected end time.
 
@@ -174,9 +174,9 @@ class Stopwatch(object):
         :rtype: datetime
         """
         return self.__start_time + self.get_expected_interval(iteration, num_iterations)
-    
-    def get_expected_interval(self, 
-                              iteration, 
+
+    def get_expected_interval(self,
+                              iteration,
                               num_iterations):
         """ Returns the expected interval/Time needed till ending.
 

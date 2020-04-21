@@ -316,7 +316,7 @@ class SSHPool(object):
 
     def load_server(self, path, password, append=True):
         """
-        
+
         :param path: Path and filename.
         :type path: string
 
@@ -342,15 +342,15 @@ class SSHPool(object):
 
     def execute_command(self, host, command):
         """ Executes a command on a given server servers.
-        
+
         :param host: Hostname or connection object
         :type host: string or SSHConnection
 
         :param command: Command to be executed
         :type command: string
 
-        :return: 
-        :rtype: 
+        :return:
+        :rtype:
         """
         if isinstance(host, SSHConnection):
             s = host
@@ -459,7 +459,7 @@ class SSHPool(object):
         # Loop over Server
         for server in self.servers:
             if status:
-                print "Server: " + server.hostname
+                print("Server: " + server.hostname)
             server.connect()
             server.get_server_info()
 
@@ -470,9 +470,9 @@ class SSHPool(object):
                 if num_free_cores > server.max_cpus_usage:
                     num_free_cores = server.max_cpus_usage
             if status:
-                print "\tFree cores: " + str(num_free_cores)
+                print("\tFree cores: " + str(num_free_cores))
             if status:
-                print "\tJobs started:"
+                print("\tJobs started:")
             started_job_index = []
             for j in range(len(jobs)):
                 if num_free_cores < 1:
@@ -483,7 +483,7 @@ class SSHPool(object):
                     self.log.append(
                         str(datetime.datetime.now()) + ' Job ' + jobs[j].command + ' started on ' + server.hostname)
                     if status:
-                        print "\t\t " + jobs[j].command
+                        print("\t\t " + jobs[j].command)
                     started_job_index.append(jobs[j])
                     started_job.append(jobs[j])
                     num_free_cores -= threads_to_use
@@ -492,7 +492,7 @@ class SSHPool(object):
             for j in range(len(started_job_index)):
                 jobs.remove(started_job_index[j])
             if status:
-                print "\tNow Free cores: " + str(num_free_cores)
+                print("\tNow Free cores: " + str(num_free_cores))
             server.disconnect()
         return started_job, jobs
 
@@ -530,14 +530,14 @@ class SSHPool(object):
         results.sort(key=lambda x: x[9], reverse=True)
         for h in header:
             print str(h),
-        print ""
+        print("")
         for r in results:
             for i in r:
                 if isinstance(i, float):
                     print '%.2f\t\t' % i,
                 else:
                     print str(i) + '\t\t',
-            print ""
+            print("")
         return header, results
 
     def get_servers_info(self, status=True):

@@ -98,9 +98,9 @@ betas = numx.hstack((a,b,c))
 
 numx.random.seed(42)
 # Start time measure and training
-for epoch in xrange(0,epochs+1) :
+for epoch in range(0,epochs+1) :
     # update model
-    for b in xrange(0,train_set.shape[0],batch_size):
+    for b in range(0,train_set.shape[0],batch_size):
         trainer.train(data =train_set[b:b + batch_size, :],
                                                  epsilon = epsilon,
                                                  k = [k_pos,k_neg],

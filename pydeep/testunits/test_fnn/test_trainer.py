@@ -1,5 +1,5 @@
 ''' Test module for FNN trainer methods.
-        
+
     :Version:
         1.0
 
@@ -40,12 +40,12 @@ import pydeep.base.costfunction as CFct
 
 import sys
 
-print "\n... pydeep.fnn.trainer.py"
+print("\n... pydeep.fnn.trainer.py")
 
 class Test_FNN_trainer(unittest.TestCase):
-    
+
     epsilon = 0.00001
-    
+
     def test___init__(self):
         sys.stdout.write('FNN_trainer -> Performing init test ... ')
         sys.stdout.flush()

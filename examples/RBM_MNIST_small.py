@@ -110,8 +110,8 @@ for epoch in range(epochs):
                           update_visible_offsets=update_offsets,
                           update_hidden_offsets=update_offsets)
 
-    # Calculate Log-Likelihood, reconstruction error and expected end time every 10th epoch
-    if epoch % 10 == 0:
+    # Calculate Log-Likelihood, reconstruction error and expected end time every 5th epoch
+    if (epoch==0 or (epoch+1) % 5 == 0):
         logZ = estimator.partition_function_factorize_h(rbm)
         ll_train = numx.mean(estimator.log_likelihood_v(rbm, logZ, train_data))
         ll_test = numx.mean(estimator.log_likelihood_v(rbm, logZ, test_data))

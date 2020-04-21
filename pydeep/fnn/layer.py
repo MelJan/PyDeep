@@ -99,7 +99,7 @@ class FullConnLayer(object):
                                  -type: numpy array [input dim, output_dim] or None
                         
             dtype:                Used data type i.e. numpy.float64
-                                 -type: numpy.float32 or numpy.float64 or numpy.float128
+                                 -type: numpy.float32 or numpy.float64 or numpy.longdouble
             
         '''
         self.input_dim = input_dim

@@ -94,7 +94,7 @@ def reconstruction_error(model,
         for batch in data:
             vis_probs = batch
             if use_states:
-                for _ in xrange(0, k):
+                for _ in range(0, k):
                     hid_probs = model.probability_h_given_v(vis_probs, beta)
                     hid_probs = model.sample_h(hid_probs)
                     vis_probs = model.probability_v_given_h(hid_probs, beta)
@@ -112,7 +112,7 @@ def reconstruction_error(model,
         # Data is given in one batch
         vis_probs = data
         if use_states:
-            for _ in xrange(0, k):
+            for _ in range(0, k):
                 hid_probs = model.probability_h_given_v(vis_probs, beta)
                 hid_probs = model.sample_h(hid_probs)
                 vis_probs = model.probability_v_given_h(hid_probs, beta)
@@ -216,8 +216,8 @@ def partition_function_factorize_v(model,
     :rtype: float
     """
     if status is True:
-        print "Calculating the partition function by factoring over v: "
-        print '%3.2f' % 0.0, '%'
+        print("Calculating the partition function by factoring over v: ")
+        print('%3.2f%%' % 0.0)
 
     bit_length = model.input_dim
     if batchsize_exponent is 'AUTO' or batchsize_exponent > 20:
@@ -225,7 +225,7 @@ def partition_function_factorize_v(model,
     batchsize = numx.power(2, batchsize_exponent)
     num_combinations = numx.power(2, bit_length)
 
-    num_batches = num_combinations / batchsize
+    num_batches = num_combinations // batchsize
     log_prob_vv_all = numx.zeros(num_combinations)
 
     for batch in range(1, num_batches + 1):
@@ -237,7 +237,7 @@ def partition_function_factorize_v(model,
             bitcombinations, beta).reshape(bitcombinations.shape[0])
         # print status if wanted
         if status is True:
-            print '%3.2f' % (100 * numx.double(batch) / numx.double(num_batches)), '%'
+            print('%3.2f%%' % (100 * numx.double(batch) / numx.double(num_batches)))
 
     # return the log_sum of values
     return numxext.log_sum_exp(log_prob_vv_all)
@@ -267,8 +267,8 @@ def partition_function_factorize_h(model,
     :rtype: float
     """
     if status is True:
-        print "Calculating the partition function by factoring over h: "
-        print '%3.2f' % 0.0, '%'
+        print("Calculating the partition function by factoring over h: ")
+        print('%3.2f%%' % 0.0)
 
     bit_length = model.output_dim
     if batchsize_exponent is 'AUTO' or batchsize_exponent > 20:
@@ -276,7 +276,7 @@ def partition_function_factorize_h(model,
     batchsize = numx.power(2, batchsize_exponent)
     num_combinations = numx.power(2, bit_length)
 
-    num_batches = num_combinations / batchsize
+    num_batches = num_combinations // batchsize
     log_prob_vv_all = numx.zeros(num_combinations)
 
     for batch in range(1, num_batches + 1):
@@ -289,7 +289,7 @@ def partition_function_factorize_h(model,
 
         # print status if wanted
         if status is True:
-            print '%3.2f' % (100 * numx.double(batch) / numx.double(num_batches)), '%'
+            print('%3.2f%%' % (100 * numx.double(batch) / numx.double(num_batches)))
 
     # return the log_sum of values
     return numxext.log_sum_exp(log_prob_vv_all)
@@ -338,15 +338,15 @@ def annealed_importance_sampling(model,
 
     if status is True:
         t = 1
-        print "Calculating the partition function using AIS: "
-        print '%3.2f' % 0.0, '%'
-        print '%3.2f' % (100.0 * numx.double(t) / numx.double(betas.shape[0])), '%'
+        print("Calculating the partition function using AIS: ")
+        print('%3.2f%%' % 0.0)
+        print('%3.2f%%' % (100.0 * numx.double(t) / numx.double(betas.shape[0])))
 
     for beta in betas[1:betas.shape[0] - 1]:
 
         if status is True:
             t += 1
-            print '%3.2f' % (100.0 * numx.double(t) / numx.double(betas.shape[0])), '%'
+            print('%3.2f%%' % (100.0 * numx.double(t) / numx.double(betas.shape[0])))
         # Calculate the unnormalized probabilties of v
         lnpvsum += model.unnormalized_log_probability_v(v, beta, True)
 
@@ -380,7 +380,7 @@ def annealed_importance_sampling(model,
     logz_down = numxext.log_diff_exp(lnpvstd) + baselogz
 
     if status is True:
-        print '%3.2f' % 100.0, '%'
+        print('%3.2f%%' % 100.0)
 
     return logz, logz_up, logz_down
 
@@ -438,15 +438,15 @@ def reverse_annealed_importance_sampling(model,
     # Setup temerpatures if not given
     if status is True:
         t = 1
-        print "Calculating the partition function using AIS: "
-        print '%3.2f' % (0.0), '%'
-        print '%3.2f' % (100.0 * numx.double(t) / numx.double(betas.shape[0])), '%'
+        print("Calculating the partition function using AIS: ")
+        print('%3.2f%%' % (0.0))
+        print('%3.2f%%' % (100.0 * numx.double(t) / numx.double(betas.shape[0])))
 
     for beta in reversed(betas[1:betas.shape[0] - 1]):
 
         if status is True:
             t += 1
-            print '%3.2f' % (100.0 * numx.double(t) / numx.double(betas.shape[0])), '%'
+            print('%3.2f%%' % (100.0 * numx.double(t) / numx.double(betas.shape[0])))
 
         # Calculate the unnormalized probabilties of v
         lnpvsum -= model.unnormalized_log_probability_v(v, beta, True)
@@ -481,6 +481,6 @@ def reverse_annealed_importance_sampling(model,
     logz_down = numxext.log_diff_exp(lnpvstd) + baselogz
 
     if status is True:
-        print '%3.2f' % 100.0, '%'
+        print('%3.2f%%' % 100.0)
 
     return logz, logz_up, logz_down

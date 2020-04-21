@@ -40,7 +40,7 @@ import pydeep.ae.trainer as TRAINER
 import pydeep.base.activationfunction as AFct
 import pydeep.base.costfunction as CFct
 
-print "\n... pydeep.ae.trainer.py"
+print("\n... pydeep.ae.trainer.py")
 
 class Test_AE_Trainer(unittest.TestCase):
 

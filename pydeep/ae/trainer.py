@@ -5,12 +5,12 @@
     :Implemented:
         - GDTrainer
 
-    :Info: 
+    :Info:
         http://ufldl.stanford.edu/wiki/index.php/Sparse_Coding:_Autoencoder_Interpretation
-   
+
     :Version:
         1.0
-        
+
     :Date:
         21.01.2018
 
@@ -36,11 +36,11 @@
 
         You should have received a copy of the GNU General Public License
         along with this program.  If not, see <http://www.gnu.org/licenses/>.
-            
+
 '''
 import numpy as numx
 import pydeep.base.numpyextension as npExt
-import model as MODEL
+import pydeep.ae.model as MODEL
 
 class GDTrainer(object):
     ''' Auto encoder trainer using gradient descent.

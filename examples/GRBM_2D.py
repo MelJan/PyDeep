@@ -146,20 +146,20 @@ logZ_rAIS = estimator.reverse_annealed_importance_sampling(rbm,
                                                   status=False)[0]
 
 # Calculate and print LL
-print ""
-print "\nTrue log partition: ", logZ, " ( LL_train: ", numx.mean(
+print("")
+print("\nTrue log partition: ", logZ, " ( LL_train: ", numx.mean(
     estimator.log_likelihood_v(
         rbm, logZ, train_data)), ",", "LL_test: ", numx.mean(
-    estimator.log_likelihood_v(rbm, logZ, test_data)), " )"
-print "\nAIS  log partition: ", logZ_AIS, " ( LL_train: ", numx.mean(
+    estimator.log_likelihood_v(rbm, logZ, test_data)), " )")
+print("\nAIS  log partition: ", logZ_AIS, " ( LL_train: ", numx.mean(
     estimator.log_likelihood_v(
         rbm, logZ_AIS, train_data)), ",", "LL_test: ", numx.mean(
-    estimator.log_likelihood_v(rbm, logZ_AIS, test_data)), " )"
-print "\nrAIS  log partition: ", logZ_rAIS, " ( LL_train: ", numx.mean(
+    estimator.log_likelihood_v(rbm, logZ_AIS, test_data)), " )")
+print("\nrAIS  log partition: ", logZ_rAIS, " ( LL_train: ", numx.mean(
     estimator.log_likelihood_v(
         rbm, logZ_rAIS, train_data)), ",", "LL_test: ", numx.mean(
-    estimator.log_likelihood_v(rbm, logZ_rAIS, test_data)), " )"
-print
+    estimator.log_likelihood_v(rbm, logZ_rAIS, test_data)), " )")
+print("")
 # Print parameter
 print '\nWeigths:\n', rbm.w
 print 'Visible bias:\n', rbm.bv
@@ -169,7 +169,7 @@ print
 
 # Calculate P(h) wich are the scaling factors of the Gaussian components
 h_i = numx.zeros((1, h1 * h2))
-print "Scaling factors:"
+print("Scaling factors:")
 print 'P(h_0)', numx.exp(rbm.log_probability_h(logZ, h_i))
 for i in range(h1 * h2):
     h_i = numx.zeros((1, h1 * h2))
@@ -184,39 +184,39 @@ ica.train(train_data, iterations=100,status=False)
 data_ica = ica.project(train_data)
 
 # Print ICA log-likelihood
-print "ICA log-likelihood on train data: " + str(numx.mean(
-    ica.log_likelihood(data=train_data)))
-print "ICA log-likelihood on test data: " + str(numx.mean(
-    ica.log_likelihood(data=test_data)))
-print
+print("ICA log-likelihood on train data: " + str(numx.mean(
+    ica.log_likelihood(data=train_data))))
+print("ICA log-likelihood on test data: " + str(numx.mean(
+    ica.log_likelihood(data=test_data))))
+print("")
 
 # Print Amari distances
-print "Amari distanca between true mixing matrix and ICA estimation: "+str(
-    vis.calculate_amari_distance(zca.project(mixing_matrix.T), ica.projection_matrix.T))
+print("Amari distanca between true mixing matrix and ICA estimation: "+str(
+    vis.calculate_amari_distance(zca.project(mixing_matrix.T), ica.projection_matrix.T)))
 
-print "Amari distanca between true mixing matrix and GRBM weight vector 1 and 2: "+str(
+print("Amari distanca between true mixing matrix and GRBM weight vector 1 and 2: "+str(
     vis.calculate_amari_distance(zca.project(mixing_matrix.T),
-                                 numx.vstack((rbm.w.T[0:1],rbm.w.T[1:2]))))
+                                 numx.vstack((rbm.w.T[0:1],rbm.w.T[1:2])))))
 
-print "Amari distanca between true mixing matrix and GRBM weight vector 1 and 3: "+str(
+print("Amari distanca between true mixing matrix and GRBM weight vector 1 and 3: "+str(
     vis.calculate_amari_distance(zca.project(mixing_matrix.T),
-                                 numx.vstack((rbm.w.T[0:1],rbm.w.T[2:3]))))
+                                 numx.vstack((rbm.w.T[0:1],rbm.w.T[2:3])))))
 
-print "Amari distanca between true mixing matrix and GRBM weight vector 1 and 4: "+str(
+print("Amari distanca between true mixing matrix and GRBM weight vector 1 and 4: "+str(
     vis.calculate_amari_distance(zca.project(mixing_matrix.T),
-                                 numx.vstack((rbm.w.T[0:1],rbm.w.T[3:4]))))
+                                 numx.vstack((rbm.w.T[0:1],rbm.w.T[3:4])))))
 
-print "Amari distanca between true mixing matrix and GRBM weight vector 2 and 3: "+str(
+print("Amari distanca between true mixing matrix and GRBM weight vector 2 and 3: "+str(
     vis.calculate_amari_distance(zca.project(mixing_matrix.T),
-                                 numx.vstack((rbm.w.T[1:2],rbm.w.T[2:3]))))
+                                 numx.vstack((rbm.w.T[1:2],rbm.w.T[2:3])))))
 
-print "Amari distanca between true mixing matrix and GRBM weight vector 2 and 4: "+str(
+print("Amari distanca between true mixing matrix and GRBM weight vector 2 and 4: "+str(
     vis.calculate_amari_distance(zca.project(mixing_matrix.T),
-                                 numx.vstack((rbm.w.T[1:2],rbm.w.T[3:4]))))
+                                 numx.vstack((rbm.w.T[1:2],rbm.w.T[3:4])))))
 
-print "Amari distanca between true mixing matrix and GRBM weight vector 3 and 4: "+str(
+print("Amari distanca between true mixing matrix and GRBM weight vector 3 and 4: "+str(
     vis.calculate_amari_distance(zca.project(mixing_matrix.T),
-                                 numx.vstack((rbm.w.T[2:3],rbm.w.T[3:4]))))
+                                 numx.vstack((rbm.w.T[2:3],rbm.w.T[3:4])))))
 
 # Display results
 # create a new figure of size 5x5

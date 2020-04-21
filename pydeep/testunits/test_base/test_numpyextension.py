@@ -1,5 +1,5 @@
 """ Test module for numpy extensions.
-        
+
     :Version:
         1.1.0
 
@@ -36,7 +36,7 @@ import unittest
 import sys
 from pydeep.base.numpyextension import *
 
-print "\n... pydeep.base.numpyextension.py"
+print("\n... pydeep.base.numpyextension.py")
 
 epsilon = 0.00001
 

@@ -1,5 +1,5 @@
 ''' Test module for RBM estimators.
-        
+
     :Version:
         1.1.0
 
@@ -40,7 +40,7 @@ from pydeep.misc.toyproblems import generate_bars_and_stripes_complete
 import pydeep.rbm.model as Model
 import pydeep.rbm.estimator as Estimator
 
-print "\n... pydeep.rbm.estimator.py"
+print("\n... pydeep.rbm.estimator.py")
 
 
 class TestEstimator(unittest.TestCase):
@@ -193,8 +193,7 @@ class TestEstimator(unittest.TestCase):
         assert numx.all(numx.abs(LogZ[0] - self.bbrbmTruelogZ) < 0.5)
         LogZ = Estimator.reverse_annealed_importance_sampling(self.bbrbm, num_chains=100, k=1, betas=1000, status=False)
         assert numx.all(numx.abs(LogZ[0] - self.bbrbmTruelogZ) < 0.05)
-        LogZ = Estimator.reverse_annealed_importance_sampling(self.bbrbm, num_chains=100, k=1, betas=10000,
-                                                              status=False)
+        LogZ = Estimator.reverse_annealed_importance_sampling(self.bbrbm, num_chains=100, k=1, betas=10000, status=False)
         assert numx.all(numx.abs(LogZ[0] - self.bbrbmTruelogZ) < 0.005)
         print(' successfully passed!')
         sys.stdout.flush()

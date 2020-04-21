@@ -3,7 +3,7 @@
     :Implemented:
         - BipartiteGraph
         - StackOfBipartiteGraphs
-   
+
     :Version:
         1.1.0
 
@@ -34,12 +34,11 @@
 
         You should have received a copy of the GNU General Public License
         along with this program.  If not, see <http://www.gnu.org/licenses/>.
-            
+
 """
 import numpy as numx
 from pydeep.base.activationfunction import Sigmoid
 from pydeep.misc.io import save_object
-import exceptions as ex
 
 
 class BipartiteGraph(object):
@@ -96,7 +95,7 @@ class BipartiteGraph(object):
         :type initial_hidden_offsets: 'AUTO', scalar or numpy array [1, output_dim]
 
         :param dtype: Used data type i.e. numpy.float64.
-        :type dtype: numpy.float32 or numpy.float64 or numpy.float128
+        :type dtype: numpy.float32 or numpy.float64 or numpy.longdouble
         """
         # Set internal datatype
         self.dtype = dtype
@@ -114,15 +113,15 @@ class BipartiteGraph(object):
             if isinstance(data, list):
                 data = numx.concatenate(data)
             if self.input_dim != data.shape[1]:
-                raise ex.ValueError("Data dimension and model input dimension have to be equal!")
+                raise ValueError("Data dimension and model input dimension have to be equal!")
             self._data_mean = data.mean(axis=0).reshape(1, data.shape[1])
             self._data_std = data.std(axis=0).reshape(1, data.shape[1])
 
-        # AUTO   -> Small random values out of 
-        #           +-4*numx.sqrt(6/(self.input_dim+self.output_dim)  
-        # Scalar -> Small Gaussian distributed random values with std_dev 
+        # AUTO   -> Small random values out of
+        #           +-4*numx.sqrt(6/(self.input_dim+self.output_dim)
+        # Scalar -> Small Gaussian distributed random values with std_dev
         #           initial_weights
-        # Array  -> The corresponding values are used   
+        # Array  -> The corresponding values are used
         if initial_weights is 'AUTO':
             self.w = numx.array((2.0 * numx.random.rand(self.input_dim, self.output_dim) - 1.0) * (
                 4.0 * numx.sqrt(6.0 / (self.input_dim + self.output_dim))),
@@ -136,7 +135,7 @@ class BipartiteGraph(object):
         # AUTO   -> data != None -> Initialized to the data mean
         #           data == None -> Initialized to Visible range mean
         # Scalar -> Initialized to given value
-        # Array  -> The corresponding values are used  
+        # Array  -> The corresponding values are used
         self.ov = numx.zeros((1, self.input_dim))
         if initial_visible_offsets is 'AUTO':
             if data is not None:
@@ -150,11 +149,11 @@ class BipartiteGraph(object):
                 self.ov += initial_visible_offsets.reshape(1, self.input_dim)
         self.ov = numx.array(self.ov, dtype=dtype)
 
-        # AUTO   -> data != None -> Initialized to the inverse sigmoid of 
+        # AUTO   -> data != None -> Initialized to the inverse sigmoid of
         #           data mean
         #           data == Initialized to randn()*0.01
         # Scalar -> Initialized to given value + randn()*0.01
-        # Array  -> The corresponding values are used 
+        # Array  -> The corresponding values are used
         if initial_visible_bias is 'AUTO':
             if data is None:
                 self.bv = numx.zeros((1, self.input_dim))
@@ -173,7 +172,7 @@ class BipartiteGraph(object):
 
         # AUTO   -> Initialized to Hidden range mean
         # Scalar -> Initialized to given value
-        # Array  -> The corresponding values are used 
+        # Array  -> The corresponding values are used
         self.oh = numx.zeros((1, self.output_dim))
         if initial_hidden_offsets is 'AUTO':
             self.oh += 0.5
@@ -186,7 +185,7 @@ class BipartiteGraph(object):
 
         # AUTO   -> Initialized to randn()*0.01
         # Scalar -> Initialized to given value + randn()*0.01
-        # Array  -> The corresponding values are used 
+        # Array  -> The corresponding values are used
         if initial_hidden_bias is 'AUTO':
             self.bh = numx.zeros((1, self.output_dim))
         else:
@@ -290,9 +289,9 @@ class BipartiteGraph(object):
         :type initial_offsets: 'AUTO' or scalar or numpy array [1, num_new_hiddens]
 
         """
-        # AUTO   -> Small random values out of 
-        #           +-4*numx.sqrt(6/(self.input_dim+self.output_dim)  
-        # Scalar -> Small Gaussian distributed random values with std_dev 
+        # AUTO   -> Small random values out of
+        #           +-4*numx.sqrt(6/(self.input_dim+self.output_dim)
+        # Scalar -> Small Gaussian distributed random values with std_dev
         #           initial_weights
         # Array  -> The corresponding values are used
         if initial_weights is 'AUTO':
@@ -319,7 +318,7 @@ class BipartiteGraph(object):
 
         # AUTO   -> Initialized to randn()*0.01
         # Scalar -> Initialized to given value + randn()*0.01
-        # Array  -> The corresponding values are used 
+        # Array  -> The corresponding values are used
         if initial_bias is 'AUTO':
             new_bias = numx.zeros((1, num_new_hiddens))
         else:
@@ -386,9 +385,9 @@ class BipartiteGraph(object):
         self._data_std = numx.array(numx.insert(self._data_std, numx.array(numx.ones(num_new_visibles) * position, dtype=int),
                                                 new_data_std, axis=1), self.dtype)
 
-        # AUTO   -> Small random values out of 
-        #           +-4*numx.sqrt(6/(self.input_dim+self.output_dim)  
-        # Scalar -> Small Gaussian distributed random values with std_dev 
+        # AUTO   -> Small random values out of
+        #           +-4*numx.sqrt(6/(self.input_dim+self.output_dim)
+        # Scalar -> Small Gaussian distributed random values with std_dev
         #           initial_weights
         # Array  -> The corresponding values are used
         if initial_weights is 'AUTO':
@@ -414,7 +413,7 @@ class BipartiteGraph(object):
                 new_ov = initial_offsets
         self.ov = numx.array(numx.insert(self.ov, numx.array(numx.ones(num_new_visibles) * position,dtype = int), new_ov, axis=1), self.dtype)
 
-        # AUTO   -> data != None -> Initialized to the inverse sigmoid of 
+        # AUTO   -> data != None -> Initialized to the inverse sigmoid of
         #           data mean
         #           data == Initialized to randn()*0.01
         # Scalar -> Initialized to given value + randn()*0.01
@@ -435,7 +434,7 @@ class BipartiteGraph(object):
     def _remove_visible_units(self, indices):
         """ This function removes the visible units whose indices are given.
             .. Warning:: If the parameters are changed. the trainer needs to be reinitialized.
-                     
+
         :param indices: Indices of units to be remove.
         :type indices: int or list of int or numpy array of int
         """
@@ -448,7 +447,7 @@ class BipartiteGraph(object):
 
     def get_parameters(self):
         """ This function returns all model parameters in a list.
-        
+
         :return: The parameter references in a list.
         :rtype:  list
         """

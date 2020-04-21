@@ -129,7 +129,7 @@ class AutoEncoder(BipartiteGraph):
 
             dtype:                        Used data type i.e. numpy.float64
                                          -type: numpy.float32 or numpy.float64 or
-                                                numpy.float128
+                                                numpy.longdouble
 
         '''
 

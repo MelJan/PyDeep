@@ -108,7 +108,7 @@ def generate_bars_and_stripes_complete(length):
     bars = numx.repeat(bars, length, 1)
     bars = bars.reshape(2 ** length, length * length)
     return numx.vstack((stripes[0:stripes.shape[0]-1],bars[1:bars.shape[0]]))
-    # return numx.vstack((stripes, bars)) # Tests have to match if change to this.
+    # return numx.vstack((stripes, bars)) # Tests have to match if changed to this.
 
 
 def generate_shifting_bars(length,

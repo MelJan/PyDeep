@@ -78,7 +78,7 @@ class Binary_layer(object):
                                   
             dtype:                   Used data type i.e. numpy.float64
                                     -type: numpy.float32 or numpy.float64 or 
-                                           numpy.float128  
+                                           numpy.longdouble  
             
         '''
         # Set internal datatype
@@ -281,7 +281,7 @@ class Softmax_layer(Binary_layer):
                                   
             dtype:                   Used data type i.e. numpy.float64
                                     -type: numpy.float32 or numpy.float64 or 
-                                           numpy.float128  
+                                           numpy.longdouble  
             
         '''
         # Call constructor of superclass
@@ -379,7 +379,7 @@ class Gaussian_layer(Binary_layer):
                                   
             dtype:                   Used data type i.e. numpy.float64
                                     -type: numpy.float32 or numpy.float64 or 
-                                           numpy.float128  
+                                           numpy.longdouble  
             
         '''
         # Call constructor of superclass
@@ -455,7 +455,7 @@ class Rectifier_layer(Binary_layer):
                                   
             dtype:                   Used data type i.e. numpy.float64
                                     -type: numpy.float32 or numpy.float64 or 
-                                           numpy.float128  
+                                           numpy.longdouble  
             
         '''
         # Call constructor of superclass

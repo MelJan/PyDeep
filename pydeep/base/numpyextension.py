@@ -1,5 +1,5 @@
 ''' This module provides different math functions that extend the numpy library.
-              
+
     :Implemented:
         - log_sum_exp
         - log_diff_exp
@@ -15,7 +15,7 @@
         - shuffle_dataset
         - rotationSequence
         - generate_2D_connection_matrix
-        
+
     :Version:
         1.1.0
 
@@ -264,10 +264,10 @@ def get_2d_gauss_kernel(width, height, shift=0, var=[1.0, 1.0]):
             covar = var
 
     if width % 2 == 0:
-        print "N needs to be odd!"
+        print("N needs to be odd!")
         pass
     if height % 2 == 0:
-        print "M needs to be odd!"
+        print("M needs to be odd!")
         pass
     lowern = (width - 1) / 2
     lowerm = (height - 1) / 2
@@ -393,8 +393,11 @@ def rotation_sequence(image, width, height, steps):
     for i in range(1, steps):
         angle = i * 360.0 / steps
         sample = rotate(image.reshape(width, height), angle)
-        sample = sample[(sample.shape[0] - width) / 2:(sample.shape[0] + width) / 2,
-                 (sample.shape[0] - height) / 2:(sample.shape[0] + height) / 2]
+        sample = sample[(sample.shape[0] - width) // 2:
+                        (sample.shape[0] + width) // 2,
+                        (sample.shape[0] - height) // 2:
+                        (sample.shape[0] + height) // 2]
+
         results[i] = sample.reshape(1, image.shape[0])
     return results
 

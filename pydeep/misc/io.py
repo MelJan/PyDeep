@@ -50,7 +50,7 @@
         along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 """
-import cPickle
+import pickle
 import os
 import gzip
 import numpy as numx
@@ -83,11 +83,11 @@ def save_object(obj, path, info=True, compressed=True):
     try:
         if compressed:
             fp = gzip.open(path, 'wb')
-            cPickle.dump(obj, fp)
+            pickle.dump(obj, fp)
             fp.close()
         else:
             file_path = open(path, 'w')
-            cPickle.dump(obj, file_path)
+            pickle.dump(obj, file_path)
         if info is True:
             print('-> done!')
     except:
@@ -134,14 +134,14 @@ def load_object(path, info=True, compressed=True):
         try:
             if compressed is True:
                 fp = gzip.open(path, 'rb')
-                obj = cPickle.load(fp)
+                obj = pickle.load(fp)
                 fp.close()
                 if info is True:
                     print('-> done!')
                 return obj
             else:
                 file_path = open(path, 'r')
-                obj = cPickle.load(file_path)
+                obj = pickle.load(file_path)
                 if info is True:
                     print('-> done!')
                 return obj
@@ -216,7 +216,9 @@ def load_mnist(path, binary=False):
         raise Exception('-> File reading Error: ')
     print('-> uncompress data ... ')
     try:
-        train_set, valid_set, test_set = cPickle.load(f)
+        dill = pickle._Unpickler(f)
+        dill.encoding = 'latin1'
+        train_set, valid_set, test_set = dill.load()
         train_lab = train_set[1]
         valid_lab = valid_set[1]
         test_lab = test_set[1]
@@ -291,7 +293,6 @@ def load_cifar(path, grayscale=True):
     :rtype: list of numpy arrays ([# samples, 1024],[# samples])
     """
     import tarfile
-    import cPickle
 
     import os
     if not os.path.isfile(path):
@@ -304,14 +305,14 @@ def load_cifar(path, grayscale=True):
     print('-> Extracting ...')
     try:
         tar = tarfile.open(path, 'r:gz')
-        batch_test = cPickle.load(tar.extractfile(tar.getmembers()[3]))  # test
+        batch_test = pickle.load(tar.extractfile(tar.getmembers()[3]))  # test
         print('-> test data extracted')
-        batch_valid = cPickle.load(tar.extractfile(tar.getmembers()[7]))  # 5
+        batch_valid = pickle.load(tar.extractfile(tar.getmembers()[7]))  # 5
         print('-> validation data extracted')
-        batch_1 = cPickle.load(tar.extractfile(tar.getmembers()[8]))  # 1
-        batch_2 = cPickle.load(tar.extractfile(tar.getmembers()[6]))  # 2
-        batch_3 = cPickle.load(tar.extractfile(tar.getmembers()[4]))  # 3
-        batch_4 = cPickle.load(tar.extractfile(tar.getmembers()[1]))  # 4
+        batch_1 = pickle.load(tar.extractfile(tar.getmembers()[8]))  # 1
+        batch_2 = pickle.load(tar.extractfile(tar.getmembers()[6]))  # 2
+        batch_3 = pickle.load(tar.extractfile(tar.getmembers()[4]))  # 3
+        batch_4 = pickle.load(tar.extractfile(tar.getmembers()[1]))  # 4
         print('-> training data extracted')
 
         train_set = numx.vstack((batch_1['data'], batch_2['data'], batch_3['data'], batch_4['data']))

@@ -1,5 +1,5 @@
 """ Test module for activation functions.
-        
+
     :Version:
         1.1.0
 
@@ -37,7 +37,7 @@ import sys
 from pydeep.base.activationfunction import *
 import numpy as numx
 
-print "\n... pydeep.base.activationfunction.py"
+print("\n... pydeep.base.activationfunction.py")
 
 epsilon = 0.000001
 

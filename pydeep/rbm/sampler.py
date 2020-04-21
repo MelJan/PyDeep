@@ -4,7 +4,7 @@
     sampling algorithms by inheritance.
 
     :Implemented:
-        - Gibbs Sampling   
+        - Gibbs Sampling
         - Persistent Gibbs Sampling
         - Parallel Tempering Sampling
         - Independent Parallel Tempering Sampling
@@ -46,12 +46,10 @@
 
 """
 import numpy as numx
-import exceptions as ex
-
 
 class GibbsSampler(object):
     """ Implementation of k-step Gibbs-sampling for bipartite graphs.
-          
+
     """
 
     def __init__(self, model):
@@ -60,15 +58,15 @@ class GibbsSampler(object):
         :param model: The model to sample from.
         :type model: Valid model class like BinaryBinary-RBM.
         """
-        # Set the model                
+        # Set the model
         if not hasattr(model, 'probability_h_given_v'):
-            raise ex.ValueError("The model needs to implement the function probability_h_given_v!")
+            raise ValueError("The model needs to implement the function probability_h_given_v!")
         if not hasattr(model, 'probability_v_given_h'):
-            raise ex.ValueError("The model needs to implement the function probability_v_given_h!")
+            raise ValueError("The model needs to implement the function probability_v_given_h!")
         if not hasattr(model, 'sample_h'):
-            raise ex.ValueError("The model needs to implement the function sample_h!")
+            raise ValueError("The model needs to implement the function sample_h!")
         if not hasattr(model, 'sample_v'):
-            raise ex.ValueError("The model needs to implement the function sample_v!")
+            raise ValueError("The model needs to implement the function sample_v!")
         self.model = model
 
     def sample(self,
@@ -124,7 +122,7 @@ class GibbsSampler(object):
         """
         # Sample k times
         vis = self.model.probability_v_given_h(hid_states, betas)
-        for _ in xrange(k - 1):
+        for _ in range(k - 1):
             vis = self.model.sample_v(vis, betas)
             hid = self.model.probability_h_given_v(vis, betas)
             hid = self.model.sample_h(hid, betas)
@@ -139,7 +137,7 @@ class GibbsSampler(object):
 
 class PersistentGibbsSampler(object):
     """ Implementation of k-step persistent Gibbs sampling.
-          
+
     """
 
     def __init__(self, model, num_chains):
@@ -153,24 +151,24 @@ class PersistentGibbsSampler(object):
                            samples and the number of chains equal the batch_size.
         :type num_chains: int
         """
-        # Check and set the model                
+        # Check and set the model
         if not hasattr(model, 'probability_h_given_v'):
-            raise ex.ValueError("The model needs to implement the function probability_h_given_v!")
+            raise ValueError("The model needs to implement the function probability_h_given_v!")
         if not hasattr(model, 'probability_v_given_h'):
-            raise ex.ValueError("The model needs to implement the function probability_v_given_h!")
+            raise ValueError("The model needs to implement the function probability_v_given_h!")
         if not hasattr(model, 'sample_h'):
-            raise ex.ValueError("The model needs to implement the function sample_h!")
+            raise ValueError("The model needs to implement the function sample_h!")
         if not hasattr(model, 'sample_v'):
-            raise ex.ValueError("The model needs to implement the function sample_v!")
+            raise ValueError("The model needs to implement the function sample_v!")
         if not hasattr(model, 'input_dim'):
-            raise ex.ValueError("The model needs to implement the parameter input_dim!")
+            raise ValueError("The model needs to implement the parameter input_dim!")
         self.model = model
 
         # Initialize persistent Markov chains to Gaussian random samples.
         if numx.isscalar(num_chains):
             self.chains = model.sample_v(numx.random.randn(num_chains, model.input_dim) * 0.01)
         else:
-            raise ex.ValueError("Number of chains needs to be an integer or None.")
+            raise ValueError("Number of chains needs to be an integer or None.")
 
     def sample(self,
                num_samples,
@@ -189,7 +187,7 @@ class PersistentGibbsSampler(object):
 
         :param betas: Inverse temperature to sample from.(energy based models)
         :type betas: None, float, numpy array [num_betas,1]
-                          
+
         :param ret_states: If False returns the visible probabilities instead of the states.
         :type ret_states: bool
 
@@ -197,7 +195,7 @@ class PersistentGibbsSampler(object):
         :rtype: numpy array [num samples, input dimension]
         """
         # Sample k times
-        for _ in xrange(k):
+        for _ in range(k):
             hid = self.model.probability_h_given_v(self.chains, betas)
             hid = self.model.sample_h(hid, betas)
             vis = self.model.probability_v_given_h(hid, betas)
@@ -213,10 +211,10 @@ class PersistentGibbsSampler(object):
             # If more samples than chains,
             repeats = numx.int32(num_samples / self.chains.shape[0])
 
-            for _ in xrange(repeats):
+            for _ in range(repeats):
 
                 # Sample k times
-                for u in xrange(k):
+                for u in range(k):
                     hid = self.model.probability_h_given_v(self.chains, betas)
                     hid = self.model.sample_h(hid, betas)
                     vis = self.model.probability_v_given_h(hid, betas)
@@ -230,7 +228,7 @@ class PersistentGibbsSampler(object):
 
 class ParallelTemperingSampler(object):
     """ Implementation of k-step parallel tempering sampling.
-          
+
     """
 
     def __init__(self,
@@ -250,19 +248,19 @@ class ParallelTemperingSampler(object):
                       'num_chains' steps.
         :type betas: int, None
         """
-        # Check and set the model                
+        # Check and set the model
         if not hasattr(model, 'probability_h_given_v'):
-            raise ex.ValueError("The model needs to implement the function probability_h_given_v!")
+            raise ValueError("The model needs to implement the function probability_h_given_v!")
         if not hasattr(model, 'probability_v_given_h'):
-            raise ex.ValueError("The model needs to implement the function probability_v_given_h!")
+            raise ValueError("The model needs to implement the function probability_v_given_h!")
         if not hasattr(model, 'sample_h'):
-            raise ex.ValueError("The model needs to implement the function sample_h!")
+            raise ValueError("The model needs to implement the function sample_h!")
         if not hasattr(model, 'sample_v'):
-            raise ex.ValueError("The model needs to implement the function sample_v!")
+            raise ValueError("The model needs to implement the function sample_v!")
         if not hasattr(model, 'energy'):
-            raise ex.ValueError("The model needs to implement the function energy!")
+            raise ValueError("The model needs to implement the function energy!")
         if not hasattr(model, 'input_dim'):
-            raise ex.ValueError("The model needs to implement the parameter input_dim!")
+            raise ValueError("The model needs to implement the parameter input_dim!")
 
         self.model = model
 
@@ -276,7 +274,7 @@ class ParallelTemperingSampler(object):
         else:
             self.betas = betas.reshape(numx.array(betas).shape[0], 1)
             if self.betas.shape[0] != num_chains:
-                raise ex.ValueError("The number of betas and Markov chains must be equivalent!")
+                raise ValueError("The number of betas and Markov chains must be equivalent!")
 
     def sample(self,
                num_samples,
@@ -302,12 +300,12 @@ class ParallelTemperingSampler(object):
         samples = numx.empty((num_samples, self.model.input_dim))
 
         # Generate a sample for each given data sample
-        for b in xrange(0, num_samples):
+        for b in range(0, num_samples):
 
-            # Perform k steps of Gibbs sampling           
+            # Perform k steps of Gibbs sampling
             hid = self.model.probability_h_given_v(self.chains, self.betas)
             hid = self.model.sample_h(hid, self.betas)
-            for _ in xrange(k - 1):
+            for _ in range(k - 1):
                 vis = self.model.probability_v_given_h(hid, self.betas)
                 vis = self.model.sample_v(vis, self.betas)
                 hid = self.model.probability_h_given_v(vis, self.betas)
@@ -360,7 +358,7 @@ class ParallelTemperingSampler(object):
             energies = model.energy(chains, hid_states)
 
             # even neighbor swapping
-            for t in xrange(0, betas.shape[0] - 1, 2):
+            for t in range(0, betas.shape[0] - 1, 2):
 
                 # Calculate swap probability
                 pswap = numx.exp((energies[t + 1, 0] - energies[t, 0])
@@ -374,7 +372,7 @@ class ParallelTemperingSampler(object):
                     hid_states[[t, t + 1], :] = hid_states[[t + 1, t], :]
 
             # odd neighbor swapping
-            for t in xrange(1, betas.shape[0] - 1, 2):
+            for t in range(1, betas.shape[0] - 1, 2):
 
                 # Calculate swap probability
                 pswap = numx.exp((energies[t + 1, 0] - energies[t, 0]) * (betas[t + 1, 0] - betas[t, 0]))
@@ -389,13 +387,13 @@ class ParallelTemperingSampler(object):
 
             chains_swap = numx.copy(chains)
             hid_states_swap = numx.copy(hid_states)
-            for t in xrange(0, betas.shape[0] - 1, 2):
+            for t in range(0, betas.shape[0] - 1, 2):
                 chains_swap[[t, t + 1], :] = chains_swap[[t + 1, t], :]
                 hid_states_swap[[t, t + 1], :] = hid_states_swap[[t + 1, t], :]
             energies_swap = model.energy(chains_swap, hid_states_swap, betas)
 
             # even neighbor swapping
-            for t in xrange(0, betas.shape[0] - 1, 2):
+            for t in range(0, betas.shape[0] - 1, 2):
 
                 # Calculate swap probability
                 pswap = numx.exp((energies[t + 1, 0] - energies_swap[t, 0] - energies_swap[t + 1, 0] + energies[t, 0]))
@@ -408,13 +406,13 @@ class ParallelTemperingSampler(object):
             energies = model.energy(chains, hid_states, betas)
             chains_swap = numx.copy(chains)
             hid_states_swap = numx.copy(hid_states)
-            for t in xrange(1, betas.shape[0] - 1, 2):
+            for t in range(1, betas.shape[0] - 1, 2):
                 chains_swap[[t, t + 1], :] = chains_swap[[t + 1, t], :]
                 hid_states_swap[[t, t + 1], :] = hid_states_swap[[t + 1, t], :]
             energies_swap = model.energy(chains_swap, hid_states_swap, betas)
 
             # odd neighbor swapping
-            for t in xrange(1, betas.shape[0] - 1, 2):
+            for t in range(1, betas.shape[0] - 1, 2):
 
                 pswap = numx.exp((energies[t + 1, 0] - energies_swap[t, 0] - energies_swap[t + 1, 0] + energies[t, 0]))
                 # Probability higher then a random number
@@ -454,21 +452,21 @@ class IndependentParallelTemperingSampler(object):
         :type betas: int, None
         """
         if not model._fast_PT:
-            raise ex.NotImplementedError("Only more efficient for Binary RBMs")
+            raise  NotImplementedError("Only more efficient for Binary RBMs")
 
-        # Check and set the model                
+        # Check and set the model
         if not hasattr(model, 'probability_h_given_v'):
-            raise ex.ValueError("The model needs to implement the function probability_h_given_v!")
+            raise ValueError("The model needs to implement the function probability_h_given_v!")
         if not hasattr(model, 'probability_v_given_h'):
-            raise ex.ValueError("The model needs to implement the function probability_v_given_h!")
+            raise ValueError("The model needs to implement the function probability_v_given_h!")
         if not hasattr(model, 'sample_h'):
-            raise ex.ValueError("The model needs to implement the function sample_h!")
+            raise ValueError("The model needs to implement the function sample_h!")
         if not hasattr(model, 'sample_v'):
-            raise ex.ValueError("The model needs to implement the function sample_v!")
+            raise ValueError("The model needs to implement the function sample_v!")
         if not hasattr(model, 'energy'):
-            raise ex.ValueError("The model needs to implement the function energy!")
+            raise ValueError("The model needs to implement the function energy!")
         if not hasattr(model, 'input_dim'):
-            raise ex.ValueError("The model needs to implement the parameter input_dim!")
+            raise ValueError("The model needs to implement the parameter input_dim!")
         self.model = model
 
         # Initialize persistent Markov chains to Gaussian random samples.
@@ -482,7 +480,7 @@ class IndependentParallelTemperingSampler(object):
         else:
             self.betas = self.betas.reshape(numx.array(betas).shape[0], 1)
             if self.betas.shape[0] != num_chains:
-                raise ex.ValueError("The number of betas and Markov chains must be equivalent!")
+                raise ValueError("The number of betas and Markov chains must be equivalent!")
 
         # Repeat betas batchsize times
         self.betas = numx.tile(self.betas.T, self.num_samples).T.reshape(num_chains * self.num_samples, 1)
@@ -495,7 +493,7 @@ class IndependentParallelTemperingSampler(object):
                k=1,
                ret_states=True):
         """ Performs k steps independent parallel tempering sampling.
-        
+
         :param num_samples: The number of samples to generate.
                             .. Note:: Optimal performance is achieved if the number of samples and the number of chains \
                             equal the batch_size. -> AUTO
@@ -516,7 +514,7 @@ class IndependentParallelTemperingSampler(object):
         # Perform k steps of Gibbs sampling
         hid = self.model.probability_h_given_v(self.chains, self.betas)
         hid = self.model.sample_h(hid, self.betas)
-        for _ in xrange(k - 1):
+        for _ in range(k - 1):
             vis = self.model.probability_v_given_h(hid, self.betas)
             vis = self.model.sample_v(vis, self.betas)
             hid = self.model.probability_h_given_v(vis, self.betas)
@@ -537,11 +535,11 @@ class IndependentParallelTemperingSampler(object):
             self.chains = self.model.sample_v(self.chains, self.betas)
 
         repeats = numx.int32(num_samples / self.select_indices.shape[0])
-        for _ in xrange(repeats):
+        for _ in range(repeats):
             # Perform k steps of Gibbs sampling
             hid = self.model.probability_h_given_v(self.chains, self.betas)
             hid = self.model.sample_h(hid, self.betas)
-            for u in xrange(k - 1):
+            for u in range(k - 1):
                 vis = self.model.probability_v_given_h(hid, self.betas)
                 vis = self.model.sample_v(vis, self.betas)
                 hid = self.model.probability_h_given_v(vis, self.betas)
@@ -588,13 +586,13 @@ class IndependentParallelTemperingSampler(object):
         """
         # Calculate the energies for the samples and their hidden activity
         energies = model.energy(chains, hid_states)
-        num_betas = chains.shape[0] / num_chains
+        num_betas = chains.shape[0] // num_chains
 
         # for each batch
-        for m in xrange(0, num_chains, 1):
+        for m in range(0, num_chains, 1):
 
-            # for each temperature even      
-            for b in xrange(0, num_betas - 1, 2):
+            # for each temperature even
+            for b in range(0, num_betas - 1, 2):
 
                 t = m * num_betas + b
 
@@ -609,8 +607,8 @@ class IndependentParallelTemperingSampler(object):
                     energies[[t, t + 1], :] = energies[[t + 1, t], :]
                     hid_states[[t, t + 1], :] = hid_states[[t + 1, t], :]
 
-            # for each temperature odd      
-            for b in xrange(1, num_betas - 1, 2):
+            # for each temperature odd
+            for b in range(1, num_betas - 1, 2):
 
                 t = m * num_betas + b
 

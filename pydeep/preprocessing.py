@@ -1,7 +1,7 @@
 """ This module contains several classes for data preprocessing.
 
     :Implemented:
-        - Standarizer 
+        - Standarizer
         - Principal Component Analysis (PCA)
         - Zero Phase Component Analysis (ZCA)
         - Independent Component Analysis (ICA)
@@ -9,7 +9,7 @@
         - Rescale data
         - Remove row means
         - Remove column means
-    
+
     :Version:
         1.1.0
 
@@ -44,7 +44,6 @@
 """
 import numpy as numx
 import pydeep.base.numpyextension as npext
-import exceptions as ex
 
 
 def binarize_data(data):
@@ -126,7 +125,7 @@ def remove_cols_means(data, return_means=False):
 
 class STANDARIZER(object):
     """ Shifts the data having zero mean and scales it having unit variances along the axis.
-    
+
     """
 
     def __init__(self, input_dim):
@@ -149,7 +148,7 @@ class STANDARIZER(object):
         :type data: numpy array [num data point, data dimension]
         """
         if self.input_dim != data.shape[1]:
-            raise ex.ValueError("Wrong data dimensionality.")
+            raise ValueError("Wrong data dimensionality.")
         # Center data and compute covariance matrix
         self.mean = numx.mean(data, axis=0).reshape(1, data.shape[1])
         self.covariance_matrix = numx.cov(data - self.mean, rowvar=0)
@@ -166,9 +165,9 @@ class STANDARIZER(object):
         :rtype: numpy array [num data point, data dimension]
         """
         if self.input_dim != data.shape[1]:
-            raise ex.ValueError("Wrong data dimensionality.")
+            raise ValueError("Wrong data dimensionality.")
         if not self.trained:
-            raise ex.ValueError("Train model first!")
+            raise ValueError("Train model first!")
         return (data - self.mean) / self.standard_deviation
 
     def unproject(self, data):
@@ -181,9 +180,9 @@ class STANDARIZER(object):
         :rtype: numpy array [num data point, data dimension]
         """
         if self.input_dim != data.shape[1]:
-            raise ex.ValueError("Wrong data dimensionality.")
+            raise ValueError("Wrong data dimensionality.")
         if not self.trained:
-            raise ex.ValueError("Train model first!")
+            raise ValueError("Train model first!")
         return data * self.standard_deviation + self.mean
 
 
@@ -247,7 +246,7 @@ class PCA(STANDARIZER):
         :rtype: numpy array [num data point, data dimension]
         """
         if not self.trained:
-            raise ex.ValueError("Train model first!")
+            raise ValueError("Train model first!")
         n = self.output_dim
         if num_components is not None:
             n = num_components
@@ -266,7 +265,7 @@ class PCA(STANDARIZER):
         :rtype: numpy array [num data point, num_components]
         """
         if not self.trained:
-            raise ex.ValueError("Train model first!")
+            raise ValueError("Train model first!")
         n = self.input_dim
         if num_components is not None:
             n = num_components
@@ -334,13 +333,17 @@ class ICA(PCA):
         :type status: bool
         """
         if self.input_dim != data.shape[1]:
-            raise ex.ValueError("Wrong data dimensionality.")
+            raise ValueError("Wrong data dimensionality.")
         # Random init
         self.projection_matrix = numx.random.randn(data.shape[1],
                                                    data.shape[1])
         projection_matrix_old = numx.copy(self.projection_matrix)
         for epoch in range(0, iterations):
-            # One iteration
+            # One iteration.
+            # TODO: PendingDeprecationWarning: the matrix subclass is not the recommended
+            # way to represent matrices or deal with linear algebra (see
+            # https://docs.scipy.org/doc/numpy/user/numpy-for-matlab-users.html). Please
+            # adjust your code to use regular ndarray.
             hyptan = 1.0 - 2.0 / (numx.exp(2.0 * numx.dot(data, self.projection_matrix)) + 1.0)
             self.projection_matrix = (numx.dot(data.T, hyptan) / data.shape[0] - numx.array(numx.dot(numx.ones(
                 (data.shape[1], 1)), numx.matrix(numx.mean(1.0 - hyptan ** 2.0, axis=0)))) * self.projection_matrix)
@@ -377,6 +380,6 @@ class ICA(PCA):
         :rtype: numpy array [num data point]
         """
         if not self.trained:
-            raise ex.ValueError("Train model first!")
+            raise ValueError("Train model first!")
         return numx.sum(numx.log(0.5 / (numx.cosh(numx.dot(self.unprojection_matrix, data.T)) ** 2.0)),
                         axis=0) + numx.log(numx.abs(numx.linalg.det(self.projection_matrix)))

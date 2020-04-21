@@ -42,9 +42,9 @@ from scipy.signal import convolve2d
 
 
 class Weight_layer(object):
-    ''' This class implements a weight layer that connects one unit 
+    ''' This class implements a weight layer that connects one unit
         layer to another.
-    
+
     '''
 
     @classmethod
@@ -56,35 +56,35 @@ class Weight_layer(object):
                                       overlap_x_dim,
                                       overlap_y_dim,
                                       wrap_around=True):
-        ''' This function constructs a connection matrix, which can be 
+        ''' This function constructs a connection matrix, which can be
             used to force the weights to have local receptive fields.
-            
+
         :Parameters:
             input_x_dim:    Input dimension.
                            -type: int
-                                  
+
             input_y_dim     Output dimension.
                            -type: int
-                                        
+
             field_x_dim:    Size of the receptive field in dimension x.
                            -type: int
 
             field_y_dim:    Size of the receptive field in dimension y.
                            -type: int
-                               
+
             overlap_x_dim:  Overlap of the receptive fields in dimension x.
                            -type: int
 
             overlap_y_dim:  Overlap of the receptive fields in dimension y.
                            -type: int
-                           
+
             wrap_around:    If true teh overlap has warp around in both dimensions.
                            -type: bool
 
         :Returns:
             Connection matrix.
            -type: numpy arrays [input dim, output dim]
-           
+
         '''
         if field_x_dim > input_x_dim:
             raise NotImplementedError("field_x_dim > input_x_dim is invalid!")
@@ -126,28 +126,28 @@ class Weight_layer(object):
                  connections=None,
                  dtype=numx.float64):
         ''' This function initializes the weight layer.
-            
+
         :Parameters:
             input_dim:          Input dimension.
                                -type: int
-                                  
+
             output_dim          Output dimension.
                                -type: int
-                                        
+
             initial_weights:    Initial weights.
                                 'AUTO' and a scalar are random init.
-                               -type: 'AUTO', scalar or 
+                               -type: 'AUTO', scalar or
                                       numpy array [input dim, output_dim]
 
             connections:        Connection matrix containing 0 and 1 entries, where
                                 0 connections disable the corresponding weight.
                                 generate_2D_connection_matrix() can be used to contruct a matrix.
                                -type: numpy array [input dim, output_dim] or None
-                               
+
             dtype:               Used data type i.e. numpy.float64
-                                -type: numpy.float32 or numpy.float64 or 
-                                       numpy.float128  
-            
+                                -type: numpy.float32 or numpy.float64 or
+                                       numpy.longdouble
+
         '''
         # Set internal datatype
         self.dtype = dtype
@@ -156,11 +156,11 @@ class Weight_layer(object):
         self.input_dim = input_dim
         self.output_dim = output_dim
 
-        # AUTO   -> Small random values out of 
-        #           +-4*numx.sqrt(6/(self.input_dim+self.output_dim)  
-        # Scalar -> Small Gaussian distributed random values with std_dev 
+        # AUTO   -> Small random values out of
+        #           +-4*numx.sqrt(6/(self.input_dim+self.output_dim)
+        # Scalar -> Small Gaussian distributed random values with std_dev
         #           initial_weights
-        # Array  -> The corresponding values are used   
+        # Array  -> The corresponding values are used
         if initial_weights is 'AUTO':
             self.weights = numx.array((2.0 * numx.random.rand(self.input_dim,
                                                               self.output_dim) - 1.0)
@@ -192,7 +192,7 @@ class Weight_layer(object):
 
     def propagate_up(self, bottom_up_states):
         ''' This function propagates the input to the next layer.
-            
+
         :Parameters:
             bottom_up_states: States of the unit layer below.
                              -type: numpy array [batch_size, input dim]
@@ -206,7 +206,7 @@ class Weight_layer(object):
 
     def propagate_down(self, top_down_states):
         ''' This function propagates the output to the previous layer.
-            
+
         :Parameters:
             top_down_states: States of the unit layer above.
                             -type: numpy array [batch_size, output dim]
@@ -225,28 +225,28 @@ class Weight_layer(object):
                                    top_down_neg,
                                    offset_bottom_up,
                                    offset_top_down):
-        ''' This function calculates the average gradient from input 
+        ''' This function calculates the average gradient from input
             and output samples of positive and negative sampling phase.
-            
+
         :Parameters:
             bottom_up_pos:    Input samples from the positive phase.
                              -type: numpy array [batch_size, input dim]
 
             top_down_pos:     Output samples from the positive phase.
                              -type: numpy array [batch_size, output dim]
-                 
+
             bottom_up_neg:    Input samples from the negative phase.
                              -type: numpy array [batch_size, input dim]
 
             top_down_neg:     Output samples from the negative phase.
                              -type: numpy array [batch_size, output dim]
-                      
+
             offset_bottom_up: Offset for the input data.
                              -type: numpy array [1, input dim]
-                 
+
             offset_top_down:  Offset for the output data.
                              -type: numpy array [1, output dim]
-                            
+
         :Returns:
             Weight gradient.
            -type: numpy arrays [input dim, output dim]
@@ -261,20 +261,20 @@ class Weight_layer(object):
 
     def update_weights(self, weight_updates, restriction, restriction_typ):
         ''' This function updates the weight parameters.
-            
+
         :Parameters:
             weight_updates:     Update for the weight parameter.
                                -type: numpy array [input dim, output dim]
-                              
-            restriction:        If a scalar is given the weights will be 
-                                forced after an update not to exceed this value. 
-                                restriction_typ controls how the values are 
+
+            restriction:        If a scalar is given the weights will be
+                                forced after an update not to exceed this value.
+                                restriction_typ controls how the values are
                                 restricted.
                                -type: scalar or None
-                                      
+
             restriction_typ:    If a value for the restriction is given, this parameter
-                                determines the restriction typ. 'Cols', 'Rows', 'Mat' 
-                                or 'Abs' to restricted the colums, rows or matrix norm 
+                                determines the restriction typ. 'Cols', 'Rows', 'Mat'
+                                or 'Abs' to restricted the colums, rows or matrix norm
                                 or the matrix absolut values.
                                -type: string
 
@@ -304,36 +304,36 @@ class Weight_layer(object):
 
 
 class Convolving_weight_layer(Weight_layer):
-    ''' This class implements a weight layer that connects one unit 
+    ''' This class implements a weight layer that connects one unit
         layer to another with convolutional weights.
-        
+
     '''
 
     @classmethod
     def construct_gauss_filter(cls, width, height, variance=1.0):
         ''' This function constructs a 2D-Gauss filter.
-        
+
         :Parameters:
             width:     Filter width.
                       -type: int
-                                  
+
             height     Filter Height.
                       -type: int
-                   
+
             variance   Variance of the Gaussian
                       -type: scalar
-                                        
+
 
         :Returns:
             Convolved matrix with the same shape as matrix.
            -type: 2D numpy arrays
-           
+
         '''
         if width % 2 == 0:
-            print "Width needs to be odd!"
+            print("Width needs to be odd!")
             pass
         if height % 2 == 0:
-            print "Height needs to be odd!"
+            print("Height needs to be odd!")
             pass
         lowerW = (width - 1) / 2
         lowerH = (height - 1) / 2
@@ -346,19 +346,19 @@ class Convolving_weight_layer(Weight_layer):
 
     def _convolve(self, matrix, mask):
         ''' This function performs a 2D convolution on every column of a given matrix.
-        
+
         :Parameters:
             matrix: 2D-input matrix.
                    -type: small 2D numpy array
-                                  
+
             mask    2D-mask matrix.
                    -type: small 2D numpy array
-                                        
+
 
         :Returns:
             Convolved matrix with the same shape as matrix.
            -type: 2D numpy arrays
-           
+
         '''
         s = numx.int32(numx.sqrt(matrix.shape[1]))
         result = numx.empty(matrix.shape)
@@ -375,32 +375,32 @@ class Convolving_weight_layer(Weight_layer):
                  connections=None,
                  dtype=numx.float64):
         ''' This function initializes the convolutional weight layer.
-            
+
         :Parameters:
             input_dim:          Input dimension.
                                -type: int
-                                  
+
             output_dim          Output dimension.
                                -type: int
-                               
+
             mask                Convolution mask.
                                 construct_gauss_filter can be used for example.
                                -type: small numpy array
-   
+
             initial_weights:    Initial weights.
                                 'AUTO' and a scalar are random init.
-                               -type: 'AUTO', scalar or 
+                               -type: 'AUTO', scalar or
                                       numpy array [input dim, output_dim]
 
             connections:        Connection matrix containing 0 and 1 entries, where
                                 0 connections disable the corresponding weight.
                                 generate_2D_connection_matrix() can be used to contruct a matrix.
                                -type: numpy array [input dim, output_dim] or None
-                               
+
             dtype:               Used data type i.e. numpy.float64
-                                -type: numpy.float32 or numpy.float64 or 
-                                       numpy.float128  
-            
+                                -type: numpy.float32 or numpy.float64 or
+                                       numpy.longdouble
+
         '''
         super(Convolving_weight_layer,
               self).__init__(input_dim=input_dim,
@@ -419,28 +419,28 @@ class Convolving_weight_layer(Weight_layer):
                                    top_down_neg,
                                    offset_bottom_up,
                                    offset_top_down):
-        ''' This function calculates the average gradient from input 
+        ''' This function calculates the average gradient from input
             and output samples of positive and negative sampling phase.
-            
+
         :Parameters:
             bottom_up_pos:    Input samples from the positive phase.
                              -type: numpy array [batch_size, input dim]
 
             top_down_pos:     Output samples from the positive phase.
                              -type: numpy array [batch_size, output dim]
-                 
+
             bottom_up_neg:    Input samples from the negative phase.
                              -type: numpy array [batch_size, input dim]
 
             top_down_neg:     Output samples from the negative phase.
                              -type: numpy array [batch_size, output dim]
-                      
+
             offset_bottom_up: Offset for the input data.
                              -type: numpy array [1, input dim]
-                 
+
             offset_top_down:  Offset for the output data.
                              -type: numpy array [1, output dim]
-                            
+
         :Returns:
             Weight gradient.
            -type: numpy arrays [input dim, output dim]
@@ -457,23 +457,23 @@ class Convolving_weight_layer(Weight_layer):
 
     def update_weights(self, weight_updates, restriction, restriction_typ):
         ''' This function updates the weight parameters.
-            
+
         :Parameters:
             weight_updates:     Update for the weight parameter.
                                -type: numpy array [input dim, output dim]
-                              
-            restriction:        If a scalar is given the weights will be 
-                                forced after an update not to exceed this value. 
-                                restriction_typ controls how the values are 
+
+            restriction:        If a scalar is given the weights will be
+                                forced after an update not to exceed this value.
+                                restriction_typ controls how the values are
                                 restricted.
                                -type: scalar or None
-                                      
+
             restriction_typ:    If a value for the restriction is given, this parameter
-                                determines the restriction typ. 'Cols', 'Rows', 'Mat' 
-                                or 'Abs' to restricted the colums, rows or matrix norm 
+                                determines the restriction typ. 'Cols', 'Rows', 'Mat'
+                                or 'Abs' to restricted the colums, rows or matrix norm
                                 or the matrix absolut values.
                                -type: string
-           
+
         '''
         # Update weights
         self.orginalW += weight_updates
