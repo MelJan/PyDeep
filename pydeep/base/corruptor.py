@@ -3,6 +3,7 @@
     :Implemented:
         - Identity
         - Sampling Binary
+        - BinaryNoise
         - Additive Gauss Noise
         - Multiplicative Gauss Noise
         - Dropout
@@ -137,7 +138,33 @@ class SamplingBinary(object):
         """
         return data > numx.random.random(data.shape)
 
+    
+class BinaryNoise(object):
+    """ Binary Noise.
+    """
 
+    def __init__(self, percentage):
+        """ Corruptor contructor.
+
+        :param percentage: Percent of random chosen pixel/states.
+        :type percentage: float [0,1]
+
+        :param std: Standard deviation Added to the data.
+        """
+        self.percentage = percentage
+
+    def corrupt(self, data):
+        """ The function corrupts the data.
+
+        :param data: Input of the layer.
+        :type data: numpy array [num samples, layer dim]
+
+        :return: Corrupted data.
+        :rtype: numpy array [num samples, layer dim]
+        """
+        return numx.abs(data - numx.random.binomial(1, self.percentage, data.shape))
+
+    
 class Dropout(object):
     """ Dropout (zero out) corruption.
     """
